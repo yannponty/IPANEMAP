@@ -1,0 +1,79 @@
+%\documentclass[tikz]{standalone}
+
+
+\begin{tikzpicture}[node distance=2cm]
+
+\node (react2) [startend] {Condition 2};
+\node (react1) [startend, left = 10pt of react2] {Condition1};
+\node (rsup) [startend, right = 10pt of react2] {...};
+
+\node (suu)[above=5pt of react2,IO]{\relsize{+1}\sf Reactivities};
+
+
+\node(sampling)[Bprocess, below = 20pt of react2]{Stochastic Structural Sampling};
+\node (seq)[startend, left =1cm of sampling]{RNA sequence};
+
+\node[IO]  at (seq|-react1) {\sf\bfseries \relsize{+2}Input};
+
+\draw  [arrow] (seq) to (sampling);
+
+\node (sample2) [startend, below= 15pt of sampling] {Sample 2};
+\node (sample1) [startend, left = 10pt of sample2] {Sample 1};
+\node (samplex) [startend, right = 10pt of sample2] {...};
+
+\node(Merge)[Vprocess, below = 15pt of sample2, ]{{Merge samples}};
+
+
+\node(clustering)[Bprocess, below = 15pt of Merge]{Clustering with k clusters};
+\draw[arrow](Merge) -- (clustering);
+\node(dec1) [decision, below=15pt of clustering]{Stopping \\ Criterion};
+\draw[arrow] (clustering) to (dec1);
+\node(optimaln)[startend, below of = dec1]{Centroid Structures};
+
+\node(n+)[VSprocess, left of = dec1,xshift=-3cm]{\rotatebox{90}{k++}};
+\draw[arrow] (n+)  |- (clustering);
+\node(dec2) [decision, below=15pt of optimaln]{Pareto\\Optimal?};
+\draw[arrow](optimaln) to (dec2);
+\node(nnoptim)[VSprocess,left of = dec2, xshift=-3cm ]{\rotatebox{90}{Reject centroid}};
+
+\node(optimalcentroid)[startend, below of = dec2]{Optimal centroid(s)};
+
+
+\node(output)[right of =optimalcentroid, IO] (outcap) {\sf\bfseries \relsize{+2}Output};
+\node(vert)[right of = optimalcentroid, xshift=1cm ]{};
+
+
+
+\draw[arrow] (dec1) -- node[anchor=north,arrowcaption] {no} (n+);
+\draw[arrow] (dec1) -- node [anchor=west,arrowcaption]{yes} (optimaln);
+
+\draw[arrow] (dec2) -- node[anchor=north,arrowcaption] {no} (nnoptim);
+\draw[arrow] (dec2) -- node [anchor=west,arrowcaption]{yes} (optimalcentroid);
+
+%\draw[arrow](Cbz) |- (dec2);
+
+\draw  [arrow] (react1) -- (sampling.north-|react1);
+\draw  [arrow] (react2)-- (sampling.north-|react2);
+\draw  [arrow] (rsup) -- (sampling.north-|rsup);
+
+\draw[arrow] (sampling.south-|sample1) -- (sample1);
+\draw[arrow] (sampling.south-|sample2) -- (sample2);
+\draw[arrow] (sampling.south-|samplex) -- (samplex);
+
+\draw[arrow] (sample1) -- (Merge.north-|sample1);
+\draw[arrow] (sample2) -- (Merge.north-|sample2);
+\draw[arrow] (samplex) -- (Merge.north-|samplex);
+%\draw[arrow] (sample1) -- ++(-3cm,0);
+%\draw[arrow] (sample2) -- ++(-3cm,0);
+%\draw[arrow] (samplei) -- ++(-3cm,0);
+%\draw[arrow] (samplex) -- ++(-3cm,0);
+
+\begin{pgfonlayer}{background}
+\node[fit=(seq.west|-react1) (react1) (react2) (rsup) (suu), input] (bginput1) {};
+\node[fit=(seq)(seq.west|-react1), input] (bginput2) {};
+\node[fit=(outcap) (optimalcentroid), output] (bgoutput) {};
+\end{pgfonlayer}
+
+
+\end{tikzpicture}
+%\end{document}

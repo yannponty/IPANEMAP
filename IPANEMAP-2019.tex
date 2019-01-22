@@ -1,0 +1,1015 @@
+\documentclass[a4,center,fleqn]{NAR}
+
+\usepackage{NAR-natbib}
+\usepackage{graphics}
+%\usepackage[latin1]{inputenc}
+\usepackage{subcaption}
+\usepackage{verbatim}%for comments
+\usepackage[table,x11names,dvipsnames]{xcolor}
+\usepackage{adjustbox}% to resize figures
+%\usepackage[skip=4pt]{caption}  % to keep dstance between caption and table/figure
+%\usepackage[sort&compress]{natbib}
+\usepackage{xspace}
+%\usepackage{algorithm}
+%\usepackage{algpseudocode}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{todonotes}
+\usepackage{booktabs}
+\usepackage{relsize}
+\usepackage{lipsum}
+\usepackage{collcell}
+\usepackage{pgfkeys}
+\usepackage{amsmath}
+\usepackage{varwidth}
+\usepackage{tikz}
+\usepackage{makecell}
+
+%%%%%% TIKZ %%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usetikzlibrary{shapes.geometric, arrows,calc,fit,positioning}
+
+
+
+\usetikzlibrary{shapes.geometric, arrows,calc}
+%\tikzset { *|/.style={to path={	(perpendicular cs : horizontal line through ={(\tikztostart)},	vertical line through{(\tikztotarget)})	--(\tikztotarget) \tikztonodes	}	}	}
+
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+
+\tikzstyle{startend}=[rectangle, rounded corners, minimum width=2cm,  minimum height=1cm, text width =2cm, text centered, draw=none, fill= orange!50, font=\sf]
+\tikzstyle{io}=[trapezium, trapezium left angle=70,trapezium right angle= 110,minimum width=3.9cm, minimum height=1cm, text centered, draw=none, fill= blue!30, font=\sf]
+
+\tikzstyle{process}=[rectangle, minimum width=3cm,maximum width=3, minimum height=1cm, text centered, draw=black, fill= orange!30, font=\sffamily]
+\tikzstyle{Vprocess}=[rectangle, minimum width=6cm, minimum height=1cm, text centered, font=\sf\bfseries,  fill= gray!80, draw=none, text=white]
+\tikzstyle{VSprocess}=[rectangle, minimum width=1cm, minimum height=2cm, text centered, font=\sf\bfseries,  fill= gray!80, draw=none, text=white]
+\tikzstyle{squareprocess}=[rectangle, minimum width=2cm, minimum height=7cm, text centered, draw=black, fill= orange!30, font=\sffamily]
+\tikzstyle{Bprocess}=[rectangle, minimum width=6cm, minimum height=1cm, text centered,  font=\sf\bfseries,  fill= cyan!60!black, draw=none, text=white]
+\tikzstyle{BSprocess}=[rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill= orange!30, font=\sffamily]
+\tikzstyle{decision}=[diamond, minimum width=2.5cm, minimum height=1.5cm, align=center, inner sep=-5pt ,font=\sf\bfseries,  fill= PineGreen!60, draw=none, text=white]
+\tikzstyle{IO}=[text=white]
+
+\tikzstyle{arrow}=[line width=1.5pt, ->, >=stealth, gray!80!black]
+\tikzstyle{arrowcaption}=[font=\sf\relsize{+1},black]
+\tikzstyle{input}=[fill= gray!80!black, inner sep=5pt,rounded corners=5pt]
+\tikzstyle{output}=[fill= gray!80!black, inner sep=5pt,rounded corners=5pt]
+
+\pgfkeys{/heat/.is family, /heat,
+	Max colour/.initial = Green4,
+	Min colour/.initial = Red1,
+	max colour/.initial = SpringGreen3,
+	mid colour/.initial = white,
+	min colour/.initial = Yellow1,
+	text colour/.initial = black,
+	Min color/.style = {Min colour=#1},% for our friends who can't spell
+	Max color/.style = {Max colour=#1},
+	min color/.style = {min colour=#1},
+	mid color/.style = {mid colour=#1},
+	max color/.style = {max colour=#1},
+	text color/.style = {text colour=#1},
+	min/.initial = -1,
+	mid/.initial = 0,
+	max/.initial = 1,
+	slider/.code={%
+		\tikz{\shade[left color=\HVal{min colour},%
+			right color=\HVal{max colour}]%
+			(current page.south west) rectangle ++(#1,12pt);
+		}%
+	}%
+}
+\newcommand\Heatset[1]{\pgfkeys{/heat, #1}}
+\newcommand\HVal[1]{\pgfkeysvalueof{/heat/#1}}
+
+\newcolumntype{H}{>{\collectcell\Heat}r<{\endcollectcell}}
+\newcommand\Heat[1]{% \Heat{number in the interval [min, max] }
+	\if\relax\detokenize{#1}\relax% empty cell
+	\else%
+	\pgfmathparse{int(100*(#1-\HVal{min})/(\HVal{max}-\HVal{min}))}% map number to [0,100]
+	\ifnum\pgfmathresult>100% too big
+	\edef\HeatCell{\noexpand\cellcolor{\HVal{Max colour}}}%
+	\else\ifnum\pgfmathresult<0% too small
+	\edef\HeatCell{\noexpand\cellcolor{\HVal{Min colour}}}%
+	\else\ifnum\pgfmathresult<50% between min and mid
+	\pgfmathparse{int(2*\pgfmathresult)}% map number to [0,100]
+	\edef\HeatCell{\noexpand\cellcolor{\HVal{mid colour}!\pgfmathresult!\HVal{min colour}}}%
+	\else% between min and max
+	\pgfmathparse{int(2*(\pgfmathresult-50))}% map number to [0,100]
+	\edef\HeatCell{\noexpand\cellcolor{\HVal{max colour}!\pgfmathresult!\HVal{mid colour}}}%
+	\fi%
+	\fi%
+	\fi%
+	\HeatCell\textcolor{\HVal{text colour}}{$#1$}%
+	\fi%
+}
+
+\pgfkeys{/heatsec/.is family, /heatsec,
+	Max colour/.initial = Green4,
+	Min colour/.initial = Red1,
+	max colour/.initial = SpringGreen3,
+	mid colour/.initial = white,
+	min colour/.initial = Yellow1,
+	text colour/.initial = black,
+	Min color/.style = {Min colour=#1},% for our friends who can't spell
+	Max color/.style = {Max colour=#1},
+	min color/.style = {min colour=#1},
+	mid color/.style = {mid colour=#1},
+	max color/.style = {max colour=#1},
+	text color/.style = {text colour=#1},
+	min/.initial = -1,
+	mid/.initial = 0,
+	max/.initial = 1,
+	slider/.code={%
+		\tikz{\shade[left color=\HVal{min colour},%
+			right color=\HVal{max colour}]%
+			(current page.south west) rectangle ++(#1,12pt);
+		}%
+	}%
+}
+\newcommand\HeatSecset[1]{\pgfkeys{/heatsec, #1}}
+\newcommand\HSVal[1]{\pgfkeysvalueof{/heatsec/#1}}
+
+\colorlet{BadCol}{Burlywood1!70!red}
+
+
+\newcolumntype{S}{>{\collectcell\HeatSec}r<{\endcollectcell}}
+\newcommand\HeatSec[1]{% \Heat{number in the interval [min, max] }
+	\if\relax\detokenize{#1}\relax% empty cell
+	\else%
+	\pgfmathparse{int(100*(#1-\HSVal{min})/(\HSVal{max}-\HSVal{min}))}% map number to [0,100]
+	\ifnum\pgfmathresult>100% too big
+	\edef\HeatCell{\noexpand\cellcolor{\HSVal{Max colour}}}%
+	\else\ifnum\pgfmathresult<0% too small
+	\edef\HeatCell{\noexpand\cellcolor{\HSVal{Min colour}}}%
+	\else\ifnum\pgfmathresult<50% between min and mid
+	\pgfmathparse{int(2*\pgfmathresult)}% map number to [0,100]
+	\edef\HeatCell{\noexpand\cellcolor{\HSVal{mid colour}!\pgfmathresult!\HSVal{min colour}}}%
+	\else% between min and max
+	\pgfmathparse{int(2*(\pgfmathresult-50))}% map number to [0,100]
+	\edef\HeatCell{\noexpand\cellcolor{\HSVal{max colour}!\pgfmathresult!\HSVal{mid colour}}}%
+	\fi%
+	\fi%
+	\fi%
+	\HeatCell\textcolor{\HSVal{text colour}}{$#1$}%
+	\fi%
+}
+
+%%%%%% MACROS %%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{lightsalmon}{rgb}{1.0, 0.63, 0.48}
+\definecolor{lightseagreen}{rgb}{0.13, 0.7, 0.67}
+\definecolor{americanrose}{rgb}{1.0, 0.01, 0.24}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\DeclareMathOperator*{\argmax}{\arg\!\max}
+\newcommand{\multicoomment}[1]{}
+\newcommand{\Software}[1]{$\text{\ttfamily #1}$}
+\newcommand{\OurTool}{\Software{IPANEMAP}\xspace}
+\newcommand{\SM }{{\tt SHAPEMap}\xspace}
+\newcommand{\SH }{{\tt SHAPE}\xspace}
+\newcommand{\VP }{{\tt Vienna package}\xspace}
+\newcommand{\OurRna}{\Software{Did}\xspace}
+\newcommand{\mm }{{\tt$M\&M$}\xspace}
+\newcommand{\DP }{{\tt DP}\xspace}
+\newcommand{\didy }{{\sf GIR1 Lariat-capping ribozyme}\xspace}
+
+\newcommand{\CE }{{\tt capillary electrophoresis}\xspace}
+%MPCRnas MultiProbing Conformers}}
+% Macros for # variables
+\newcommand{\BP }{{\mathcal{ BP}}}
+\newcommand{\Ensemble }{{\mathcal{ S}}}
+\newcommand{\Sample }{{\mathcal{ S_D}}}
+\newcommand{\PData }[1]{{\mathcal{ D}_{#1}}}
+\newcommand{\Bzcond}[1]{ \mathbb{P}(s\mid #1)}
+\newcommand{\CBP}[1]{ \mathbb{CP}_#1}
+\newcommand{\BF}{ \mathbb{BF}}
+\newcommand{\Zed}{\mathbb{Z}}
+\newcommand{\Edist }{{ \text{Dist}}}
+\newcommand{\RL }{{n}}
+\newcommand{\CL}{MBkM\xspace}
+\newcommand{\Clusters}{\mathcal{C}}
+\newcommand{\Centroids}{\mathcal{C_O}}
+\newcommand{\GMean}{\text{GM}}
+\newcommand{\Ref}{R}
+%\newcommand{\OurRna}{\Software{Did}}
+%MPCRnas MultiProbing Conformers}}
+\newcommand{\NumClust}{k}
+\newcommand{\Def}[1]{{\em #1}}
+
+\newcommand{\Draft}[1]{{#1}}
+\newcommand{\bs}[1]{\Draft{\todo[color=red!30]{\sf Bruno: #1}}}
+\newcommand{\as}[1]{\Draft{\todo[color=green!70!black]{\sf Afaf: #1}}}
+\newcommand{\yp}[1]{\Draft{\todo[color=blue!30]{\sf Yann: #1}}}
+
+\newcommand{\Blabla}[1][5-6]{{\color{blue!40!white}\lipsum*[#1]}}
+
+
+% for multicolumn text centering 
+\newcolumntype{N}{>{\centering\arraybackslash}m{.8in}}
+
+%%%%%% MACROS %%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Enter dates of publication
+\copyrightyear{2008}
+\pubdate{31 July 2009}
+\pubyear{2009}
+\jvolume{37}
+\jissue{12}
+
+%\articlesubtype{This is the article type (optional)}
+
+\begin{document}
+
+\title{\OurTool{}:  Integrative Probing Analysis of Nucleic Acids Empowered by Multiple Accessibility Profiles}
+\author{%
+Afaf Saaidi\,$^{1}$,
+Delphine Allouche\,$^{2}$,
+Mireille Regnier\,$^{1}$,
+Bruno Sargueil\,$^{2}$
+and Yann Ponty\,$^2$% 
+\footnote{To whom correspondence should be addressed.
+Tel: + 33 1 77578095; Email: yann.ponty@lix.polytechnique.fr}}
+
+
+\address{%
+$^{1}$CNRS UMR 7161, LIX, Ecole Polytechnique, France
+and
+$^{2}$CNRS UMR 8015, Laboratoire de cristallographie et RMN Biologiques, University Paris Descartes, France}
+% Affiliation must include:
+% Department name, institution name, full road and district address,
+% state, Zip or postal code, country
+
+\history{%
+Received January 1, 2009;
+Revised February 1, 2009;
+Accepted March 1, 2009}
+
+\maketitle
+
+\begin{abstract}
+\textbf{Motivation:} \Blabla{5}.\\
+\textbf{Results:} We introduce \OurTool{}, an automated and robust structural modeling approach, which integrates probing data produced across experiments based on diverse protocols, reagents, or even over a collection of mutants, to predict the dominant conformations of an RNA. \\
+\Blabla{6}
+\\
+\textbf{Contact:} \href{yann.ponty@lix.polytechnique.fr}{Yann.Ponty@lix.polytechnique.fr}\\
+\textbf{Supplementary information:} Supplementary data are available at \textit{Bioinformatics}
+online.
+\end{abstract}
+
+%%%%%%%%%%%%%% Introduction %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Introduction}
+
+{\noindent\bf Generalities on RNA + Structure modeling.}
+\Blabla[1-2]
+
+
+{\noindent\bf Probing experiments, inc. SHAPE paradigms (experimental) and complementarity.}
+\Blabla[3-4]
+
+{\noindent\bf Modeling strategies from SHAPE data.}
+\Blabla[5-6]
+
+{\noindent\bf Computational aspects.}
+On the computational side, the last couple of decades have seen a series of paradigm shifts in the ways probing information is integrated, somehow mirroring the evolution of {\em ab initio} methods for secondary structure prediction. The seminal work of Mathews uses cutoffs to transform reactivity values into hard constraints. Depending on the reagent/enzyme, significantly (un-)reactive positions were forced to either paired or remain unpaired within predicted structures. Such constraints can be effectively captured through a modification of classic dynamic programming algorithms. Subsequent methods lifted the requirement of thresholds, and integrated reactivity values directly as pseudo-energies, leading to the prediction of the most likely structure in the convolution of the Boltzmann distribution and some ...
+
+{\noindent\bf Contribution.}
+\Blabla[7-8]
+
+\begin{comment}
+\begin{itemize}
+\item Complementarity of different probing data (protocols, reagents\ldots)
+\item Auto-correlation of probing signal is important (partial validation of this claim due to partial data)
+\item Why MEA can be bad... and the sensitivity of SHAPE experiments (dot-plot+ detection of outliers, PCA $\to$ Case study). Sampling from SHAPE modified ensembles induces higher robustness with respect to ``outlier'' (rotten) experiments
+\item (wishful thinking) Despite relying on a stochastic sampling, results are reproducible
+\item (wishful thinking) Performances of our methods are impacted by the choice of the chosen clustering/$\#$clusters
+\item (wishful thinking) Increase of performances upon repeated experiments
+\item (wishful thinking) Recommendations for experimentalists (choosing the right combination of probes)
+\end{itemize}
+\end{comment}
+
+
+\section{Material and methods}
+
+\subsection{The \OurTool{} method}
+
+\OurTool{} is a novel approach that integrates the signal produced by various chemical probes, and performs clustering based on multiple sets of structures sampled in different experimental conditions to ultimately return a set of structures that are representative of the dominant clusters. Its underlying rationale is that the prominent presence of a stable secondary structure within the  (pseudo-)Boltzmann ensembles induced by multiple experimental conditions should increase its likelihood to be (one of) the native structure(s) for a given RNA. It is thus hoped that integrating several reactivity profiles may be used to promote the native structure as one of the dominant structures within the multi-ensemble, and help circumvent the limitation of pseudo-energies derived from single reactivity profile, which are generally not sufficient to elect the native structure as its minimum (pseudo)-free energy candidate. In other words, combining ensembles of structures generated using multiple probing experiments is likely to denoise, and thus mitigate systematic biases induced by experimental conditions and reagents.
+
+\begin{figure}
+	{\centering\resizebox{.9\columnwidth}{!}{
+			\input{diagram_NAR.tex}
+		}\\}
+	
+	\caption{\OurTool{} workflow: \OurTool{} takes as input an RNA sequence with profiling data, denoted by reactivities, from various experimental conditions. \OurTool{} proceeds, first,  with a stochastic sampling that results into samples of predicted secondary structure. The data-driven predicted structures are then gathered in one sample, serving as input for the clustering step. \OurTool{} proceeds, then, with an iterative clustering that ends once the stopping criterion are reached. This step allows to identify the adequate number of clusters $k$ to be considered. The $k$ resulting clusters are then identified by their centroid structures. Clusters figuring on the 2D-Pareto frontier are considered to be optimal and subsequently their corresponding centroids are reported as the predicted structure through \OurTool.}\label{fig:approach}
+\end{figure}
+
+
+Our method, summarized in Figure~\ref{fig:approach}, starts by producing, sets of representatives structures for each of the reactivity profiles using a SHAPE-directed variant of the classic Ding-Lawrence algorithm~\citep{Ding2003}. Following \citet{Deigan2009}, soft constraints are used to complement the free energy contributions of the classic Turner energy model with pseudo energy contributions resulting from reactivity profiles derived from SHAPE probing experiments.  Given a reactivity $R_i$ for a position $i$, we associate a free-energy bonus to unpaired positions, defined as
+$$\Delta G(i) = m \log(R_i +1 )+b$$ 
+using $m=1.3$ and  $b=-0.4$. Those values are haved compared to those used by \citet{Deigan2009}, based on the rationale that lower absolute values for pseudo-energy bonuses increase the chance of structures being simultaneously supported by multiple conditions. Those pseudo energy contributions effectively direct our predictions towards a subset of structures that are in good agreement with probing data. 
+
+In order to infer recurrent candidates across different samples, sampled structure sets are agglomerated while keeping track of the reagent/condition of origin for each structure, and clustered using the Mini Batch k-Means algorithm~\citep{Sculley2010} (\CL{}) based on a number of clusters determined by an iterative heuristics described in further details below. 
+It takes as input a dissimilarity matrix, whose entries consist of the base pair distance between two sampled structures.
+\CL{} was chosen as it requires less computational resources than the classic k-means algorithm, yet performs equally as well as an extensive collection including  both agglomerative (affinity propagation) and hierarchical (Ward, Diana, McQuitty) clustering algorithms (data not shown). 
+
+The number of clusters is a critical parameter of the \CL{} algorithm. It should, at the same time, remain small enough to ensure reproducibility, while being sufficiently large to discriminate outliers and ensure consistency within each cluster. We iteratively increase the number of clusters, deeming it appropriate if increasing its value leads to:
+\begin{enumerate} 
+	\item Splitting a significant cluster into two highly similar clusters, or; 
+	\item Creating a poorly populated (outlier) cluster, while keeping highly similar clusters for each significant cluster of the previous iteration.
+\end{enumerate} 
+In practice, clusters are seldom exactly preserved across successive iterations, so we consider two clusters to be \Def{highly similar} if their Maximum Expected Accuracy (MEA) centroid structures~\citep{Lu2009}, differ by less than $\delta$ base pairs.
+The $\delta$ parameter defaults to $1$, allowing the identification of clusters across successive generation in the presence of a minor variation.
+Moreover, define the (pseudo-)Boltzmann probability of a structure $S$, generated for an experimental condition $d$ as part of a sampled set $\mathcal{S}_d$, as
+$$ \mathbb{P}_d(S) = \frac{e^{-E_d(S)/kT}}{\mathcal{Z}^*_d} \text{, with } \mathcal{Z}^*_d := \sum_{S'\in \mathcal{S}_d} e^{-E_d(S')/kT}$$
+where $E_d(S)$ is the pseudo free-energy assigned to $S$ within $d$.
+We consider a cluster to be \Def{significantly populated} if the cumulated probability of its structures exceeds a predefined threshold $\epsilon$. 
+The value of $\epsilon$ was set to $\#{\sf Datasets}/3$, ensuring that up to three clusters are deemed significantly populated, and used as our primary candidates.
+
+Based on these definitions, our iterative heuristic consists in running \CL over an increasing number $\NumClust$ of clusters, starting with $\NumClust=2$, until a \Def{stopping criterion} is satisfied, that is either: 1) Two significantly populated clusters have associated centroids which are highly similar; or 2) Centroid structures of significantly populated clusters from the previous iteration are highly similar to those of the current iteration.
+
+
+The last step of our approach consists in electing the most promising clusters and returning their centroid. While the final number of clusters $\NumClust$ may potentially be large, only a couple of clusters are expected to contain structures that are stable and feature homogenous support across conditions, the remaining clusters being artifacts of the clustering methods, nevertheless useful to filter \emph{noisy} structures. Thus we define the \Def{stability} of a cluster $C$ to denote its cumulated pseudo-Boltzmann probability accross conditions, computed as 
+$$\text{Stability}(C) = \sum_{d\in \mathcal{D}} \mathbb{P}_d(S).$$
+Moreover, we postulate that a perfect cluster should be representative of several conditions. We consider that a cluster $C$ supports a given condition $d$ when its probability for $d$ exceeds a given threshold $\tau$, where $\NumClust$ is the number of clusters. The number of conditions supporting a cluster $C$ is defined as
+$$ \text{Support}(C) = |\{d\in \mathcal{D} \mid \sum_{S\in C\cap \mathcal{S}_d} \mathbb{P}_d(S)\ge \tau \}|.$$
+The value of $\tau$ is set to $1/(\NumClust+1)$, ensuring at least one supporting cluster for each condition.
+
+\OurTool evaluates the two above metrics on each cluster, and eliminates any cluster that is dominated by another with respect to both metrics. The remaining ones are \Def{Pareto optimal}, a classic concept in multi-objective optimization~\cite{Mattson2005}. Finally, we compute and return the MEA centroid~\citep{Lu2009} of the Pareto-optimal clusters as our final prediction(s).
+
+
+
+\subsection{Pairwise comparison of structural ensembles induced by reactivity profiles}\label{sec:dotplots}
+
+We want to compare the structural ensembles induced by reactivity profiles, produced across diverse experimental conditions. To that purpose, we simply consider the base pair probability matrices, or dot-plots, resulting from supplementing the Turner energy model with pseudo energy terms. %This can be seen as a projection of experimentally constrained conformational spaces. 
+Dot plots can be computed efficiently in the presence of pseudo-energy terms using a variant of the McCaskill algorithm~\citep{McCaskill1990}.
+
+%To find the most compatible structural models across miscellaneous probing data, 
+%As a first assessment of the structural compatibility across miscellaneous probing data, we compared their respective Boltzmann probability distributions where the pseudo-Boltzmann probability to observe a given structure from the ensemble is deduced from the base-pair probabilities computed through a recursive algorithm ~\cite{McCaskill1990}. 
+%We remind that RNA folding process is a stochastic mechanism. For a given RNA a certain number of possible stable conformations is present in the ensemble.
+%Assuming a Boltzmann thermodynamic equilibrium and the stability of  conditions, a Boltzmann probability to observe each secondary structure from the ensemble could be calculated~\cite{McCaskill1990}. 
+
+As a measure of the \Def{ensemble distance} $\Edist$ induced by probing data, we consider the dot-plots associated with experimental conditions $d$ and $d'$, and compute the squared Euclidean distance, such that
+\[\Edist (d,d')=\sum\limits_{i=1}^\RL\sum\limits_{j=x+1}^\RL \left(\mathbb{P}(i,j\mid d)-\mathbb{P}(i,j\mid d')\right)^2.\]
+with $\RL$ the length of the RNA sequence,  $\mathbb{P}(i,j\mid d)$ the Boltzmann probability of forming a base pair $(i,j)$ in the pseudo-Boltzmann ensemble associated with condition $d$.
+
+
+Individual dot-plots were computed using the \Software{RNAfold} software in the \Software{Vienna Package 2.2.5}, using the \Software{-p} option in combination with the pseudo-energy terms introduced by~\citet{Deigan2009}. 
+
+% Yann:
+%\begin{itemize}
+% \item Sampling representative sets of structures. Pseudo potentials et distribution de Boltzmann (Utiliser refs, justifier et positionner)
+%\item Clustering and extraction of representative structures (inc. optimal \#clusters)
+%\item Selecting a subset of dominant clusters
+%\item Comparing pseudo-Boltzmann ensembles
+%+illust + On peut faire ça uniquement parceque les ARN sont de meme taille, ie l'alignement est sans ambiguite.
+%Citer Halvorsen et al (+Laederach Plos CB 2013?)%
+%\item Generating artificial SHAPE datasets
+%Citer Suskozd (on generalise et etend au dela des grands rRNAs) et simulateur SHAPE (ref???)
+%\end{itemize}
+
+
+% \subsection{Generative model for probing data}
+
+%Many models to simulate SHAPE probing data starting from the analysis of the SHAPE reactivity distribution performed by ~\cite{Sukosd2013}, have been suggested.
+%ull Access% c'est mal dit!===
+%In order to generalize the simulation of probing data to other probes than SHAPE and to suggest more deterministic models, we build the normalized distribution of reactivities in function of three structural categories: {\em Helix, Helix-End} and {\em unpaired} using reactivity profiles from 6 RNAs with known structures and three available probing data ~\cite{Cordero2012}.  
+%We constructed probabilistic models to simulate probing data from the different distributions; a number of 500 bins was set, the mid-value for each bin with the corresponding probability was considered as parameter for the generative model. Consequently, a random generator was implemented to simulate probing data for each single structural category and each specific probing method where the generator input is the mid-value vector w probability vector.
+
+
+\subsection{Datasets} 
+\label{sec:datasets}
+To validate our computational method quantitatively, we consider several datasets, depending on the availability of probing data for one or several reagents, restricted to the wild type or produced for several point-wise mutants. Each dataset consists of sequences and individual reactivities to one or several probes, at each position in the RNA, completed with one or several functionally-relevant secondary structures.
+
+
+\subsubsection{Cordero \emph{et al} dataset} 
+
+In order to test the integration of different probing sources, we consider a dataset introduced in~\citet{Cordero2012}, consisting of $6$ RNAs with known structures, for which reactivities are available for three reagents: {\tt NMIA-\SH, DMS} and {\tt CMCT}. 
+Probing data were downloaded from the RMDB~\citep{Cordero2012a} on July 2017. In the RMDB, reactivity scores are reported for all nucleotides, including those that are not expected to react with a given reagent. Thus, for the DMS (resp. CMCT) probing, we restricted reactivities to positions featuring nucleotides {\sf A} and {\sf C} (resp. {\sf G} and {\sf U}), setting the reactivity to 0 for other positions. This assumption allowed to decrease the noise generated by reactivities associated with non-targeted nucleotides, leading to more accurate predictions (data not shown). 
+
+
+\subsubsection{Hadjin \emph{et al} dataset} 
+
+A dataset was gathered by \citet{Hajdin2013} to validate the predictive capacities of 
+of to probing data-driven predictions. It consists of $24$ RNA sequences with known secondary structures for which a single chemical probing reactivity profile (SHAPE -- 1M7) is available.
+This dataset includes sequences originating from a variety of organisms, and spans lengths ranging from $34$ nts to $530$ nts, with a focus on riboswitches and complex RNA architectures. 
+
+\subsubsection{Didymium structural model and probing data} 
+We considered the 188 nucleotides Lariat capping ribozyme from {\itshape Didymium iridis}, resolved 3.85 \AA{} resolution using X-Ray cristallography (PDB: 4P8Z)~\citep{Meyer2014}.  We annotated the secondary structure elements using the \Software{DSSR} software from the 3DNA suite~\cite{CitationNeeded}. Non-canonical base pairs were removed~\citep{Smit2008}, by considering as the secondary structure the maximum subset of non-pseudoknotted base pairs.
+
+Probing data were experimentally generated using a comprehensive set of conditions covering various probing reagents and SHAPE technologies for stop-inducing and mutation-inducing adducts. We also considered the presence/absence of Mg$^{2+}$, both to assess the capacity of \OurTool{} to recover tertiary interactions, and to assess the induced discrepancy on probing profiles and pseudo-Boltzmann ensembles. Produced probing data are described in the supplementary material.
+
+
+\subsubsection{Cheng  \emph{et al} dataset} 
+
+Starting from the assumption that a functional structure should be preserved during evolution, we wanted to assess the agreement that might exist between probing data profiles for a set of RNA mutants. 
+We considered DMS probing data, generated by~\cite{Cheng2017} through systematic point-wise mutations, for the Lariat-capping ribozyme. We renormalized each reactivity profile following the method introduced by \citet{Deigan2009}, restricted to the primer-free sequence: values greater than $1.5 $ times the interquartile range were discarded, and remaining values were divided by the mean of the top $10\%$ reactivities.  Overall, this constitutes a collection of 188 sequences, each having its associated reactivity profile.
+
+
+\subsection{Benchmarking methodology}
+
+The Matthews Correlation Coefficient (MCC) is a classic metrics for assessing the quality of a predicted structure $S$, identified by a set of base pairing positions, based on its agreement with an accepted reference structure $\Ref$. It can be interpreted as a compromise between the classic sensitivity and specificity metrics, and is defined as 
+$$\text{MCC}(S\mid \Ref)=\frac{\text{TP} \times \text{TN} -\text{FP} \times \text{FN}}{\sqrt[]{(\text{TP}+\text{FP})(\text{TP}+\text{FN})(\text{TN}+\text{FP})(\text{TN}+\text{FN})}},$$
+where TP, FP, TN, FN classically represent the correctly/erroneously predicted and correctly/erroneously omitted base pairs in $S$ with respect to $\Ref$.
+
+For the sake of direct comparison with competing methods, we also report the recently-introduced metrics~\citep{Mathews2017} is the geometric mean, defined as:
+$$ \GMean(S\mid \Ref)=\sqrt{\text{Sens}(S\mid \Ref)\times \text{PPV}(S\mid\Ref)} $$
+where $\text{Sens}(S\mid \Ref)$ represents the proportion of base pairs in $\Ref$ that are in $S$, and $\text{PPV}(S\mid \Ref)$ is the proportion of base pairs in $S$ that are also in $\Ref$.
+
+
+\section{Results}
+
+
+\subsection{Considering multiple probing conditions improves the quality of predictions}\label{sec:cordero}
+
+%In order to validate our assumption of an enrichment in the presence of multiple probing profiles, we analyzed the Cordero \emph{et al} dataset, which contains CMCT, DMS and NMIA probing data for 6 RNAs. 
+%
+
+
+\colorlet{BadCol}{Burlywood1!70!red}
+
+\begin{table*}
+	\begin{adjustbox}{max width=\linewidth}
+		\setlength{\fboxsep}{0pt}
+		%		\newcommand{\Base}[1]{\colorbox{blue!30}{\strut#1}}
+		\newcommand{\Base}[1]{\colorbox{Aquamarine3!60}{\strut#1}}
+		\newcommand{\G}[1]{\colorbox{Aquamarine3!60}{\strut#1}}
+		\newcommand{\B}[1]{\colorbox{BadCol}{\strut#1}}
+		
+		\begin{tabular}{@{}llr@{}} \toprule
+			Sequence& \tt {GAUAUGAGGAGAGAUUUCAUUUUAAUGAAACACCGAAGAAGUAAAUCUUUCAGGUAAAAAGGACUCAUAUUGGACGAACCUCUGGAGAGCUUAUCUAAGAGAUAACACCGAAGGAGCAAAGCUAAUUUUAGCCUAAACUCUCAGGUAAAAGGACGGAG}
+			& GM\\
+			\midrule
+			$\varnothing$& {\tt \G{(}\G{(}\G{(}\G{(}\G{(}\G{(}\G{(}\G{(}\B{(}\B{(}\B{(}\B{(}\B{(}\B{(}\B{(}\B{(}\B{(}\B{.}\B{(}\B{(}\B{(}\B{(}\B{(}\G{.}\B{.}\B{.}\B{(}\B{.}\B{.}\B{.}\G{.}\B{.}\B{.}\B{)}\G{.}\G{.}\G{.}\B{)}\B{)}\B{)}\B{)}\B{)}\B{)}\B{)}\B{)}\B{)}\B{)}\B{)}\B{)}\B{)}\B{)}\G{.}\B{.}\B{.}\B{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{)}\G{)}\G{)}\G{)}\G{)}\G{)}\G{)}\G{)}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{(}\G{(}\G{(}\G{(}\G{(}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\B{.}\B{.}\B{(}\G{(}\G{(}\B{(}\G{.}\G{.}\G{.}\B{)}\G{)}\G{)}\B{.}\B{.}\B{.}\G{.}\B{.}\G{(}\G{(}\G{.}\G{.}\G{.}\B{(}\G{(}\G{(}\G{(}\G{.}\G{.}\G{.}\G{.}\G{(}\G{(}\G{(}\G{(}\G{.}\G{.}\G{.}\G{.}\G{)}\G{)}\G{)}\G{)}\G{.}\G{.}\G{.}\G{.}\G{.}\G{)}\G{)}\G{)}\B{)}\G{.}\G{.}\G{)}\G{)}\B{)}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{)}\G{)}\G{)}\G{)}\G{)}}&.568\\
+			CMCT & {\tt \G{(}\G{(}\G{(}\G{(}\G{(}\G{(}\G{(}\G{(}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{(}\G{(}\G{(}\G{(}\G{(}\G{(}\G{.}\G{.}\G{.}\G{.}\G{)}\G{)}\G{)}\G{)}\G{)}\G{)}\G{.}\G{(}\G{(}\G{(}\B{(}\B{(}\B{(}\B{(}\B{(}\B{.}\B{.}\G{.}\G{.}\G{.}\G{.}\B{)}\B{)}\B{)}\B{)}\B{)}\G{.}\G{.}\G{)}\G{)}\G{)}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{)}\G{)}\G{)}\G{)}\G{)}\G{)}\G{)}\G{)}\B{(}\G{.}\G{.}\B{(}\G{.}\G{.}\B{(}\B{(}\B{(}\B{(}\B{.}\B{.}\B{.}\B{(}\B{(}\B{(}\B{(}\B{(}\G{.}\G{(}\G{(}\G{(}\G{(}\G{(}\B{(}\G{.}\G{.}\G{.}\B{)}\G{)}\G{)}\G{)}\G{)}\G{)}\G{.}\B{.}\B{.}\B{.}\G{.}\G{.}\G{.}\G{.}\B{.}\B{.}\B{.}\G{.}\G{.}\G{.}\G{.}\G{(}\G{(}\G{(}\G{(}\G{.}\G{.}\G{.}\G{.}\G{)}\G{)}\G{)}\G{)}\G{.}\G{.}\G{.}\G{.}\G{.}\B{)}\B{)}\B{)}\B{)}\B{)}\B{)}\B{)}\B{)}\B{)}\G{.}\G{.}\G{.}\G{.}\B{)}\G{.}\G{.}\B{)}\B{.}\B{.}\B{.}\B{.}}&.627\\
+			DMS+CMCT & {\tt \G{(}\G{(}\G{(}\G{(}\G{(}\G{(}\G{(}\G{(}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{(}\G{(}\G{(}\G{(}\G{(}\G{(}\G{.}\G{.}\G{.}\G{.}\G{)}\G{)}\G{)}\G{)}\G{)}\G{)}\G{.}\G{(}\G{(}\G{(}\B{(}\B{(}\B{(}\B{(}\B{(}\B{.}\B{.}\G{.}\G{.}\G{.}\G{.}\B{)}\B{)}\B{)}\B{)}\B{)}\G{.}\G{.}\G{)}\G{)}\G{)}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{)}\G{)}\G{)}\G{)}\G{)}\G{)}\G{)}\G{)}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\B{(}\B{(}\B{.}\B{.}\B{.}\B{.}\B{(}\B{(}\B{(}\B{(}\B{(}\G{.}\G{(}\G{(}\G{(}\G{(}\G{(}\B{(}\G{.}\G{.}\G{.}\B{)}\G{)}\G{)}\G{)}\G{)}\G{)}\G{.}\B{.}\B{.}\B{.}\G{.}\G{.}\G{.}\G{.}\B{.}\B{.}\B{.}\G{.}\G{.}\G{.}\G{.}\G{(}\G{(}\G{(}\G{(}\G{.}\G{.}\G{.}\G{.}\G{)}\G{)}\G{)}\G{)}\G{.}\G{.}\G{.}\G{.}\G{.}\B{)}\B{)}\B{)}\B{)}\B{)}\G{.}\B{)}\B{)}\B{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\B{.}\B{.}\B{.}\B{.}\B{.}}&.658\\
+			DMS+CMCT+NMIA & {\tt \G{(}\G{(}\G{(}\G{(}\G{(}\G{(}\G{(}\G{(}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{(}\G{(}\G{(}\G{(}\G{(}\G{(}\G{.}\G{.}\G{.}\G{.}\G{)}\G{)}\G{)}\G{)}\G{)}\G{)}\G{.}\G{(}\G{(}\G{(}\B{(}\B{(}\B{(}\B{(}\B{(}\B{.}\B{.}\G{.}\G{.}\G{.}\G{.}\B{)}\B{)}\B{)}\B{)}\B{)}\G{.}\G{.}\G{)}\G{)}\G{)}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{)}\G{)}\G{)}\G{)}\G{)}\G{)}\G{)}\G{)}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{(}\G{(}\G{(}\G{(}\G{(}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{(}\G{(}\G{(}\G{(}\G{(}\B{(}\G{.}\G{.}\G{.}\B{)}\G{)}\G{)}\G{)}\G{)}\G{)}\G{.}\G{(}\G{(}\G{(}\G{.}\G{.}\G{.}\B{(}\G{(}\G{(}\G{(}\G{.}\G{.}\G{.}\G{.}\G{(}\G{(}\G{(}\G{(}\G{.}\G{.}\G{.}\G{.}\G{)}\G{)}\G{)}\G{)}\G{.}\G{.}\G{.}\G{.}\G{.}\G{)}\G{)}\G{)}\B{)}\G{.}\G{.}\G{)}\G{)}\G{)}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{.}\G{)}\G{)}\G{)}\G{)}\G{)}} & \textbf{.868}\\ \midrule
+			Reference& {\tt \Base{((((((((......((((((....)))))).(((....(((.....)))...)))........))))))))........(((((......(((((.....))))).(((....(((....((((....)))).....)))...))).......)))))}}& 1\\
+			\bottomrule
+		\end{tabular}
+	\end{adjustbox}\\
+	\caption{Dot-bracket representations of the native structure and \OurTool predictions for the glycine riboswitch sequence of the \citet{Cordero2012} data set, supplemented with an increasing collection of probing conditions. Positions with green and red backgrounds indicate correctly and incorrect;y base pairs }\label{fig:glycine_example}
+\end{table*}
+
+
+Since \OurTool{} supports an arbitrary number of probing profiles, we consider the Cordero~\emph{et al} dataset, further described in subsection~\ref{sec:datasets}. It consists of 6 RNAs of known structures, for which reactivity profiles are available for the CMCT, NMIA and DMS reagents. We executed \OurTool{} with default parameters on each sequence and any subset of the three available conditions. The centroid secondary structure  associated with the largest probability cluster was considered as the final prediction. Predictions were evaluated in term of the geometric mean (GM) metrics based on the base pair distance. As a control experiment, we also report ${\tt RNAfold}$ predictions in presence/absence of probing data, both in energy minimization (MFE) and maximum expected accuracy (MEA) modes. Figure~\ref{cordero1} shows the averaged GM values for all combinations of tools and probing data.
+
+
+
+%* Ajouter des conditions de probing -> meilleurs conditions
+\begin{figure}
+	{\centering{\includegraphics[trim=.5cm .3cm .2cm .2cm, clip, width=\linewidth]{graphs/cordero_mean}}\\}
+	
+	\caption{Averaged GM values for structures  predicted using \OurTool{} for subset combination of probing data. MFE and MEA structures, as computed by RNAfold, are included in the case of mono-probing, and in the absence of probing data.}
+	\label{cordero1}
+\end{figure}
+
+
+Interestingly, in the absence of probing data, MFE predictions are generally dominant on this dataset, trailed by the MEA, and followed by \OurTool which, in this setting, devolves into the Ding-Lawrence algorithm~\citep{Ding2003}. However, whenever probing reactivities are available, the single centroid returned by \OurTool always achieves higher GM values (Avg: $70\%$) than both MEA (Avg: $62\%$) and MFE  (Avg: $58\%$), whose relative performances depend on the probing reagent.%la moyenne sur les 6 ARNS et sur les 3 reactifs
+Interestingly, the quality of MFE and MEA predictions does not systematically benefit from additional probing data. Indeed, for half of the reagents and methods, the average GM obtained in the presence of a single reagent is lower than in the absence of probing data. Also, the impact of single probing data varies greatly across the three reagents, and the GE values of predictions respectively informed by CMCT, DMS and NMIA are ordered increasingly for all approaches, except for a minor reversal of DMS and NMIA in MEA mode.
+
+
+
+The joint analysis of pairs of probing conditions seems to average the quality of predictions. Any combination of probing combinations yields a GM value that is always greater than the worst-performing condition in the pair, yet worse than the best-performing alone. Interestingly, the addition of the worst performing condition (CMCT), does not equally affect the performances of DMS ($76\% \to 70.5\%$) %DMS \to DMS+CMCT
+and NMIA  ($77.1\% \to 76.9\%$), %NMIA \to NMIA+CMCT
+despite the latter conditions inducing similar GM values when considered alone. Indeed, CMCT+DMS yields GM values that are only remotely better than the worst-performing CMCT alone  ($70\% \to 70.5\%$), while CMCT+NMIA greatly outperforms CMCT alone  ($70\% \to 76.9\%$), almost matching the performance of the NMIA alone ($77.1\%$). It is also worth mentioning that NMIA+CMCT, combining the best and worst conditions, achieves a better combined performance than DMS+NMIA, the two best mono-probing conditions. This hints towards some level of complementarity between probing conditions, as already suggested by recent analyses \citep{Yu2018} and supported by further analyses in this paper.
+
+Remarkably, the combination of the three conditions leads to the best overall predictions, averaging $78.5\%$ GM.
+This improves by $8.5\%$, $2.7\%$ and $1.4\%$ the average predictions achieved using CMCT, DMS and NMIA respectively.
+%CMCT/DMS/NMIA :0.6988333333/0.7588333333/0.771
+Table~\ref{fig:glycine_example} illustrates the incremental refinement of \OurTool predictions for a glycine riboswitch upon increasing the number of structures.
+
+\yp{Reproducibility?}
+
+
+
+
+
+
+%\clearpage
+
+
+
+\subsection{\OurTool typically outperforms state-of-the-art predictive methods on single probing data}
+%Mono-probing Mathews (Hadjim)
+%* On est meilleur sur la version courante de RSample
+%* Multi conformation
+We assess the predictive capacities of \OurTool in a classic setting where a single probing condition is available, and compare its performances against \Software{RSample} software recently introduced by~\cite{Mathews2017}, \Software{RSample} relies on a sampling/clustering method developed independently from the current work. It was shown to perform favorably against a comprehensive collection of state-of-the-art methods in probing-guided structure prediction, including \Software{RME}~\citep{Wu2015}, \Software{RNAprob}~\citep{Deng2016}, \Software{RNAprobing}~\citep{Washietl2012}, \Software{RNAsc}~\citep{Zarringhalam2012} and the \Software{fold} utility from the \Software{RNAstructure} suite~\citep{Reuter2010}.
+We consider the dataset of hajdin~\emph{et al}, which consists of 24 RNAs of lengths ranging from 47 to 500 nucleotides, all believed to fold into a unique documented conformation. 
+
+\begin{figure}
+	\includegraphics[width=\linewidth]{graphs/RsampleVsIPANEMAP/Accuracy}
+	\caption{Geometric mean of positive predictive value and sensitivity achieved by the predictions of \OurTool{} and \Software{Rsample} over the \citet{Hajdin2013} data set, consisting of 24 RNAs (RNA length indicated within square brackets). \label{fig:Vsrsample}}
+\end{figure}
+
+We executed \OurTool with default parameters, producing 1~000 structures per sample for both software. The Pareto-optimality always implies a single returned cluster/structure in the case of a single probing condition. 
+We also executed \Software{RSample} with default parameters, also returning a single structure for each sequence. 
+We computed and report in Figure~\ref{fig:Vsrsample} the individual Geometric Means (GM) associated with predicted structures.
+
+
+%\paragraph{Results description}
+A first observation is that \OurTool generally outperforms \Software{Rsample}. It averages $80.1\%$ GM as opposed to $68\%$ for its competitor.  Out of the 24 considered RNAs, \OurTool outperforms its competitor for 16 out of the 24 RNAs, achieves similar performances for 2 of them, and is dominated for the remaining 6 cases. Whenever dominant, \OurTool achieves an average GM score of $82\%$, dominating by $32.8\%$ its competitor, while being dominated by $3.5\%$ over the remaining examples (including ties). 
+%Difference<-c(IPANEMAP-Rsample)
+%> sum(Difference[1:18])
+%[1] 3.17
+%> sum(Difference[19:24])
+%[1] -0.382
+Remarkably, \OurTool predicts secondary structures much more consistently than its competitor. 
+It ensures GM that are greater than 50\% in all cases, and even exceeds 60\% over all except for the yeast tRNA, encoding the Aspartic acid and HIV1 5' pseudoknot domain. The standard deviation of GM for \OurTool is $12.5\%$, compared to the larger value of $21\%$ for \Software{Rsample} predictions.
+
+\yp{Reproducibility?}
+
+%\paragraph{Discussion}
+
+
+
+%Remarques These :
+%\begin{itemize}
+%  \item Fabrice : Y a t il une raison pour laquelle on est les meilleurs ?
+%\end{itemize}
+This observed discrepancy is somewhat surprising, given that \OurTool and \Software{Rsample} share the same sampling/clustering based modeling. However, the two methods differ substantially whenever a single conformation is detected, in which case \Software{Rsample} switches to a simple MEA prediction, whereas \OurTool{} always proceeds with an iterative clustering. This allows \OurTool{} to consider a larger number of clusters, which we believe helps eliminate structural outliers, leading to the election of a better final centroid structure. 
+
+
+%\clearpage
+
+
+\subsection{Comparing and exploiting multiple probing conditions: A case study on the Lariat capping ribozyme}
+
+\begin{figure*}
+	{\centering {\includegraphics[width=.9\linewidth]{graphs/didy/didy}}\\}
+	
+	\caption{Model of the Lariat capping ribozyme in {\itshape Didymium iridis} (A -- \citet{Meyer2014}), secondary structure as annotated by \Software{DSSR} (B -- pseudoknot ommitted) and \OurTool first-ranking prediction (C.) from 8 maximally-diverging probing conditions (NMIAMg, 1M7ILU3Mg, NaiMg, 1M7, CMCTMg,1M7ILU3,1M7Mg). }
+\end{figure*}
+
+
+
+\subsubsection{Comparison and clustering of conditions}
+Faced with diverse probing conditions, we first assess the compatibility of the conclusions drawn from different probing data, including the probing-free run of \OurTool as a control. We use the methodology described in subsection~\ref{sec:dotplots} and, for each condition, compute the base pair probability distribution (aka dot-plot) in the  pseudo-Boltzmann ensemble, induced by the reactivity profile. We then computed the ensemble distance, the squared Euclidian distance between dot plots, for each pair of conditions. Figure~\ref{fig:PCA} summarizes the pairwise distance through a principal component analysis.
+
+
+
+\begin{figure}
+	{\centering \includegraphics[width=.85\linewidth]{graphs/didy/PCA}\\}%, trim= 3.5cm .5cm 1cm 0,clip]
+	
+	\caption{2D spatial representation of conditions, computed by Principal Component Analysis (PCA) to optimally reflect pairwise ensemble distances between conditions. Colors and grayed areas indicate clusters of conditions.}\label{fig:PCA}
+\end{figure}
+
+A visual inspection of Figure~\ref{fig:PCA} suggests the presence of 8 clusters. In order to objectively build groups of compatible conditions, we performed a k-mean clustering using \Software{scikit-learn}, setting k to 8, and obtained the clusters highlighted in Figures~\ref{fig:biclustering} and \ref{fig:PCA}.  We obtain 5 \Def{singleton clusters} restricted to a single condition (1M7Mg, 1M7, CMCTMg, 1M7ILU3, and Nai) and three \Def{composite clusters} consisting of 2 (1M7ILU3Mg and 1M7ILUMg), 3 (BzCNMg, NMIAMgCE, and NaiMg) and 5 conditions (DMSMg, NMIA, NMIAMg, 1M7ILU, and probing-free) respectively.  Remarkably, the predicted clusters are consistent with a spectral biclustering implemented in \Software{scikit-learn} and executed with default parameters. Indeed, in the linear ordering resulting from the bi-clustering, the conditions in each cluster end up forming contiguous subsequences.
+
+It is worth noting that the average ensemble distance and PCA visualization support a status of outliers for Nai and, to a lesser extent, CMCTMg conditions.  We hypothesize that such conditions may be either representative of alternative conformations, or be altogether erroneous. Consequently, we will single out these two conditions while investigating in the following sections the performances of multi-probing in their presence and absence.
+
+
+
+
+
+
+
+
+\begin{figure}
+	{\centering \includegraphics[width=\linewidth]{graphs/didy/bi_clustering}\\}%, trim= 3.5cm .5cm 1cm 0,clip]
+	
+	\caption{Discretized ensemble distance induced by conditions. Conditions ordered by spectral biclustering. Conditions regrouped within clusters by k-mean clustering appear as blocks on the x and y axis.}\label{fig:biclustering}
+\end{figure}
+
+
+
+
+
+
+%\clearpage
+
+\subsubsection{Mono-probing predictions}
+%First, we assess the individual performance of each probing condition considered as the sole source of structural constraints.  Then, analyze outperforming experimental conditions that ensure more accurate predictions, and spot \Def{outlier} conditions which, on the contrary, seem to increase the noise level, consequently leading to lower prediction performances for \OurTool{}. 
+
+
+
+For each probing condition, we run \OurTool{} on a single source of probing data, using a sample size of $1~000$ structures. For the sake of reproducibility, we executed \OurTool{} $10$ times for each condition. We report in Table~\ref{tab:thermo-ipan} the MCC values achieved by our prediction, averaged over the $10$ runs, along with the MCCs obtained by running \Software{RNAfold} with default parameters in energy minimization (MFE) and Maximum Expected Accuracy (MEA) modes.
+
+
+Over the fourteen conditions, we observe a large discrepancy in the capacity of the experimental setup to inform predictions, with MCCs ranging from above 80\% (DMS, 1M7ILU, NMIA, DMS) to 60\% (1M7ILU3, CMCT and NAI). These values are much better than those achieved in the absence of probing data (51\% MCC), and indicate predictions of generally good quality. Indeed, it should be reminded that the MCC is a stringent metrics, taking values between -1 and 1, 0 being the expectation for a "coin tossing" random predictor. The lowest MCC value of 60\% is, in particular, equally consistent with values of 60\%/60\%, 80\%/46\% or 45\%/82\% for the Sensibility/PPV pair.
+
+Unsurprisingly, the presence/absence of Magnesium during the probing seems to impact the predictions, with an observed drop from an average 76\% MCC in the presence of Mg$^\text{2+}$ to 70\% MCC in the absence of Mg$^\text{2+}$. A similar change of performances can be observed in the comparison of the average MCC of mutation-inducing reagents (76\%) with stop-inducing ones (71\%). It must however be noted that both observations are heavily influenced by the presence of three outliers (1M7ILU3, CMCTMg and Nai) whose removal almost balances (76\% vs 74\% MCCs) the performances of both stops/mutations-inducing reagents, and presence/absence of Mg$^{2+}$.
+
+\begin{table}
+	\Heatset{min=0.6,   
+		max=.83,   
+		max colour=Aquamarine3, % colour at maximum
+		min colour=BadCol,      % colour at minimum
+		Min colour=BadCol, % colour for values below min
+		Max colour=Aquamarine3   % colour for values above max
+	}
+	\newcommand{\Mut}{Mut}
+	\newcommand{\Stop}{Stop}
+	\newcommand{\Mg}{$\bullet$}
+	\newcommand{\NoMg}{$\circ$}
+	
+	{\centering
+		%	\begin{adjustbox}{max width=.5\textwidth}
+		\begin{tabular}{@{}lccHHH}
+			\toprule
+			& &	& \multicolumn3c{MCC}\\ 
+			Condition name	& Tech.  & +/- Mg$^{2+}$ &	\multicolumn1l{\OurTool}	&	\multicolumn1l{MFE}&	\multicolumn1l{MEA}\\ \midrule
+			1M7ILU  	& \Mut	& \NoMg &	.84	&	.82	&	.85	\\
+			1M7ILUMg  	& \Mut	& \Mg &	.83	&	.82	&	.8	\\
+			DMSMg		& \Stop	& \Mg &	.82	&	.41	&	.86	\\
+			NMIAMg  	& \Mut	& \Mg &	.81	&	.8	&	.8	\\
+			1M7ILU3Mg  	& \Mut	& \Mg &	.77	&	.75	&	.76\\
+			NMIAMgCE  	& \Stop	& \Mg &	.77	&	.675	&	.74	\\
+			1M7Mg  		& \Mut	& \Mg &	.74	&	.735	&	.64	\\	
+			BzCNMg  	& \Stop	& \Mg &	.74	&	.72	&	.73	\\
+			NMIA  		& \Stop	& \NoMg &	.73	&	.69	&	.71	\\
+			NaiMg  		& \Mut	& \Mg &  .73	&	.65	&	.71	\\
+			1M7  		& \Mut	& \NoMg &	.71	&	.51	&	.56	\\
+			1M7ILU3  	& \Mut	& \NoMg &	.62	&	.59	&	.67	\\
+			CMCTMg  	& \Stop	& \Mg &	.6	&	.58	&	.59	\\
+			Nai  		& \Stop	& \NoMg &	.6	&	.59	&	.6	\\
+			\midrule
+			Avg Technology	& \Mut & --  &.76&	.71&	.72\\
+			& \Stop & --  &.71	&.61&	.71\\
+			Avg +/- Mg$^{2+}$			& -- & \NoMg  &.76&	.68&	.74\\
+			& -- & \Mg  &.70&	.64&	.68\\
+			\midrule
+			{\bfseries Average overall}	& -- & --  & .74 &	.67 &	.72\\
+			\bottomrule
+		\end{tabular}\\[1em]}
+	%	\end{adjustbox}
+	
+	%data are from multiprobing7 
+	\caption{Comparison of predicted secondary structures for the \didy{} obtained with \OurTool{} and computational methods from a single probing experiment. Averaged MCC of structures predicted with \OurTool{} and with classic deterministic alternatives. The structure was probed in presence (\Mg) or absence (\NoMg) of Magnesium, using either stops (\Stop) or mutations (\Mut) inducing technologies.
+	}
+	\label{tab:thermo-ipan}
+\end{table}
+
+
+In term of predictive performances, \OurTool averages a 74\% MCC, compared to 72\% and 67\% average MCC for MEA and MFE predictions respectively. The quality of our predictions is marginally more stable across conditions than its competitors, with  standard deviations of 8\% for \OurTool against 9.5\% and 12.1\% for MEA and MFE-driven predictions respectively. 
+
+
+\begin{figure}
+	{\centering\begin{tabular}{@{}c@{}c@{}c@{}}
+			{\sf {\bfseries A} -- \relsize{-1}Bi-probing MCC \emph{vs} Min MCC of mono-probing}\\
+			\includegraphics[width=.65\linewidth,trim=1cm 1cm .8cm .5cm,clip]{graphs/didy/MCC-vs-Min}\\[.5em]
+			{\sf {\bfseries B} -- \relsize{-1}Bi-probing MCC \emph{vs} Average MCC of mono-probing}\\
+			\includegraphics[width=.65\linewidth,trim=1cm 1cm .8cm .5cm,clip]{graphs/didy/MCC-vs-Avg}\\[.5em]
+			{\sf {\bfseries C} -- \relsize{-1}Bi-probing MCC \emph{vs} Max MCC of mono-probing}\\
+			\includegraphics[width=.65\linewidth,trim=1cm 1cm .8cm .5cm,clip]{graphs/didy/MCC-vs-Max}\\
+		\end{tabular}\\}
+	\caption{Shift in \OurTool{} predictive capacity (MCC) observed upon considering two conditions, compared to the worst ({\sf\bfseries A}),  average ({\sf\bfseries B}) 
+		and best ({\sf\bfseries C}) 
+		predictions achieved for mono-probing conditions. Green and red edges indicate enhanced and degraded predictions respectively compared to the reference (Min% 
+		, Max 
+		or Average of conditions). Thickness indicates absolute shift value (only values above 5\% reported for readability).\label{fig:pairwise}}
+\end{figure}
+
+\subsubsection{Systematic bi and tri probing analysis}
+We turn to a systematic exploration of the predictive capacities of bi-probing analyses, based on pairs of probing profiles, and attempt to quantify their impact on \OurTool predictions. For each pair and triplets of conditions, we executed \OurTool using 1~000 samples per condition, and considered the first returned structure. We then computed the associated MCC, and compare it with the MCC of the worst performing condition (Min), best performing condition (Max) and average MCC over the single conditions experiments. A summary of the results over pairs is shown in Figure~\ref{fig:pairwise}. 
+
+A superficial inspection of the resulting MCCs appears to confirm the conclusions of Section~\ref{sec:cordero}. Indeed, considering two conditions leads to predictions whose quality fall between the worst and the best one, while being generally close to the average. The average MCC of pair-informed predictions remains at 74\%, increasing by 0.2\%, while the median MCC increases to 79\% MCC from 74\% for mono-probing predictions. However, outliers strongly impact this picture, and ignoring the Nai and CMCTMg conditions increases the average MCC to 78\%, while significantly decreasing the standard deviation (9\% $\to$ 6\%).
+
+Compared to the minimum MCC of the pair, the MCC of bi-probing predictions improve by 5\% on average over the MCC of the worst-performing conditions. Pair MCCs exceed their associated min. MCC by at least 5\% in 42 pairs out of the 81 possible pairs, while being dominated by 5\% for only 4 pairs. Interestingly, the overall worst-performing Nai condition, revealed by further analysis as an outlier, always drives the MCC of bi-probing analysis to its mono-probing MCC of 60\%. Removing it alone from the analysis increases the average MCC gain to 6\%.
+
+Bi-probing tends to perform slightly better than the average of the two mono-probing conditions. The average MCC improvement is only of .2\%, but the typical (median) improvement is much higher (1.5\%), painting the picture of a potentially bimodal distribution. Indeed, for 41 out of the 91 possible pairs, the bi-probing conditions exhibits an improvement of at least 1\% over the average, while a decay of at least 1\% is observed for 34 out of the remaining 44 pairs. Such a decay can mostly be attributed to the disruptive effect of the Nai outlier, involved in 11 of the 34 observed loss of predictive performance. Moreover, removal the Nai condition alone drives the average MCC improvement to 1.5\%, with an associated median of 2\%.
+
+Predictions informed by two conditions remain, however, generally dominated by the best performing condition of the pair. On average, the MCC of the best condition is 4.4\% higher than the one achieved by bi-probing analysis. 
+The two outliers (Nai and CMCTMg) are largely responsible of this situation, and their removal from our datas et reduces the average MCC decay to 1.5\%. Moreover, for 15 pairs of conditions, the bi-probing analysis produces MCC that are at least 1\% better than the best of its two conditions.
+
+Increasing the number of conditions to three boosts the average MCC to 76.2\% and even reaches 78.2\% over triplets that neither contain Nai nor CMCTMg. The MCC gain over the worst condition in the triplet now reaches 10\% on average, with a 2.6\% improvement over the average condition.  Predictions are also more consistently good, with a standard deviation decreasing from 9\% for bi-probing to 7\% in tri-probing, leading to a median MCC of 80\%. Interestingly, disregarding Nai and CMCTMg does not stabilize the quality of prediction (stdev 7.4\% $\to$ 5.4\%) as much as for bi-probing (stdev 9\% $\to$ 6\%), suggesting that the disruptive capacity of outliers is mitigated in the presence of two opposing conditions.
+
+Compared to bi-probing, MCC values achieved by integrating triplets of conditions now indicate a clear gain over the average performances of individual conditions, supporting a notion of complementarity between experiments. Indeed tri-probing experiments gain on average 2.6\% MCC over the average of mono-probing prediction in the triplet. This gain of quality is widespread, and occurs in 245 out of the 364 triplets. 
+
+The enhanced performances of tri-probing over bi-probing are consistent with the \emph{voting} principle underlying the clustering used in \OurTool. Indeed, in a bi-probing setting, a single outlier condition, such as Nai, may entirely determine the final structure, due to its predictions being very tightly concentrated around a, presumably erroneous, structure. In the presence of three or more conditions, however, clusters resulting from an outlier condition typically end up being dominated, in the Pareto front, by compatible sets of structures originating from the pseudo-Bolzmann ensembles of alternative conditions. It follows that the influence of outliers over the final prediction remains limited.
+
+%\clearpage
+
+\subsubsection{Assessing and harnessing the complementarity of probing experiments}
+Our distance assessment and clustering on conditions reveals groups of conditions that are highly compatible in their conclusions, while others seem to include highly diverging structural information. While some outlier conditions, such as Nai of CMCTMg, appear to simply be erroneous, the results of our systematic analysis of pairs and triplets support a notion of \Def{complementarity between conditions}. Under this assumption, downstream modeling benefits more from the presence of highly diverging probing experiments than the accumulation of high-quality, yet similar, profiles.
+
+\paragraph{Similar conditions yield limited changes.} To partially validate our hypothesis, we executed \OurTool{} on similar conditions, considering the quality of predictions (MCC) for each subset (having at least two conditions) of the [1M7ILU3Mg and 1M7ILUMg], [BzCNMg, NMIAMgCE, NaiMg] and [DMSMg, NMIA, NMIAMg, 1M7ILU, probing-free] clusters. Note that our similarity notion and clustering of conditions is purely based on the ensemble features, and does not consider the MCC of individual conditions.
+As expected, compared to the average MCC over associated mono-probing analyses, 
+considering multiple similar conditions induce a limited shift in MCC (between -2.5\% and +4.5\%) and an overall modest improvement (+0.3\% average MCC). This is consistent with the idea that supplementing a probing-based modeling with compatible conditions provides very little additional information, leading to the observed limited contribution of similar conditions to the quality of predictions.
+\begin{table}[h]
+	\Heatset{min=0.6,   
+		max=.83,   
+		max colour=Aquamarine3, % colour at maximum
+		min colour=BadCol,      % colour at minimum
+		Min colour=BadCol, % colour for values below min
+		Max colour=Aquamarine3   % colour for values above max
+	}
+	{\centering
+		\begin{adjustbox}{max width=.5\textwidth}
+			\begin{tabular}{@{}lHH@{}}
+				\toprule
+				& \multicolumn2c{MCC}\\
+				Description & \multicolumn1c{Multi}& \multicolumn1c{Avg}\\
+				\midrule	
+				%{\em Similar conditions}\\
+				DMSMg, NMIA, NMIAMg, 1M7ILU&		.815 & .813	\\
+				DMSMg,  NMIAMg, 1M7ILU		& 	.815 & .82	\\
+				NMIA, NMIAMg, 1M7ILU	& .808 & .811	\\
+				
+				DMSMg, NMIA, NMIAMg		&.801 & .805	\\
+				DMSMg, NMIA,  1M7ILU		&.795& .82 \\
+				DMSMg, 1M7ILU	&	.85	&.83	\\
+				NMIA,  1M7ILU	& .82		&.815	\\
+				NMIAMg, 1M7ILU	&	.82	&	.82\\
+				DMSMg, NMIA	&		.8 &.805\\
+				DMSMg, NMIAMg	&	.8	&	.81\\
+				
+				NMIA, NMIAMg	&	.8	&	.795\\
+				
+				\midrule
+				NMIAMgCE, NaiMg	&	.74	&.725	\\
+				BzCNMg, NMIAMgCE, NaiMg	&		.734 & .726\\
+				BzCNMg, NMIAMgCE	&	.73	&	.735\\
+				BzCNMg, NaiMg	&	.73	&	.72\\
+				
+				\midrule
+				1M7ILU3Mg,1M7ILUMg&	.82	&.775	\\
+				% {\em Distant conditions}\\
+				%1M7,Nai,CMCTMg,1M7ILU3,1M7Mg 	&		\textbf{.819}& .66\\
+				
+				%1M7,Nai,CMCTMg,1M7ILU3,1M7Mg,NMIA,NaiMg& 	.6 & \textbf{.69}\\
+				%		 & 	\textbf{.795} & .69\\
+				%   
+				%					1M7,Nai,CMCTMg,1M7ILU3,1M7Mg,1M7ILU, NMIAMgCE	& 		\textbf{.838}& .7\\
+				%					\midrule
+				%{\em All 14 conditions} &		\textbf{.795}& .735\\
+				\bottomrule
+			\end{tabular}
+		\end{adjustbox}\\}
+	\caption{Similar conditions.}\label{multiprobingdidy1}
+\end{table}
+
+\paragraph{Orthogonal conditions impact .} Having established the redundant nature of similar conditions, and their limited contribution to downstream modeling, we turn to an analysis of conditions that are divergent, as indicated by their presence in different clusters. First we consider the quality of predictions obtained by choosing a single condition in each of the 8 clusters.
+
+To test these assumptions, we run \OurTool:
+\begin{itemize}
+	\item Across clusters (one condition in each cluster, ie 24 experiments); 
+	\item In the absence/presence of an obvious outlier (Nai);
+	\begin{table}[h]
+		\Heatset{min=0.6,   
+			max=.83,   
+			max colour=Aquamarine3, % colour at maximum
+			min colour=BadCol,      % colour at minimum
+			Min colour=BadCol, % colour for values below min
+			Max colour=Aquamarine3   % colour for values above max
+		}
+		
+		\begin{adjustbox}{max width=.5\textwidth}
+			\begin{tabular}{@{}llllHH@{}}
+				\toprule
+				\multicolumn4{@{}l@{}}{Conditions for multi clusters}& \multicolumn2c{MCC}\\
+				Clust. {\sf\bfseries B} & Clust. {\sf\bfseries H} & Clust. {\sf\bfseries D} &  & \multicolumn1c{+Nai}& \multicolumn1c{-Nai}\\
+				\midrule
+				1M7ILU& 1M7ILU3Mg& NMIAMgCE&+ $\mathcal{M}$ &.83&.83\\
+				1M7ILU& 1M7ILU3Mg& NaiMg&+ $\mathcal{M}$&.599 &	.753 	\\
+				1M7ILU& 1M7ILUMg& NaiMg&+ $\mathcal{M}$&	.804	&	.816 \\
+				1M7ILU& 1M7ILUMg& NMIAMgCE&+ $\mathcal{M}$  &.83&.849 	\\
+				1M7ILU& 1M7ILUMg& BzCNMg&+ $\mathcal{M}$ &	.653 	&	.816 	\\	
+				1M7ILU& 1M7ILU3Mg& BzCNMg&+ $\mathcal{M}$& 	.704 	& .827\\	
+				DMSMg& 1M7ILU3Mg& MIAMgCE&+ $\mathcal{M}$&	.806 & 	.802 \\
+				DMSMg& 1M7ILU3Mg& NaiMg&+ $\mathcal{M}$ &	.808 &	.788 \\	
+				DMSMg& 1M7ILU3Mg& BzCNMg&+ $\mathcal{M}$      &.816&.806\\ 	
+				DMSMg& 1M7ILUMg& NaiMg&+ $\mathcal{M}$&	.788 &	.742 	\\
+				DMSMg& 1M7ILUMg& NMIAMgCE&+ $\mathcal{M}$     &.827 &.816 	\\
+				DMSMg& 1M7ILUMg& BzCNMg&+ $\mathcal{M}$&.599 	& 	.76 	\\
+				
+				
+				%&.717& .717 \\	
+				%&\cellcolor{yellow!25}.599 &\\
+				NMIAMg& 1M7ILU3Mg& BzCNMg&+ $\mathcal{M}$&.599 	&.802\\
+				%
+				%&.71 &\\	
+				%&.795 &\\
+				NMIAMg& 1M7ILU3Mg& NaiMg&+ $\mathcal{M}$& .865&.717 \\
+				%&&.71 	\\
+				%&&.802\
+				%&.795&.795\\
+				%&\cellcolor{yellow!25}.599 &	\\
+				NMIAMg& 1M7ILUMg& NaiMg&+ $\mathcal{M}$&.599&.816 	\\
+				%&	.802&.802\\
+				NMIAMg& 1M7ILUMg& NMIAMgCE&+ $\mathcal{M}$& 	.808	&	.802 	\\
+				NMIAMg& 1M7ILU3Mg& NMIAMgCE &+ $\mathcal{M}$&.834 	&	.736 	\\
+				NMIAMg& 1M7ILUMg& BzCNMg&+ $\mathcal{M}$&	.802& .816\\ 
+				NMIA& 1M7ILUMg& BzCNMg&+ $\mathcal{M}$&.795&.802 \\
+				NMIA& 1M7ILU3Mg& BzCNMg&+ $\mathcal{M}$& 	.788 	&.704 	\\
+				NMIA& 1M7ILU3Mg& NaiMg&+ $\mathcal{M}$&.753 &.717	\\
+				NMIA& 1M7ILUMg& NaiMg&+ $\mathcal{M}$&	.802 	&	.808 \\
+				NMIA& 1M7ILU3Mg& NMIAMgCE&+ $\mathcal{M}$&	.672 	& 	.795 \\
+				NMIA& 1M7ILUMg& NMIAMgCE&+ $\mathcal{M}$& .599 	& .83 \\ 	
+				
+				\bottomrule
+			\end{tabular}
+		\end{adjustbox}\\
+		\caption{MSG: Mixed impact of Nai.
+			Arbitrary choice of combinations across clusters + impact of Nai,  + $\mathcal{M}$=\{1M7, CMCTMg, 1M7ILU3, 1M7Mg\}. Rqs: 1/ Nai does not have a constant behavior, it switches between the two roles (noise provider and noise eliminator) 2/ With Nai,it is likely to have more clusters, an additional one representative of the Nai with the  MCC of .599 3/paradoxaly the presence of Nai allows to  get the Maximal so far reported MCC whith .865, returning a single cluster for the corresponding combinations where  NaiMg couldn't be representative of the Nai condition )
+		}\label{multiprobingdidy1}
+	\end{table}
+	\item Report the MCC associated aux conditions having best individual MCCs; 
+	\begin{table}[h]
+		\begin{adjustbox}{max width=.5\textwidth}
+			\begin{tabular}{@{}llllll@{}}
+				\toprule
+				Description & MCC & Mono-Avg\\
+				\midrule
+				1M7ILU, 1M7ILUMg, DMSMg,NMIAMg & .823 &.8275\\
+				\bottomrule
+			\end{tabular}
+		\end{adjustbox}	
+	\end{table}
+	\item Report triplet scores; The best performance:
+	%\paragraph{Structure with the maximal MCC}
+	%for the combination [1M7ILUMg,NMIAMgCE,1M7ILU3] a unique structure is perdicted showing the maximal MCC reported for 3 sources of probig data.
+	\begin{table}
+		\begin{adjustbox}{max width=\linewidth}
+			\begin{tabular}{@{}ccccccc@{}}
+				\toprule
+				1M7ILUMg&NMIAMgCE&1M7ILU3&1M7&BzCNMg  & MCC & Mono-Avg\\
+				\midrule
+				
+				* &* &* & & & \textbf{.853}&.74\\
+				* & & & * &* & \textbf{.853}&.76\\
+				* & &*& * &  &\textbf{.853} &.73\\
+				%\tt{(((((..((((((.(((((((((.......))))))))).((((((((((((((......(((((....((((.(((......)))........((.((....))))....))))...))))).(((.....))))))))))...........((((....))))..))))))).))))))..)))))}
+				\bottomrule
+			\end{tabular}
+		\end{adjustbox}
+		
+	\end{table}
+	\item Report the best possible score; + all conditions: 
+	\begin{table}[h]
+		\begin{adjustbox}{max width=.5\textwidth}
+			\begin{tabular}{@{}llllll@{}}
+				\toprule
+				Description & MCC & Mono-Avg\\
+				\midrule
+				NMIAMg, 1M7ILU3Mg, NaiMg,1M7, CMCTMg, 1M7ILU3, 1M7Mg& {\bfseries.865}&.717 \\
+				{\em All 14 conditions} &	\textbf{.795}& .735\\
+				\bottomrule
+			\end{tabular}
+		\end{adjustbox}
+	\end{table}
+\end{itemize}
+
+
+The clustering of  probing conditions allows a global assessment of the inference of the structure for a given  probing condition compared to the rest of conditions.
+We made use of this clustering, to assemble conditions considered as potential candidates to form optimal combinations.
+How?
+strategy 1 : Assuming that the structural information encoded in conditions belonging to heavily populated clusters is enough to form an optimal combination, we tested the prediction performance of \OurTool{} in the presence of these conditions following a one-leave-out condition method. This method allowed to evaluate  the added value of each  given condition figuring in the biggest clusters. 
+strategy 2: Assuming the complementarity that exists between different clusters, we built combinations of conditions  by considering one representative condition from each cluster.
+The choice of the representative condition is rather felt in the case of non-single clusters. We considered three ways to elect a representative condition of a cluster:
+1- choose a condition at random. 
+
+
+Rq Results:
+The Nai condition have shown a noticeable structural distance to the rest of the 13 conditions. Therefore, this condition can be hiding either an essential contributing condition to improve the prediction or an outlier that should be discarded. We wanted to check the role of the Nai condition when considered as an element of a combination of conditions. 
+
+
+2- Consider the condition with the maximal MCC from the mono-probing test.
+3- Consider a condition with the minimal MCC from the mono-probing test.
+
+Rq Results:
+
+
+
+Remarques These :
+\begin{itemize}
+	\item Influence Mg vs non-Mg ?
+\end{itemize}
+
+
+
+
+
+
+
+%\begin{figure*}
+%\begin{adjustbox}{max width=\linewidth}
+%  \begin{tabular}{ll}
+% Seq & \tt {GGUUGGGUUGGGAAGUAUCAUGGCUAAUCACCAUGAUGCAAUCGGGUUGAACACUUAAUUGGGUUAAAACGGUGGGGGACGAUCCCGUAACAUCCGUCCUAACGGCGACAGACUGCACGGCCCUGCCUCUUAGGUGUGUUCAAUGAACAGUCGUUCCGAAAGGAAGCAUCCGGUAUCCCAAGACAAUC
+%} \\
+% 
+% NATIVE &  \tt {(((((..(((((..(((((((((.......)))))))))..((((.(((.((((......(((((...((((..(((......))).......))))((....)).............))))).(((.....))))))).)))..........((((....))))....))))...)))))..)))))} \\
+%
+%.865 &\tt{(((((..((((((.(((((((((.......))))))))).((((((((((((((......((((....((((...((.......)).......))))......(.(........)..).)))).(((.....)))))))))))..........((((....))))...)))))).))))))..)))))}\\
+% \\
+%\end{tabular}
+%\end{adjustbox}
+%\caption{Content: 3D didymium + native structure + predicted base pairs}
+%\end{figure*}
+%\begin{figure}
+%\includegraphics[width=\linewidth]{graphs/Arcs}
+%\end{figure}
+%\subsection{\OurTool{} yields reproducible predictions}
+%\as{Which structure?}
+
+
+
+\subsection{Supplementing the wild-type with pointwise mutants increases prediction quality}
+We selected 100 random subsets consisting of 1, 2, 3 or 10 mutants, which we analyzed in combination with the original wild-type sequence.
+For each set of sequence, we executed \OurTool{} with default parameter, using a sample of 1000 structures. 
+We also analyzed the wild-type sequence alone, reproducing the analysis 100 times to compare the variability across sets of mutants to the one induced by stochastic backtrack. 
+%Finally, we performed a restricted analysis focusing on the WT, supplemented with a pair of mutant selected from the  
+We report in Figure~\ref{fig:variantanalysis} the distribution of MCC values achieved by predicted structures.
+
+For WT,  as expected, the results are reproducible. In 94\% of the runs, we obtained a structure having MCC between 60.5\% and 61\%. Interestingly, the remaing 6\% of the runs exhibit improved MCC values, ranging from 77\% to 77\%.
+%%\as{ This value can not be fixed since we have  0.6134: 12\%, 0.7597: 2\%, 0.7649: 1\%, 0.7783: 1\%, 0.7665: 1\%, 0.7531: 1\% , is it ok Yann not to specify the improvemnt percentage ?}
+%% Counter({0.6084: 82, 0.6134: 12, 0.7597: 2, 0.7649: 1, 0.7783: 1, 0.7665: 1, 0.7531: 1})
+
+Overall, the average MCC for the WT is of $61.83\%$.%mean(Multiprobing_100WT) 
+When two conditions are considered, the dispersion of the results increases, and MCC values as low as $38.93$\% can be observed.%min(Multiprobing_1M)
+These values, however, are not typical, and the average MCC observed in the presence of a mutant increases to $64.88\%$%mean(Multiprobing_1M). 
+This trend upwards is confirmed for two mutants, with an average MCC across runs of $66.62\%$%mean(Multiprobing_2M).
+Interestingly, the dispersion of the MCC is lower for two mutants than a single one, suggesting a form of averaging which would somehow inhibit 
+the deleterious effect of outliers.
+\as{The min value was improved by  $2.76\%$ when considering two mutants from the subset of 20 mutants showing the minimal Eucledian reactivity distance to the WT.   }
+For 10 mutants, the average MCC and overall distribution remains highly similar to the three mutants, suggesting peeking performances.
+These results support a notion of complementarity between the probing data produced across reasonably similar mutants, widely believed to hold across reagents and conditions. Indeed, the structure mainly produced for the WT is generally returned by 
+
+
+%2M close better than wild-type (although conditions expected to be more ccomparable) but on average worse than 2M (complementarity matters)
+\begin{figure}
+	\centering{
+		\includegraphics[width=\linewidth]{graphs/combinations}}
+	\label{Vsrsample}
+	\caption{Accuracy of prediction reported as the MCC when considering the WT, considering a set of (2,3) and 10 variants. for 2 mutants we also tested the case where sole 20 variants close to the WT were considered. Rq: for the case of selected variants( close to the WT in term of reactivity distances, a single centroid is reported for each run from the 100.}\label{fig:variantanalysis}
+\end{figure}
+
+
+%\begin{figure}[h]
+%\begin{center}
+%\includegraphics[scale=.4]{graphs/WT+combin}
+%\label{Vsrsample}
+%\caption{Accuracy of prediction reported as the MCC when considering only the WT, considering one mutants along side the WT and considering 10 mutants in addition to the WT.}
+
+%\end{center}
+%\end{figure}
+
+
+
+
+%------------------------------------------------------------------------------
+
+%======================
+
+
+
+
+\section{Discussion}
+
+\begin{figure*}
+	{\centering\includegraphics[width=\linewidth]{graphs/Reproductibility}\\}
+	
+	\caption{MCC of predicted structures under conditions with and without Mg$^{2+}$, differentiating stop-inducing and mutation-inducing protocols, over 10 runs of IPANEMAP. }\label{fig:biclustering}
+\end{figure*}
+
+
+\begin{itemize}
+	\item Results are stable and experiments reproducible
+	\item Comparison to average is positive, and fair, in a context where no single reagent appear to dominate in term of predictive capacity. Moreover, in realistic structure modeling scenarii, it is impossible to know a priori which information is contributed by an experiment. In other words, combining experimental probing data, even in a pairwise fashion, typically mitigates the empirical risk of misprediction.
+\end{itemize}
+
+
+
+\Blabla{5-6}
+{\em Role of outliers.} 
+
+
+
+
+\Blabla[5-6]
+
+
+
+
+\section{Conclusion}
+
+
+
+\begin{itemize}
+	\item Our integrative approach compared to other tools did exhibit a trade-off  between  number of optimal clusters and accuracy but remains fast to execute. 
+	\item While based on the assumption that the different probing condition reveal complementary aspects of the same structure, it can still be enriched by experiments where the dominant conformation is expected to differ from the native one.
+	\item While quite similar in its approach to Spasic et al, \OurTool seems to achieve better performance, calling for futher analysis. 
+	Mainly, the adaptive choice of the number of clusters, even in cases where a single dominant conformation is expected, seems to create more opportunities for discarding random unstable conformations. Such conformations naturally occur in a Boltzmann-distributed subset of structures, and may end up \emph{polluting} centroid structures by artificially inflating the diversity within the cluster. The impact on RSample predictions of such a \emph{noise} is made worse by the fact that it returns the MEA, the centroid of the whole ensemble, whenever a dominant conformation is detected.
+	\item Complementarity
+	\item Pseudo-Energy models
+\end{itemize}
+
+\Blabla{5-6}
+
+\section*{Acknowledgements}
+The authors wish to thank Rony Lorenz and Nathalie Chamond for helpful suggestions.
+
+\section*{Funding}
+This work has been supported by La Fondation pour la Recherche Medicale (FRM).
+%\bibliographystyle{bioinformatics}
+\bibliographystyle{abbrvnat}
+%\bibliographystyle{natbib}%compa
+\bibliography{biblio}
+
+\end{document}
