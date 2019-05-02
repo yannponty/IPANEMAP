@@ -315,7 +315,7 @@ On the computational side, the last couple of decades have seen a series of para
 
 Our method, summarized in Figure~\ref{fig:approach}, starts by producing, sets of representatives structures for each of the reactivity profiles using a SHAPE-directed variant of the classic Ding-Lawrence algorithm~\citep{Ding2003}. Following \citet{Deigan2009}, soft constraints are used to complement the free energy contributions of the classic Turner energy model with pseudo energy contributions resulting from reactivity profiles derived from SHAPE probing experiments.  Given a reactivity $R_i$ for a position $i$, we associate a free-energy bonus to unpaired positions, defined as
 $$\Delta G(i) = m \log(R_i +1 )+b$$ 
-using $m=1.3$ and  $b=-0.4$. Those values are haved compared to those used by \citet{Deigan2009}, based on the rationale that lower absolute values for pseudo-energy bonuses increase the chance of structures being simultaneously supported by multiple conditions. Those pseudo energy contributions effectively direct our predictions towards a subset of structures that are in good agreement with probing data. 
+using $m=1.3$ and  $b=-0.4$. Those values are compared to those used by \citet{Deigan2009}, based on the rationale that lower absolute values for pseudo-energy bonuses increase the chance of structures being simultaneously supported by multiple conditions. Those pseudo energy contributions effectively direct our predictions towards a subset of structures that are in good agreement with probing data. 
 
 In order to infer recurrent candidates across different samples, sampled structure sets are agglomerated while keeping track of the reagent/condition of origin for each structure, and clustered using the Mini Batch k-Means algorithm~\citep{Sculley2010} (\CL{}) based on a number of clusters determined by an iterative heuristics described in further details below. 
 It takes as input a dissimilarity matrix, whose entries consist of the base pair distance between two sampled structures.
@@ -324,7 +324,7 @@ It takes as input a dissimilarity matrix, whose entries consist of the base pair
 The number of clusters is a critical parameter of the \CL{} algorithm. It should, at the same time, remain small enough to ensure reproducibility, while being sufficiently large to discriminate outliers and ensure consistency within each cluster. We iteratively increase the number of clusters, deeming it appropriate if increasing its value leads to:
 \begin{enumerate} 
 	\item Splitting a significant cluster into two highly similar clusters, or; 
-	\item Creating a poorly populated (outlier) cluster, while keeping highly similar clusters for each significant cluster of the previous iteration.
+	\item Creating a poorly populated (outlier) cluster, while keeping highly similar clusters for each significant cluster from the previous iteration.
 \end{enumerate} 
 In practice, clusters are seldom exactly preserved across successive iterations, so we consider two clusters to be \Def{highly similar} if their Maximum Expected Accuracy (MEA) centroid structures~\citep{Lu2009}, differ by less than $\delta$ base pairs.
 The $\delta$ parameter defaults to $1$, allowing the identification of clusters across successive generation in the presence of a minor variation.
