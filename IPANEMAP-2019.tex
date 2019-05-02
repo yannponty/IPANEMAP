@@ -257,9 +257,8 @@ Accepted March 1, 2009}
 \maketitle
 
 \begin{abstract}
-\textbf{Motivation:} \Blabla{5}.\\
-\textbf{Results:} We introduce \OurTool{}, an automated and robust structural modeling approach, which integrates probing data produced across experiments based on diverse protocols, reagents, or even over a collection of mutants, to predict the dominant conformations of an RNA. \\
-\Blabla{6}
+\textbf{Motivation:} The production of reliable structural models from chemical probing experiments, such as SHAPE protocols, benefits from the integration of information derived from multiple protocols and reagents. However, the interpretation of multiple probing profiles remains complex and largely manual, hindering the quality and reproducibility of modeling efforts.\\
+\textbf{Results:} We introduce \OurTool{}, an automated and robust approach for computational modeling, which integrates probing data produced across experiments based on diverse protocols, reagents, or even over a collection of mutants, to predict the dominant conformations of an RNA.
 \\
 \textbf{Contact:} \href{yann.ponty@lix.polytechnique.fr}{Yann.Ponty@lix.polytechnique.fr}\\
 \textbf{Supplementary information:} Supplementary data are available at \textit{Bioinformatics}
@@ -271,16 +270,13 @@ online.
 
 \section{Introduction}
 
-{\noindent\bf Generalities on RNA + Structure modeling.}
-\Blabla[1-2]
+Integration of experimental structure probing data in the process of secondary structure prediction greatly improve the models. However, probing experiments do not result in binary values for any given nucleotide. This can result from distinct reactivity of a single stranded nucleotide according to its local environment. But it can also be the consequence of many reasons including, structural heterogeneity, experimental error, structural dynamics and the imperfection of the reactivity prediction. Therefore as can be verified for many benchmark RNA for which a X-ray structure model has been established, occasionally a nucleotide involved in a stable secondary structure may appear reactive, or conversely a flexible nucleotide may be unreactive to such or such probe. As a consequence, integrating the probing data as "hard" constraints, prohibiting any pairing for highly reactive nucleotides or forcing pairing of the unreactive, would preclude the prediction of valuable structure. For this reason it appeared more relevant and efficient to take probing data into account in the prediction pipeline as soft constraints, i.e as penalties in the score when elaborating the models~\cite{Deigan2009,Washietl2012,Zarringhalam2012}. 
 
+As a consequence, popular software for secondary structure prediction, such as \Software{RNAStructure}~\cite{Mathews2004} or \Software{RNAfold}~\cite{Lorenz2011}, enable the prediction of models in which some nucleotides have an aberrant reactivity. 
+Different chemical probes harbouring different chemical reactivities have been developed. Amongst the most popular, DiMethyl Sulfate (DMS) is a small molecule that methylates N1 of adenines and N3 of cytosine if they are not involved in a hydrogen bond. Similarly, 1-cyclohexyl-3-(2-morpholinoethyl)carbodiimide metho-p-toluene sulfonate (CMCT) reacts on the Watson-Crick face of guanosine (N1) and uracyl (N3) when not engaged in a hydrogen bond~\cite{Ehresmann1987,Brunel2000}. These two reagents therefore mostly reveal Watson-Crick base pairing, but also any other type of contact involving the same edge. SHAPE reagents belong to another class of small molecules that react with the 2’ hydroxyl of flexible ribose~\cite{McGinnis2012}, although the exact properties observed by SHAPE remain the object of ongoing investigations~\cite{Hurst2018,Mlynsky2018}. 
 
-{\noindent\bf Probing experiments, inc. SHAPE paradigms (experimental) and complementarity.}
-\Blabla[3-4]
-
-{\noindent\bf Modeling strategies from SHAPE data.}
-
-Integration of experimental structure probing data in the process of secondary structure prediction greatly improve the models obtain. However, probing experiments do not result in binary values for any given nucleotide. This can result from distinct reactivity of a single stranded nucleotide according to its local environment. But it can also be the consequence of many reasons including, structural heterogeneity, experimental error, structural dynamics and the imperfection of the reactivity prediction. Therefore as can be verified for many benchmark RNA for which a X-ray structure model has been established, occasionally a nucleotide involved in a stable secondary structure may appear reactive, or conversely a flexible nucleotide may be unreactive to such or such probe. As a consequence, integrating the probing data as “hard” constraints, prohibiting any pairing for highly reactive nucleotides or forcing pairing of the unreactive, would preclude the prediction of valuable structure. For this reason it appeared more relevant and efficient to take probing data into account in the prediction pipeline as soft constraints, i.e as penalties in the score when elaborating the models (Deigan et al., 2009; Washietl et al., 2012; Zarringhalam et al., 2012). As a consequence software such as RNA structure, or RNAfold allow for predicting models in which some nucleotides have an  aberrant reactivity. Different chemical probes harbouring different chemical reactivities have been developed. Amongst the most popular, DiMethyl Sulfate (DMS) is a small molecule that methylates N1 of adenines and N3 of cytosine if they are not involved in a hydrogen bond. Similarly, 1-cyclohexyl-3-(2-morpholinoethyl)carbodiimide metho-p-toluene sulfonate (CMCT) reacts on the Watson-Crick face of guanosine (N1) and uracyl (N3) when not engaged in a hydrogen bond (Brunel and Romby, 2000; Ehresmann et al., 1987). These two reagents therefore mostly reveal Watson-Crick base pairing, but also any contact that may happen on this side of the base. SHAPE reagents belong to another class of small molecules that react with the 2’ hydroxyl of flexible ribose (McGinnis et al., 2012) although this might be more complex than originally suspected (Hurst et al., 2018; Mlýnský and Bussi, 2018; Frezza et al., submitted). Ribose flexibility is proportional to the degree of freedom of the nucleotide, allowing SHAPE reagents to discriminate nucleotides in stable interactions from others. Different SHAPE reagents are endowed with slightly different reactivities that can help differentiating Watson-Crick base pairs from more dynamics tertiary contacts (Gherghe et al., 2008; Steen et al., 2012). This diversity of probes reflecting not only the accessibility of each position of the RNA but also qualitatively different information has been widely used since the very early days of RNA structure probing (Brunel and Romby, 2000; Butcher and Burke, 1994; Cordero and Das, 2015; Gross et al., 2017; Moazed et al., 1986; Romaniuk et al., 1988; Somarowthu et al., 2015). However, for the reason raised above computer assisted secondary structure modelling of the same RNA using probing data obtained with different probes often yield different models, none of which being 100 percent consistent with all the probing data. In fine the multiprobing strategy often leaves the user facing different models from which he is unable to choose. In order to identify the model that fits the most with all the data researchers resort to very intuitive and manual methods such as pasting the results obtained with one probe on the different models obtained using the constraints from another probe (Herbreteau et al., 2005; James and Sargueil, 2008; Othman et al., 2014; Weill et al., 2004). At the end of the process the experimentator is often left in front of several models imperfectly fitting the probing data, and the choice of the « best » model is most of the time very subjective. 
+Ribose flexibility is proportional to the degree of freedom of the nucleotide, allowing SHAPE reagents to discriminate nucleotides in stable interactions from others. Different SHAPE reagents are endowed with slightly different reactivities that can help differentiating Watson-Crick base pairs from more dynamics tertiary contacts~\cite{Gherghe2008,Steen2012}. This diversity of probes reflecting not only the accessibility of each position of the RNA but also qualitatively different information has been widely used since the very early days of RNA structure probing~\cite{Moazed1986, Romaniuk1988, Butcher1994, Brunel2000,  Cordero2015, Somarowthu2015, Gross2017}. However, for the reason raised above computer assisted secondary structure modeling of the same RNA using probing data obtained with different probes often yield different models, none of which are fully consistent with all the probing data. In fine, the multiprobing strategy often leaves the user facing different models from which he is unable to choose. 
+In order to identify the model that fits the most with all the data researchers resort to very intuitive and manual methods such as projecting the results obtained with one probe on the different models obtained using the constraints from another probe~\cite{Herbreteau2005,James2008,Weill2004,Othman2014}. At the end of the process the experimentator is often left with several models, all of which appear equally consistent with the probing data, and the choice of the "best" model become subjective. 
 
 
 {\noindent\bf Computational aspects.}
@@ -430,10 +426,10 @@ where $\text{Sens}(S\mid \Ref)$ represents the proportion of base pairs in $\Ref
 
 \subsection{Probing a Lariat capping ribozyme from Didymium iridis}
 The structure of the Lariat capping ribozyme from Didymium iridis (DiLCrz) was probed with different SHAPE reagents: 1M7 (1-methyl-7 nitrosatoic anhydre), NMIA (N-Methyl Isatoic Anhydre), BzCN (Benzoyl cyanide) and NAI (2-methylnicotinic acid imidazolide) in presence and absence of magnesium ions, and with DMS (DiMethylSulfate) and CMCT only in presence of magnesium ions.
-As a preliminary experiment, we verified that DiLCrz generally adopts a single global architecture. To this end, we subjected DiLCrz to a standard denaturation protocol (80\degree{}C for 2 min in H2O, addition of 40 mM of HEPES at 7.5 pH, 100 mM of KCl, 5 mM of MgCl2, followed by 10 min at room temperature, and 10 min at 37\degree{}C), and observed the production of a single band on a non-denaturing PAGE, strongly suggesting the adoption of a single conformation.\ypi{Bruno $\to$ Est ce que c'est raisonnable ? OUI}
+As a preliminary experiment, we verified that DiLCrz generally adopts a single global architecture. To this end, we subjected DiLCrz to a standard denaturation protocol (80\degree{}C for 2 min in H2O, addition of 40 mM of HEPES at 7.5 pH, 100 mM of KCl, 5 mM of MgCl2, followed by 10 min at room temperature, and 10 min at 37\degree{}C), and observed the production of a single band on a non-denaturing PAGE, strongly suggesting the adoption of a single conformation.
 
 \subsubsection{Stops-inducing probing protocol (SHAPE-CE).} 
-6 pmol of RNA were resuspended in 18 $\mu$l of water, denatured at 80\degree{}C for 2 minutes and cooled down at room temperature during 10 minutes in the probing buffer (40 mM HEPES at 7.5 pH, 100 mM KCl, in presence or absence of 5 mM MgCl2). After a 10 minutes incubation at 37°C, RNAs were treated with 2 mM of SHAPE reagent or DMSO (negative control) and incubated for 2 (BzCN), 5 (1M7), 30 (NMIA) or 60 (NAI) minutes at 37°C. Modified or unmodified RNAs were purified by ethanol precipitation and pellets were resuspended in 10 \(µ\)l of water.
+6 pmol of RNA were resuspended in 18 $\mu$l of water, denatured at 80\degree{}C for 2 minutes and cooled down at room temperature during 10 minutes in the probing buffer (40 mM HEPES at 7.5 pH, 100 mM KCl, in presence or absence of 5 mM MgCl2). After a 10 minutes incubation at 37\degree{}C, RNAs were treated with 2 mM of SHAPE reagent or DMSO (negative control) and incubated for 2 (BzCN), 5 (1M7), 30 (NMIA) or 60 (NAI) minutes at 37\degree{}C. Modified or unmodified RNAs were purified by ethanol precipitation and pellets were resuspended in 10 $\mu$l of water.
 Modifications were revealed by reverse transcription using 5’ fluorescently labelled primers (D2 or D4 WellRED, Sigma Aldrich 5’ CTG-TGA-ACT-AAT-GCT-GTC-CTT-TAA 3’) and M-MLV RNAse H- reverse transcriptase (Promega) as previously described~\cite{Deforges2017}, with only minor modification of the originally described SHAPE protocol\cite{Wilkinson2006}. cDNAs were separated by capillary electrophoresis (Beckman Coulter, Ceq8000). Data were analyzed using the  QuSHAPE~\cite{Karabiber2013} software. RNA probing was performed in triplicate with distinct RNA preparations.
 
 \subsubsection{Mutations-inducing probing (SHAPE-MaP).}
@@ -447,8 +443,7 @@ For 1M7ILU3, the denaturation step was repeated three times : After a 1 minute i
 
 
 \subsubsection{DiMethylSulfate (DMS) and CMCT probing.}
-DMS and CMCT probing were conducted essentially as described in~\cite{James2008} (Weill et al., 2004)\ypi{Pas trouvé la ref 'Weill et al., 2004', tu aurais des détails: DOI:
-    10.1093/nar/gkh835 ?}. In Brief, 6 pmol of RNA were resuspended in 18 $\mu$l of water, denatured at 80\degree{}C for 2 minutes and cooled down at room temperature for 10 minutes in a probing buffer for DMS probing (40 mM HEPES pH 7.5, 100 mM KCl, 5 mM MgCl2) or in CMCT (50 mM of potassium borate pH 8, 100 mM KCl and 5 mM MgCl2). For DMS, RNA was then treated with 1 $\mu$l of DMS (1:12 in ethanol) or 1 $\mu$l of ethanol for 5 minutes at 37\degree{}C (mock reaction), the reaction was stopped by addition of 400 mM of Tris at 7.5 pH and immediately put on ice. For CMCT,  RNA was treated with 10 $\mu$l of CMCT (42mg/mL) or 10 $\mu$l H2O for 10 minutes at 37\degree{}C (mock reaction). Modified RNA were ethanol-precipitated and resuspended in 10 $\mu$l of water. Modifications were mapped as described above for SHAP-CEE experiments
+DMS and CMCT probing were conducted essentially as described in~\cite{Weill2004,James2008}. Succinctly, 6 pmol of RNA were resuspended in 18 $\mu$l of water, denatured at 80\degree{}C for 2 minutes and cooled down at room temperature for 10 minutes in a probing buffer for DMS probing (40 mM HEPES pH 7.5, 100 mM KCl, 5 mM MgCl2) or in CMCT (50 mM of potassium borate pH 8, 100 mM KCl and 5 mM MgCl2). For DMS, RNA was then treated with 1 $\mu$l of DMS (1:12 in ethanol) or 1 $\mu$l of ethanol for 5 minutes at 37\degree{}C (mock reaction), the reaction was stopped by addition of 400 mM of Tris at 7.5 pH and immediately put on ice. For CMCT,  RNA was treated with 10 $\mu$l of CMCT (42mg/mL) or 10 $\mu$l H2O for 10 minutes at 37\degree{}C (mock reaction). Modified RNA were ethanol-precipitated and resuspended in 10 $\mu$l of water. Modifications were mapped as described above for SHAPE-CE experiments.
 
 \section{Results}
 
@@ -481,7 +476,7 @@ DMS and CMCT probing were conducted essentially as described in~\cite{James2008}
 			\bottomrule
 		\end{tabular}
 	\end{adjustbox}\\
-	\caption{Dot-bracket representations of the native structure and \OurTool predictions for the glycine riboswitch sequence of the \citet{Cordero2012} data set, supplemented with an increasing collection of probing conditions. Positions with green and red backgrounds indicate correctly and incorrect;y base pairs }\label{fig:glycine_example}
+	\caption{Dot-bracket representations of the native structure and \OurTool{} predictions for the glycine riboswitch sequence of the \citet{Cordero2012} data set, supplemented with an increasing collection of probing conditions. Positions with green and red backgrounds indicate correctly and incorrectly predicted base pairs.}\label{fig:glycine_example}
 \end{table*}
 
 
@@ -493,7 +488,7 @@ Since \OurTool{} supports any number of probing profiles, we consider the Corder
 \begin{figure}
 	{\centering{\includegraphics[trim=.5cm .3cm .2cm .2cm, clip, width=\linewidth]{graphs/cordero_mean}}\\}
 	
-	\caption{Averaged GM values for structures  predicted using \OurTool{} for subset combination of probing data. MFE and MEA structures, as computed by RNAfold, are included in the case of mono-probing, and in the absence of probing data.}
+	\caption{Averaged GM values for structures  predicted using \OurTool{} for subset combination of probing data. MFE and MEA structures, as computed by RNAfold, are included as controls in the absence of probing data, and for mono-probing.}
 	\label{cordero1}
 \end{figure}
 
@@ -641,7 +636,7 @@ Unsurprisingly, the presence/absence of Magnesium during the probing seems to im
 		\begin{tabular}{@{}lccHHH}
 			\toprule
 			& &	& \multicolumn3c{MCC}\\ 
-			Condition name	& Tech.  & +/- Mg$^{2+}$ &	\multicolumn1l{\OurTool}	&	\multicolumn1l{MFE}&	\multicolumn1l{MEA}\\ \midrule
+			Condition name	& Tech.  & +/- Mg$^{2+}$ &	\multicolumn1l{\relsize{-1}\OurTool}	&	\multicolumn1l{MFE}&	\multicolumn1l{MEA}\\ \midrule
 			1M7ILUMg  	& \Mut	& \Mg &	.85	&	.82	&	.82	\\
 			1M7ILU  	& \Mut	& \NoMg &	.84	&	.82	&	.84	\\
 		    NMIAMg  	& \Mut	& \Mg &	.81	&	.8	&	.8	\\
@@ -721,6 +716,10 @@ Our distance assessment and clustering on conditions reveals groups of condition
 \paragraph{Similar conditions yield limited changes.} To partially validate our hypothesis, we executed \OurTool{} on similar conditions, considering the quality of predictions (MCC) for each subset (having at least two conditions) of the [1M7ILU3Mg and 1M7ILUMg], [BzCNMg, NMIAMgCE, NAIMg] and [DMSMg, NMIA, NMIAMg, 1M7ILU, probing-free] clusters. Note that our similarity notion and clustering of conditions is purely based on the ensemble features, and does not consider the MCC of individual conditions.
 As expected, compared to the average MCC over associated mono-probing analyses, 
 considering multiple similar conditions induce a limited shift in MCC (between -2.5\% and +4.5\%) and an overall modest improvement (+0.3\% average MCC). This is consistent with the idea that supplementing a probing-based modeling with compatible conditions provides very little additional information, leading to the observed limited contribution of similar conditions to the quality of predictions.
+
+\newcommand{\Bull}[1]{\raisebox{1pt}{\tikzcircle[black, fill=#1]{3pt}}}
+
+
 \begin{table}[h]
 	\Heatset{min=0.6,   
 		max=.83,   
@@ -739,19 +738,19 @@ considering multiple similar conditions induce a limited shift in MCC (between -
 				%{\em Similar conditions}\\
 			
 		
-\tikzcircle[black, fill=gray]{3pt} 1M7ILUMg, 1M7ILU3Mg	&	.82	&	.795	\\
+\Bull{gray} 1M7ILUMg, 1M7ILU3Mg	&	.82	&	.795	\\
 \midrule		
-\tikzcircle[black, fill=OliveGreen]{3pt}1M7MgCE, NMIAMgCE	&	.73	&	.715	\\
+\Bull{OliveGreen}1M7MgCE, NMIAMgCE	&	.73	&	.715	\\
 \midrule
-\tikzcircle[black, fill=Bittersweet]{3pt} NaiMg, CMCTMg	&	.73	&	.715	\\
+\Bull{Bittersweet} NaiMg, CMCTMg	&	.73	&	.715	\\
 \midrule
-\tikzcircle[black, fill=SeaGreen]{3pt} NMIAMg, 1M7ILU, NMIA	&	.8	&	.82	\\
+\Bull{SeaGreen} NMIAMg, 1M7ILU, NMIA	&	.8	&	.82	\\
 NMIAMg, 1M7ILU	&	.82	&	.825	\\
 1M7ILU, NMIA	&	.82	&	.82	\\
 NMIAMg,  NMIA	&	.8	&	.805	\\
 
 \midrule
-\tikzcircle[black, fill=Yellow]{3pt} Nai, BzCN, 1M7CE, NMIACE	&	.6	&	.6	\\
+\Bull{Yellow} Nai, BzCN, 1M7CE, NMIACE	&	.6	&	.6	\\
 Nai, BzCN, 1M7CE	&	.6	&	.6	\\
 Nai, BzCN, NMIACE	&	.61	&	.6	\\
 Nai, 1M7CE, NMIACE	&	.61	&	.6	\\
@@ -780,6 +779,7 @@ BzCN,NMIACE	&	.6	&	.605	\\
 
 \paragraph{Orthogonal conditions impact .} Having established the redundant nature of similar conditions, and their limited contribution to downstream modeling, we turn to an analysis of conditions that are divergent, as indicated by their presence in different clusters. First we consider the quality of predictions obtained by choosing a single condition in each of the 8 clusters.
 
+
 To test these assumptions, we run \OurTool:
 \begin{itemize}
 	\item Across clusters (one condition in each cluster, ie 24 experiments); 
@@ -792,12 +792,11 @@ To test these assumptions, we run \OurTool:
 			Min colour=BadCol, % colour for values below min
 			Max colour=Aquamarine3   % colour for values above max
 		}
-		
 		\begin{adjustbox}{max width=.5\textwidth}
 			\begin{tabular}{@{}lllllHH@{}}
 				\toprule
 				\multicolumn4{@{}l@{}}{Conditions for multi clusters}&& \multicolumn2c{MCC}\\
-				Clust. \tikzcircle[black, fill=SeaGreen]{3pt} &Clust. \tikzcircle[black, fill=gray]{3pt}& Clust.  \tikzcircle[black, fill=OliveGreen]{3pt} & Clust. \tikzcircle[black, fill=Bittersweet]{3pt}&  & \multicolumn1c{+Nai}& \multicolumn1c{-Nai}\\
+				Clust. \Bull{SeaGreen} &Clust. \Bull{gray}& Clust.  \Bull{OliveGreen} & Clust. \Bull{Bittersweet}&  & \multicolumn1c{+Nai}& \multicolumn1c{-Nai}\\
 				\midrule
 				NMIAMg& 1M7ILUMg& 1M7MgCE& NaiMg& + $\mathcal{M}$ &.83&.84\\
 			NMIAMg& 1M7ILUMg& 1M7MgCE& CMCTMg& + $\mathcal{M}$ &.82&.75\\
@@ -838,7 +837,7 @@ NMIA	&	1M7ILU3Mg	&	NMIAMgCE	&	CMCTMg	&	+ $\mathcal{M}$	&	0.73	&	0.74	\\
 	\item Report triplet scores; The best performance:
 	%\paragraph{Structure with the maximal MCC}
 	%for the combination [1M7ILUMg,NMIAMgCE,1M7ILU3] a unique structure is perdicted showing the maximal MCC reported for 3 sources of probig data.
-	\begin{table}
+	\begin{table*}
 		\begin{adjustbox}{max width=\linewidth}
 			\begin{tabular}{@{}ccccccccc@{}}
 				\toprule
@@ -856,10 +855,9 @@ NMIA	&	1M7ILU3Mg	&	NMIAMgCE	&	CMCTMg	&	+ $\mathcal{M}$	&	0.73	&	0.74	\\
 			\end{tabular}
 		\end{adjustbox}
 		Optimal structure with MCC=.853,  $(((((..((((((.(((((((((.......))))))))).((((((((((((((......(((((....((((.(((......)))........((.((....))))....))))...))))).(((.....))))))))))...........((((....))))..))))))).))))))..)))))$
-		\yp{ Yann would you please modify the structure in Figure 4 according to the new structure}.
-	\end{table}
-	\item Report the best possible score; + all conditions: 
-	\begin{table}[h]
+		\caption{Yann would you please modify the structure in Figure 4 according to the new structure?}
+	\end{table*}
+	\begin{table}
 		\begin{adjustbox}{max width=.5\textwidth}
 			\begin{tabular}{@{}llllll@{}}
 				\toprule
@@ -871,6 +869,7 @@ NMIA	&	1M7ILU3Mg	&	NMIAMgCE	&	CMCTMg	&	+ $\mathcal{M}$	&	0.73	&	0.74	\\
 				\bottomrule
 			\end{tabular}
 		\end{adjustbox}
+		\caption{Report the best possible score; + all conditions}
 	\end{table}
 \end{itemize}
 
@@ -955,7 +954,7 @@ These results support a notion of complementarity between the probing data produ
 	\centering{
 		\includegraphics[width=\linewidth]{graphs/combinationscale}}
 	\label{Vsrsample}
-	\caption{Accuracy of prediction reported as the MCC when considering the WT, considering a set of (2,3) and 10 variants. for 2 mutants we also tested the case where sole 20 variants close to the WT were considered. Rq: for the case of selected variants( close to the WT in term of reactivity distances, a single centroid is reported for each run from the 100.}\label{fig:variantanalysis}
+	\caption{Prediction accuracy (MCC) when considering the WT, supplemented with a set of $k=$1, 2, 3, or 10 single-point mutants, selected uniformly at random ({\sf WT+$k$M}). For 2 mutants, we also considered selecting mutants from the 20 most similar to the WT.}\label{fig:variantanalysis}
 \end{figure}
 
 
@@ -980,11 +979,6 @@ These results support a notion of complementarity between the probing data produ
 
 \section{Discussion}
 
-\begin{figure*}
-	{\centering\includegraphics[width=\linewidth]{graphs/Reproductibility}\\}
-	
-	\caption{MCC of predicted structures under conditions with and without Mg$^{2+}$, differentiating stop-inducing and mutation-inducing protocols, over 10 runs of IPANEMAP. }\label{fig:biclustering}
-\end{figure*}
 
 
 \begin{itemize}
@@ -997,6 +991,11 @@ These results support a notion of complementarity between the probing data produ
 {\em Role of outliers.} 
 
 
+\begin{figure*}
+	{\centering\includegraphics[width=1\linewidth]{graphs/Reproductibility}\\}
+	
+	\caption{MCC of predicted structures under conditions with and without Mg$^{2+}$, differentiating stop-inducing and mutation-inducing protocols, over 10 runs of IPANEMAP. }\label{fig:biclustering}
+\end{figure*}
 
 
 \Blabla[5-6]
