@@ -250,9 +250,9 @@ $^{2}$CNRS UMR 8015, Laboratoire de cristallographie et RMN Biologiques, Univers
 % state, Zip or postal code, country
 
 \history{%
-Received January 1, 2009;
-Revised February 1, 2009;
-Accepted March 1, 2009}
+Received January 1, 2019;
+Revised February 1, 2019;
+Accepted March 1, 2019}
 
 \maketitle
 
@@ -271,6 +271,12 @@ online.
 \section{Introduction}
 
 Integration of experimental structure probing data in the process of secondary structure prediction greatly improve the models. However, probing experiments do not result in binary values for any given nucleotide. This can result from distinct reactivity of a single stranded nucleotide according to its local environment. But it can also be the consequence of many reasons including, structural heterogeneity, experimental error, structural dynamics and the imperfection of the reactivity prediction. Therefore as can be verified for many benchmark RNA for which a X-ray structure model has been established, occasionally a nucleotide involved in a stable secondary structure may appear reactive, or conversely a flexible nucleotide may be unreactive to such or such probe. As a consequence, integrating the probing data as "hard" constraints, prohibiting any pairing for highly reactive nucleotides or forcing pairing of the unreactive, would preclude the prediction of valuable structure. For this reason it appeared more relevant and efficient to take probing data into account in the prediction pipeline as soft constraints, i.e as penalties in the score when elaborating the models~\cite{Deigan2009,Washietl2012,Zarringhalam2012}. 
+% **************************************************************
+% Keep this command to avoid text of first page running into the
+% first page footnotes
+\enlargethispage{-65.1pt}
+% **************************************************************
+
 
 As a consequence, popular software for secondary structure prediction, such as \Software{RNAStructure}~\cite{Mathews2004} or \Software{RNAfold}~\cite{Lorenz2011}, enable the prediction of models in which some nucleotides have an aberrant reactivity. 
 Different chemical probes harbouring different chemical reactivities have been developed. Amongst the most popular, DiMethyl Sulfate (DMS) is a small molecule that methylates N1 of adenines and N3 of cytosine if they are not involved in a hydrogen bond. Similarly, 1-cyclohexyl-3-(2-morpholinoethyl)carbodiimide metho-p-toluene sulfonate (CMCT) reacts on the Watson-Crick face of guanosine (N1) and uracyl (N3) when not engaged in a hydrogen bond~\cite{Ehresmann1987,Brunel2000}. These two reagents therefore mostly reveal Watson-Crick base pairing, but also any other type of contact involving the same edge. SHAPE reagents belong to another class of small molecules that react with the 2’ hydroxyl of flexible ribose~\cite{McGinnis2012}, although the exact properties observed by SHAPE remain the object of ongoing investigations~\cite{Hurst2018,Mlynsky2018}. 
@@ -403,7 +409,7 @@ of to probing data-driven predictions. It consists of $24$ RNA sequences with kn
 This dataset includes sequences originating from a variety of organisms, and spans lengths ranging from $34$ nts to $530$ nts, with a focus on riboswitches and complex RNA architectures. 
 
 \subsubsection{Didymium structural model and probing data} 
-We considered the 188 nucleotides Lariat capping ribozyme from {\itshape Didymium iridis}, resolved 3.85 \AA{} resolution using X-Ray cristallography (PDB: 4P8Z)~\citep{Meyer2014}.  We annotated the secondary structure elements using the \Software{DSSR} software from the 3DNA suite~\cite{CitationNeeded}. Non-canonical base pairs were removed~\citep{Smit2008}, by considering as the secondary structure the maximum subset of non-pseudoknotted base pairs.
+We considered the 188 nucleotides Lariat capping ribozyme from {\itshape Didymium iridis}, resolved 3.85 \AA{} resolution using X-ray cristallography (PDB: 4P8Z)~\citep{Meyer2014}.  We annotated the secondary structure elements using the \Software{DSSR} software from the 3DNA suite~\cite{CitationNeeded}. Non-canonical base pairs were removed~\citep{Smit2008}, by considering as the secondary structure the maximum subset of non-pseudoknotted base pairs.
 
 Probing data were experimentally generated using a comprehensive set of conditions covering various probing reagents and SHAPE technologies for stop-inducing and mutation-inducing adducts. We also considered the presence/absence of Mg$^{2+}$, both to assess the capacity of \OurTool{} to recover tertiary interactions, and to assess the induced discrepancy on probing profiles and pseudo-Boltzmann ensembles. Produced probing data are described in the supplementary material.
 
@@ -425,7 +431,7 @@ $$ \GMean(S\mid \Ref)=\sqrt{\text{Sens}(S\mid \Ref)\times \text{PPV}(S\mid\Ref)}
 where $\text{Sens}(S\mid \Ref)$ represents the proportion of base pairs in $\Ref$ that are in $S$, and $\text{PPV}(S\mid \Ref)$ is the proportion of base pairs in $S$ that are also in $\Ref$. This quality metrics has very high correlation with the MCC, to which it is asymptotically equivalent as shown by~\citet{Gorodkin2001}.
 
 \subsection{Probing a Lariat capping ribozyme from Didymium iridis}
-The structure of the Lariat capping ribozyme from Didymium iridis (DiLCrz) was probed with different SHAPE reagents: 1M7 (1-methyl-7 nitrosatoic anhydre), NMIA (N-Methyl Isatoic Anhydre), BzCN (Benzoyl cyanide) and NAI (2-methylnicotinic acid imidazolide) in presence and absence of magnesium ions, and with DMS (DiMethylSulfate) and CMCT only in presence of magnesium ions.
+The structure of the Lariat capping ribozyme from \textit{Didymium iridis }(DiLCrz) was probed with different SHAPE reagents: 1M7 (1-methyl-7 nitrosatoic anhydre), NMIA (N-Methyl Isatoic Anhydre), BzCN (Benzoyl cyanide) and NAI (2-methylnicotinic acid imidazolide) in presence and absence of magnesium ions, and with DMS (DiMethylSulfate) and CMCT only in presence of magnesium ions.
 As a preliminary experiment, we verified that DiLCrz generally adopts a single global architecture. To this end, we subjected DiLCrz to a standard denaturation protocol (80\degree{}C for 2 min in H2O, addition of 40 mM of HEPES at 7.5 pH, 100 mM of KCl, 5 mM of MgCl2, followed by 10 min at room temperature, and 10 min at 37\degree{}C), and observed the production of a single band on a non-denaturing PAGE, strongly suggesting the adoption of a single conformation.
 
 \subsubsection{Stops-inducing probing protocol (SHAPE-CE).} 
@@ -433,7 +439,7 @@ As a preliminary experiment, we verified that DiLCrz generally adopts a single g
 Modifications were revealed by reverse transcription using 5’ fluorescently labelled primers (D2 or D4 WellRED, Sigma Aldrich 5’ CTG-TGA-ACT-AAT-GCT-GTC-CTT-TAA 3’) and M-MLV RNAse H- reverse transcriptase (Promega) as previously described~\cite{Deforges2017}, with only minor modification of the originally described SHAPE protocol\cite{Wilkinson2006}. cDNAs were separated by capillary electrophoresis (Beckman Coulter, Ceq8000). Data were analyzed using the  QuSHAPE~\cite{Karabiber2013} software. RNA probing was performed in triplicate with distinct RNA preparations.
 
 \subsubsection{Mutations-inducing probing (SHAPE-MaP).}
-Probing was conducted as described in \citet{Smola2015}, except we used SuperScript III reverse transcriptase (ThermoFisher) at 50\degree{}C for 3 hours using the following specific primer 
+Probing was conducted as described in \citet{Smola2015}, except we used SuperScript III reverse transcriptase (ThermoFisher) at 50\degree{}C for 3 hours using the following specific primer: 
 
 {\centering \relsize{-1}%
 5' CTT-CAT-AGC-CTT-ATG-CAG-TTG-CTT-TTT-TTT-TTT
