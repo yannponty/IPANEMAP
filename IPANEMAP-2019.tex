@@ -281,6 +281,13 @@ Integration of experimental structure probing data in the process of secondary s
 As a consequence, popular software for secondary structure prediction, such as \Software{RNAStructure}~\cite{Mathews2004} or \Software{RNAfold}~\cite{Lorenz2011}, enable the prediction of models in which some nucleotides have an aberrant reactivity. 
 Different chemical probes harbouring different chemical reactivities have been developed. Amongst the most popular, DiMethyl Sulfate (DMS) is a small molecule that methylates N1 of adenines and N3 of cytosine if they are not involved in a hydrogen bond. Similarly, 1-cyclohexyl-3-(2-morpholinoethyl)carbodiimide metho-p-toluene sulfonate (CMCT) reacts on the Watson-Crick face of guanosine (N1) and uracyl (N3) when not engaged in a hydrogen bond~\cite{Ehresmann1987,Brunel2000}. These two reagents therefore mostly reveal Watson-Crick base pairing, but also any other type of contact involving the same edge. SHAPE reagents belong to another class of small molecules that react with the 2’ hydroxyl of flexible ribose~\cite{McGinnis2012}, although the exact properties observed by SHAPE remain the object of ongoing investigations~\cite{Hurst2018,Mlynsky2018}. 
 
+% **************************************************************
+% Keep this command to avoid text of first page running into the
+% first page footnotes
+\enlargethispage{-65.1pt}
+% **************************************************************
+
+
 Ribose flexibility is proportional to the degree of freedom of the nucleotide, allowing SHAPE reagents to discriminate nucleotides in stable interactions from others. Different SHAPE reagents are endowed with slightly different reactivities that can help differentiating Watson-Crick base pairs from more dynamics tertiary contacts~\cite{Gherghe2008,Steen2012}. This diversity of probes reflecting not only the accessibility of each position of the RNA but also qualitatively different information has been widely used since the very early days of RNA structure probing~\cite{Moazed1986, Romaniuk1988, Butcher1994, Brunel2000,  Cordero2015, Somarowthu2015, Gross2017}. However, for the reason raised above computer assisted secondary structure modeling of the same RNA using probing data obtained with different probes often yield different models, none of which are fully consistent with all the probing data. In fine, the multiprobing strategy often leaves the user facing different models from which he is unable to choose. 
 In order to identify the model that fits the most with all the data researchers resort to very intuitive and manual methods such as projecting the results obtained with one probe on the different models obtained using the constraints from another probe~\cite{Herbreteau2005,James2008,Weill2004,Othman2014}. At the end of the process the experimentator is often left with several models, all of which appear equally consistent with the probing data, and the choice of the "best" model become subjective. 
 
@@ -568,6 +575,16 @@ This observed discrepancy is somewhat surprising, given that \OurTool and \Softw
 
 
 \subsection{Comparing and exploiting multiple probing conditions: A case study on the Lariat capping ribozyme}
+\newcommand{\Bull}[1]{{\sf\bfseries#1}~\raisebox{1.5pt}{\tikzcircle[black, fill=cluster#1]{3pt}}}
+
+\colorlet{clusterA}{SeaGreen}
+\colorlet{clusterB}{Yellow}
+\colorlet{clusterC}{gray}
+\definecolor{clusterD}{HTML}{AFAFE9}
+\colorlet{clusterE}{OliveGreen}
+\colorlet{clusterF}{blue!90!black}
+\colorlet{clusterG}{Orange}
+\colorlet{clusterH}{SeaGreen!40}
 
 \begin{figure*}
 	{\centering {\includegraphics[width=.9\linewidth]{graphs/didy/didy}}\\}
@@ -583,14 +600,14 @@ Faced with diverse probing conditions, we first assess the compatibility of the 
 
 
 \begin{figure}
-	{\centering \includegraphics[width=1.2\linewidth]{graphs/didy/PCA}\\}%, trim= 3.5cm .5cm 1cm 0,clip]
+	{\centering \includegraphics[width=\linewidth]{graphs/didy/PCA}\\}%, trim= 3.5cm .5cm 1cm 0,clip]
 	
 	\caption{2D spatial representation of conditions, computed by Principal Component Analysis (PCA) to optimally reflect pairwise ensemble distances between conditions. Colors and grayed areas indicate clusters of conditions.}\label{fig:PCA}
 \end{figure}
 
-A visual inspection of Figure~\ref{fig:PCA} suggests the presence of 8 clusters. In order to objectively build groups of compatible conditions, we performed a k-mean clustering using \Software{scikit-learn}, setting k to 8, and obtained the clusters highlighted in Figures~\ref{fig:biclustering} and \ref{fig:PCA}.  We obtain 2 \Def{singleton clusters} restricted to a single condition (1M7ILU3) and (BzCNMg) and six \Def{composite clusters} consisting of 2 (1M7ILU3Mg, 1M7ILUMg), (CMCTMg ,NaiMg), (NMIAMgCE,1M7MgCE) and (DMSMg, probing-free), 3 (1M7ILU, NMIA, and NMIAMg) and 4 conditions (1M7CE, NMIACE, BzCN and Nai) respectively.  Remarkably, the predicted clusters are consistent with a spectral biclustering implemented in \Software{scikit-learn} and executed with default parameters. Indeed, in the linear ordering resulting from the bi-clustering, the conditions in each cluster end up forming contiguous subsequences.
+A visual inspection of Figure~\ref{fig:PCA} suggests the presence of 8 clusters. In order to objectively build groups of compatible conditions, we performed a k-mean clustering using \Software{scikit-learn}, setting k to 8, and obtained the clusters highlighted in Figures~\ref{fig:biclustering} and \ref{fig:PCA}.  We obtain 2 \Def{singleton clusters} restricted to a single condition (\Bull{D}~\{1M7ILU3\} and \Bull{H}~\{BzCNMg\}) and six \Def{composite clusters}, consisting of 2 conditions (\Bull{C}~\{1M7ILU3Mg, 1M7ILUMg\}, \Bull{G}~\{CMCTMg, NaiMg\}, \Bull{E}~\{NMIAMgCE,1M7MgCE\}, and \Bull{F}~\{DMSMg, probing-free\}), 3 conditions (\Bull{A}~\{1M7ILU, NMIA, NMIAMg\}) and 4 conditions (\Bull{B}~\{1M7CE, NMIACE, BzCN, Nai\}) respectively.  The predicted clusters are generally consistent with the ordering resulting from a spectral biclustering, implemented in \Software{scikit-learn} and executed with default parameters, as illustrated by Figure~\ref{fig:glycine_example}. 
 
-It is worth noting that the average ensemble distance and PCA visualization support a status of outliers for 1M7CE, NMIACE, BzCN and NAI and, to a lesser extent, 1M7ILU3 conditions.  We hypothesize that such conditions may be either representative of alternative conformations, or be altogether erroneous. Consequently, we will single out these two clusters while investigating in the following sections the performances of multi-probing in their presence and absence.
+It is worth noting that the average ensemble distance and PCA visualization support a status of outliers for 1M7CE, NMIACE, BzCN and NAI and, to a lesser extent, the 1M7ILU3 and 1M7ILU3Mg conditions.  We hypothesize that such conditions may be either representative of alternative conformations, or be altogether erroneous. Consequently, we will single out these two clusters within our detailed analysis of the multi-probing performances.
 
 
 
@@ -723,8 +740,6 @@ Our distance assessment and clustering on conditions reveals groups of condition
 As expected, compared to the average MCC over associated mono-probing analyses, 
 considering multiple similar conditions induce a limited shift in MCC (between -2.5\% and +4.5\%) and an overall modest improvement (+0.3\% average MCC). This is consistent with the idea that supplementing a probing-based modeling with compatible conditions provides very little additional information, leading to the observed limited contribution of similar conditions to the quality of predictions.
 
-\newcommand{\Bull}[1]{\raisebox{1pt}{\tikzcircle[black, fill=#1]{3pt}}}
-
 
 \begin{table}[h]
 	\Heatset{min=0.6,   
@@ -735,28 +750,21 @@ considering multiple similar conditions induce a limited shift in MCC (between -
 		Max colour=Aquamarine3   % colour for values above max
 	}
 	{\centering
-		\begin{adjustbox}{max width=.5\textwidth}
+		%\begin{adjustbox}{max width=.5\textwidth}
 			\begin{tabular}{@{}lHH@{}}
 				\toprule
 				& \multicolumn2c{MCC}\\
-				Description & \multicolumn1c{Multi}& \multicolumn1c{Avg}\\
+				Description & \multicolumn1c{Multi}& \multicolumn1{c@{}}{Avg}\\
 				\midrule	
 				%{\em Similar conditions}\\
 			
-		
-\Bull{gray} 1M7ILUMg, 1M7ILU3Mg	&	.82	&	.795	\\
-\midrule		
-\Bull{OliveGreen}1M7MgCE, NMIAMgCE	&	.73	&	.715	\\
-\midrule
-\Bull{Bittersweet} NaiMg, CMCTMg	&	.73	&	.715	\\
-\midrule
-\Bull{SeaGreen} NMIAMg, 1M7ILU, NMIA	&	.8	&	.82	\\
+\Bull{A} NMIAMg, 1M7ILU, NMIA	&	.8	&	.82	\\
 NMIAMg, 1M7ILU	&	.82	&	.825	\\
 1M7ILU, NMIA	&	.82	&	.82	\\
 NMIAMg,  NMIA	&	.8	&	.805	\\
 
 \midrule
-\Bull{Yellow} Nai, BzCN, 1M7CE, NMIACE	&	.6	&	.6	\\
+\Bull{B} Nai, BzCN, 1M7CE, NMIACE	&	.6	&	.6	\\
 Nai, BzCN, 1M7CE	&	.6	&	.6	\\
 Nai, BzCN, NMIACE	&	.61	&	.6	\\
 Nai, 1M7CE, NMIACE	&	.61	&	.6	\\
@@ -764,10 +772,15 @@ BzCN, 1M7CE, NMIACE	&	.61	&	.6	\\
 Nai, BzCN	&	.6	&	.6	\\
 Nai, 1M7CE	&	.59	&	.6	\\
 Nai, NMIACE	&	.6	&	.605	\\
- BzCN, 1M7CE	&	.61	&	.6	\\
+BzCN, 1M7CE	&	.61	&	.6	\\
 BzCN,NMIACE	&	.6	&	.605	\\
-1M7CE, NMIACE	&	.62	&	.605	\\
-			
+1M7CE, NMIACE	&	.62	&	.605	\\		
+\midrule		
+\Bull{C} 1M7ILUMg, 1M7ILU3Mg	&	.82	&	.795	\\
+\midrule		
+\Bull{E} 1M7MgCE, NMIAMgCE	&	.73	&	.715	\\
+\midrule
+\Bull{G} NaiMg, CMCTMg	&	.73	&	.715	\\
 				% {\em Distant conditions}\\
 				%1M7,NAI,CMCTMg,1M7ILU3,1M7Mg 	&		\textbf{.819}& .66\\
 				
@@ -779,7 +792,8 @@ BzCN,NMIACE	&	.6	&	.605	\\
 				%{\em All 14 conditions} &		\textbf{.795}& .735\\
 				\bottomrule
 			\end{tabular}
-		\end{adjustbox}\\}
+		%\end{adjustbox}
+		\\}
 	\caption{Similar conditions.}\label{multiprobingdidy1}
 \end{table}
 
@@ -798,11 +812,11 @@ To test these assumptions, we run \OurTool:
 			Min colour=BadCol, % colour for values below min
 			Max colour=Aquamarine3   % colour for values above max
 		}
-		\begin{adjustbox}{max width=.5\textwidth}
+		\begin{adjustbox}{max width=\linewidth}
 			\begin{tabular}{@{}lllllHH@{}}
 				\toprule
 				\multicolumn4{@{}l@{}}{Conditions for multi clusters}&& \multicolumn2c{MCC}\\
-				Clust. \Bull{SeaGreen} &Clust. \Bull{gray}& Clust.  \Bull{OliveGreen} & Clust. \Bull{Bittersweet}&  & \multicolumn1c{+Nai}& \multicolumn1c{-Nai}\\
+				Clust. \Bull{A} &Clust. \Bull{C}& Clust.  \Bull{E} & Clust. \Bull{G}&  & \multicolumn1c{+Nai}& \multicolumn1c{-Nai}\\
 				\midrule
 				NMIAMg& 1M7ILUMg& 1M7MgCE& NaiMg& + $\mathcal{M}$ &.83&.84\\
 			NMIAMg& 1M7ILUMg& 1M7MgCE& CMCTMg& + $\mathcal{M}$ &.82&.75\\
