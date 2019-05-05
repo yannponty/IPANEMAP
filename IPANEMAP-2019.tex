@@ -279,7 +279,7 @@ Integration of experimental structure probing data in the process of secondary s
 
 
 As a consequence, popular software for secondary structure prediction, such as \Software{RNAStructure}~\cite{Mathews2004} or \Software{RNAfold}~\cite{Lorenz2011}, enable the prediction of models in which some nucleotides have an aberrant reactivity. 
-Different chemical probes harbouring different chemical reactivities have been developed. Amongst the most popular, DiMethyl Sulfate (DMS) is a small molecule that methylates N1 of adenines and N3 of cytosine if they are not involved in a hydrogen bond. Similarly, 1-cyclohexyl-3-(2-morpholinoethyl)carbodiimide metho-p-toluene sulfonate (CMCT) reacts on the Watson-Crick face of guanosine (N1) and uracyl (N3) when not engaged in a hydrogen bond~\cite{Ehresmann1987,Brunel2000}. These two reagents therefore mostly reveal Watson-Crick base pairing, but also any other type of contact involving the same edge. SHAPE reagents belong to another class of small molecules that react with the 2’ hydroxyl of flexible ribose~\cite{McGinnis2012}, although the exact properties observed by SHAPE remain the object of ongoing investigations~\cite{Hurst2018,Mlynsky2018}. 
+Different chemical probes harbouring different chemical reactivities have been developed. Amongst the most popular, DiMethyl Sulfate (DMS) is a small molecule that methylates N1 of adenines and N3 of cytosine if they are not involved in a hydrogen bond. Similarly, 1-cyclohexyl-3-(2-morpholinoethyl)carbodiimide metho-p-toluene sulfonate (CMCT) reacts on the Watson-Crick face of guanosine (N1) and uracyl (N3) when not engaged in a hydrogen bond~\cite{Ehresmann1987,Brunel2000}. These two reagents therefore mostly reveal Watson-Crick base pairing, but also any other type of contact involving the same edge. SHAPE reagents belong to another class of small molecules that react with the 2’ hydroxyl of flexible ribose~\cite{McGinnis2012}, although the exact properties observed by SHAPE remain the object of ongoing investigations~\cite{Hurst2018,Mlynsky2018,Frezza2019}. 
 
 % **************************************************************
 % Keep this command to avoid text of first page running into the
@@ -575,7 +575,10 @@ This observed discrepancy is somewhat surprising, given that \OurTool and \Softw
 
 
 \subsection{Comparing and exploiting multiple probing conditions: A case study on the Lariat capping ribozyme}
-\newcommand{\Bull}[1]{{\sf\bfseries#1}~\raisebox{1.5pt}{\tikzcircle[black, fill=cluster#1]{3pt}}}
+
+\newcommand{\Bull}[1]{\raisebox{1pt}{\tikzcircle[black, fill=cluster#1]{3pt}}}
+
+\newcommand{\BullLab}[1]{{\sf\bfseries#1}~\Bull{#1}}
 
 \colorlet{clusterA}{SeaGreen}
 \colorlet{clusterB}{Yellow}
@@ -861,7 +864,7 @@ NMIA	&	1M7ILU3Mg	&	NMIAMgCE	&	CMCTMg	&	+ $\mathcal{M}$	&	0.73	&	0.74	\\
 		\begin{adjustbox}{max width=\linewidth}
 			\begin{tabular}{@{}ccccccccc@{}}
 				\toprule
-				\tikzcircle[black, fill=gray]{3pt} 1M7ILUMg&	\tikzcircle[black, fill=Orchid]{3pt} 1M7ILU3 & \tikzcircle[black, fill=SeaGreen]{3pt} 1M7ILU&	\tikzcircle[black, fill=blue]{3pt} DMSMg& \tikzcircle[black, fill=OliveGreen]{3pt} NMIAMgCE& \tikzcircle[black, fill=Bittersweet]{3pt} CMCTMg & \tikzcircle[black, fill=SeaGreen!40]{3pt} BzCNMg& MCC & Mono-Avg\\
+				\Bull{C}1M7ILUMg&	\tikzcircle[black, fill=Orchid]{3pt} 1M7ILU3 & \Bull{A}1M7ILU&	\tikzcircle[black, fill=blue]{3pt} DMSMg& \tikzcircle[black, fill=OliveGreen]{3pt} NMIAMgCE& \tikzcircle[black, fill=Bittersweet]{3pt} CMCTMg & \tikzcircle[black, fill=SeaGreen!40]{3pt} BzCNMg& MCC & Mono-Avg\\
 				\midrule
 				
 				* & &* &* & & &&\textbf{.853}&.77\\
