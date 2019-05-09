@@ -25,6 +25,7 @@
 \usepackage{tikz}
 \usepackage{makecell}
 \usepackage{gensymb}
+\usepackage{inconsolata}
 
 %%%%%% TIKZ %%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -166,7 +167,7 @@
 \DeclareMathOperator*{\argmin}{\arg\!\min}
 \DeclareMathOperator*{\argmax}{\arg\!\max}
 \newcommand{\multicoomment}[1]{}
-\newcommand{\Software}[1]{$\text{\ttfamily #1}$}
+\newcommand{\Software}[1]{\text{\ttfamily\bfseries #1}}
 \newcommand{\OurTool}{\Software{IPANEMAP}\xspace}
 \newcommand{\SM }{{\tt SHAPEMap}\xspace}
 \newcommand{\SH }{{\tt SHAPE}\xspace}
@@ -214,7 +215,7 @@
 %%%%%% MACROS %%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
+\setlength{\parskip}{.3em}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -284,7 +285,7 @@ Different chemical probes harbouring different chemical reactivities have been d
 % **************************************************************
 % Keep this command to avoid text of first page running into the
 % first page footnotes
-\enlargethispage{-65.1pt}
+%\enlargethispage{-65.1pt}
 % **************************************************************
 
 
@@ -416,7 +417,7 @@ of to probing data-driven predictions. It consists of $24$ RNA sequences with kn
 This dataset includes sequences originating from a variety of organisms, and spans lengths ranging from $34$ nts to $530$ nts, with a focus on riboswitches and complex RNA architectures. 
 
 \subsubsection{Didymium structural model and probing data} 
-We considered the 188 nucleotides Lariat capping ribozyme from {\itshape Didymium iridis}, resolved 3.85 \AA{} resolution using X-ray cristallography (PDB: 4P8Z)~\citep{Meyer2014}.  We annotated the secondary structure elements using the \Software{DSSR} software from the 3DNA suite~\cite{CitationNeeded}. Non-canonical base pairs were removed~\citep{Smit2008}, by considering as the secondary structure the maximum subset of non-pseudoknotted base pairs.
+We considered the 188 nucleotides Lariat capping ribozyme from {\itshape Didymium iridis}, resolved 3.85 \AA{} resolution using X-ray cristallography (PDB: 4P8Z)~\citep{Meyer2014}.  We annotated the secondary structure elements using the \Software{DSSR} software from the 3DNA suite~\cite{Lu2015}. Non-canonical base pairs were removed~\citep{Smit2008}, by considering as the secondary structure the maximum subset of non-pseudoknotted base pairs.
 
 Probing data were experimentally generated using a comprehensive set of conditions covering various probing reagents and SHAPE technologies for stop-inducing and mutation-inducing adducts. We also considered the presence/absence of Mg$^{2+}$, both to assess the capacity of \OurTool{} to recover tertiary interactions, and to assess the induced discrepancy on probing profiles and pseudo-Boltzmann ensembles. Produced probing data are described in the supplementary material.
 
@@ -437,7 +438,7 @@ For the sake of direct comparison with competing methods, we also report the rec
 $$ \GMean(S\mid \Ref)=\sqrt{\text{Sens}(S\mid \Ref)\times \text{PPV}(S\mid\Ref)} $$
 where $\text{Sens}(S\mid \Ref)$ represents the proportion of base pairs in $\Ref$ that are in $S$, and $\text{PPV}(S\mid \Ref)$ is the proportion of base pairs in $S$ that are also in $\Ref$. This quality metrics has very high correlation with the MCC, to which it is asymptotically equivalent as shown by~\citet{Gorodkin2001}.
 
-\subsection{Probing a Lariat capping ribozyme from Didymium iridis}
+\subsection{Experimental probing protocols}
 The structure of the Lariat capping ribozyme from \textit{Didymium iridis }(DiLCrz) was probed with different SHAPE reagents: 1M7 (1-methyl-7 nitrosatoic anhydre), NMIA (N-Methyl Isatoic Anhydre), BzCN (Benzoyl cyanide) and NAI (2-methylnicotinic acid imidazolide) in presence and absence of magnesium ions, and with DMS (DiMethylSulfate) and CMCT only in presence of magnesium ions.
 As a preliminary experiment, we verified that DiLCrz generally adopts a single global architecture. To this end, we subjected DiLCrz to a standard denaturation protocol (80\degree{}C for 2 min in H2O, addition of 40 mM of HEPES at 7.5 pH, 100 mM of KCl, 5 mM of MgCl2, followed by 10 min at room temperature, and 10 min at 37\degree{}C), and observed the production of a single band on a non-denaturing PAGE, strongly suggesting the adoption of a single conformation.
 
@@ -520,9 +521,6 @@ This improves by $8.5\%$, $2.7\%$ and $1.4\%$ the average predictions achieved u
 %CMCT/DMS/NMIA :0.6988333333/0.7588333333/0.771
 Table~\ref{fig:glycine_example} illustrates the incremental refinement of \OurTool predictions for a glycine riboswitch upon increasing the number of structures.
  
-\yp{Reproducibility?}
-
-
 
 
 
@@ -558,7 +556,6 @@ A first observation is that \OurTool generally outperforms \Software{Rsample}. I
 Remarkably, \OurTool predicts secondary structures much more consistently than its competitor. 
 It ensures GM that are greater than 50\% in all cases, and even exceeds 60\% over all except for the yeast tRNA, encoding the Aspartic acid and HIV1 5' pseudoknot domain. The standard deviation of GM for \OurTool is $12.5\%$, compared to the larger value of $21\%$ for \Software{Rsample} predictions.
 
-\yp{Reproducibility?}
 
 %\paragraph{Discussion}
 
@@ -576,9 +573,9 @@ This observed discrepancy is somewhat surprising, given that \OurTool and \Softw
 
 \subsection{Comparing and exploiting multiple probing conditions: A case study on the Lariat capping ribozyme}
 
-\newcommand{\Bull}[1]{\raisebox{1pt}{\tikzcircle[black, fill=cluster#1]{3pt}}}
+\newcommand{\Bull}[1]{{\sffamily #1}~\raisebox{1pt}{\tikzcircle[black, fill=cluster#1]{3pt}}}
 
-\newcommand{\BullLab}[1]{{\sf\bfseries#1}~\Bull{#1}}
+\newcommand{\BullLab}[1]{Cluster \Bull{#1}}
 
 \colorlet{clusterA}{SeaGreen}
 \colorlet{clusterB}{Yellow}
@@ -597,9 +594,8 @@ This observed discrepancy is somewhat surprising, given that \OurTool and \Softw
 
 
 
-\subsubsection{Comparison and clustering of conditions}
-Faced with diverse probing conditions, we first assess the compatibility of the conclusions drawn from different probing data, including the probing-free run of \OurTool as a control. We use the methodology described in subsection~\ref{sec:dotplots} and, for each condition, compute the base pair probability distribution (aka dot-plot) in the  pseudo-Boltzmann ensemble, induced by the reactivity profile. We then computed the ensemble distance, the squared Euclidian distance between dot plots, for each pair of conditions. Figure~\ref{fig:PCA} summarizes the pairwise distance through a principal component analysis.
-
+\paragraph{Comparison and clustering of conditions.}
+Faced with diverse probing conditions, we first assess the compatibility of the conclusions drawn from different probing data, including the probing-free run of \OurTool as a control. We use the methodology described in subsection~\ref{sec:dotplots} and, for each condition, compute the base pair probability distribution (aka dot-plot) in the  pseudo-Boltzmann ensemble, induced by the reactivity profile. We then computed the ensemble distance, the squared Euclidian distance between dot plots, for each pair of conditions. Figure~\ref{fig:PCA} summarizes the pairwise distance, projected onto a 2D surface by a principal component analysis.
 
 
 \begin{figure}
@@ -608,9 +604,20 @@ Faced with diverse probing conditions, we first assess the compatibility of the 
 	\caption{2D spatial representation of conditions, computed by Principal Component Analysis (PCA) to optimally reflect pairwise ensemble distances between conditions. Colors and grayed areas indicate clusters of conditions.}\label{fig:PCA}
 \end{figure}
 
-A visual inspection of Figure~\ref{fig:PCA} suggests the presence of 8 clusters. In order to objectively build groups of compatible conditions, we performed a k-mean clustering using \Software{scikit-learn}, setting k to 8, and obtained the clusters highlighted in Figures~\ref{fig:biclustering} and \ref{fig:PCA}.  We obtain 2 \Def{singleton clusters} restricted to a single condition (\Bull{D}~\{1M7ILU3\} and \Bull{H}~\{BzCNMg\}) and six \Def{composite clusters}, consisting of 2 conditions (\Bull{C}~\{1M7ILU3Mg, 1M7ILUMg\}, \Bull{G}~\{CMCTMg, NaiMg\}, \Bull{E}~\{NMIAMgCE,1M7MgCE\}, and \Bull{F}~\{DMSMg, probing-free\}), 3 conditions (\Bull{A}~\{1M7ILU, NMIA, NMIAMg\}) and 4 conditions (\Bull{B}~\{1M7CE, NMIACE, BzCN, Nai\}) respectively.  The predicted clusters are generally consistent with the ordering resulting from a spectral biclustering, implemented in \Software{scikit-learn} and executed with default parameters, as illustrated by Figure~\ref{fig:glycine_example}. 
+A visual inspection of Figure~\ref{fig:PCA} suggests the presence of 8 clusters. In order to objectively build groups of compatible conditions, we performed a k-mean clustering using \Software{scikit-learn}, setting k to 8, and obtained the clusters highlighted in Figures~\ref{fig:biclustering} and \ref{fig:PCA}.  We obtain the following clusters:
+\begin{itemize}\setlength{\itemsep}{0pt}\setlength{\parskip}{.1em}	
+\item \BullLab{A}: 1M7ILU, NMIA, and NMIAMg;
+\item \BullLab{B}: 1M7CE, NMIACE, BzCN, and NAI;
+\item \BullLab{C}: 1M7ILU3Mg and 1M7ILUMg;
+\item \BullLab{D}: 1M7ILU3;
+\item \BullLab{E}: NMIAMgCE and 1M7MgCE;
+\item \BullLab{F}: DMSMg and probing-free;
+\item \BullLab{G}: CMCTMg and NaiMg;
+\item \BullLab{H}: BzCNMg.
+\end{itemize}
+The predicted clusters are generally consistent with the ordering resulting from a spectral biclustering, implemented in \Software{scikit-learn} and executed with default parameters, as illustrated by Figure~\ref{fig:glycine_example}. 
 
-It is worth noting that the average ensemble distance and PCA visualization support a status of outliers for 1M7CE, NMIACE, BzCN and NAI and, to a lesser extent, the 1M7ILU3 and 1M7ILU3Mg conditions.  We hypothesize that such conditions may be either representative of alternative conformations, or be altogether erroneous. Consequently, we will single out these two clusters within our detailed analysis of the multi-probing performances.
+The average ensemble distance and PCA visualization support a status of outliers for conditions in the cluster \Bull{B} (1M7CE, NMIACE, BzCN and NAI).  We hypothesize that such conditions may be either representative of alternative conformations, or be altogether erroneous. Consequently, we will single out these two clusters within our detailed analysis of the multi-probing performances.
 
 
 
@@ -632,7 +639,7 @@ It is worth noting that the average ensemble distance and PCA visualization supp
 
 %\clearpage
 
-\subsubsection{Mono-probing predictions}
+\paragraph{Assessment of predictions informed by individual probing conditions (mono).}
 %First, we assess the individual performance of each probing condition considered as the sole source of structural constraints.  Then, analyze outperforming experimental conditions that ensure more accurate predictions, and spot \Def{outlier} conditions which, on the contrary, seem to increase the noise level, consequently leading to lower prediction performances for \OurTool{}. 
 
 
@@ -640,9 +647,14 @@ It is worth noting that the average ensemble distance and PCA visualization supp
 For each probing condition, we run \OurTool{} on a single source of probing data, using a sample size of $1~000$ structures. For the sake of reproducibility, we executed \OurTool{} $10$ times for each condition. We report in Table~\ref{tab:thermo-ipan} the MCC values achieved by our prediction, averaged over the $10$ runs, along with the MCCs obtained by running \Software{RNAfold} with default parameters in energy minimization (MFE) and Maximum Expected Accuracy (MEA) modes.
 
 
-Over the fourteen conditions, we observe a large discrepancy in the capacity of the experimental setup to inform predictions, with MCCs ranging from above 80\% (DMS, 1M7ILU, NMIA, DMS) to 60\% (1M7ILU3, CMCT and NAI). These values are much better than those achieved in the absence of probing data (51\% MCC), and indicate predictions of generally good quality. Indeed, it should be reminded that the MCC is a stringent metrics, taking values between -1 and 1, 0 being the expectation for a "coin tossing" random predictor. The lowest MCC value of 60\% is, in particular, equally consistent with values of 60\%/60\%, 80\%/46\% or 45\%/82\% for the Sensibility/PPV pair.
+The predictive performances of \OurTool averages a 70.5\% MCC, compared to 68.5\% and 68\% average MCC for MEA and MFE predictions respectively. The stability of predictions across conditions are comparable for all \OurTool, MEA and MFE-driven predictions (std dev. of 8\%). Excluding the outliers of cluster \Bull{B} improves the average MCC to 74\%.
 
-Unsurprisingly, the presence/absence of Magnesium during the probing seems to impact the predictions, with an observed drop from an average 76\% MCC in the presence of Mg$^\text{2+}$ to 70\% MCC in the absence of Mg$^\text{2+}$. A similar change of performances can be observed in the comparison of the average MCC of mutation-inducing protocols (76\%) with stop-inducing ones (71\%). It must however be noted that both observations are heavily influenced by the presence of three outliers (1M7ILU3, CMCTMg and NAI) whose removal almost balances (76\% vs 74\% MCCs) the performances of both stops/mutations-inducing reagents, and presence/absence of Mg$^{2+}$.
+Unsurprisingly, the presence/absence of Magnesium during the probing seems to impact the predictions, with an observed drop from an average 76\% MCC in the presence of Mg$^\text{2+}$ to 70\% MCC in the absence of Mg$^\text{2+}$. A similar change of performances can be observed in the comparison of the average MCC of mutation-inducing reagents (76\%) with stop-inducing ones (71\%). It must however be noted that both observations are heavily influenced by the presence of three outliers (1M7ILU3, CMCTMg and NAI) whose removal almost balances (76\% vs 74\% MCCs) the performances of both stops/mutations-inducing protocols, and presence/absence of Mg$^{2+}$.
+
+Over the fourteen conditions, we observe a large discrepancy in the capacity of the experimental setup to inform predictions, with MCCs ranging from above 80\% (NMIA, NMIAMg, 1M7ILU and 1M7ILUMg) to around 60\% (NAI, BzCN, 1M7CE and NMIACE). These values are much better than those achieved in the absence of probing data (51\% MCC). Such values can be interpreted as indicate of good quality predictions. Indeed, it should be reminded that the MCC is a stringent metrics, taking values between -1 and 1, 0 being the expectation for a "coin tossing" random predictor. The lowest MCC value of +60\% is, in particular, equally consistent with values of 60\%/60\%, 80\%/46\% or 45\%/82\% for the Sensibility/PPV pair.
+
+Unsurprisingly, the presence/absence of Magnesium during the probing impacts the predictions, with an observed drop from an average 73\% MCC in the presence of Mg$^\text{2+}$ to 67\% MCC in the absence of Mg$^\text{2+}$. However, while the poorly performing conditions of cluster \Bull{B} are Mg$^\text{2+}$ free, some of the most informative profiles (1M7ILU and NMIA) were obtained in absence of Mg$^\text{2+}$.
+A similar change of performances can be observed in the comparison of the average MCC of mutation-inducing reagents (78\%) with stop-inducing ones (66\%). 
 
 \begin{table}
 	\Heatset{min=0.6,   
@@ -659,55 +671,52 @@ Unsurprisingly, the presence/absence of Magnesium during the probing seems to im
 	
 	{\centering
 			\begin{adjustbox}{max width=\linewidth}
-		\begin{tabular}{@{}lccHHH}
+		\begin{tabular}{@{}lcccHHH}
 			\toprule
-			& &	& \multicolumn3c{MCC}\\ 
-			Condition name	& Tech.  & +/- Mg$^{2+}$ &	\multicolumn1l{\relsize{-1}\OurTool}	&	\multicolumn1l{MFE}&	\multicolumn1l{MEA}\\ \midrule
-			1M7ILUMg  	& \Mut	& \Mg &	.85	&	.82	&	.82	\\
-			1M7ILU  	& \Mut	& \NoMg &	.84	&	.82	&	.84	\\
-		    NMIAMg  	& \Mut	& \Mg &	.81	&	.8	&	.8	\\
-		    NMIA  		& \Mut	& \NoMg &	.8	&	.69	&	.69	\\
-		    1M7ILU3Mg  	& \Mut	& \Mg &	.74	&	.75	&	.75\\
-		    NMIAMgCE  	& \Stop	& \Mg &	.73	&	.72	&	.73	\\
-		    NAIMg  		& \Stop	& \Mg &  .73	&	.68	&	.7	\\
-		    BzCNMg  	& \Stop	& \Mg &	.71	&	.68	&	.54	\\
-		    1M7MgCE  		& \Stop	& \Mg &	.7	&	.69	&	.7	\\	
-		    CMCTMg  	& \Stop	& \Mg &	.7	&	.68	&	.73	\\
-		    1M7ILU3  	& \Mut	& \NoMg &	.64	&	.56	&	.61	\\
-			DMSMg		& \Stop	& \Mg &	.63	&	.66	&	.67	\\
-			NMIACE & \Stop & \NoMg& .61&.6 &.6 \\
-			1M7CE  		& \Stop	& \NoMg &	.6	&	.61	&	.61\\
-			BzCN 	& \Stop	& \NoMg &	.6	&	.59	&	.59	\\
-			NAI  		& \Stop	& \NoMg &	.6	&	.59	&	.59	\\
-			\midrule
-			Avg Technology	& \Mut & --  &.78&	.74&	.75\\
-			& \Stop & --  &.66	&.65&	.65\\
-			Avg -/+ Mg$^{2+}$			& -- & \NoMg  &.67&	.64&	.65\\
-			& -- & \Mg  &.73&	.72&	.715\\
-			\midrule
-			{\bfseries Average overall}	& -- & --  & .705 &	.68 &	.685\\
-			\bottomrule
+			                            & &       &               & \multicolumn{3}{@{}c@{}}{MCC}                  \\
+			Condition               & Clust. & Tech. & Mg$^{2+}$ & \multicolumn1l{\relsize{-1}\OurTool} & \multicolumn1l{MFE} & \multicolumn1l{MEA} \\ \midrule
+			1M7ILUMg                     &\Bull{C}& \Mut  &      \Mg      & 0.85                                  & 0.82                 & 0.82                 \\
+			1M7ILU                      &\Bull{A}& \Mut  &     \NoMg     & 0.84                                  & 0.82                 & 0.84                 \\
+			NMIAMg                      &\Bull{A}& \Mut  &      \Mg      & 0.81                                  & 0.80                 & 0.80                 \\
+			NMIA                        &\Bull{A}& \Mut  &     \NoMg     & 0.80                                  & 0.69                 & 0.69                 \\
+			1M7ILU3Mg                   &\Bull{C}& \Mut  &      \Mg      & 0.74                                  & 0.75                 & 0.75                 \\
+			NMIAMgCE                    &\Bull{E}& \Stop &      \Mg      & 0.73                                  & 0.72                 & 0.73                 \\
+			NAIMg                       &\Bull{G}& \Stop &      \Mg      & 0.73                                  & 0.68                 & 0.70                 \\
+			BzCNMg                      &\Bull{H}& \Stop &      \Mg      & 0.71                                  & 0.68                 & 0.54                 \\
+			1M7MgCE                     &\Bull{E}& \Stop &      \Mg      & 0.70                                  & 0.69                 & 0.70                 \\
+			CMCTMg                      &\Bull{G}& \Stop &      \Mg      & 0.70                                  & 0.68                 & 0.73                 \\
+			1M7ILU3                     &\Bull{D}& \Mut  &     \NoMg     & 0.64                                  & 0.56                 & 0.61                 \\
+			DMSMg                       &\Bull{F}& \Stop &      \Mg      & 0.63                                  & 0.66                 & 0.67                 \\
+			NMIACE                      &\Bull{B}& \Stop &     \NoMg     & 0.61                                  & 0.60                 & 0.60                 \\
+			1M7CE                       &\Bull{B}& \Stop &     \NoMg     & 0.60                                  & 0.61                 & 0.61                 \\
+			BzCN                        &\Bull{B}& \Stop &     \NoMg     & 0.60                                  & 0.59                 & 0.59                 \\
+			NAI                         &\Bull{B}& \Stop &     \NoMg     & 0.60                                  & 0.59                 & 0.59                 \\ \midrule
+			Avg Technology              & & \Mut  &      $\star$       & 0.78                                  & 0.74                 & 0.75                 \\
+			                            & & \Stop &      $\star$       & 0.66                                  & 0.65                 & 0.65                 \\
+			Avg -/+ Mg$^{2+}$           & &  $\star$   &     \NoMg     & 0.67                                  & 0.64                 & 0.65                 \\
+			                            & &  $\star$   &      \Mg      & 0.73                                  & 0.72                 & 0.715                \\ \midrule
+			{\bfseries Average overall} & &  $\star$   &      $\star$       & 0.705                                 & 0.68                 & 0.685                \\ \bottomrule& 
 		\end{tabular}
 		\end{adjustbox}\\[1em]}
 	
 	%data are from multiprobing7 
-	\caption{Comparison of predicted secondary structures for the \didy{} obtained with \OurTool{} and computational methods from a single probing experiment. Averaged MCC of structures predicted with \OurTool{} and with classic deterministic alternatives. The structure was probed in presence (\Mg) or absence (\NoMg) of Magnesium, using either stops (\Stop) or mutations (\Mut) inducing technologies.
+	\caption{Comparison of predicted secondary structures for the \didy{} obtained with \OurTool{} and computational methods from a mono-probing experiment. Averaged MCC of structures predicted with \OurTool{} and with classic deterministic alternatives. The structure was probed in presence (\Mg) or absence (\NoMg) of Magnesium, using either stops (\Stop) or mutations (\Mut) inducing technologies.
 	}
 	\label{tab:thermo-ipan}
 \end{table}
 
 
-In term of predictive performances, \OurTool averages a 70.5\% MCC, compared to 68.5\% and 68\% average MCC for MEA and MFE predictions respectively. The quality of our predictions is marginally more stable across conditions than its competitors, with  standard deviations of 8\% for \OurTool against 9\% and 8\% for MEA and MFE-driven predictions respectively. 
 
 
 \begin{figure}
+	\newcommand{\W}{.73}
 	{\centering\begin{tabular}{@{}c@{}c@{}c@{}}
 			{\sf {\bfseries A} -- \relsize{-1}Bi-probing MCC \emph{vs} Min MCC of mono-probing}\\
-			\includegraphics[width=.65\linewidth,trim=1cm 1cm .8cm .3cm,clip]{graphs/didy/MCC-vs-Min}\\[.5em]
+			\includegraphics[width=\W\linewidth,trim=1cm 1cm .8cm .3cm,clip]{graphs/didy/MCC-vs-Min}\\[.5em]
 			{\sf {\bfseries B} -- \relsize{-1}Bi-probing MCC \emph{vs} Average MCC of mono-probing}\\
-			\includegraphics[width=.65\linewidth,trim=1cm 1cm .8cm .3cm,clip]{graphs/didy/MCC-vs-Avg}\\[.5em]
+			\includegraphics[width=\W\linewidth,trim=1cm 1cm .8cm .3cm,clip]{graphs/didy/MCC-vs-Avg}\\[.5em]
 			{\sf {\bfseries C} -- \relsize{-1}Bi-probing MCC \emph{vs} Max MCC of mono-probing}\\
-			\includegraphics[width=.65\linewidth,trim=1cm 1cm .8cm .3cm,clip]{graphs/didy/MCC-vs-Max}\\
+			\includegraphics[width=\W\linewidth,trim=1cm 1cm .8cm .3cm,clip]{graphs/didy/MCC-vs-Max}\\
 		\end{tabular}\\}
 	\caption{Shift in \OurTool{} predictive capacity (MCC) observed upon considering two conditions, compared to the worst ({\sf\bfseries A}),  average ({\sf\bfseries B}) 
 		and best ({\sf\bfseries C}) 
@@ -716,33 +725,26 @@ In term of predictive performances, \OurTool averages a 70.5\% MCC, compared to 
 		or Average of conditions). Thickness indicates absolute shift value (only values above 5\% reported for readability).\label{fig:pairwise}}
 \end{figure}
 
-\subsubsection{Systematic bi and tri probing analysis}
+\paragraph{Bi-probing mitigates the influence of outliers, but generally fails to improve predictions quality.}
 We turn to a systematic exploration of the predictive capacities of bi-probing analyses, based on pairs of probing profiles, and attempt to quantify their impact on \OurTool predictions. For each pair and triplets of conditions, we executed \OurTool using 1~000 samples per condition, and considered the first returned structure. We then computed the associated MCC, and compare it with the MCC of the worst performing condition (Min), best performing condition (Max) and average MCC over the single conditions experiments. A summary of the results over pairs is shown in Figure~\ref{fig:pairwise}. 
 
-A superficial inspection of the resulting MCCs appears to confirm the conclusions of Section~\ref{sec:cordero}. Indeed, considering two conditions leads to predictions whose quality fall between the worst and the best one, while being generally close to the average. The average MCC of pair-informed predictions remains at 74\%, increasing by 0.2\%, while the median MCC increases to 79\% MCC from 74\% for mono-probing predictions. However, outliers strongly impact this picture, and ignoring the NAI and CMCTMg conditions increases the average MCC to 78\%, while significantly decreasing the standard deviation (9\% $\to$ 6\%).
+A superficial inspection of the resulting MCCs appears to confirm the conclusions of Section~\ref{sec:cordero}. Indeed, considering two conditions leads to predictions whose quality fall between the worst and the best one, while being generally close to the average. More precisely, the average MCC value of pair-informed predictions remains at 70.7\%, improving only by 0.2\% over the average MCC of mono-probing predictions. Pair-informed predictions are marginally more reliable, with the median MCC increases to 72.5\% MCC from 70.5\% for mono-probing predictions. However, outliers strongly impact this picture, and ignoring the conditions in cluster \Bull{B} increases the average MCC to 75.1\%, while unsurprisingly decreasing the standard deviation (8.6\% $\to$ 6.5\%).
 
-Compared to the minimum MCC of the pair, the MCC of bi-probing predictions improve by 5\% on average over the MCC of the worst-performing conditions. Pair MCCs exceed their associated min. MCC by at least 5\% in 42 pairs out of the 81 possible pairs, while being dominated by 5\% for only 4 pairs. Interestingly, the overall worst-performing NAI condition, revealed by further analysis as an outlier, always drives the MCC of bi-probing analysis to its mono-probing MCC of 60\%. Removing it alone from the analysis increases the average MCC gain to 6\%.
+Compared to the minimum MCC of the pair, the MCC of bi-probing predictions is improved by 5.3\% on average over the MCC of the worst-performing conditions. Pair MCCs exceed their associated min. MCC by at least 5\% in 47 pairs out of the 120 possible pairs, while never being dominated by 5\%. 
 
-Bi-probing tends to perform slightly better than the average of the two mono-probing conditions. The average MCC improvement is only of 0.2\%, but the
-typical (median) improvement is much higher (1.5\%), painting the picture of a potentially bimodal distribution. Indeed, for 41 out of the 91 possible pairs, the bi-probing conditions exhibits an improvement of at least 1\% over the average, while a decay of at least 1\% is observed for 34 out of the remaining 44 pairs. Such a decay can mostly be attributed to the disruptive effect of the NAI outlier, involved in 11 of the 34 observed loss of predictive performance. Moreover, removal the NAI condition alone drives the average MCC improvement to 1.5\%, with an associated median of 2\%.
+Bi-probing tends to perform similarly as the average of the two mono-probing conditions, with an average MCC improvement of 0.2\%. However, for 56 out of the 120 possible pairs, the bi-probing conditions exhibits an improvement of at least 1\% over the average, while a decay of at least 1\% is observed for 46 out of the remaining 64 pairs. Such a decay can partly be attributed to the disruptive effect of the outliers from cluster \Bull{B}, involved in 35 of the 46 observed loss of predictive performance. Moreover, removing this cluster induces an average MCC improvement of 1.1\%.
 
-Predictions informed by two conditions remain, however, generally dominated by the best performing condition of the pair. On average, the MCC of the best condition is 4.4\% higher than the one achieved by bi-probing analysis. 
-The two outliers (NAI and CMCTMg) are largely responsible of this situation, and their removal from our datas et reduces the average MCC decay to 1.5\%. Moreover, for 15 pairs of conditions, the bi-probing analysis produces MCC that are at least 1\% better than the best of its two conditions.
+Predictions informed by two conditions remain, however, generally dominated by the best performing condition of the pair. On average, the MCC of the best condition is 4.9\% higher than the one achieved by bi-probing analysis. 
+Outliers in cluster \Bull{B} are partly responsible for this situation, and their removal reduces the average MCC decay to 3.3\%. Moreover, for 9 pairs of conditions, the bi-probing analysis produces MCC that are at least 1\% better than the best of its two conditions, but these encouraging examples are generally dominated by 66 examples where the pair performs more than 1\% worse than the best mono-probing condition.
 
-Increasing the number of conditions to three boosts the average MCC to 76.2\% and even reaches 78.2\% over triplets that neither contain NAI nor CMCTMg. The MCC gain over the worst condition in the triplet now reaches 10\% on average, with a 2.6\% improvement over the average condition.  Predictions are also more consistently good, with a standard deviation decreasing from 9\% for bi-probing to 7\% in tri-probing, leading to a median MCC of 80\%. Interestingly, disregarding NAI and CMCTMg does not stabilize the quality of prediction (stdev 7.4\% $\to$ 5.4\%) as much as for bi-probing (stdev 9\% $\to$ 6\%), suggesting that the disruptive capacity of outliers is mitigated in the presence of two opposing conditions.
+\paragraph{Considering three conditions yields improvement over the average performance of the triplet.}
+Increasing the number of conditions to three boosts the average MCC to 72.3\% and even reaches 76.5\% over triplets that do not contain conditions from cluster \Bull{B}. The MCC gain over the worst condition in the triplet reaches 9.1\% on average.  Predictions are also more consistently good, with a median MCC of \%73.4. Disregarding conditions in cluster \Bull{B} does stabilizes the quality of prediction (stdev 8.4\% $\to$ 5.5\%), while increasing the average MCC to 77.4\%.
 
-Compared to bi-probing, MCC values achieved by integrating triplets of conditions now indicate a clear gain over the average performances of individual conditions, supporting a notion of complementarity between experiments. Indeed tri-probing experiments gain on average 2.6\% MCC over the average of mono-probing prediction in the triplet. This gain of quality is widespread, and occurs in 245 out of the 364 triplets. 
+Compared to bi-probing, MCC values achieved by integrating triplets of conditions now indicate a clear gain over the average performances of individual conditions, supporting a notion of complementarity between experiments. Indeed tri-probing experiments lead to an average +1.7\% MCC improvement (median +2.6) over the average of mono-probing prediction in the triplet. The gain of quality is widespread, and observed for 65\% of the triplets. Finally, 39 triplets were found to induce MCC values greater than 83\%.
 
 The enhanced performances of tri-probing over bi-probing are consistent with the \emph{voting} principle underlying the clustering used in \OurTool. Indeed, in a bi-probing setting, a single outlier condition, such as NAI, may entirely determine the final structure, due to its predictions being very tightly concentrated around a, presumably erroneous, structure. In the presence of three or more conditions, however, clusters resulting from an outlier condition typically end up being dominated, in the Pareto front, by compatible sets of structures originating from the pseudo-Boltzmann ensembles of alternative conditions. It follows that the influence of outliers over the final prediction remains limited.
 
 %\clearpage
-
-\subsubsection{Assessing and harnessing the complementarity of probing experiments}
-Our distance assessment and clustering on conditions reveals groups of conditions that are highly compatible in their conclusions, while others seem to include highly diverging structural information. While some outlier conditions, such as NAI of CMCTMg, appear to simply be erroneous, the results of our systematic analysis of pairs and triplets support a notion of \Def{complementarity between conditions}. Under this assumption, downstream modeling benefits more from the presence of highly diverging probing experiments than the accumulation of high-quality, yet similar, profiles.
-
-\paragraph{Similar conditions yield limited changes.} To partially validate our hypothesis, we executed \OurTool{} on similar conditions, considering the quality of predictions (MCC) for each subset (having at least two conditions) of the [1M7ILU3Mg and 1M7ILUMg], [BzCNMg, NMIAMgCE, NAIMg] and [DMSMg, NMIA, NMIAMg, 1M7ILU, probing-free] clusters. Note that our similarity notion and clustering of conditions is purely based on the ensemble features, and does not consider the MCC of individual conditions.
-As expected, compared to the average MCC over associated mono-probing analyses, 
-considering multiple similar conditions induce a limited shift in MCC (between -2.5\% and +4.5\%) and an overall modest improvement (+0.3\% average MCC). This is consistent with the idea that supplementing a probing-based modeling with compatible conditions provides very little additional information, leading to the observed limited contribution of similar conditions to the quality of predictions.
 
 
 \begin{table}[h]
@@ -754,179 +756,142 @@ considering multiple similar conditions induce a limited shift in MCC (between -
 		Max colour=Aquamarine3   % colour for values above max
 	}
 	{\centering
-		%\begin{adjustbox}{max width=.5\textwidth}
+		\begin{adjustbox}{max width=\linewidth}
 			\begin{tabular}{@{}lHH@{}}
 				\toprule
-				& \multicolumn2c{MCC}\\
-				Description & \multicolumn1c{Multi}& \multicolumn1{c@{}}{Avg}\\
-				\midrule	
-				%{\em Similar conditions}\\
-			
-\Bull{A} NMIAMg, 1M7ILU, NMIA	&	.8	&	.82	\\
-NMIAMg, 1M7ILU	&	.82	&	.825	\\
-1M7ILU, NMIA	&	.82	&	.82	\\
-NMIAMg,  NMIA	&	.8	&	.805	\\
-
-\midrule
-\Bull{B} Nai, BzCN, 1M7CE, NMIACE	&	.6	&	.6	\\
-Nai, BzCN, 1M7CE	&	.6	&	.6	\\
-Nai, BzCN, NMIACE	&	.61	&	.6	\\
-Nai, 1M7CE, NMIACE	&	.61	&	.6	\\
-BzCN, 1M7CE, NMIACE	&	.61	&	.6	\\
-Nai, BzCN	&	.6	&	.6	\\
-Nai, 1M7CE	&	.59	&	.6	\\
-Nai, NMIACE	&	.6	&	.605	\\
-BzCN, 1M7CE	&	.61	&	.6	\\
-BzCN,NMIACE	&	.6	&	.605	\\
-1M7CE, NMIACE	&	.62	&	.605	\\		
-\midrule		
-\Bull{C} 1M7ILUMg, 1M7ILU3Mg	&	.82	&	.795	\\
-\midrule		
-\Bull{E} 1M7MgCE, NMIAMgCE	&	.73	&	.715	\\
-\midrule
-\Bull{G} NaiMg, CMCTMg	&	.73	&	.715	\\
-				% {\em Distant conditions}\\
-				%1M7,NAI,CMCTMg,1M7ILU3,1M7Mg 	&		\textbf{.819}& .66\\
-				
-				%1M7,NAI,CMCTMg,1M7ILU3,1M7Mg,NMIA,NaiMg& 	.6 & \textbf{.69}\\
-				%		 & 	\textbf{.795} & .69\\
-				%   
-				%					1M7,NAI,CMCTMg,1M7ILU3,1M7Mg,1M7ILU, NMIAMgCE	& 		\textbf{.838}& .7\\
-				%					\midrule
-				%{\em All 14 conditions} &		\textbf{.795}& .735\\
-				\bottomrule
+				& \multicolumn{2}{@{}c@{}}{MCC}                    \\
+				Description                            & \multicolumn1c{Joint} & \multicolumn1{c@{}}{Mono} \\ \midrule
+				{Cluster \Bull{A}}                     &  \\
+				NMIAMg, 1M7ILU, NMIA                   & 0.80                   & 0.82                      \\
+				NMIAMg, 1M7ILU                         & 0.82                   & 0.82                      \\
+				1M7ILU, NMIA                           & 0.82                   & 0.82                      \\
+				NMIAMg,  NMIA                          & 0.80                   & 0.80                      \\ \midrule
+				{Cluster \Bull{B}}                     &  \\
+				Nai, BzCN, 1M7CE, NMIACE               & 0.60                   & 0.60                      \\
+				Nai, BzCN, 1M7CE                       & 0.60                   & 0.60                      \\
+				Nai, BzCN, NMIACE                      & 0.61                   & 0.60                      \\
+				Nai, 1M7CE, NMIACE                     & 0.61                   & 0.60                      \\
+				BzCN, 1M7CE, NMIACE                    & 0.61                   & 0.60                      \\
+				Nai, BzCN                              & 0.60                   & 0.60                      \\
+				Nai, 1M7CE                             & 0.59                   & 0.60                      \\
+				Nai, NMIACE                            & 0.60                   & 0.60                      \\
+				BzCN, 1M7CE                            & 0.61                   & 0.60                      \\
+				BzCN,NMIACE                            & 0.60                   & 0.60                      \\
+				1M7CE, NMIACE                          & 0.62                   & 0.61                      \\ \midrule
+				{Cluster \Bull{C}}                     &  \\
+				1M7ILUMg, 1M7ILU3Mg                    & 0.82                   & 0.80                      \\ \midrule
+				{Cluster \Bull{E}}                     &  \\
+				1M7MgCE, NMIAMgCE                      & 0.73                   & 0.72                      \\ \midrule
+				{Cluster \Bull{G}}                     &  \\
+				NaiMg, CMCTMg                          & 0.73                   & 0.72                      \\ \bottomrule
+				%				\midrule
+				%				{All 16 conditions} & .80                   & .70                      \\ \bottomrule
 			\end{tabular}
-		%\end{adjustbox}
+		\end{adjustbox}
 		\\}
-	\caption{Similar conditions.}\label{multiprobingdidy1}
+	\caption{Predictions do not benefits from the joint consideration of similar conditions. For each cluster, all subsets of conditions in the cluster are considered, and the MCC of the resulting prediction ('Joint') is compared to the average MCC of predictions performed with individual conditions independently ('Mono'), revealing little improvement.}\label{multiprobingdidy1}
 \end{table}
 
-\paragraph{Orthogonal conditions impact .} Having established the redundant nature of similar conditions, and their limited contribution to downstream modeling, we turn to an analysis of conditions that are divergent, as indicated by their presence in different clusters. First we consider the quality of predictions obtained by choosing a single condition in each of the 8 clusters.
+\paragraph{Similar conditions do not contribute to the quality of predictions.} 
+Our distance assessment and clustering on conditions reveals groups of conditions that are highly compatible in their conclusions, while others seem to include highly diverging structural information. While some outlier conditions, such as those of cluster \Bull{B}, easily stand out as erroneous, the results of our systematic analysis of pairs and triplets supports a notion of \Def{complementarity between conditions}. Under this assumption, downstream analyses are more likely to benefit from the presence of highly diverging probing experiments, than the accumulation of similar, arguably redundant, profiles. 
+
+A first test of this hypothesis consists in executing \OurTool{} on every subset of conditions within clusters, and consider the quality of predictions (MCC). 
+Note that our similarity notion and clustering of conditions is purely based on the ensemble features, and does not explicitly consider the MCC of individual conditions. 
+As expected, compared to the average MCC over associated mono-probing analyses, similar conditions induce an MCC change of limited magnitude (between -2\% and +2\%), leading to an overall modest improvement (+0.2\% average MCC). This is consistent with the notion that supplementing a probing-based modeling with compatible conditions provides very little additional information, leading to a limited contribution of similar conditions.
 
 
-To test these assumptions, we run \OurTool:
-\begin{itemize}
-	\item Across clusters (one condition in each cluster, ie 24 experiments); 
-	\item In the absence/presence of an obvious outlier (NAI);
+
+\paragraph{Considering diverse conditions improves and stabilizes the quality of predictions.} 
+Having established the redundant nature of similar conditions, and their limited contribution to downstream modeling, we turn to an analysis of conditions across clusters.  We run \OurTool{} the quality of predictions obtained by choosing a single condition in each of the 8 clusters. We consider any possible combination, except for the outlier cluster~\Bull{B}. Instead, we only consider the impact of including NAI to each combination.
+
+The results, summarized in Table~\ref{multiprobingdidy1}, demonstrate a clear advantage of including diverse conditions, leading to an average MCC value of 77\% in the absence of condition from cluster \Bull{B}. Those performances compare favorably against the 72\% MCC achieved on average by individual conditions, and reveal a remarkable stability, including a 5\% standard deviation, and a degradation in only two out the 24 tested cases ($\sim$1\% decay in both cases).  A similar trend can be observed in the, arguably disruptive presence of NAI, inducing an 72\% average MCC, albeit with an increased standard deviation of 9\%.
+
+Finally, the consideration of four triplets of diverse conditions allow us to reach our best prediction, achieving 85.3\% MCC. Meanwhile, considering the 16 conditions together yields a 80\% MCC value, increasing to 83\% in the absence of the four outlier conditions of cluster \Bull{B}. These results confirm that the strategy used by \OurTool{} is able to exploit the complementary information provided by multiple conditions, contributing to better predictions.
+
 	\begin{table}[h]
-		\Heatset{min=0.6,   
-			max=.83,   
-			max colour=Aquamarine3, % colour at maximum
-			min colour=BadCol,      % colour at minimum
-			Min colour=BadCol, % colour for values below min
-			Max colour=Aquamarine3   % colour for values above max
-		}
-		\begin{adjustbox}{max width=\linewidth}
-			\begin{tabular}{@{}lllllHH@{}}
-				\toprule
-				\multicolumn4{@{}l@{}}{Conditions for multi clusters}&& \multicolumn2c{MCC}\\
-				Clust. \Bull{A} &Clust. \Bull{C}& Clust.  \Bull{E} & Clust. \Bull{G}&  & \multicolumn1c{+Nai}& \multicolumn1c{-Nai}\\
-				\midrule
-				NMIAMg& 1M7ILUMg& 1M7MgCE& NaiMg& + $\mathcal{M}$ &.83&.84\\
-			NMIAMg& 1M7ILUMg& 1M7MgCE& CMCTMg& + $\mathcal{M}$ &.82&.75\\
-				
-				NMIAMg	&	1M7ILUMg	&	NMIAMgCE	&	NaiMg	&	+ $\mathcal{M}$	&	0.82	&	0.79	\\
-NMIAMg	&	1M7ILUMg	&	NMIAMgCE	&	CMCTMg	&	+ $\mathcal{M}$	&	0.6	&	0.82	\\
-NMIAMg	&	1M7ILU3Mg	&	1M7MgCE	&	NaiMg	&	+ $\mathcal{M}$	&	0.6	&	0.7	\\
-NMIAMg	&	1M7ILU3Mg	&	1M7MgCE	&	CMCTMg	&	+ $\mathcal{M}$	&	0.72	&	0.7	\\
-NMIAMg	&	1M7ILU3Mg	&	NMIAMgCE	&	NaiMg	&	+ $\mathcal{M}$	&	0.74	&	0.72	\\
-NMIAMg	&	1M7ILU3Mg	&	NMIAMgCE	&	CMCTMg	&	+ $\mathcal{M}$	&	0.6	&	0.75	\\
-1M7ILU	&	1M7ILUMg	&	1M7MgCE	&	NaiMg	&	+ $\mathcal{M}$	&	0.75	&	0.82	\\
-1M7ILU	&	1M7ILUMg	&	1M7MgCE	&	CMCTMg	&	+ $\mathcal{M}$	&	0.6	&	0.84	\\
-1M7ILU	&	1M7ILUMg	&	NMIAMgCE	&	NaiMg	&	+ $\mathcal{M}$	&	0.6	&	0.73	\\
-1M7ILU	&	1M7ILUMg	&	NMIAMgCE	&	CMCTMg	&	+ $\mathcal{M}$	&	0.82	&	0.82	\\
-1M7ILU	&	1M7ILU3Mg	&	1M7MgCE	&	NaiMg	&	+ $\mathcal{M}$	&	0.6	&	0.84	\\
-1M7ILU	&	1M7ILU3Mg	&	1M7MgCE	&	CMCTMg	&	+ $\mathcal{M}$	&	0.84	&	0.7	\\
-1M7ILU	&	1M7ILU3Mg	&	NMIAMgCE	&	NaiMg	&	+ $\mathcal{M}$	&	0.6	&	0.74	\\
-1M7ILU	&	1M7ILU3Mg	&	NMIAMgCE	&	CMCTMg	&	+ $\mathcal{M}$	&	0.75	&	0.74	\\
-NMIA	&	1M7ILUMg	&	1M7MgCE	&	NaiMg	&	+ $\mathcal{M}$	&	0.75	&	0.82	\\
-NMIA	&	1M7ILUMg	&	1M7MgCE	&	CMCTMg	&	+ $\mathcal{M}$	&	0.82	&	0.83	\\
-NMIA	&	1M7ILUMg	&	NMIAMgCE	&	NaiMg	&	+ $\mathcal{M}$	&	0.59	&	0.73	\\
-NMIA	&	1M7ILUMg	&	NMIAMgCE	&	CMCTMg	&	+ $\mathcal{M}$	&	0.82	&	0.82	\\
-NMIA	&	1M7ILU3Mg	&	1M7MgCE	&	NaiMg	&	+ $\mathcal{M}$	&	0.82	&	0.73	\\
-NMIA	&	1M7ILU3Mg	&	1M7MgCE	&	CMCTMg	&	+ $\mathcal{M}$	&	0.73	&	0.7	\\
-NMIA	&	1M7ILU3Mg	&	NMIAMgCE	&	NaiMg	&	+ $\mathcal{M}$	&	0.68	&	0.74	\\
-NMIA	&	1M7ILU3Mg	&	NMIAMgCE	&	CMCTMg	&	+ $\mathcal{M}$	&	0.73	&	0.74	\\
-	
-				
-				\bottomrule
-			\end{tabular}
-		\end{adjustbox}\\
-		\caption{MSG: Mixed impact of NAI.
-			Arbitrary choice of combinations across clusters + impact of Nai,  + $\mathcal{M}$=\{1M7ILU3, BzCNMg and DMSMg\}. Rqs: 1/ NAI does not have a constant behavior, it switches between the two roles (noise provider and noise eliminator) 2/ With NAI,it is likely to have more clusters, an additional one representative of the NAI with the  MCC of .599 3/paradoxaly the presence of NAI allows to  get the Maximal so far reported MCC whith .865, returning a single cluster for the corresponding combinations where  NAIMg couldn't be representative of the NAI condition )
-		}\label{multiprobingdidy1}
-	\end{table}
-	\item Report the MCC associated aux conditions having best individual MCCs; 
+	\Heatset{min=0.6,   
+		max=.83,   
+		max colour=Aquamarine3, % colour at maximum
+		min colour=BadCol,      % colour at minimum
+		Min colour=BadCol, % colour for values below min
+		Max colour=Aquamarine3   % colour for values above max
+	}
+    \newcommand{\MC}[1]{\multicolumn{1}{@{}c@{}}{#1}}
+    \newcommand{\MCB}[1]{\multicolumn{2}{@{}c@{}}{#1}}
 
-	\item Report triplet scores; The best performance:
-	%\paragraph{Structure with the maximal MCC}
-	%for the combination [1M7ILUMg,NMIAMgCE,1M7ILU3] a unique structure is perdicted showing the maximal MCC reported for 3 sources of probig data.
-	\begin{table*}
-		\begin{adjustbox}{max width=\linewidth}
-			\begin{tabular}{@{}ccccccccc@{}}
-				\toprule
-				\Bull{C}1M7ILUMg&	\tikzcircle[black, fill=Orchid]{3pt} 1M7ILU3 & \Bull{A}1M7ILU&	\tikzcircle[black, fill=blue]{3pt} DMSMg& \tikzcircle[black, fill=OliveGreen]{3pt} NMIAMgCE& \tikzcircle[black, fill=Bittersweet]{3pt} CMCTMg & \tikzcircle[black, fill=SeaGreen!40]{3pt} BzCNMg& MCC & Mono-Avg\\
-				\midrule
-				\star & &\star &\star & & &&\textbf{.853}&.77\\
-				\star & & \star&  & \star&&& \textbf{.853}&.81\\
-				\star & && \star& & \star &&\textbf{.853} &.73\\
-				\star &\star &&&&&  \star&\textbf{.853} &.73\\
-				\midrule
-				\star&\star&\star&\star&\star&\star&\star& .83&.73\\
-			
-				\bottomrule
-			\end{tabular}
-		\end{adjustbox}
-		Optimal structure with MCC=.853,  %$(((((..((((((.(((((((((.......))))))))).((((((((((((((......(((((....((((.(((......)))........((.((....))))....))))...))))).(((.....))))))))))...........((((....))))..))))))).))))))..)))))$
-		\caption{}
-	\end{table*}
-	\begin{table}
-		\begin{adjustbox}{max width=.5\textwidth}
-			\begin{tabular}{@{}llllll@{}}
-				\toprule
-				Description & MCC & Mono-Avg\\
-				\midrule
-				12 conditions& {\bfseries.83}&.74 \\
-				{\em All 16 conditions} &	\textbf{.8}& .705\\
-				 &	\textbf{.6}& \\
-				\bottomrule
-			\end{tabular}
-		\end{adjustbox}
-		\caption{Report the best possible score; + all conditions}
-	\end{table}
-\end{itemize}
+	\begin{adjustbox}{max width=\linewidth}
+		\begin{tabular}{@{}llllHHHH@{}}
+			\toprule
+			\multicolumn{4}{@{}l@{}}{Conditions}                                    & \MCB{MCC (-NAI)} & \MCB{MCC (+NAI)} \\
+			Clust. \Bull{A} & Clust. \Bull{C} & Clust.  \Bull{E} & Clust. \Bull{G}   & \MC{Joint} & \MC{Mono}  & \MC{Joint}       & \MC{Mono}      \\ \midrule
+			NMIAMg          & 1M7ILUMg        & 1M7MgCE          & NaiMg             & 0.84       & 0.72       & 0.83             & 0.71           \\
+			NMIAMg          & 1M7ILUMg        & 1M7MgCE          & CMCTMg            & 0.75       & 0.72       & 0.82             & 0.71           \\
+			NMIAMg          & 1M7ILUMg        & NMIAMgCE         & NaiMg             & 0.79       & 0.73       & 0.82             & 0.71           \\
+			NMIAMg          & 1M7ILUMg        & NMIAMgCE         & CMCTMg            & 0.82       & 0.72       & 0.60             & 0.71           \\
+			NMIAMg          & 1M7ILU3Mg       & 1M7MgCE          & NaiMg             & 0.70       & 0.71       & 0.60             & 0.70           \\
+			NMIAMg          & 1M7ILU3Mg       & 1M7MgCE          & CMCTMg            & 0.70       & 0.70       & 0.72             & 0.69           \\
+			NMIAMg          & 1M7ILU3Mg       & NMIAMgCE         & NaiMg             & 0.72       & 0.71       & 0.74             & 0.70           \\
+			NMIAMg          & 1M7ILU3Mg       & NMIAMgCE         & CMCTMg            & 0.75       & 0.71       & 0.60             & 0.70           \\
+			1M7ILU          & 1M7ILUMg        & 1M7MgCE          & NaiMg             & 0.82       & 0.73       & 0.75             & 0.71           \\
+			1M7ILU          & 1M7ILUMg        & 1M7MgCE          & CMCTMg            & 0.84       & 0.72       & 0.60             & 0.71           \\
+			1M7ILU          & 1M7ILUMg        & NMIAMgCE         & NaiMg             & 0.73       & 0.73       & 0.60             & 0.72           \\
+			1M7ILU          & 1M7ILUMg        & NMIAMgCE         & CMCTMg            & 0.82       & 0.73       & 0.82             & 0.71           \\
+			1M7ILU          & 1M7ILU3Mg       & 1M7MgCE          & NaiMg             & 0.84       & 0.71       & 0.60             & 0.70           \\
+			1M7ILU          & 1M7ILU3Mg       & 1M7MgCE          & CMCTMg            & 0.70       & 0.71       & 0.84             & 0.70           \\
+			1M7ILU          & 1M7ILU3Mg       & NMIAMgCE         & NaiMg             & 0.74       & 0.72       & 0.60             & 0.70           \\
+			1M7ILU          & 1M7ILU3Mg       & NMIAMgCE         & CMCTMg            & 0.74       & 0.71       & 0.75             & 0.70           \\
+			NMIA            & 1M7ILUMg        & 1M7MgCE          & NaiMg             & 0.82       & 0.72       & 0.75             & 0.71           \\
+			NMIA            & 1M7ILUMg        & 1M7MgCE          & CMCTMg            & 0.83       & 0.72       & 0.82             & 0.70           \\
+			NMIA            & 1M7ILUMg        & NMIAMgCE         & NaiMg             & 0.73       & 0.73       & 0.59             & 0.71           \\
+			NMIA            & 1M7ILUMg        & NMIAMgCE         & CMCTMg            & 0.82       & 0.72       & 0.82             & 0.71           \\
+			NMIA            & 1M7ILU3Mg       & 1M7MgCE          & NaiMg             & 0.73       & 0.71       & 0.82             & 0.69           \\
+			NMIA            & 1M7ILU3Mg       & 1M7MgCE          & CMCTMg            & 0.70       & 0.70       & 0.73             & 0.69           \\
+			NMIA            & 1M7ILU3Mg       & NMIAMgCE         & NaiMg             & 0.74       & 0.71       & 0.68             & 0.70           \\
+			NMIA            & 1M7ILU3Mg       & NMIAMgCE         & CMCTMg            & 0.74       & 0.71       & 0.73             & 0.69           \\ \midrule
+			                &                 &                  & Average           & 0.77       & 0.72       & 0.72             & 0.70           \\ \bottomrule
+		\end{tabular}
+	\end{adjustbox}\\
+	\caption{Predictive performances of conditions across clusters, coupled with impact assessment of NAI.  For each experiment, a single condition is chosen from each cluster except for cluster \Bull{B}. Clusters \Bull{D}, \Bull{F} and \Bull{H}, each consisting of a single condition, contribute their sole condition, leading to the list of conditions  $\mathcal{M}$:=\{1M7ILU3, BzCNMg and DMSMg\}. 
+		For each combination, the MCC of the predicted structural model is reported, as predicted from the conditions in the presence/absence of NAI ('Joint' columns). For each prediction, the average MCC value of mono conditions is reported as a baseline ('Mono' columns).
+	}\label{multiprobingdidy1}
+\end{table}
 
-
-The clustering of  probing conditions allows a global assessment of the inference of the structure for a given  probing condition compared to the rest of conditions.
-We made use of this clustering, to assemble conditions considered as potential candidates to form optimal combinations.
-How?
-strategy 1 : Assuming that the structural information encoded in conditions belonging to heavily populated clusters is enough to form an optimal combination, we tested the prediction performance of \OurTool{} in the presence of these conditions following a one-leave-out condition method. This method allowed to evaluate  the added value of each  given condition figuring in the biggest clusters. 
-strategy 2: Assuming the complementarity that exists between different clusters, we built combinations of conditions  by considering one representative condition from each cluster.
-The choice of the representative condition is rather felt in the case of non-single clusters. We considered three ways to elect a representative condition of a cluster:
-1- choose a condition at random. 
-
-
-Rq Results:
-The NAI condition have shown a noticeable structural distance to the rest of the 13 conditions. Therefore, this condition can be hiding either an essential contributing condition to improve the prediction or an outlier that should be discarded. We wanted to check the role of the NAI condition when considered as an element of a combination of conditions. 
-
-
-2- Consider the condition with the maximal MCC from the mono-probing test.
-3- Consider a condition with the minimal MCC from the mono-probing test.
-
-Rq Results:
-
-
-
-Remarques These :
-\begin{itemize}
-	\item Influence Mg vs non-Mg ?
-\end{itemize}
-
-
-
-
-
-
+%
+%	\begin{table}
+%	\newcommand{\A}{90}
+%	
+%	\centering
+%	\begin{adjustbox}{max width=\linewidth}
+%		\begin{tabular}{@{}ccccccccc@{}}
+%			\toprule
+%			\rotatebox{\A}{\Bull{C} 1M7ILUMg} & \rotatebox{\A}{\Bull{D} 1M7ILU3} & \rotatebox{\A}{\Bull{A} 1M7ILU} & \rotatebox{\A}{\Bull{F} DMSMg} & \rotatebox{\A}{\Bull{E} NMIAMgCE} & \rotatebox{\A}{\Bull{G} CMCTMg} & \rotatebox{\A}{\Bull{H} BzCNMg} &      MCC      & Mono-Avg \\ \midrule
+%			$\bullet$             &                                  &            $\bullet$            &           $\bullet$            &                                   &                                 &                                 & \textbf{.853} &   .77    \\
+%			$\bullet$             &                                  &            $\bullet$            &                                &             $\bullet$             &                                 &                                 & \textbf{.853} &   .81    \\
+%			$\bullet$             &                                  &                                 &           $\bullet$            &                                   &            $\bullet$            &                                 & \textbf{.853} &   .73    \\
+%			$\bullet$             &            $\bullet$             &                                 &                                &                                   &                                 &            $\bullet$            & \textbf{.853} &   .73    \\ \midrule
+%			$\bullet$             &            $\bullet$             &            $\bullet$            &           $\bullet$            &             $\bullet$             &            $\bullet$            &            $\bullet$            &      .83      &   .73    \\ \bottomrule
+%		\end{tabular}
+%	\end{adjustbox}\\
+%
+%	\caption{Yann would you please modify the structure in Figure 4 according to the new structure?}
+%\end{table}
+%\begin{table}
+%	\centering
+%	\begin{adjustbox}{max width=.5\textwidth}
+%		\begin{tabular}{@{}llllll@{}}
+%			\toprule
+%			Description & MCC & Mono-Avg\\
+%			\midrule
+%			12 conditions& {\bfseries.83}&.74 \\
+%			{\em All 16 conditions} &	\textbf{.8}& .705\\
+%			&	\textbf{.6}& \\
+%			\bottomrule
+%		\end{tabular}
+%	\end{adjustbox}\\
+%
+%	\caption{Report the best possible score; + all conditions}
+%\end{table}
+%%
 
 %\begin{figure*}
 %\begin{adjustbox}{max width=\linewidth}
@@ -950,18 +915,20 @@ Remarques These :
 
 
 
-\subsection{Supplementing the wild-type with pointwise mutants increases prediction quality}
-We selected 100 random subsets consisting of 1, 2, 3 or 10 mutants, which we analyzed in combination with the original wild-type sequence.
-For each set of sequence, we executed \OurTool{} with default parameter, using a sample of 1000 structures. 
-We also analyzed the wild-type sequence alone, reproducing the analysis 100 times to compare the variability across sets of mutants to the one induced by stochastic backtrack. 
-%Finally, we performed a restricted analysis focusing on the WT, supplemented with a pair of mutant selected from the  
-We report in Figure~\ref{fig:variantanalysis} the distribution of MCC values achieved by predicted structures.
+\subsection{Supplementing with pointwise mutants increases prediction quality}
+In this final analysis, we decided to test the capacity of \OurTool to extract and exploit complementary information produced by the systematic probing of single-point mutants.
+This approach may appear misguided, since single point mutants are expected to adopt different structures than the wild-type sequence. In fact, the conformational changes induced by mutations precisely constitute the signal that is exploited by downstream modeling pipelines~\cite{Cordero2015}. However, those changes are typically local, and the limited influence of outliers on \OurTool{} fuels our hope that the benefit of including independently-produced conditions will outweigh the impact of noise introduced by local changes.
 
-For WT,  as expected, the results are reproducible. In 94\% of the runs, we obtained a structure having MCC between 60.5\% and 61\%. Interestingly, the remaing 6\% of the runs exhibit improved MCC values, ranging from 77\% to 77\%.
+We selected 100 random subsets consisting of 1, 2, 3 and 10 mutants, which we supplemented with the original wild-type sequence (WT).
+For each set of probing profiles, we executed \OurTool{} with default parameters, using a sample size of 1~000 structures. 
+We also analyzed the WT sequence alone, reproducing the analysis 100 times to compare the variability across sets of mutants to the one induced by stochastic aspects of our method. 
+Finally, we performed a restricted analysis focusing on the WT, supplemented with 2 probing profiles selected from the 20 most similar conditions to the WT , as assessed by the ensemble distance metrics. By comparing our results with those obtained for unrestricted pairs of mutants, we assess the influence of structure variability on the quality of our predictions. We report in Figure~\ref{fig:variantanalysis} the distribution of MCC values associated with the first prediction returned by IPANEMAP.
+
+For the WT, our results are reproducible and, in 94\% out of the 100 runs, we obtained a structure having MCC between 60.5\% and 61\%. Interestingly, the remaining 6\% of the runs present improved MCC values, ranging from 76\% to 78\%, suggesting the existence of a close suboptimal.
 %%\as{ This value can not be fixed since we have  0.6134: 12\%, 0.7597: 2\%, 0.7649: 1\%, 0.7783: 1\%, 0.7665: 1\%, 0.7531: 1\% , is it ok Yann not to specify the improvemnt percentage ?}
 %% Counter({0.6084: 82, 0.6134: 12, 0.7597: 2, 0.7649: 1, 0.7783: 1, 0.7665: 1, 0.7531: 1})
-
 Overall, the average MCC for the WT is of $61.83\%$.%mean(Multiprobing_100WT) 
+
 When two conditions are considered, the dispersion of the results increases, and MCC values as low as $38.93$\% can be observed.%min(Multiprobing_1M)
 These values, however, are not typical, and the average MCC observed in the presence of a mutant increases to $64.88\%$%mean(Multiprobing_1M). 
 This trend upwards is confirmed for two mutants, with an average MCC across runs of $66.62\%$%mean(Multiprobing_2M).
@@ -1010,7 +977,6 @@ These results support a notion of complementarity between the probing data produ
 
 
 
-\Blabla{5-6}
 {\em Role of outliers.} 
 
 
@@ -1020,8 +986,6 @@ These results support a notion of complementarity between the probing data produ
 	\caption{MCC of predicted structures under conditions with and without Mg$^{2+}$, differentiating stop-inducing and mutation-inducing protocols, over 10 runs of IPANEMAP. }\label{fig:biclustering}
 \end{figure*}
 
-
-\Blabla[5-6]
 
 
 
