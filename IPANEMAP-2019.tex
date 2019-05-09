@@ -519,7 +519,7 @@ Remarkably, the combination of the three conditions leads to the best overall pr
 This improves by $8.5\%$, $2.7\%$ and $1.4\%$ the average predictions achieved using CMCT, DMS and NMIA respectively.
 %CMCT/DMS/NMIA :0.6988333333/0.7588333333/0.771
 Table~\ref{fig:glycine_example} illustrates the incremental refinement of \OurTool predictions for a glycine riboswitch upon increasing the number of structures.
-
+ 
 \yp{Reproducibility?}
 
 
@@ -568,7 +568,7 @@ It ensures GM that are greater than 50\% in all cases, and even exceeds 60\% ove
 %\begin{itemize}
 %  \item Fabrice : Y a t il une raison pour laquelle on est les meilleurs ?
 %\end{itemize}
-This observed discrepancy is somewhat surprising, given that \OurTool and \Software{Rsample} share the same sampling/clustering based modeling. However, the two methods differ substantially whenever a single conformation is detected, in which case \Software{Rsample} switches to a simple MEA prediction, whereas \OurTool{} always proceeds with an iterative clustering. This allows \OurTool{} to consider a larger number of clusters, which we believe helps eliminate structural outliers, leading to the election of a better final centroid structure. 
+This observed discrepancy is somewhat surprising, given that \OurTool and \Software{Rsample} share the same sampling/clustering based modeling. However, the two methods differ substantially whenever a single conformation is detected, in which case \Software{Rsample} switches to a simple MEA prediction, whereas \OurTool{} always proceeds with an iterative clustering. This allows \OurTool{} to consider a larger number of clusters, which we believe helps eliminating structural outliers, leading to the election of a better final centroid structure. 
 
 
 %\clearpage
@@ -642,7 +642,7 @@ For each probing condition, we run \OurTool{} on a single source of probing data
 
 Over the fourteen conditions, we observe a large discrepancy in the capacity of the experimental setup to inform predictions, with MCCs ranging from above 80\% (DMS, 1M7ILU, NMIA, DMS) to 60\% (1M7ILU3, CMCT and NAI). These values are much better than those achieved in the absence of probing data (51\% MCC), and indicate predictions of generally good quality. Indeed, it should be reminded that the MCC is a stringent metrics, taking values between -1 and 1, 0 being the expectation for a "coin tossing" random predictor. The lowest MCC value of 60\% is, in particular, equally consistent with values of 60\%/60\%, 80\%/46\% or 45\%/82\% for the Sensibility/PPV pair.
 
-Unsurprisingly, the presence/absence of Magnesium during the probing seems to impact the predictions, with an observed drop from an average 76\% MCC in the presence of Mg$^\text{2+}$ to 70\% MCC in the absence of Mg$^\text{2+}$. A similar change of performances can be observed in the comparison of the average MCC of mutation-inducing reagents (76\%) with stop-inducing ones (71\%). It must however be noted that both observations are heavily influenced by the presence of three outliers (1M7ILU3, CMCTMg and NAI) whose removal almost balances (76\% vs 74\% MCCs) the performances of both stops/mutations-inducing reagents, and presence/absence of Mg$^{2+}$.
+Unsurprisingly, the presence/absence of Magnesium during the probing seems to impact the predictions, with an observed drop from an average 76\% MCC in the presence of Mg$^\text{2+}$ to 70\% MCC in the absence of Mg$^\text{2+}$. A similar change of performances can be observed in the comparison of the average MCC of mutation-inducing protocols (76\%) with stop-inducing ones (71\%). It must however be noted that both observations are heavily influenced by the presence of three outliers (1M7ILU3, CMCTMg and NAI) whose removal almost balances (76\% vs 74\% MCCs) the performances of both stops/mutations-inducing reagents, and presence/absence of Mg$^{2+}$.
 
 \begin{table}
 	\Heatset{min=0.6,   
@@ -723,7 +723,8 @@ A superficial inspection of the resulting MCCs appears to confirm the conclusion
 
 Compared to the minimum MCC of the pair, the MCC of bi-probing predictions improve by 5\% on average over the MCC of the worst-performing conditions. Pair MCCs exceed their associated min. MCC by at least 5\% in 42 pairs out of the 81 possible pairs, while being dominated by 5\% for only 4 pairs. Interestingly, the overall worst-performing NAI condition, revealed by further analysis as an outlier, always drives the MCC of bi-probing analysis to its mono-probing MCC of 60\%. Removing it alone from the analysis increases the average MCC gain to 6\%.
 
-Bi-probing tends to perform slightly better than the average of the two mono-probing conditions. The average MCC improvement is only of .2\%, but the typical (median) improvement is much higher (1.5\%), painting the picture of a potentially bimodal distribution. Indeed, for 41 out of the 91 possible pairs, the bi-probing conditions exhibits an improvement of at least 1\% over the average, while a decay of at least 1\% is observed for 34 out of the remaining 44 pairs. Such a decay can mostly be attributed to the disruptive effect of the NAI outlier, involved in 11 of the 34 observed loss of predictive performance. Moreover, removal the NAI condition alone drives the average MCC improvement to 1.5\%, with an associated median of 2\%.
+Bi-probing tends to perform slightly better than the average of the two mono-probing conditions. The average MCC improvement is only of 0.2\%, but the
+typical (median) improvement is much higher (1.5\%), painting the picture of a potentially bimodal distribution. Indeed, for 41 out of the 91 possible pairs, the bi-probing conditions exhibits an improvement of at least 1\% over the average, while a decay of at least 1\% is observed for 34 out of the remaining 44 pairs. Such a decay can mostly be attributed to the disruptive effect of the NAI outlier, involved in 11 of the 34 observed loss of predictive performance. Moreover, removal the NAI condition alone drives the average MCC improvement to 1.5\%, with an associated median of 2\%.
 
 Predictions informed by two conditions remain, however, generally dominated by the best performing condition of the pair. On average, the MCC of the best condition is 4.4\% higher than the one achieved by bi-probing analysis. 
 The two outliers (NAI and CMCTMg) are largely responsible of this situation, and their removal from our datas et reduces the average MCC decay to 1.5\%. Moreover, for 15 pairs of conditions, the bi-probing analysis produces MCC that are at least 1\% better than the best of its two conditions.
@@ -866,19 +867,18 @@ NMIA	&	1M7ILU3Mg	&	NMIAMgCE	&	CMCTMg	&	+ $\mathcal{M}$	&	0.73	&	0.74	\\
 				\toprule
 				\Bull{C}1M7ILUMg&	\tikzcircle[black, fill=Orchid]{3pt} 1M7ILU3 & \Bull{A}1M7ILU&	\tikzcircle[black, fill=blue]{3pt} DMSMg& \tikzcircle[black, fill=OliveGreen]{3pt} NMIAMgCE& \tikzcircle[black, fill=Bittersweet]{3pt} CMCTMg & \tikzcircle[black, fill=SeaGreen!40]{3pt} BzCNMg& MCC & Mono-Avg\\
 				\midrule
-				
-				* & &* &* & & &&\textbf{.853}&.77\\
-				* & & *&  & *&&& \textbf{.853}&.81\\
-				* & && *& & * &&\textbf{.853} &.73\\
-				* &* &&&&&  *&\textbf{.853} &.73\\
+				\star & &\star &\star & & &&\textbf{.853}&.77\\
+				\star & & \star&  & \star&&& \textbf{.853}&.81\\
+				\star & && \star& & \star &&\textbf{.853} &.73\\
+				\star &\star &&&&&  \star&\textbf{.853} &.73\\
 				\midrule
-				*&*&*&*&*&*&*& .83&.73\\
+				\star&\star&\star&\star&\star&\star&\star& .83&.73\\
 			
 				\bottomrule
 			\end{tabular}
 		\end{adjustbox}
-		Optimal structure with MCC=.853,  $(((((..((((((.(((((((((.......))))))))).((((((((((((((......(((((....((((.(((......)))........((.((....))))....))))...))))).(((.....))))))))))...........((((....))))..))))))).))))))..)))))$
-		\caption{Yann would you please modify the structure in Figure 4 according to the new structure?}
+		Optimal structure with MCC=.853,  %$(((((..((((((.(((((((((.......))))))))).((((((((((((((......(((((....((((.(((......)))........((.((....))))....))))...))))).(((.....))))))))))...........((((....))))..))))))).))))))..)))))$
+		\caption{}
 	\end{table*}
 	\begin{table}
 		\begin{adjustbox}{max width=.5\textwidth}
