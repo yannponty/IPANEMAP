@@ -654,16 +654,14 @@ For each probing condition, we run \OurTool{} on a single source of probing data
 
 The predictive performances of \OurTool averages a 70.5\% MCC, compared to 68.5\% and 68\% average MCC for MEA and MFE predictions respectively. The stability of predictions across conditions are comparable for all \OurTool, MEA and MFE-driven predictions (std dev. of 8\%). Excluding the outliers of cluster \Bull{B} improves the average MCC to 74\%.
 
-Unsurprisingly, the presence/absence of Magnesium during the probing seems to impact the predictions, with an observed drop from an average 76\% MCC in the presence of Mg$^\text{2+}$ to 70\% MCC in the absence of Mg$^\text{2+}$. A similar change of performances can be observed in the comparison of the average MCC of mutation-inducing reagents (76\%) with stop-inducing ones (71\%). It must however be noted that both observations are heavily influenced by the presence of three outliers (1M7ILU3, CMCTMg and NAI) whose removal almost balances (76\% vs 74\% MCCs) the performances of both stops/mutations-inducing protocols, and presence/absence of Mg$^{2+}$.
-
-Over the fourteen conditions, we observe a large discrepancy in the capacity of the experimental setup to inform predictions, with MCCs ranging from above 80\% (NMIA, NMIAMg, 1M7ILU and 1M7ILUMg) to around 60\% (NAI, BzCN, 1M7CE and NMIACE). These values are much better than those achieved in the absence of probing data (51\% MCC). Such values can be interpreted as indicate of good quality predictions. Indeed, it should be reminded that the MCC is a stringent metrics, taking values between -1 and 1, 0 being the expectation for a "coin tossing" random predictor. The lowest MCC value of +60\% is, in particular, equally consistent with values of 60\%/60\%, 80\%/46\% or 45\%/82\% for the Sensibility/PPV pair.
+Over the fourteen conditions, we observe a large discrepancy in the capacity of the experimental setup to inform predictions, with MCCs ranging from above 80\% (NMIA, NMIAMg, 1M7ILU and 1M7ILUMg) to around 60\% (NAI, BzCN, 1M7CE and NMIACE). These values are much better than those achieved in the absence of probing data (51\% MCC). Such values can be interpreted as indicate of good quality predictions. Indeed, it should be reminded that the MCC is a stringent metrics, taking values between -100\% and 100\%, 0\% being the expected MCC of a "coin tossing" random predictor. The lowest MCC value of 60\% is, in particular, equally consistent with Sensitivity/PPV values of 60\%/60\%, 80\%/46\% or 45\%/82\%.
 
 Unsurprisingly, the presence/absence of Magnesium during the probing impacts the predictions, with an observed drop from an average 73\% MCC in the presence of Mg$^\text{2+}$ to 67\% MCC in the absence of Mg$^\text{2+}$. However, while the poorly performing conditions of cluster \Bull{B} are Mg$^\text{2+}$ free, some of the most informative profiles (1M7ILU and NMIA) were obtained in absence of Mg$^\text{2+}$.
-A similar change of performances can be observed in the comparison of the average MCC of mutation-inducing reagents (78\%) with stop-inducing ones (66\%). 
+An even more drastic change of performances can be observed in the comparison of the average MCC of mutation-inducing reagents (78\%) with stop-inducing ones (66\%). 
 
 \begin{table}
-	\Heatset{min=0.6,   
-		max=.83,   
+	\Heatset{min=60,   
+		max=83,   
 		max colour=Aquamarine3, % colour at maximum
 		min colour=BadCol,      % colour at minimum
 		Min colour=BadCol, % colour for values below min
@@ -678,29 +676,30 @@ A similar change of performances can be observed in the comparison of the averag
 			\begin{adjustbox}{max width=\linewidth}
 		\begin{tabular}{@{}lcccHHH}
 			\toprule
-			                            & &       &               & \multicolumn{3}{@{}c@{}}{MCC}                  \\
-			Condition               & Clust. & Tech. & Mg$^{2+}$ & \multicolumn1l{\relsize{-1}\OurTool} & \multicolumn1l{MFE} & \multicolumn1l{MEA} \\ \midrule
-			1M7ILUMg                     &\Bull{C}& \Mut  &      \Mg      & 0.85                                  & 0.82                 & 0.82                 \\
-			1M7ILU                      &\Bull{A}& \Mut  &     \NoMg     & 0.84                                  & 0.82                 & 0.84                 \\
-			NMIAMg                      &\Bull{A}& \Mut  &      \Mg      & 0.81                                  & 0.80                 & 0.80                 \\
-			NMIA                        &\Bull{A}& \Mut  &     \NoMg     & 0.80                                  & 0.69                 & 0.69                 \\
-			1M7ILU3Mg                   &\Bull{C}& \Mut  &      \Mg      & 0.74                                  & 0.75                 & 0.75                 \\
-			NMIAMgCE                    &\Bull{E}& \Stop &      \Mg      & 0.73                                  & 0.72                 & 0.73                 \\
-			NAIMg                       &\Bull{G}& \Stop &      \Mg      & 0.73                                  & 0.68                 & 0.70                 \\
-			BzCNMg                      &\Bull{H}& \Stop &      \Mg      & 0.71                                  & 0.68                 & 0.54                 \\
-			1M7MgCE                     &\Bull{E}& \Stop &      \Mg      & 0.70                                  & 0.69                 & 0.70                 \\
-			CMCTMg                      &\Bull{G}& \Stop &      \Mg      & 0.70                                  & 0.68                 & 0.73                 \\
-			1M7ILU3                     &\Bull{D}& \Mut  &     \NoMg     & 0.64                                  & 0.56                 & 0.61                 \\
-			DMSMg                       &\Bull{F}& \Stop &      \Mg      & 0.63                                  & 0.66                 & 0.67                 \\
-			NMIACE                      &\Bull{B}& \Stop &     \NoMg     & 0.61                                  & 0.60                 & 0.60                 \\
-			1M7CE                       &\Bull{B}& \Stop &     \NoMg     & 0.60                                  & 0.61                 & 0.61                 \\
-			BzCN                        &\Bull{B}& \Stop &     \NoMg     & 0.60                                  & 0.59                 & 0.59                 \\
-			NAI                         &\Bull{B}& \Stop &     \NoMg     & 0.60                                  & 0.59                 & 0.59                 \\ \midrule
-			Avg Technology              & & \Mut  &      $\star$       & 0.78                                  & 0.74                 & 0.75                 \\
-			                            & & \Stop &      $\star$       & 0.66                                  & 0.65                 & 0.65                 \\
-			Avg -/+ Mg$^{2+}$           & &  $\star$   &     \NoMg     & 0.67                                  & 0.64                 & 0.65                 \\
-			                            & &  $\star$   &      \Mg      & 0.73                                  & 0.72                 & 0.715                \\ \midrule
-			{\bfseries Average overall} & &  $\star$   &      $\star$       & 0.705                                 & 0.68                 & 0.685                \\ \bottomrule& 
+			                            &          &         &           & \multicolumn{3}{@{}c@{}}{MCC\%}                                                  \\
+			Condition                   &  Clust.  &  Tech.  & Mg$^{2+}$ & \multicolumn1l{\relsize{-1}\OurTool} & \multicolumn1l{MFE} & \multicolumn1l{MEA} \\ \midrule
+			1M7ILUMg                    & \Bull{C} &  \Mut   &    \Mg    & 85                                   & 82                  & 82                \\
+			1M7ILU                      & \Bull{A} &  \Mut   &   \NoMg   & 84                                   & 82                  & 84                \\
+			NMIAMg                      & \Bull{A} &  \Mut   &    \Mg    & 81                                   & 80                  & 80                \\
+			NMIA                        & \Bull{A} &  \Mut   &   \NoMg   & 80                                   & 69                  & 69                \\
+			1M7ILU3Mg                   & \Bull{C} &  \Mut   &    \Mg    & 74                                   & 75                  & 75                \\
+			NMIAMgCE                    & \Bull{E} &  \Stop  &    \Mg    & 73                                   & 72                  & 73                \\
+			NAIMg                       & \Bull{G} &  \Stop  &    \Mg    & 73                                   & 68                  & 70                \\
+			BzCNMg                      & \Bull{H} &  \Stop  &    \Mg    & 71                                   & 68                  & 54                \\
+			1M7MgCE                     & \Bull{E} &  \Stop  &    \Mg    & 70                                   & 69                  & 70                \\
+			CMCTMg                      & \Bull{G} &  \Stop  &    \Mg    & 70                                   & 68                  & 73                \\
+			1M7ILU3                     & \Bull{D} &  \Mut   &   \NoMg   & 64                                   & 56                  & 61                \\
+			DMSMg                       & \Bull{F} &  \Stop  &    \Mg    & 63                                   & 66                  & 67                \\
+			NMIACE                      & \Bull{B} &  \Stop  &   \NoMg   & 61                                   & 60                  & 60                \\
+			1M7CE                       & \Bull{B} &  \Stop  &   \NoMg   & 60                                   & 61                  & 61                \\
+			BzCN                        & \Bull{B} &  \Stop  &   \NoMg   & 60                                   & 59                  & 59                \\
+			NAI                         & \Bull{B} &  \Stop  &   \NoMg   & 60                                   & 59                  & 59                \\ \midrule
+			Avg Technology              &          &  \Mut   &  $\star$  & 78                                   & 74                  & 75                \\
+			                            &          &  \Stop  &  $\star$  & 66                                   & 65                  & 65                \\
+			Avg -/+ Mg$^{2+}$           &          & $\star$ &   \NoMg   & 67                                   & 64                  & 65                \\
+			                            &          & $\star$ &    \Mg    & 73                                   & 72                  & 71.5               \\ \midrule
+			{\bfseries Average overall} &          & $\star$ &  $\star$  & 70.5                                 & 68                  & 68.5               \\ \bottomrule
+			                            &          &         &           &
 		\end{tabular}
 		\end{adjustbox}\\[1em]}
 	
@@ -753,44 +752,46 @@ The enhanced performances of tri-probing over bi-probing are consistent with the
 
 
 \begin{table}[h]
-	\Heatset{min=0.6,   
-		max=.83,   
+	\Heatset{min=60,   
+		max=83,   
 		max colour=Aquamarine3, % colour at maximum
 		min colour=BadCol,      % colour at minimum
 		Min colour=BadCol, % colour for values below min
 		Max colour=Aquamarine3   % colour for values above max
 	}
+    \newcommand{\Q}{\relsize{-1}}
+
 	{\centering
 		\begin{adjustbox}{max width=\linewidth}
 			\begin{tabular}{@{}lHH@{}}
 				\toprule
-				& \multicolumn{2}{@{}c@{}}{MCC}                    \\
-				Description                            & \multicolumn1c{Joint} & \multicolumn1{c@{}}{Mono} \\ \midrule
-				{Cluster \Bull{A}}                     &  \\
-				NMIAMg, 1M7ILU, NMIA                   & 0.80                   & 0.82                      \\
-				NMIAMg, 1M7ILU                         & 0.82                   & 0.82                      \\
-				1M7ILU, NMIA                           & 0.82                   & 0.82                      \\
-				NMIAMg,  NMIA                          & 0.80                   & 0.80                      \\ \midrule
-				{Cluster \Bull{B}}                     &  \\
-				Nai, BzCN, 1M7CE, NMIACE               & 0.60                   & 0.60                      \\
-				Nai, BzCN, 1M7CE                       & 0.60                   & 0.60                      \\
-				Nai, BzCN, NMIACE                      & 0.61                   & 0.60                      \\
-				Nai, 1M7CE, NMIACE                     & 0.61                   & 0.60                      \\
-				BzCN, 1M7CE, NMIACE                    & 0.61                   & 0.60                      \\
-				Nai, BzCN                              & 0.60                   & 0.60                      \\
-				Nai, 1M7CE                             & 0.59                   & 0.60                      \\
-				Nai, NMIACE                            & 0.60                   & 0.60                      \\
-				BzCN, 1M7CE                            & 0.61                   & 0.60                      \\
-				BzCN,NMIACE                            & 0.60                   & 0.60                      \\
-				1M7CE, NMIACE                          & 0.62                   & 0.61                      \\ \midrule
-				{Cluster \Bull{C}}                     &  \\
-				1M7ILUMg, 1M7ILU3Mg                    & 0.82                   & 0.80                      \\ \midrule
-				{Cluster \Bull{E}}                     &  \\
-				1M7MgCE, NMIAMgCE                      & 0.73                   & 0.72                      \\ \midrule
-				{Cluster \Bull{G}}                     &  \\
-				NaiMg, CMCTMg                          & 0.73                   & 0.72                      \\ \bottomrule
+				                                           & \multicolumn{2}{@{}c@{}}{MCC\%}                     \\
+				Description                                & \multicolumn{1}{@{}c@{}}{\Q{}Joint} & \multicolumn{1}{@{}c@{}}{\Q{}Mono} \\ \midrule
+				{Cluster \Bull{A}}                         &                       &  \\
+				NMIAMg, 1M7ILU, NMIA                       & 80                  & 82                      \\
+				NMIAMg, 1M7ILU                             & 82                  & 82                      \\
+				1M7ILU, NMIA                               & 82                  & 82                      \\
+				NMIAMg,  NMIA                              & 80                  & 80                      \\ \midrule
+				{Cluster \Bull{B}}                         &                     & \\
+				Nai, BzCN, 1M7CE, NMIACE                   & 60                  & 60                      \\
+				Nai, BzCN, 1M7CE                           & 60                  & 60                      \\
+				Nai, BzCN, NMIACE                          & 61                  & 60                      \\
+				Nai, 1M7CE, NMIACE                         & 61                  & 60                      \\
+				BzCN, 1M7CE, NMIACE                        & 61                  & 60                      \\
+				Nai, BzCN                                  & 60                  & 60                      \\
+				Nai, 1M7CE                                 & 59                  & 60                      \\
+				Nai, NMIACE                                & 60                  & 60                      \\
+				BzCN, 1M7CE                                & 61                  & 60                      \\
+				BzCN,NMIACE                                & 60                  & 60                      \\
+				1M7CE, NMIACE                              & 62                  & 61                      \\ \midrule
+				{Cluster \Bull{C}}                         &                     & \\
+				1M7ILUMg, 1M7ILU3Mg                        & 82                  & 80                      \\ \midrule
+				{Cluster \Bull{E}}                         &                     & \\
+				1M7MgCE, NMIAMgCE                          & 73                  & 72                      \\ \midrule
+				{Cluster \Bull{G}}                         &                     & \\
+				NaiMg, CMCTMg                              & 73                  & 72                      \\ \bottomrule
 				%				\midrule
-				%				{All 16 conditions} & .80                   & .70                      \\ \bottomrule
+				%				{All 16 conditions} & .80                   & .70                       \\ \bottomrule
 			\end{tabular}
 		\end{adjustbox}
 		\\}
@@ -814,8 +815,8 @@ The results, summarized in Table~\ref{multiprobingdidy1}, demonstrate a clear ad
 Finally, the consideration of four triplets of diverse conditions allow us to reach our best prediction, achieving 85.3\% MCC. Meanwhile, considering the 16 conditions together yields a 80\% MCC value, increasing to 83\% in the absence of the four outlier conditions of cluster \Bull{B}. These results confirm that the strategy used by \OurTool{} is able to exploit the complementary information provided by multiple conditions, contributing to better predictions.
 
 	\begin{table}[h]
-	\Heatset{min=0.6,   
-		max=.83,   
+	\Heatset{min=60,   
+		max=83,   
 		max colour=Aquamarine3, % colour at maximum
 		min colour=BadCol,      % colour at minimum
 		Min colour=BadCol, % colour for values below min
@@ -823,37 +824,39 @@ Finally, the consideration of four triplets of diverse conditions allow us to re
 	}
     \newcommand{\MC}[1]{\multicolumn{1}{@{}c@{}}{#1}}
     \newcommand{\MCB}[1]{\multicolumn{2}{@{}c@{}}{#1}}
+    \newcommand{\Q}{\relsize{-1}}
 
 	\begin{adjustbox}{max width=\linewidth}
 		\begin{tabular}{@{}llllHHHH@{}}
 			\toprule
-			\multicolumn{4}{@{}l@{}}{Conditions}                                    & \MCB{MCC (-NAI)} & \MCB{MCC (+NAI)} \\
-			Clust. \Bull{A} & Clust. \Bull{C} & Clust.  \Bull{E} & Clust. \Bull{G}   & \MC{Joint} & \MC{Mono}  & \MC{Joint}       & \MC{Mono}      \\ \midrule
-			NMIAMg          & 1M7ILUMg        & 1M7MgCE          & NaiMg             & 0.84       & 0.72       & 0.83             & 0.71           \\
-			NMIAMg          & 1M7ILUMg        & 1M7MgCE          & CMCTMg            & 0.75       & 0.72       & 0.82             & 0.71           \\
-			NMIAMg          & 1M7ILUMg        & NMIAMgCE         & NaiMg             & 0.79       & 0.73       & 0.82             & 0.71           \\
-			NMIAMg          & 1M7ILUMg        & NMIAMgCE         & CMCTMg            & 0.82       & 0.72       & 0.60             & 0.71           \\
-			NMIAMg          & 1M7ILU3Mg       & 1M7MgCE          & NaiMg             & 0.70       & 0.71       & 0.60             & 0.70           \\
-			NMIAMg          & 1M7ILU3Mg       & 1M7MgCE          & CMCTMg            & 0.70       & 0.70       & 0.72             & 0.69           \\
-			NMIAMg          & 1M7ILU3Mg       & NMIAMgCE         & NaiMg             & 0.72       & 0.71       & 0.74             & 0.70           \\
-			NMIAMg          & 1M7ILU3Mg       & NMIAMgCE         & CMCTMg            & 0.75       & 0.71       & 0.60             & 0.70           \\
-			1M7ILU          & 1M7ILUMg        & 1M7MgCE          & NaiMg             & 0.82       & 0.73       & 0.75             & 0.71           \\
-			1M7ILU          & 1M7ILUMg        & 1M7MgCE          & CMCTMg            & 0.84       & 0.72       & 0.60             & 0.71           \\
-			1M7ILU          & 1M7ILUMg        & NMIAMgCE         & NaiMg             & 0.73       & 0.73       & 0.60             & 0.72           \\
-			1M7ILU          & 1M7ILUMg        & NMIAMgCE         & CMCTMg            & 0.82       & 0.73       & 0.82             & 0.71           \\
-			1M7ILU          & 1M7ILU3Mg       & 1M7MgCE          & NaiMg             & 0.84       & 0.71       & 0.60             & 0.70           \\
-			1M7ILU          & 1M7ILU3Mg       & 1M7MgCE          & CMCTMg            & 0.70       & 0.71       & 0.84             & 0.70           \\
-			1M7ILU          & 1M7ILU3Mg       & NMIAMgCE         & NaiMg             & 0.74       & 0.72       & 0.60             & 0.70           \\
-			1M7ILU          & 1M7ILU3Mg       & NMIAMgCE         & CMCTMg            & 0.74       & 0.71       & 0.75             & 0.70           \\
-			NMIA            & 1M7ILUMg        & 1M7MgCE          & NaiMg             & 0.82       & 0.72       & 0.75             & 0.71           \\
-			NMIA            & 1M7ILUMg        & 1M7MgCE          & CMCTMg            & 0.83       & 0.72       & 0.82             & 0.70           \\
-			NMIA            & 1M7ILUMg        & NMIAMgCE         & NaiMg             & 0.73       & 0.73       & 0.59             & 0.71           \\
-			NMIA            & 1M7ILUMg        & NMIAMgCE         & CMCTMg            & 0.82       & 0.72       & 0.82             & 0.71           \\
-			NMIA            & 1M7ILU3Mg       & 1M7MgCE          & NaiMg             & 0.73       & 0.71       & 0.82             & 0.69           \\
-			NMIA            & 1M7ILU3Mg       & 1M7MgCE          & CMCTMg            & 0.70       & 0.70       & 0.73             & 0.69           \\
-			NMIA            & 1M7ILU3Mg       & NMIAMgCE         & NaiMg             & 0.74       & 0.71       & 0.68             & 0.70           \\
-			NMIA            & 1M7ILU3Mg       & NMIAMgCE         & CMCTMg            & 0.74       & 0.71       & 0.73             & 0.69           \\ \midrule
-			                &                 &                  & Average           & 0.77       & 0.72       & 0.72             & 0.70           \\ \bottomrule
+			\multicolumn{4}{@{}l@{}}{}                                    & \multicolumn{4}{@{}c@{}}{MCC\%}\\
+			\multicolumn{4}{@{}l@{}}{Conditions in individual clusters}                                    & \MCB{-NAI} & \MCB{+NAI} \\
+			\Bull{A} & \Bull{C} & \Bull{E} & \Bull{G}   & \MC{\Q Joint} & \MC{\Q Mono}  & \MC{\Q Joint}       & \MC{\Q Mono}      \\ \midrule
+			\Q NMIAMg          & \Q 1M7ILUMg        & \Q 1M7MgCE          & \Q NaiMg             & 84       & 72       & 83             & 71           \\
+			\Q NMIAMg          & \Q 1M7ILUMg        & \Q 1M7MgCE          & \Q CMCTMg            & 75       & 72       & 82             & 71           \\
+			\Q NMIAMg          & \Q 1M7ILUMg        & \Q NMIAMgCE         & \Q NaiMg             & 79       & 73       & 82             & 71           \\
+			\Q NMIAMg          & \Q 1M7ILUMg        & \Q NMIAMgCE         & \Q CMCTMg            & 82       & 72       & 60             & 71           \\
+			\Q NMIAMg          & \Q 1M7ILU3Mg       & \Q 1M7MgCE          & \Q NaiMg             & 70       & 71       & 60             & 70           \\
+			\Q NMIAMg          & \Q 1M7ILU3Mg       & \Q 1M7MgCE          & \Q CMCTMg            & 70       & 70       & 72             & 69           \\
+			\Q NMIAMg          & \Q 1M7ILU3Mg       & \Q NMIAMgCE         & \Q NaiMg             & 72       & 71       & 74             & 70           \\
+			\Q NMIAMg          & \Q 1M7ILU3Mg       & \Q NMIAMgCE         & \Q CMCTMg            & 75       & 71       & 60             & 70           \\
+			\Q 1M7ILU          & \Q 1M7ILUMg        & \Q 1M7MgCE          & \Q NaiMg             & 82       & 73       & 75             & 71           \\
+			\Q 1M7ILU          & \Q 1M7ILUMg        & \Q 1M7MgCE          & \Q CMCTMg            & 84       & 72       & 60             & 71           \\
+			\Q 1M7ILU          & \Q 1M7ILUMg        & \Q NMIAMgCE         & \Q NaiMg             & 73       & 73       & 60             & 72           \\
+			\Q 1M7ILU          & \Q 1M7ILUMg        & \Q NMIAMgCE         & \Q CMCTMg            & 82       & 73       & 82             & 71           \\
+			\Q 1M7ILU          & \Q 1M7ILU3Mg       & \Q 1M7MgCE          & \Q NaiMg             & 84       & 71       & 60             & 70           \\
+			\Q 1M7ILU          & \Q 1M7ILU3Mg       & \Q 1M7MgCE          & \Q CMCTMg            & 70       & 71       & 84             & 70           \\
+			\Q 1M7ILU          & \Q 1M7ILU3Mg       & \Q NMIAMgCE         & \Q NaiMg             & 74       & 72       & 60             & 70           \\
+			\Q 1M7ILU          & \Q 1M7ILU3Mg       & \Q NMIAMgCE         & \Q CMCTMg            & 74       & 71       & 75             & 70           \\
+			\Q NMIA            & \Q 1M7ILUMg        & \Q 1M7MgCE          & \Q NaiMg             & 82       & 72       & 75             & 71           \\
+			\Q NMIA            & \Q 1M7ILUMg        & \Q 1M7MgCE          & \Q CMCTMg            & 83       & 72       & 82             & 70           \\
+			\Q NMIA            & \Q 1M7ILUMg        & \Q NMIAMgCE         & \Q NaiMg             & 73       & 73       & 59             & 71           \\
+			\Q NMIA            & \Q 1M7ILUMg        & \Q NMIAMgCE         & \Q CMCTMg            & 82       & 72       & 82             & 71           \\
+			\Q NMIA            & \Q 1M7ILU3Mg       & \Q 1M7MgCE          & \Q NaiMg             & 73       & 71       & 82             & 69           \\
+			\Q NMIA            & \Q 1M7ILU3Mg       & \Q 1M7MgCE          & \Q CMCTMg            & 70       & 70       & 73             & 69           \\
+			\Q NMIA            & \Q 1M7ILU3Mg       & \Q NMIAMgCE         & \Q NaiMg             & 74       & 71       & 68             & 70           \\
+			\Q NMIA            & \Q 1M7ILU3Mg       & \Q NMIAMgCE         & \Q CMCTMg            & 74       & 71       & 73             & 69           \\ \midrule
+			                &                 &                  & Average           & 77       & 72       & 72             & 70           \\ \bottomrule
 		\end{tabular}
 	\end{adjustbox}\\
 	\caption{Predictive performances of conditions across clusters, coupled with impact assessment of NAI.  For each experiment, a single condition is chosen from each cluster except for cluster \Bull{B}. Clusters \Bull{D}, \Bull{F} and \Bull{H}, each consisting of a single condition, contribute their sole condition, leading to the list of conditions  $\mathcal{M}$:=\{1M7ILU3, BzCNMg and DMSMg\}. 
@@ -920,31 +923,32 @@ Finally, the consideration of four triplets of diverse conditions allow us to re
 
 
 
-\subsection{Supplementing with pointwise mutants increases prediction quality}
+\subsection{Supplementing wild-type profiles with random single mutants increases prediction quality}
 In this final analysis, we decided to test the capacity of \OurTool to extract and exploit complementary information produced by the systematic probing of single-point mutants.
 This approach may appear misguided, since single point mutants are expected to adopt different structures than the wild-type sequence. In fact, the conformational changes induced by mutations precisely constitute the signal that is exploited by downstream modeling pipelines~\cite{Cordero2015}. However, those changes are typically local, and the limited influence of outliers on \OurTool{} fuels our hope that the benefit of including independently-produced conditions will outweigh the impact of noise introduced by local changes.
 
-We selected 100 random subsets consisting of 1, 2, 3 and 10 mutants, which we supplemented with the original wild-type sequence (WT).
+We generated 100 uniformly-distributed subsets consisting of 1, 2, 3 and 10 mutants extracted from the Cheng dataset~\cite{Cheng2017}, which we supplemented with the original wild-type sequence (WT).
 For each set of probing profiles, we executed \OurTool{} with default parameters, using a sample size of 1~000 structures. 
 We also analyzed the WT sequence alone, reproducing the analysis 100 times to compare the variability across sets of mutants to the one induced by stochastic aspects of our method. 
 Finally, we performed a restricted analysis focusing on the WT, supplemented with 2 probing profiles selected from the 20 most similar conditions to the WT , as assessed by the ensemble distance metrics. By comparing our results with those obtained for unrestricted pairs of mutants, we assess the influence of structure variability on the quality of our predictions. We report in Figure~\ref{fig:variantanalysis} the distribution of MCC values associated with the first prediction returned by IPANEMAP.
 
-For the WT, our results are reproducible and, in 94\% out of the 100 runs, we obtained a structure having MCC between 60.5\% and 61\%. Interestingly, the remaining 6\% of the runs present improved MCC values, ranging from 76\% to 78\%, suggesting the existence of a close suboptimal.
+For the WT, the average MCC achieved by our predictions is of 61.83\%, comparable to the worst condition of our previous dataset.
+Our predictions are generally stable and, in 94\% out of the 100 runs, yield a structure having MCC between 60.5\% and 61\%. The remaining 6\% of the runs present improved MCC values, ranging from 76\% to 78\%, suggesting the existence of an alternative conformer in the pseudo-Boltzmann ensemble.
 %%\as{ This value can not be fixed since we have  0.6134: 12\%, 0.7597: 2\%, 0.7649: 1\%, 0.7783: 1\%, 0.7665: 1\%, 0.7531: 1\% , is it ok Yann not to specify the improvemnt percentage ?}
 %% Counter({0.6084: 82, 0.6134: 12, 0.7597: 2, 0.7649: 1, 0.7783: 1, 0.7665: 1, 0.7531: 1})
-Overall, the average MCC for the WT is of $61.83\%$.%mean(Multiprobing_100WT) 
+.%mean(Multiprobing_100WT) 
 
-When two conditions are considered, the dispersion of the results increases, and MCC values as low as $38.93$\% can be observed.%min(Multiprobing_1M)
-These values, however, are not typical, and the average MCC observed in the presence of a mutant increases to $64.88\%$%mean(Multiprobing_1M). 
-This trend upwards is confirmed for two mutants, with an average MCC across runs of $66.62\%$%mean(Multiprobing_2M).
-Interestingly, the dispersion of the MCC is lower for two mutants than a single one, suggesting a form of averaging which would somehow inhibit 
-the deleterious effect of outliers.
-\as{The min value was improved by  $2.76\%$ when considering two mutants from the subset of 20 mutants showing the minimal Eucledian reactivity distance to the WT.   }
-For 10 mutants, the average MCC and overall distribution remains highly similar to the three mutants, suggesting peeking performances.
-These results support a notion of complementarity between the probing data produced across reasonably similar mutants, widely believed to hold across reagents and conditions. Indeed, the structure mainly produced for the WT is generally returned by 
+When the WT and a single random mutant are jointly considered, the dispersion of the results increases, and MCC values ranging from 38.9\% to 85\% can be observed reached.%min(Multiprobing_1M)
+These values, however, are not typical, and the average MCC in the presence of a single mutant increases to 64.9\%,%mean(Multiprobing_1M)
+suggesting a positive contribution from the additional mutant profile. 
+
+This trend is confirmed when two random mutants are considered in addition to the WT. The average MCC across runs now increases to 66.6\%. %mean(Multiprobing_2M).
+Interestingly, the dispersion of the MCC is lower for two mutants than for a single one, with low values that are now confined to 57\%.  This results suggests  a role of \emph{tie-breaker} played by the third condition, allowing to mitigate the deleterious effect of some erroneous outliers.
+However, such outliers still play some disruptive role, and restricting our choice of mutants within the 20 conditions most similar to the WT further improves the MCC value by 2.8\% to 67.7\%, with MCC values that now almost reach 60\%.  
+
+The average MCC again increases in the presence of 3 mutants, to reach an average of 69.3\% MCC. For 10 mutants, the average MCC and overall distribution remains highly similar to that obtained by considering three mutants, suggesting peeking performances. These results support a notion of complementarity between the probing data produced across reasonably similar mutants, leading to a gradual decrease of the noise in the data. However, the bimodal nature of the distribution also suggests the existence of at least two conformations that are both supported by the WT and the mutant profiles.
 
 
-%2M close better than wild-type (although conditions expected to be more ccomparable) but on average worse than 2M (complementarity matters)
 \begin{figure}
 	{\centering
 		\includegraphics[width=\linewidth]{graphs/combinationscale}\\}
@@ -972,9 +976,9 @@ These results support a notion of complementarity between the probing data produ
 
 
 
-\section{Discussion}
+\section{Conclusion}
 
-
+In this article, we presented \OurTool{}, an integrative method for the prediction of secondary structure models from multiple probing profiles. Based on the simple premise that good structural models must be stable and supported by a maximal number of probing experiments, it relies 
 
 \begin{itemize}
 	\item Comparison to average is positive, and fair, in a context where no single reagent appear to dominate in term of predictive capacity. Moreover, in realistic structure modeling scenarii, it is impossible to know a priori which information is contributed by an experiment. In other words, combining experimental probing data, even in a pairwise fashion, typically mitigates the empirical risk of misprediction. 
