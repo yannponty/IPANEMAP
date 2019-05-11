@@ -258,8 +258,8 @@ Accepted March 1, 2019}
 \maketitle
 
 \begin{abstract}
-\textbf{Motivation:} The production of reliable structural models from chemical probing experiments, such as SHAPE protocols, benefits from the integration of information derived from multiple protocols and reagents. However, the interpretation of multiple probing profiles remains complex and largely manual, hindering the quality and reproducibility of modeling efforts.\\
-\textbf{Results:} We introduce \OurTool{}, an automated and robust approach for computational modeling, which integrates probing data produced across experiments based on diverse protocols, reagents, or even over a collection of mutants, to predict the dominant conformations of an RNA.
+The production of reliable structural models from chemical probing experiments, such as SHAPE protocols, benefits from the integration of information derived from multiple protocols and reagents. However, the interpretation of multiple probing profiles remains complex and largely manual, hindering the quality and reproducibility of modeling efforts.\\
+We introduce \OurTool{}, an automated and robust approach for computational modeling, which integrates probing data produced across experiments based on diverse protocols, reagents, or even over a collection of mutants, to predict the dominant conformations of an RNA.
 \\
 \textbf{Contact:} \href{yann.ponty@lix.polytechnique.fr}{Yann.Ponty@lix.polytechnique.fr}\\
 \textbf{Supplementary information:} Supplementary data are available at \textit{Bioinformatics}
@@ -296,8 +296,13 @@ In order to identify the model that fits the most with all the data researchers 
 {\noindent\bf Computational aspects.}
 On the computational side, the last couple of decades have seen a series of paradigm shifts in the ways probing information is integrated, somehow mirroring the evolution of {\em ab initio} methods for secondary structure prediction. The seminal work of Mathews uses cutoffs to transform reactivity values into hard constraints. Depending on the reagent/enzyme, significantly (un-)reactive positions were forced to either paired or remain unpaired within predicted structures. Such constraints can be effectively captured through a modification of classic dynamic programming algorithms. Subsequent methods lifted the requirement of thresholds, and integrated reactivity values directly as pseudo-energies, leading to the prediction of the most likely structure in the convolution of the Boltzmann distribution and some ...
 
+Complementary of the different probes is intuitively easy to understand, but complicated to integrate into algorithms because it  most cases it remains difficult to formalize.
+We undertook to tackle this problem following a non explicit approach that does not require to define the difference and complementary between the various probes.
+Using a sampling-clustering strategy we developed IPANEMAP, an RNA modeling workflow relying on \Software{RNAsubpot} that allows to predict RNA structure using as constraints one or many different data sets, and even phylogenetic data. 
+
+
 {\noindent\bf Contribution je ne mettrais pas de "contribution", c'est une intro pas un résumé ni une conclusion.}
-\Blabla[7-8]
+
 
 \begin{comment}
 \begin{itemize}
@@ -789,7 +794,7 @@ The enhanced performances of tri-probing over bi-probing are consistent with the
 			\end{tabular}
 		\end{adjustbox}
 		\\}
-	\caption{Predictions do not benefits from the joint consideration of similar conditions. For each cluster, all subsets of conditions in the cluster are considered, and the MCC of the resulting prediction ('Joint') is compared to the average MCC of predictions performed with individual conditions independently ('Mono'), revealing little improvement.}\label{multiprobingdidy1}
+	\caption{Predictions do not benefits from the joint consideration of similar conditions. For each cluster, all subsets of conditions in the cluster are considered, and the MCC of the resulting prediction ('Joint') is compared to the average MCC of predictions performed with individual conditions independently ('Mono'), revealing little improvement.}\label{fig:similarconds}
 \end{table}
 
 \paragraph{Similar conditions do not contribute to the quality of predictions.} 
@@ -853,7 +858,7 @@ Finally, the consideration of four triplets of diverse conditions allow us to re
 	\end{adjustbox}\\
 	\caption{Predictive performances of conditions across clusters, coupled with impact assessment of NAI.  For each experiment, a single condition is chosen from each cluster except for cluster \Bull{B}. Clusters \Bull{D}, \Bull{F} and \Bull{H}, each consisting of a single condition, contribute their sole condition, leading to the list of conditions  $\mathcal{M}$:=\{1M7ILU3, BzCNMg and DMSMg\}. 
 		For each combination, the MCC of the predicted structural model is reported, as predicted from the conditions in the presence/absence of NAI ('Joint' columns). For each prediction, the average MCC value of mono conditions is reported as a baseline ('Mono' columns).
-	}\label{multiprobingdidy1}
+	}\label{fig:differentconds}
 \end{table}
 
 %
@@ -941,9 +946,9 @@ These results support a notion of complementarity between the probing data produ
 
 %2M close better than wild-type (although conditions expected to be more ccomparable) but on average worse than 2M (complementarity matters)
 \begin{figure}
-	\centering{
-		\includegraphics[width=\linewidth]{graphs/combinationscale}}
-	\label{Vsrsample}
+	{\centering
+		\includegraphics[width=\linewidth]{graphs/combinationscale}\\}
+		
 	\caption{Prediction accuracy (MCC) when considering the WT, supplemented with a set of $k=$1, 2, 3, or 10 single-point mutants, selected uniformly at random ({\sf WT+$k$M}). For 2 mutants, we also considered selecting mutants from the 20 most similar to the WT.}\label{fig:variantanalysis}
 \end{figure}
 
@@ -972,9 +977,12 @@ These results support a notion of complementarity between the probing data produ
 
 
 \begin{itemize}
-	\item Comparison to average is positive, and fair, in a context where no single reagent appear to dominate in term of predictive capacity. Moreover, in realistic structure modeling scenarii, it is impossible to know a priori which information is contributed by an experiment. In other words, combining experimental probing data, even in a pairwise fashion, typically mitigates the empirical risk of misprediction.
+	\item Comparison to average is positive, and fair, in a context where no single reagent appear to dominate in term of predictive capacity. Moreover, in realistic structure modeling scenarii, it is impossible to know a priori which information is contributed by an experiment. In other words, combining experimental probing data, even in a pairwise fashion, typically mitigates the empirical risk of misprediction. 
+\item Attention ces conclusions ne semblent pas tt a fait vraies avec le set de cordero pour lequel le plus de données on ajoute le mieux (+ ou -)
+\item using probing conditions with our without Mg to use as constraints is a dilemma. In deed, RNA reach its native 3D structure only in presence of Mg2+ ions (ref ). However, 3D includes non WC parings, and motifs such as pseudoknots, kissing loops, tetraloop interactions that RNA structure prediction algorithm do not take into account. In contrast in presence of monovalent but no divalent ions, RNA is suppose to adopt a structure in which all helical domains are formed but where most if not all tertiary contacts are not stable. Therefore one could assume that probing the RNA without Mg2+ provides signals that are more compatible and less deceptive for predicting algorithms. However it is likely that the instability of all the tertiary contacts is a situation prone to misfolding, or at least the coexistence in solution of many conformations. Here the Dydimium ribozyme which contains many tertiary motifs was systematically probed in presence or absence of Mg2+ (except for CMCT and DMS). Remarkably, the best prediction were obtained with 1M7 and NMIA with our without Mg with very similar MCC, although the probing profile in the two conditions are quite divergent. For all the other reagents/protocols, prediction using constraints from experiments containing Mg2+ systematically outperform its counterpart without Mg2+ with a 0.1 average decrease of the MCC.
+\item je pense qu'il serait intéressant au moins pour un uo deux réactif de voir ce que donne le couple + et - Mg. Peut etre par exemple avec le 1M7ilu et un autre mauvais genre le NAI
 \end{itemize}
-
+% il faudrait regrder ce que fait weeks avec le 1M7, le NMIA et le 1M6, je n'ai pas bien compris quelle tambouille il fait, mais ca part du meme genre de constatation : il y a une spécificité dans chacune des sondes qu'il n'arrive pas vraiment à formaliser donc il fait une tambouille qui lui permet de tous les intégrer (mais c'est peut etre un peu pédestre comme démarche!). Apres ce sont probablement des conditions tres proches ce qui n'apporte pas d'apres nos résultats bcq d'infos supplémentaires .. bref ca vaudrait peut etre le coup de comparer.
 
 
 {\em Role of outliers.} 
@@ -983,7 +991,7 @@ These results support a notion of complementarity between the probing data produ
 \begin{figure*}
 	{\centering\includegraphics[width=1\linewidth]{graphs/Reproductibility}\\}
 	
-	\caption{MCC of predicted structures under conditions with and without Mg$^{2+}$, differentiating stop-inducing and mutation-inducing protocols, over 10 runs of IPANEMAP. }\label{fig:biclustering}
+	\caption{MCC of predicted structures under conditions with and without Mg$^{2+}$, differentiating stop-inducing and mutation-inducing protocols, over 10 runs of IPANEMAP. }\label{fig:reproducibility}
 \end{figure*}
 
 
@@ -991,6 +999,7 @@ These results support a notion of complementarity between the probing data produ
 
 
 \section{Conclusion}
+%discussion et conclusion sont fusionnés dans ce type d'article.}
 
 
 
@@ -1003,13 +1012,13 @@ These results support a notion of complementarity between the probing data produ
 	\item Pseudo-Energy models
 \end{itemize}
 
-\Blabla{5-6}
 
 \section*{Acknowledgements}
 The authors wish to thank Rony Lorenz and Nathalie Chamond for helpful suggestions.
 
 \section*{Funding}
-This work has been supported by La Fondation pour la Recherche Medicale (FRM).
+This work has been supported by La Fondation pour la Recherche Medicale ([FRM
+DBI20141423337]).
 %\bibliographystyle{bioinformatics}
 \bibliographystyle{abbrvnat}
 %\bibliographystyle{natbib}%compa
