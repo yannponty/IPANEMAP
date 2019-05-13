@@ -762,33 +762,28 @@ The enhanced performances of tri-probing over bi-probing are consistent with the
 
 	{\centering
 		\begin{adjustbox}{max width=\linewidth}
-			\begin{tabular}{@{}lHH@{}}
+			\begin{tabular}{@{}llHH@{}}
 				\toprule
-				                                           & \multicolumn{2}{@{}c@{}}{MCC\%}                     \\
-				Description                                & \multicolumn{1}{@{}c@{}}{\Q{}Joint} & \multicolumn{1}{@{}c@{}}{\Q{}Mono} \\ \midrule
-				{Cluster \Bull{A}}                         &                       &  \\
-				NMIAMg, 1M7ILU, NMIA                       & 80                  & 82                      \\
-				NMIAMg, 1M7ILU                             & 82                  & 82                      \\
-				1M7ILU, NMIA                               & 82                  & 82                      \\
-				NMIAMg,  NMIA                              & 80                  & 80                      \\ \midrule
-				{Cluster \Bull{B}}                         &                     & \\
-				Nai, BzCN, 1M7CE, NMIACE                   & 60                  & 60                      \\
-				Nai, BzCN, 1M7CE                           & 60                  & 60                      \\
-				Nai, BzCN, NMIACE                          & 61                  & 60                      \\
-				Nai, 1M7CE, NMIACE                         & 61                  & 60                      \\
-				BzCN, 1M7CE, NMIACE                        & 61                  & 60                      \\
-				Nai, BzCN                                  & 60                  & 60                      \\
-				Nai, 1M7CE                                 & 59                  & 60                      \\
-				Nai, NMIACE                                & 60                  & 60                      \\
-				BzCN, 1M7CE                                & 61                  & 60                      \\
-				BzCN,NMIACE                                & 60                  & 60                      \\
-				1M7CE, NMIACE                              & 62                  & 61                      \\ \midrule
-				{Cluster \Bull{C}}                         &                     & \\
-				1M7ILUMg, 1M7ILU3Mg                        & 82                  & 80                      \\ \midrule
-				{Cluster \Bull{E}}                         &                     & \\
-				1M7MgCE, NMIAMgCE                          & 73                  & 72                      \\ \midrule
-				{Cluster \Bull{G}}                         &                     & \\
-				NaiMg, CMCTMg                              & 73                  & 72                      \\ \bottomrule
+				&                                           & \multicolumn{2}{@{}c@{}}{MCC\%}                     \\
+				& Conditions                                & \multicolumn{1}{@{}c@{}}{\Q{}Joint} &  \multicolumn{1}{@{}c@{}}{\Q{}Mono} \\ \midrule
+				{Cluster \Bull{A}} & NMIAMg, 1M7ILU, NMIA                       & 80                  & 82                      \\
+				& NMIAMg, 1M7ILU                             & 82                  & 82                      \\
+				& 1M7ILU, NMIA                               & 82                  & 82                      \\
+				& NMIAMg,  NMIA                              & 80                  & 80                      \\ \midrule
+				{Cluster \Bull{B}}                         & Nai, BzCN, 1M7CE, NMIACE                   & 60                  & 60                      \\
+				& Nai, BzCN, 1M7CE                           & 60                  & 60                      \\
+				& Nai, BzCN, NMIACE                          & 61                  & 60                      \\
+				& Nai, 1M7CE, NMIACE                         & 61                  & 60                      \\
+				& BzCN, 1M7CE, NMIACE                        & 61                  & 60                      \\
+				& Nai, BzCN                                  & 60                  & 60                      \\
+				& Nai, 1M7CE                                 & 59                  & 60                      \\
+				& Nai, NMIACE                                & 60                  & 60                      \\
+				& BzCN, 1M7CE                                & 61                  & 60                      \\
+				& BzCN,NMIACE                                & 60                  & 60                      \\
+				& 1M7CE, NMIACE                              & 62                  & 61                      \\ \midrule
+				{Cluster \Bull{C}}                         & 1M7ILUMg, 1M7ILU3Mg                        & 82                  & 80                      \\ \midrule
+				{Cluster \Bull{E}} & 1M7MgCE, NMIAMgCE                          & 73                  & 72                      \\ \midrule
+				{Cluster \Bull{G}}                         & NaiMg, CMCTMg                              & 73                  & 72                      \\ \bottomrule
 				%				\midrule
 				%				{All 16 conditions} & .80                   & .70                       \\ \bottomrule
 			\end{tabular}
