@@ -455,7 +455,7 @@ Probing was conducted as described in \citet{Smola2015}, except we used SuperScr
 5' CTT-CAT-AGC-CTT-ATG-CAG-TTG-CTT-TTT-TTT-TTT
    TTT-TTT-TTT-GAT-TGT-CTT-GGG-ATA-CCG-GAT 3'\\}
 
-For 1M7ILU3, the denaturation step was repeated three times : After a 1 minute incubation at 95\degree{}C 10 mM of 1M7 was added and the mix was incubated 1 minute at 95\degree{}C. This step was repeated 3 times. For 1M7, 1M7Mg, NMIA and NMIAMg, experiments were conducted as described above, except that the NGS library preparation was adapted to Ion Torrent sequencing. Sequences were mapped and analyzed with an in house developed script based on ShapeMapper, but adapted to Ion Torrent output files.
+For 1M7ILU3, the denaturation step was repeated three times : After a 1 minute incubation at 95\degree{}C 10 mM of 1M7 was added and the mix was incubated 1 minute at 95\degree{}C. This step was repeated 3 times. For 1M7, 1M7Mg, NMIA and NMIAMg, experiments were conducted as described above, except that the NGS library preparation was adapted to Ion Torrent sequencing. Sequences were mapped and analyzed with ShapeMapper2 for 1M7Ilu and 1M7Ilu3. For the other conditions they are mapped with an in house developed script based on ShapeMapper, but adapted to Ion Torrent output files.
 
 
 \paragraph{DiMethylSulfate (DMS) and CMCT probing.}
@@ -614,7 +614,7 @@ A visual inspection of Figure~\ref{fig:PCA} suggests the presence of 8 clusters.
 \item \BullLab{D}: 1M7ILU3;
 \item \BullLab{E}: NMIAMgCE and 1M7MgCE;
 \item \BullLab{F}: DMSMg and probing-free;
-\item \BullLab{G}: CMCTMg and NaiMg;
+\item \BullLab{G}: CMCTMg and NAIMg;
 \item \BullLab{H}: BzCNMg.
 \end{itemize}
 The predicted clusters are generally consistent with the ordering resulting from a spectral biclustering, implemented in \Software{scikit-learn} and executed with default parameters, as illustrated by Figure~\ref{fig:glycine_example}. 
