@@ -1,6 +1,6 @@
 \documentclass[a4,center,fleqn]{NAR}
 
-\usepackage{NAR-natbib}
+%\usepackage{NAR-natbib}
 \usepackage{graphics}
 %\usepackage[latin1]{inputenc}
 \usepackage{subcaption}
@@ -198,6 +198,7 @@
 %\newcommand{\OurRna}{\Software{Did}}
 %MPCRnas MultiProbing Conformers}}
 \newcommand{\NumClust}{k}
+\newcommand{\etal}{~\emph{et al} }
 \newcommand{\Def}[1]{{\em #1}}
 
 \newcommand{\Draft}[1]{{#1}}
@@ -332,9 +333,9 @@ Using a sampling-clustering strategy we developed IPANEMAP, an RNA modeling work
 \end{figure}
 
 
-Our method, summarized in Figure~\ref{fig:approach}, starts by producing, sets of representatives structures for each of the reactivity profiles using a SHAPE-directed variant of the classic Ding-Lawrence algorithm~\citep{Ding2003}. Following \citet{Deigan2009}, soft constraints are used to complement the free energy contributions of the classic Turner energy model with pseudo energy contributions resulting from reactivity profiles derived from SHAPE probing experiments.  Given a reactivity $R_i$ for a position $i$, we associate a free-energy bonus to unpaired positions, defined as
+Our method, summarized in Figure~\ref{fig:approach}, starts by producing, sets of representatives structures for each of the reactivity profiles using a SHAPE-directed variant of the classic Ding-Lawrence algorithm~\citep{Ding2003}. Following Deigan\etal\cite{Deigan2009}, soft constraints are used to complement the free energy contributions of the classic Turner energy model with pseudo energy contributions resulting from reactivity profiles derived from SHAPE probing experiments.  Given a reactivity $R_i$ for a position $i$, we associate a free-energy bonus to unpaired positions, defined as
 $$\Delta G(i) = m \log(R_i +1 )+b$$ 
-using $m=1.3$ and  $b=-0.4$. Those values are compared to those used by \citet{Deigan2009}, based on the rationale that lower absolute values for pseudo-energy bonuses increase the chance of structures being simultaneously supported by multiple conditions. Those pseudo energy contributions effectively direct our predictions towards a subset of structures that are in good agreement with probing data. 
+using $m=1.3$ and  $b=-0.4$. Those values are compared to those used by Deigan\etal\cite{Deigan2009}, based on the rationale that lower absolute values for pseudo-energy bonuses increase the chance of structures being simultaneously supported by multiple conditions. Those pseudo energy contributions effectively direct our predictions towards a subset of structures that are in good agreement with probing data. 
 
 In order to infer recurrent candidates across different samples, sampled structure sets are agglomerated while keeping track of the reagent/condition of origin for each structure, and clustered using the Mini Batch k-Means algorithm~\citep{Sculley2010} (\CL{}) based on a number of clusters determined by an iterative heuristics described in further details below. 
 It takes as input a dissimilarity matrix, whose entries consist of the base pair distance between two sampled structures.
@@ -348,7 +349,7 @@ The number of clusters is a critical parameter of the \CL{} algorithm. It should
 In practice, clusters are seldom exactly preserved across successive iterations, so we consider two clusters to be \Def{highly similar} if their Maximum Expected Accuracy (MEA) centroid structures~\citep{Lu2009}, differ by less than $\delta$ base pairs.
 The $\delta$ parameter defaults to $1$, allowing the identification of clusters across successive generation in the presence of a minor variation.
 Moreover, define the (pseudo-)Boltzmann probability of a structure $S$, generated for an experimental condition $d$ as part of a sampled set $\mathcal{S}_d$, as
-$$ \mathbb{P}_d(S) = \frac{e^{-E_d(S)/kT}}{\mathcal{Z}^*_d} \text{, with } \mathcal{Z}^*_d := \sum_{S'\in \mathcal{S}_d} e^{-E_d(S')/kT}$$
+\[\mathbb{P}_d(S) = \frac{e^{-E_d(S)/kT}}{\mathcal{Z}^*_d} \text{, with } \mathcal{Z}^*_d := \sum_{S'\in \mathcal{S}_d} e^{-E_d(S')/kT}\]
 where $E_d(S)$ is the pseudo free-energy assigned to $S$ within $d$.
 We consider a cluster to be \Def{significantly populated} if the cumulated probability of its structures exceeds a predefined threshold $\epsilon$. 
 The value of $\epsilon$ was set to $\#{\sf Datasets}/3$, ensuring that up to three clusters are deemed significantly populated, and used as our primary candidates.
@@ -357,9 +358,9 @@ Based on these definitions, our iterative heuristic consists in running \CL over
 
 
 The last step of our approach consists in electing the most promising clusters and returning their centroid. While the final number of clusters $\NumClust$ may potentially be large, only a couple of clusters are expected to contain structures that are stable and feature homogenous support across conditions, the remaining clusters being artifacts of the clustering methods, nevertheless useful to filter \emph{noisy} structures. Thus we define the \Def{stability} of a cluster $C$ to denote its cumulated pseudo-Boltzmann probability accross conditions, computed as 
-$$\text{Stability}(C) = \sum_{d\in \mathcal{D}} \mathbb{P}_d(S).$$
+\[\text{Stability}(C) = \sum_{d\in \mathcal{D}} \mathbb{P}_d(S).\]
 Moreover, we postulate that a perfect cluster should be representative of several conditions. We consider that a cluster $C$ supports a given condition $d$ when its probability for $d$ exceeds a given threshold $\tau$, where $\NumClust$ is the number of clusters. The number of conditions supporting a cluster $C$ is defined as
-$$ \text{Support}(C) = |\{d\in \mathcal{D} \mid \sum_{S\in C\cap \mathcal{S}_d} \mathbb{P}_d(S)\ge \tau \}|.$$
+\[\text{Support}(C) = |\{d\in \mathcal{D} \mid \sum_{S\in C\cap \mathcal{S}_d} \mathbb{P}_d(S)\ge \tau \}|.\]
 The value of $\tau$ is set to $1/(\NumClust+1)$, ensuring at least one supporting cluster for each condition.
 
 \OurTool evaluates the two above metrics on each cluster, and eliminates any cluster that is dominated by another with respect to both metrics. The remaining ones are \Def{Pareto optimal}, a classic concept in multi-objective optimization~\cite{Mattson2005}. Finally, we compute and return the MEA centroid~\citep{Lu2009} of the Pareto-optimal clusters as our final prediction(s).
@@ -381,7 +382,7 @@ As a measure of the \Def{ensemble distance} $\Edist$ induced by probing data, we
 with $\RL$ the length of the RNA sequence,  $\mathbb{P}(i,j\mid d)$ the Boltzmann probability of forming a base pair $(i,j)$ in the pseudo-Boltzmann ensemble associated with condition $d$.
 
 
-Individual dot-plots were computed using the \Software{RNAfold} software in the \Software{Vienna Package 2.2.5}, using the \Software{-p} option in combination with the pseudo-energy terms introduced by~\citet{Deigan2009}. 
+Individual dot-plots were computed using the \Software{RNAfold} software in the \Software{Vienna Package 2.2.5}, using the \Software{-p} option in combination with the pseudo-energy terms introduced by Deigan\etal\cite{Deigan2009}. 
 
 % Yann:
 %\begin{itemize}
@@ -410,35 +411,26 @@ To validate our computational method quantitatively, we consider several dataset
 
 
 \paragraph{Cordero \emph{et al} dataset.} 
-In order to test the integration of different probing sources, we consider a dataset introduced in~\citet{Cordero2012}, consisting of $6$ RNAs with known structures, for which reactivities are available for three reagents: {\tt NMIA-\SH, DMS} and {\tt CMCT}. 
+In order to test the integration of different probing sources, we consider a dataset introduced in Cordero\etal\cite{Cordero2012}, consisting of $6$ RNAs with known structures, for which reactivities are available for three reagents: {\tt NMIA-\SH, DMS} and {\tt CMCT}. 
 Probing data were downloaded from the RMDB~\citep{Cordero2012a} on July 2017. In the RMDB, reactivity scores are reported for all nucleotides, including those that are not expected to react with a given reagent. Thus, for the DMS (resp. CMCT) probing, we restricted reactivities to positions featuring nucleotides {\sf A} and {\sf C} (resp. {\sf G} and {\sf U}), setting the reactivity to 0 for other positions. This assumption allowed to decrease the noise generated by reactivities associated with non-targeted nucleotides, leading to more accurate predictions (data not shown). 
 
 
 \paragraph{Hadjin \emph{et al} dataset.} 
-A dataset was gathered by \citet{Hajdin2013} to validate the predictive capacities of 
+A dataset was gathered by Hadjin\etal\cite{Hajdin2013} to validate the predictive capacities of 
 of to probing data-driven predictions. It consists of $24$ RNA sequences with known secondary structures for which a single chemical probing reactivity profile (SHAPE -- 1M7) is available.
 This dataset includes sequences originating from a variety of organisms, and spans lengths ranging from $34$ nts to $530$ nts, with a focus on riboswitches and complex RNA architectures. 
 
 \paragraph{Didymium structural model and probing data.} 
 We considered the 188 nucleotides Lariat capping ribozyme from {\itshape Didymium iridis}, resolved 3.85 \AA{} resolution using X-ray cristallography (PDB: 4P8Z)~\citep{Meyer2014}.  We annotated the secondary structure elements using the \Software{DSSR} software from the 3DNA suite~\cite{Lu2015}. Non-canonical base pairs were removed~\citep{Smit2008}, by considering as the secondary structure the maximum subset of non-pseudoknotted base pairs.
 
-Probing data were experimentally generated using a comprehensive set of conditions covering various probing reagents and SHAPE technologies for stop-inducing and mutation-inducing adducts. We also considered the presence/absence of Mg$^{2+}$, both to assess the capacity of \OurTool{} to recover tertiary interactions, and to assess the induced discrepancy on probing profiles and pseudo-Boltzmann ensembles. Produced probing data are described in the supplementary material.
+Probing data were experimentally generated, as described in the next section, using a comprehensive set of conditions covering most of the popular probing reagents and SHAPE technologies for stop-inducing and mutation-inducing adducts. We also considered the presence/absence of Mg$^{2+}$, both to assess the capacity of \OurTool{} to recover tertiary interactions, and to assess the induced discrepancy on probing profiles and pseudo-Boltzmann ensembles.
 
 
 \paragraph{Cheng  \emph{et al} dataset.} 
 Starting from the assumption that a functional structure should be preserved during evolution, we wanted to assess the agreement that might exist between probing data profiles for a set of RNA mutants. 
-We considered DMS probing data, generated by~\cite{Cheng2017} through systematic point-wise mutations, for the Lariat-capping ribozyme. We renormalized each reactivity profile following the method introduced by \citet{Deigan2009}, restricted to the primer-free sequence: values greater than $1.5 $ times the interquartile range were discarded, and remaining values were divided by the mean of the top $10\%$ reactivities.  Overall, this constitutes a collection of 188 sequences, each having its associated reactivity profile.
+We considered DMS probing data, generated by~\cite{Cheng2017} through systematic point-wise mutations, for the Lariat-capping ribozyme. We renormalized each reactivity profile following the method introduced by Deigan\etal\cite{Deigan2009}, restricted to the primer-free sequence: values greater than $1.5 $ times the interquartile range were discarded, and remaining values were divided by the mean of the top $10\%$ reactivities.  Overall, this constitutes a collection of 188 sequences, each having its associated reactivity profile.
 
 
-\subsection{Benchmarking methodology}
-
-The Matthews Correlation Coefficient (MCC) is a classic metrics for assessing the quality of a predicted structure $S$, identified by a set of base pairing positions, based on its agreement with an accepted reference structure $\Ref$. It can be interpreted as a compromise between the classic sensitivity and specificity metrics, and is defined as 
-$$\text{MCC}(S\mid \Ref)=\frac{\text{TP} \times \text{TN} -\text{FP} \times \text{FN}}{\sqrt[]{(\text{TP}+\text{FP})(\text{TP}+\text{FN})(\text{TN}+\text{FP})(\text{TN}+\text{FN})}},$$
-where TP, FP, TN, FN classically represent the correctly/erroneously predicted and correctly/erroneously omitted base pairs in $S$ with respect to $\Ref$.
-
-For the sake of direct comparison with competing methods, we also report the recently-introduced metrics~\citep{Mathews2017} is the geometric mean, defined as:
-$$ \GMean(S\mid \Ref)=\sqrt{\text{Sens}(S\mid \Ref)\times \text{PPV}(S\mid\Ref)} $$
-where $\text{Sens}(S\mid \Ref)$ represents the proportion of base pairs in $\Ref$ that are in $S$, and $\text{PPV}(S\mid \Ref)$ is the proportion of base pairs in $S$ that are also in $\Ref$. This quality metrics has very high correlation with the MCC, to which it is asymptotically equivalent as shown by~\citet{Gorodkin2001}.
 
 \subsection{Experimental probing protocols}
 The structure of the Lariat capping ribozyme from \textit{Didymium iridis }(DiLCrz) was probed with different SHAPE reagents: 1M7 (1-methyl-7 nitrosatoic anhydre), NMIA (N-Methyl Isatoic Anhydre), BzCN (Benzoyl cyanide) and NAI (2-methylnicotinic acid imidazolide) in presence and absence of magnesium ions, and with DMS (DiMethylSulfate) and CMCT only in presence of magnesium ions.
@@ -449,7 +441,7 @@ As a preliminary experiment, we verified that DiLCrz generally adopts a single g
 Modifications were revealed by reverse transcription using 5’ fluorescently labelled primers (D2 or D4 WellRED, Sigma Aldrich 5’ CTG-TGA-ACT-AAT-GCT-GTC-CTT-TAA 3’) and M-MLV RNAse H- reverse transcriptase (Promega) as previously described~\cite{Deforges2017}, with only minor modification of the originally described SHAPE protocol\cite{Wilkinson2006}. cDNAs were separated by capillary electrophoresis (Beckman Coulter, Ceq8000). Data were analyzed using the  QuSHAPE~\cite{Karabiber2013} software. RNA probing was performed in triplicate with distinct RNA preparations.
 
 \paragraph{Mutations-inducing probing (SHAPE-MaP).}
-Probing was conducted as described in \citet{Smola2015}, except we used SuperScript III reverse transcriptase (ThermoFisher) at 50\degree{}C for 3 hours using the following specific primer: 
+Probing was conducted as described in Smola\etal\cite{Smola2015}, except we used SuperScript III reverse transcriptase (ThermoFisher) at 50\degree{}C for 3 hours using the following specific primer: 
 
 {\centering \relsize{-1}%
 5' CTT-CAT-AGC-CTT-ATG-CAG-TTG-CTT-TTT-TTT-TTT
@@ -460,6 +452,17 @@ For 1M7ILU3, the denaturation step was repeated three times : After a 1 minute i
 
 \paragraph{DiMethylSulfate (DMS) and CMCT probing.}
 DMS and CMCT probing were conducted essentially as described in~\cite{Weill2004,James2008}. Succinctly, 6 pmol of RNA were resuspended in 18 $\mu$l of water, denatured at 80\degree{}C for 2 minutes and cooled down at room temperature for 10 minutes in a probing buffer for DMS probing (40 mM HEPES pH 7.5, 100 mM KCl, 5 mM MgCl2) or in CMCT (50 mM of potassium borate pH 8, 100 mM KCl and 5 mM MgCl2). For DMS, RNA was then treated with 1 $\mu$l of DMS (1:12 in ethanol) or 1 $\mu$l of ethanol for 5 minutes at 37\degree{}C (mock reaction), the reaction was stopped by addition of 400 mM of Tris at 7.5 pH and immediately put on ice. For CMCT,  RNA was treated with 10 $\mu$l of CMCT (42mg/mL) or 10 $\mu$l H2O for 10 minutes at 37\degree{}C (mock reaction). Modified RNA were ethanol-precipitated and resuspended in 10 $\mu$l of water. Modifications were mapped as described above for SHAPE-CE experiments.
+
+
+\subsection{Benchmarking methodology}
+
+The Matthews Correlation Coefficient (MCC) is a classic metrics for assessing the quality of a predicted structure $S$, identified by a set of base pairing positions, based on its agreement with an accepted reference structure $\Ref$. It can be interpreted as a compromise between the classic sensitivity and specificity metrics, and is defined as 
+$$\text{MCC}(S\mid \Ref)=\frac{\text{TP} \times \text{TN} -\text{FP} \times \text{FN}}{\sqrt[]{(\text{TP}+\text{FP})(\text{TP}+\text{FN})(\text{TN}+\text{FP})(\text{TN}+\text{FN})}},$$
+where TP, FP, TN, FN classically represent the correctly/erroneously predicted and correctly/erroneously omitted base pairs in $S$ with respect to $\Ref$.
+
+For the sake of direct comparison with competing methods, we also report the recently-introduced metrics~\citep{Mathews2017} is the geometric mean, defined as:
+$$ \GMean(S\mid \Ref)=\sqrt{\text{Sens}(S\mid \Ref)\times \text{PPV}(S\mid\Ref)} $$
+where $\text{Sens}(S\mid \Ref)$ represents the proportion of base pairs in $\Ref$ that are in $S$, and $\text{PPV}(S\mid \Ref)$ is the proportion of base pairs in $S$ that are also in $\Ref$. This quality metrics has very high correlation with the MCC, to which it is asymptotically equivalent as shown by~Gorodkin\etal\cite{Gorodkin2001}.
 
 \section{Results}
 
@@ -473,13 +476,12 @@ DMS and CMCT probing were conducted essentially as described in~\cite{Weill2004,
 \colorlet{BadCol}{Burlywood1!70!red}
 
 \begin{table*}
-	\begin{adjustbox}{max width=\linewidth}
+	\begin{adjustbox}{max width=\linewidth}%
 		\setlength{\fboxsep}{0pt}
 		%		\newcommand{\Base}[1]{\colorbox{blue!30}{\strut#1}}
-		\newcommand{\Base}[1]{\colorbox{Aquamarine3!60}{\strut#1}}
-		\newcommand{\G}[1]{\colorbox{Aquamarine3!60}{\strut#1}}
-		\newcommand{\B}[1]{\colorbox{BadCol}{\strut#1}}
-		
+		\newcommand{\Base}[1]{\colorbox{Aquamarine3!60}{\strut#1}}%
+		\newcommand{\G}[1]{\colorbox{Aquamarine3!60}{\strut#1}}%
+		\newcommand{\B}[1]{\colorbox{BadCol}{\strut#1}}%
 		\begin{tabular}{@{}llr@{}} \toprule
 			Sequence& \tt {GAUAUGAGGAGAGAUUUCAUUUUAAUGAAACACCGAAGAAGUAAAUCUUUCAGGUAAAAAGGACUCAUAUUGGACGAACCUCUGGAGAGCUUAUCUAAGAGAUAACACCGAAGGAGCAAAGCUAAUUUUAGCCUAAACUCUCAGGUAAAAGGACGGAG}
 			& GM\\
@@ -492,7 +494,7 @@ DMS and CMCT probing were conducted essentially as described in~\cite{Weill2004,
 			\bottomrule
 		\end{tabular}
 	\end{adjustbox}\\
-	\caption{Dot-bracket representations of the native structure and \OurTool{} predictions for the glycine riboswitch sequence of the \citet{Cordero2012} data set, supplemented with an increasing collection of probing conditions. Positions with green and red backgrounds indicate correctly and incorrectly predicted base pairs.}\label{fig:glycine_example}
+	\caption{Dot-bracket representations of the native structure and \OurTool{} predictions for the glycine riboswitch sequence of the Cordero\etal\cite{Cordero2012} data set, supplemented with an increasing collection of probing conditions. Positions with green and red backgrounds indicate correctly and incorrectly predicted base pairs.}\label{fig:glycine_example}
 \end{table*}
 
 
@@ -540,7 +542,7 @@ We consider the dataset of hajdin~\emph{et al}, which consists of 24 RNAs of len
 
 \begin{figure}
 	\includegraphics[width=\linewidth]{graphs/RsampleVsIPANEMAP/Accuracy}
-	\caption{Geometric mean of positive predictive value and sensitivity achieved by the predictions of \OurTool{} and \Software{Rsample} over the \citet{Hajdin2013} data set, consisting of 24 RNAs (RNA length indicated within square brackets). \label{fig:Vsrsample}}
+	\caption{Geometric mean of positive predictive value and sensitivity achieved by the predictions of \OurTool{} and \Software{Rsample} over the Hadjin\etal\cite{Hajdin2013} data set, consisting of 24 RNAs (RNA length indicated within square brackets). \label{fig:Vsrsample}}
 \end{figure}
 
 We executed \OurTool with default parameters, producing 1~000 structures per sample for both software. The Pareto-optimality always implies a single returned cluster/structure in the case of a single probing condition. 
@@ -591,7 +593,7 @@ This observed discrepancy is somewhat surprising, given that \OurTool and \Softw
 \begin{figure*}
 	{\centering {\includegraphics[width=.9\linewidth]{graphs/didy/didy}}\\}
 	
-	\caption{Model of the Lariat capping ribozyme in {\itshape Didymium iridis} (A -- \citet{Meyer2014}), secondary structure as annotated by \Software{DSSR} (B -- pseudoknot ommitted) and \OurTool first-ranking prediction (C.) from 8 maximally-diverging probing conditions (NMIAMg, 1M7ILU3Mg, NAIMg, 1M7, CMCTMg,1M7ILU3,1M7Mg). }
+	\caption{Model of the Lariat capping ribozyme in {\itshape Didymium iridis} (A -- Meyer\etal\cite{Meyer2014}), secondary structure as annotated by \Software{DSSR} (B -- pseudoknot ommitted) and \OurTool first-ranking prediction (C.) from 8 maximally-diverging probing conditions (NMIAMg, 1M7ILU3Mg, NAIMg, 1M7, CMCTMg,1M7ILU3,1M7Mg). }
 \end{figure*}
 
 
@@ -975,18 +977,24 @@ The average MCC again increases in the presence of 3 mutants, to reach an averag
 
 \section{Conclusion}
 
-We introduced \OurTool{}, an integrative method for the prediction of secondary structure models from multiple probing profiles. Based on the simple premise that good structural models should be stable and supported by most probing experiments, it uses a combination of stochastic backtrack in the pseudo-Boltzmann ensemble, coupled with a structural clustering to elect dominant conformations. This strategy is fast, stable and leads to predictions that clearly benefit from the availability of multiple probing profiles. In the presence of 
+We introduce \OurTool{}, an integrative method for the prediction of secondary structure models from multiple probing profiles. Based on the simple premise that good structural models should be stable and supported by most probing experiments, it uses a combination of stochastic backtrack in the pseudo-Boltzmann ensemble, coupled with a structural clustering to elect dominant conformations. This strategy is fast, stable and leads to predictions that clearly benefit from the availability of multiple probing profiles, as demonstrated by a detailed analysis of three datasets. 
 
-\begin{itemize}
-	\item Comparison to average is positive, and fair, in a context where no single reagent appear to dominate in term of predictive capacity. Moreover, in realistic structure modeling scenarii, it is impossible to know a priori which information is contributed by an experiment. In other words, combining experimental probing data, even in a pairwise fashion, typically mitigates the empirical risk of misprediction. 
-\item Attention ces conclusions ne semblent pas tt a fait vraies avec le set de cordero pour lequel le plus de données on ajoute le mieux (+ ou -)
-\item using probing conditions with our without Mg to use as constraints is a dilemma. In deed, RNA reach its native 3D structure only in presence of Mg2+ ions (ref ). However, 3D includes non WC parings, and motifs such as pseudoknots, kissing loops, tetraloop interactions that RNA structure prediction algorithm do not take into account. In contrast in presence of monovalent but no divalent ions, RNA is suppose to adopt a structure in which all helical domains are formed but where most if not all tertiary contacts are not stable. Therefore one could assume that probing the RNA without Mg2+ provides signals that are more compatible and less deceptive for predicting algorithms. However it is likely that the instability of all the tertiary contacts is a situation prone to misfolding, or at least the coexistence in solution of many conformations. Here the Dydimium ribozyme which contains many tertiary motifs was systematically probed in presence or absence of Mg2+ (except for CMCT and DMS). Remarkably, the best prediction were obtained with 1M7 and NMIA with our without Mg with very similar MCC, although the probing profile in the two conditions are quite divergent. For all the other reagents/protocols, prediction using constraints from experiments containing Mg2+ systematically outperform its counterpart without Mg2+ with a 0.1 average decrease of the MCC.
-\item je pense qu'il serait intéressant au moins pour un uo deux réactif de voir ce que donne le couple + et - Mg. Peut etre par exemple avec le 1M7ilu et un autre mauvais genre le NAI
-\end{itemize}
+
+\OurTool currently represents the only available option for a joint automated consideration of multiple probing profiles.  Surprisingly, it also appears to outperform existing methods on single profiles on the Hadjin\etal\cite{Hajdin2013} dataset. We attribute this unexpected result to the adoption of a sampling/clustering approach, which appears able to eliminate spurious outliers in the conformational space. Indeed, while quite similar in its approach to Spasic et al, \OurTool seems to achieve better performance, calling for further analysis. 
+Mainly, the adaptive choice of the number of clusters, even in cases where a single dominant conformation is expected, seems to create more opportunities for discarding random unstable conformations. Such conformations naturally occur in a Boltzmann-distributed subset of structures, and may end up \emph{polluting} centroid structures by artificially inflating the diversity within the cluster. The impact on \Software{RSample} predictions of such a \emph{noise} is  worsened by the fact that it returns the MEA, the centroid of the whole ensemble, whenever a dominant conformation is detected.
+
+Our analyses reveal that integrating multiple profiles to at least three conditions allows to mitigate the effect of outlier conditions and, frequently, to produce better secondary structure models than the one inferred from the most accurate profile. A comparison of the joint performances to the average seems justified in a context where no single reagent appears to systematically dominate in term of predictive capacity, depriving the modeler from an objective way to favor a probing condition over another. Moreover, in realistic structure modeling scenarii, it is impossible to know \emph{a priori} which information is contributed by an experiment. In other words, combining experimental probing data, even in a pairwise fashion, typically mitigates the empirical risk of misprediction. 
+
+
+Using probing conditions with our without Mg to use as constraints is a dilemma. In deed, RNA reach its native 3D structure mainly in the presence of Mg2+ ions (ref ). However, 3D includes non WC parings, and motifs such as pseudoknots, kissing loops, tetraloop interactions that RNA structure prediction algorithm do not take into account. In contrast in presence of monovalent but no divalent ions, RNA is suppose to adopt a structure in which all helical domains are formed but where most if not all tertiary contacts are not stable. Therefore one could assume that probing the RNA without Mg2+ provides signals that are more compatible and less deceptive for predicting algorithms. However it is likely that the instability of all the tertiary contacts is a situation prone to misfolding, or at least the coexistence in solution of many conformations. Here, the Dydimium ribozyme which contains many tertiary motifs was systematically probed in presence or absence of Mg2+ (except for CMCT and DMS). Remarkably, the best prediction were obtained with 1M7 and NMIA with our without Mg with very similar MCC, although the probing profile in the two conditions are quite divergent. For all the other reagents/protocols, prediction using constraints from experiments containing Mg2+ systematically outperform its counterpart without Mg2+ with a 0.1 average decrease of the MCC.
+%\item je pense qu'il serait intéressant au moins pour un uo deux réactif de voir ce que donne le couple + et - Mg. Peut etre par exemple avec le 1M7ilu et un autre mauvais genre le NAI
+%\end{itemize}
 % il faudrait regrder ce que fait weeks avec le 1M7, le NMIA et le 1M6, je n'ai pas bien compris quelle tambouille il fait, mais ca part du meme genre de constatation : il y a une spécificité dans chacune des sondes qu'il n'arrive pas vraiment à formaliser donc il fait une tambouille qui lui permet de tous les intégrer (mais c'est peut etre un peu pédestre comme démarche!). Apres ce sont probablement des conditions tres proches ce qui n'apporte pas d'apres nos résultats bcq d'infos supplémentaires .. bref ca vaudrait peut etre le coup de comparer.
 
 
-{\em Role of outliers.} 
+\paragraph{Reproducibility}
+
+\paragraph{Pseudo-potentials}
 
 
 \begin{figure*}
@@ -998,32 +1006,30 @@ We introduced \OurTool{}, an integrative method for the prediction of secondary 
 
 
 
-
-\section{Conclusion}
-%discussion et conclusion sont fusionnés dans ce type d'article.}
-
-
-
-\begin{itemize}
-	\item Our integrative approach compared to other tools did exhibit a trade-off  between  number of optimal clusters and accuracy but remains fast to execute. 
-	\item While based on the assumption that the different probing condition reveal complementary aspects of the same structure, it can still be enriched by experiments where the dominant conformation is expected to differ from the native one.
-	
-	\item While quite similar in its approach to Spasic et al, \OurTool seems to achieve better performance, calling for futher analysis. 
-	Mainly, the adaptive choice of the number of clusters, even in cases where a single dominant conformation is expected, seems to create more opportunities for discarding random unstable conformations. Such conformations naturally occur in a Boltzmann-distributed subset of structures, and may end up \emph{polluting} centroid structures by artificially inflating the diversity within the cluster. The impact on RSample predictions of such a \emph{noise} is made worse by the fact that it returns the MEA, the centroid of the whole ensemble, whenever a dominant conformation is detected.
-	
-	\item Complementarity
-	\item Pseudo-Energy models
-\end{itemize}
+%
+%%discussion et conclusion sont fusionnés dans ce type d'article.}
+%
+%
+%
+%\begin{itemize}
+%	\item Our integrative approach compared to other tools did exhibit a trade-off  between  number of optimal clusters and accuracy but remains fast to execute. 
+%	\item While based on the assumption that the different probing condition reveal complementary aspects of the same structure, it can still be enriched by experiments where the dominant conformation is expected to differ from the native one.
+%	
+%	\item 
+%	
+%	\item Complementarity
+%	\item Pseudo-Energy models
+%\end{itemize}
 
 
 \section*{Acknowledgements}
-The authors wish to thank Rony Lorenz and Nathalie Chamond for helpful suggestions.
+The authors wish to thank Ronny Lorenz for developing a probing-informed version of RNAsubopt, allowing to sample the pseudo-Boltzmann ensemble, and Nathalie Chamond for helpful suggestions.
 
 \section*{Funding}
 This work has been supported by La Fondation pour la Recherche Medicale ([FRM
 DBI20141423337]).
 %\bibliographystyle{bioinformatics}
-\bibliographystyle{abbrvnat}
+\bibliographystyle{nar}
 %\bibliographystyle{natbib}%compa
 \bibliography{biblio}
 
