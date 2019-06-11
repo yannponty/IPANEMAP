@@ -365,7 +365,7 @@ Based on these definitions, our iterative heuristic consists in running \CL over
 
 The last step of our approach consists in electing the most promising clusters, and returning their centroid. While the final number of clusters $\NumClust$ may potentially be large, only a handful of clusters are expected to represent structures that both stable, and supported by a large number of conditions. The remaining clusters are indeed probably artifacts of the clustering method, but nevertheless useful to filter \emph{noisy} structures. Thus we define the \Def{stability} of a cluster $C$ to denote its accumulated pseudo-Boltzmann probability accross conditions. It is computed as 
 \[\text{Stability}(C) = \sum_{d\in \mathcal{D}} \mathbb{P}_d(S).\]
-Moreover, we postulate that a perfect cluster should be representative of several conditions. In the presence of a set of experimental conditions \mathcal{D}, we consider that a cluster $C$ supports a given condition $d$ when its probability for $d$ exceeds a given threshold $\tau$, where $\NumClust$ is the number of clusters. The number of conditions supporting a cluster $C$ is defined as
+Moreover, we postulate that a perfect cluster should be representative of several conditions. In the presence of a set of experimental conditions $\mathcal{D}$, we consider that a cluster $C$ supports a given condition $d$ when its probability for $d$ exceeds a given threshold $\tau$, where $\NumClust$ is the number of clusters. The number of conditions supporting a cluster $C$ is defined as
 \[\text{Support}(C) = |\{d\in \mathcal{D} \mid \sum_{S\in C\cap \mathcal{S}_d} \mathbb{P}_d(S)\ge \tau \}|.\]
 The value of $\tau$ is set to $1/(\NumClust+1)$, ensuring at least one supporting cluster for each condition.
 
