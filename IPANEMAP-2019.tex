@@ -229,7 +229,7 @@
 \jissue{YY}
 
 %\articlesubtype{This is the article type (optional)}
-
+\setcounter{secnumdepth}{3} % for subsection reference
 \begin{document}
 
 \title{\OurTool{}:  Integrative Probing Analysis of Nucleic Acids Empowered by Multiple Accessibility Profiles}
@@ -272,7 +272,7 @@ online.
 
 \section{Introduction}
 
-Integration of experimental structure probing data in the process of secondary structure prediction greatly improve the models. However, probing experiments do not result in binary values for any given nucleotide. This can result from distinct reactivity of a single stranded nucleotide according to its local environment. But it can also be the consequence of many reasons including, structural heterogeneity, experimental error, structural dynamics and the imperfection of the reactivity prediction. Therefore as can be verified for many benchmark RNA for which a X-ray structure model has been established, occasionally a nucleotide involved in a stable secondary structure may appear reactive, or conversely a flexible nucleotide may be unreactive to such or such probe. As a consequence, integrating the probing data as "hard" constraints, prohibiting any pairing for highly reactive nucleotides or forcing pairing of the unreactive, would preclude the prediction of valuable structure. For this reason it appeared more relevant and efficient to take probing data into account in the prediction pipeline as soft constraints, i.e as penalties in the score when elaborating the models~\cite{Deigan2009,Washietl2012,Zarringhalam2012}. 
+Integration of experimental structure probing data in the process of secondary structure prediction greatly improve the models. However, probing experiments do not result in binary values for any given nucleotide. This can result from distinct reactivity of a single stranded nucleotide according to its local environment. But it can also be the consequence of many reasons including, structural heterogeneity, experimental error, structural dynamics and the imperfection of the reactivity prediction. Therefore as can be verified for many benchmark RNA for which a X-ray structure model has been established, occasionally a nucleotide involved in a stable secondary structure may appear reactive, or conversely a flexible nucleotide may be unreactive to such or such probe. As a consequence, integrating the probing data as "hard" constraints, prohibiting any pairing for highly reactive nucleotides or forcing pairing of the unreactive, would preclude the prediction of valuable structure. For this reason it appeared more relevant and efficient to take probing data into account in the prediction pipeline as soft constraints, i.e as penalties in the score when predicting the structure(s)~\cite{Deigan2009,Washietl2012,Zarringhalam2012}. 
 % **************************************************************
 % Keep this command to avoid text of first page running into the
 % first page footnotes
@@ -313,7 +313,7 @@ Using a sampling-clustering strategy we developed IPANEMAP, an RNA modeling work
 \item (wishful thinking) Despite relying on a stochastic sampling, results are reproducible
 \item (wishful thinking) Performances of our methods are impacted by the choice of the chosen clustering/$\#$clusters
 \item (wishful thinking) Increase of performances upon repeated experiments
-\item (wishful thinking) Recommendations for experimentalists (choosing the right combination of probes)
+\item (wishful thinking) Recommendations for experimentalists  (choosing the right combination of probes)
 \end{itemize}
 \end{comment}
 
@@ -350,16 +350,16 @@ In practice, clusters are seldom exactly preserved across successive iterations,
 The $\delta$ parameter defaults to $1$, allowing the identification of clusters across successive generation in the presence of a minor variation.
 Moreover, define the (pseudo-)Boltzmann probability of a structure $S$, generated for an experimental condition $d$ as part of a sampled set $\mathcal{S}_d$, as
 \[\mathbb{P}_d(S) = \frac{e^{-E_d(S)/kT}}{\mathcal{Z}^*_d} \text{, with } \mathcal{Z}^*_d := \sum_{S'\in \mathcal{S}_d} e^{-E_d(S')/kT}\]
-where $E_d(S)$ is the pseudo free-energy assigned to $S$ within $d$.
-We consider a cluster to be \Def{significantly populated} if the cumulated probability of its structures exceeds a predefined threshold $\epsilon$. 
+where $E_d(S)$ is the pseudo free-energy assigned to the structure $S$ within the experimental condition $d$.
+We consider a cluster to be \Def{significantly populated} if the cumulative probability of its structures exceeds a predefined threshold $\epsilon$. 
 The value of $\epsilon$ was set to $\#{\sf Datasets}/3$, ensuring that up to three clusters are deemed significantly populated, and used as our primary candidates.
 
 Based on these definitions, our iterative heuristic consists in running \CL over an increasing number $\NumClust$ of clusters, starting with $\NumClust=2$, until a \Def{stopping criterion} is satisfied, that is either: 1) Two significantly populated clusters have associated centroids which are highly similar; or 2) Centroid structures of significantly populated clusters from the previous iteration are highly similar to those of the current iteration.
 
 
-The last step of our approach consists in electing the most promising clusters and returning their centroid. While the final number of clusters $\NumClust$ may potentially be large, only a couple of clusters are expected to contain structures that are stable and feature homogenous support across conditions, the remaining clusters being artifacts of the clustering methods, nevertheless useful to filter \emph{noisy} structures. Thus we define the \Def{stability} of a cluster $C$ to denote its cumulated pseudo-Boltzmann probability accross conditions, computed as 
+The last step of our approach consists in electing the most promising clusters and returning their centroid. While the final number of clusters $\NumClust$ may potentially be large, only a couple of clusters are expected to contain structures that are stable and feature homogeneous support across conditions, the remaining clusters being artifacts of the clustering methods, nevertheless useful to filter \emph{noisy} structures. Thus we define the \Def{stability} of a cluster $C$ to denote its cumulative pseudo-Boltzmann probability across conditions, computed as 
 \[\text{Stability}(C) = \sum_{d\in \mathcal{D}} \mathbb{P}_d(S).\]
-Moreover, we postulate that a perfect cluster should be representative of several conditions. We consider that a cluster $C$ supports a given condition $d$ when its probability for $d$ exceeds a given threshold $\tau$, where $\NumClust$ is the number of clusters. The number of conditions supporting a cluster $C$ is defined as
+Moreover, we postulate that a perfect cluster should be representative of several conditions. In the presence of a set of experimental conditions \mathcal{D}, we consider that a cluster $C$ supports a given condition $d$ when its probability for $d$ exceeds a given threshold $\tau$, where $\NumClust$ is the number of clusters. The number of conditions supporting a cluster $C$ is defined as
 \[\text{Support}(C) = |\{d\in \mathcal{D} \mid \sum_{S\in C\cap \mathcal{S}_d} \mathbb{P}_d(S)\ge \tau \}|.\]
 The value of $\tau$ is set to $1/(\NumClust+1)$, ensuring at least one supporting cluster for each condition.
 
@@ -416,8 +416,7 @@ Probing data were downloaded from the RMDB~\citep{Cordero2012a} on July 2017. In
 
 
 \paragraph{Hadjin \emph{et al} dataset.} 
-A dataset was gathered by Hadjin\etal\cite{Hajdin2013} to validate the predictive capacities of 
-of to probing data-driven predictions. It consists of $24$ RNA sequences with known secondary structures for which a single chemical probing reactivity profile (SHAPE -- 1M7) is available.
+A dataset was gathered by Hadjin\etal\cite{Hajdin2013} to validate the predictive capacities of probing data-driven predictions. It consists of $24$ RNA sequences with known secondary structures for which a single chemical probing reactivity profile (SHAPE -- 1M7) is available.
 This dataset includes sequences originating from a variety of organisms, and spans lengths ranging from $34$ nts to $530$ nts, with a focus on riboswitches and complex RNA architectures. 
 
 \paragraph{Didymium structural model and probing data.} 
@@ -516,14 +515,14 @@ Interestingly, the quality of MFE and MEA predictions does not systematically be
 
 
 
-The joint analysis of pairs of probing conditions seems to average the quality of predictions. Any combination of probing combinations yields a GM value that is always greater than the worst-performing condition in the pair, yet worse than the best-performing alone. Interestingly, the addition of the worst performing condition (CMCT), does not equally affect the performances of DMS ($76\% \to 70.5\%$) %DMS \to DMS+CMCT
+The joint analysis of pairs of probing conditions seems to average the quality of predictions. Any combination of probing data yields a GM value that is always greater than the worst-performing condition in the pair, yet worse than the best-performing alone. Interestingly, the addition of the worst performing condition (CMCT), does not equally affect the performances of DMS ($76\% \to 70.5\%$) %DMS \to DMS+CMCT
 and NMIA  ($77.1\% \to 76.9\%$), %NMIA \to NMIA+CMCT
 despite the latter conditions inducing similar GM values when considered alone. Indeed, CMCT+DMS yields GM values that are only remotely better than the worst-performing CMCT alone  ($70\% \to 70.5\%$), while CMCT+NMIA greatly outperforms CMCT alone  ($70\% \to 76.9\%$), almost matching the performance of the NMIA alone ($77.1\%$). It is also worth mentioning that NMIA+CMCT, combining the best and worst conditions, achieves a better combined performance than DMS+NMIA, the two best mono-probing conditions. This hints towards some level of complementarity between probing conditions, as already suggested by recent analyses \citep{Yu2018} and supported by further analyses in this paper.
 
 Remarkably, the combination of the three conditions leads to the best overall predictions, averaging $78.5\%$ GM.
 This improves by $8.5\%$, $2.7\%$ and $1.4\%$ the average predictions achieved using CMCT, DMS and NMIA respectively.
 %CMCT/DMS/NMIA :0.6988333333/0.7588333333/0.771
-Table~\ref{fig:glycine_example} illustrates the incremental refinement of \OurTool predictions for a glycine riboswitch upon increasing the number of structures.
+Table~\ref{fig:glycine_example} illustrates the incremental refinement of \OurTool predictions for a glycine riboswitch upon increasing the number of considered probing conditions.
  
 
 
@@ -599,7 +598,7 @@ This observed discrepancy is somewhat surprising, given that \OurTool and \Softw
 
 
 \paragraph{Comparison and clustering of conditions.}
-Faced with diverse probing conditions, we first assess the compatibility of the conclusions drawn from different probing data, including the probing-free run of \OurTool as a control. We use the methodology described in subsection~\ref{sec:dotplots} and, for each condition, compute the base pair probability distribution (aka dot-plot) in the  pseudo-Boltzmann ensemble, induced by the reactivity profile. We then computed the ensemble distance, the squared Euclidian distance between dot plots, for each pair of conditions. Figure~\ref{fig:PCA} summarizes the pairwise distance, projected onto a 2D surface by a principal component analysis.
+Faced with diverse probing conditions, we first assess the compatibility of the conclusions drawn from different probing data, including the probing-free run of \OurTool as a control. We use the methodology described in subsection~\ref{sec:dotplots} and, for each condition, compute the base pair probability distribution (a.k.a. dot-plot) in the  pseudo-Boltzmann ensemble, induced by the reactivity profile. We then computed the ensemble distance, the squared Euclidian distance between dot plots, for each pair of conditions. Figure~\ref{fig:PCA} summarizes the pairwise distance, projected onto a 2D surface by a principal component analysis.
 
 
 \begin{figure}
