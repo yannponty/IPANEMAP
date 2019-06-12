@@ -371,6 +371,19 @@ Nai  &0.6&&&&&&&&&&&&&&&&0.6\\
 \end{adjustbox}
 \caption{MCC of predicted structures with \OurTool{} in the case of Bi-probing}.
 \end{table}
-\subsection{Predicted structures with conditions belonging to the same cluster}
-{\centering \includegraphics[width=.4\linewidth]{graphs/Supp_structures/1M7ILUMg_1M7ILU3Mg}\\}
+
+\begin{table}
+\newcommand{\MyScale}{.2}
+\begin{tabular}{@{}cccc@{}}
+%\toprule
+ \includegraphics[scale=\MyScale]{graphs/Supp_structures/1M7ILU_NMIAMg}& \includegraphics[scale=\MyScale]{graphs/Supp_structures/1M7ILUMg_1M7ILU3Mg}& \includegraphics[scale=\MyScale]{graphs/Supp_structures/1M7MgCE_NMIAMgCE}& \includegraphics[scale=\MyScale]{graphs/Supp_structures/NaiMg_CMCTMg}\\
+ \midrule
+1M7ILU&1M7ILUMg&1M7MgCE&NaiMg\\
++NMIAMg&+1M7ILU3Mg&+NMIAMgCE&+CMCTMg\\
+\end{tabular}
+\caption{Predicted structures with conditions belonging to the same cluster}
+\end{table}
+
+\subsection{Distribution of MCC values over 100 runs}
+\includegraphics[width=\linewidth]{graphs/histog}
 \end{document}

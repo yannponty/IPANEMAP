@@ -472,6 +472,12 @@ where $\text{Sens}(S\mid \Ref)$ represents the proportion of base pairs in $\Ref
 
 \section{Results}
 
+\subsection{Implementation}
+
+\OurTool{} was implemented in \Software{Python} 2.7, and relies on ...
+It is freely downloaded at:
+
+{\centering \url{http://www.github.com/afaf...}\\}
 
 \subsection{Considering multiple probing conditions improves the quality of predictions}\label{sec:cordero}
 
@@ -605,7 +611,7 @@ This observed discrepancy is somewhat surprising, given that \OurTool and \Softw
 
 
 \paragraph{Comparison and clustering of conditions.}
-Faced with diverse probing conditions, we first assess the compatibility of the conclusions drawn from different probing data, including the probing-free run of \OurTool as a control. We use the methodology described in subsection~\ref{sec:dotplots} and, for each condition, compute the base pair probability distribution (a.k.a. dot-plot) in the  pseudo-Boltzmann ensemble, induced by the reactivity profile. We then computed the ensemble distance, the squared Euclidian distance between dot plots, for each pair of conditions. Figure~\ref{fig:PCA} summarizes the pairwise distance, projected onto a 2D surface by a principal component analysis.
+Faced with diverse probing conditions, we first assess the compatibility of the conclusions drawn from different probing data, including the probing-free run of \OurTool as a control. We use the methodology described in subsection~\ref{sec:dotplots} and, for each condition, compute the base pair probability distribution (a.k.a. dot-plot) in the  pseudo-Boltzmann ensemble, induced by the reactivity profile. We then computed the ensemble distance, the squared Euclidean distance between dot plots, for each pair of conditions. Figure~\ref{fig:PCA} summarizes the pairwise distance, projected onto a 2D surface by a principal component analysis.
 
 
 \begin{figure}
@@ -951,7 +957,7 @@ The average MCC again increases in the presence of 3 mutants, to reach an averag
 
 \begin{figure}
 	{\centering
-		\includegraphics[width=\linewidth]{graphs/combinationscale}\\}
+		\includegraphics[width=\linewidth]{graphs/combinationscale.png}\\}
 		
 	\caption{Prediction accuracy (MCC) when considering the WT, supplemented with a set of $k=$1, 2, 3, or 10 single-point mutants, selected uniformly at random ({\sf WT+$k$M}). For 2 mutants, we also considered selecting mutants from the 20 most similar to the WT ({\sf WT+2M close}).}\label{fig:variantanalysis}
 \end{figure}
