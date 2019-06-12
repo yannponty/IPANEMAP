@@ -259,8 +259,9 @@ Accepted March 1, 2019}
 \maketitle
 
 \begin{abstract}
-The production of reliable structural models from chemical probing experiments, such as SHAPE protocols, benefits from the integration of information derived from multiple protocols and reagents. However, the interpretation of multiple probing profiles remains complex and largely manual, hindering the quality and reproducibility of modeling efforts.\\
-We introduce \OurTool{}, an automated and robust approach for computational modeling, which integrates probing data produced across experiments based on diverse protocols, reagents, or even over a collection of mutants, to predict the dominant conformations of an RNA.
+The manual production of reliable structural models from chemical probing experiments, such as SHAPE probing, benefits from the integration of information derived from multiple protocols and reagents. However, the interpretation of multiple probing profiles remains a complex task, hindering the quality and reproducibility of modeling efforts.\\
+We introduce \OurTool{}, an automated and robust approach for the computational modeling of RNA structure from multiple probing reactivity profiles. Input profiles can results from experiments based on diverse protocols, reagents, or even over a collection of mutants, and are jointly analyzed to predict the dominant conformations of an RNA.\\
+\OurTool{} combines statistical sampling with unsupervised machine learning, followed by a multi-objective optimization, and produces secondary structure models that are both stable and well-supported by experimental evidences. An analysis of several datasets demonstrates the performance of \OurTool, even in a mono probing setting, and confirms the potential of integrating multiple sources of probing data, and leads to several recommendations for the experimental design of probing assays. 
 \\
 \textbf{Contact:} \href{yann.ponty@lix.polytechnique.fr}{Yann.Ponty@lix.polytechnique.fr}\\
 \textbf{Supplementary information:} Supplementary data online
