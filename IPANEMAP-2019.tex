@@ -986,6 +986,9 @@ To the best of our knowledge, \OurTool currently represents the only available m
 
 Our analyses reveal that integrating multiple profiles of at least three conditions allows to mitigate the effect of outlier conditions and, at times, to produce better secondary structure models than the one inferred from the most accurate profile. A comparison of the joint performances to the average seems justified in a context where no single reagent appears to systematically dominate in term of predictive capacity, depriving the modeler from an objective way to favor a probing condition over another~\cite{Yu2018}. Moreover, in realistic structure modeling scenarii, it is impossible to know \emph{a priori} which information is contributed by an experiment. In other words, combining experimental probing data, even in a pairwise fashion, typically mitigates the empirical risk of misprediction. 
 
+Despite its stochastic foundations, \OurTool{} is typically stable in its predictions. We report in Figure~\ref{fig:reproducibility} the MCC values achieved over  10 repetitions of our software for all probing datasets produced in the case of didymium. 
+Interestingly, the worst most notable exception to the general observed stability is observed for the probing-free prediction. This confirms the widespread interpretation of shape-induced pseudo-potentials as focusing predictions onto a subset of the Boltzmann ensemble. A similar behavior is observed for the other datasets considered in our study, as seen in Supplementary Material. %In the interest of reproducibility, ipanemap reports, and accepts as an option, the random seed used both within the main software and its non-deterministic dependencies, leading to identical repeats of the experiments.
+
 
 Using probing conditions with our without Mg to use as constraints is a dilemma. Indeed, RNA reaches its native 3D structure mainly in the presence of Mg$^{\text{2+}}$ ions~\cite{ccc}. However, 3D structures include non WC pairings, and complex topological motifs such as pseudoknots, kissing loops, tetraloop interactions that RNA structure prediction algorithms do not take into account. In contrast, in the presence of monovalent but no divalent ions, RNA is suppose to adopt a structure in which all helical domains are formed but where most if not all tertiary contacts are not stable. Therefore one could assume that probing the RNA without Mg$^{\text{2+}}$ provides signals that are more compatible and less deceptive for predicting algorithms. However, it is likely that the instability of all the tertiary contacts is a situation prone to misfolding, or at least the coexistence in solution of many conformations. Here, the Dydimium ribozyme which contains many tertiary motifs, was systematically probed in presence or absence of Mg$^{\text{2+}}$ (except for CMCT and DMS). Remarkably, the best prediction were obtained with 1M7 and NMIA, irrespectively of the presence of Mg$^{\text{2+}}$, with very similar MCC, despite the fact that the probing profiles of the two conditions are quite divergent. For all the other reagents/protocols, predictions from reactivities produced in the presence of Mg$^{\text{2+}}$ systematically outperform its counterpart without Mg$^{\text{2+}}$, with a $10\%$ average decrease of the MCC.
 %\item je pense qu'il serait intéressant au moins pour un uo deux réactif de voir ce que donne le couple + et - Mg. Peut etre par exemple avec le 1M7ilu et un autre mauvais genre le NAI
@@ -993,15 +996,12 @@ Using probing conditions with our without Mg to use as constraints is a dilemma.
 % il faudrait regrder ce que fait weeks avec le 1M7, le NMIA et le 1M6, je n'ai pas bien compris quelle tambouille il fait, mais ca part du meme genre de constatation : il y a une spécificité dans chacune des sondes qu'il n'arrive pas vraiment à formaliser donc il fait une tambouille qui lui permet de tous les intégrer (mais c'est peut etre un peu pédestre comme démarche!). Apres ce sont probablement des conditions tres proches ce qui n'apporte pas d'apres nos résultats bcq d'infos supplémentaires .. bref ca vaudrait peut etre le coup de comparer.
 
 
-\paragraph{Reproducibility}
-
-\paragraph{Pseudo-potentials}
 
 
 \begin{figure*}
 	{\centering\includegraphics[width=1\linewidth]{graphs/Reproductibility}\\}
 	
-	\caption{MCC of predicted structures under conditions with and without Mg$^{2+}$, differentiating stop-inducing and mutation-inducing protocols, over 10 runs of IPANEMAP. }\label{fig:reproducibility}
+	\caption{MCC of predicted structures under conditions with and without Mg$^{2+}$, differentiating RT stops-inducing and mutation-inducing protocols, over 10 runs of \OurTool{}. }\label{fig:reproducibility}
 \end{figure*}
 
 

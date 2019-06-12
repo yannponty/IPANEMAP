@@ -138,7 +138,7 @@
 \maketitle
 
 \section{ Cordero~\emph{et al} dataset}
-\subsection{Structure prediction by RNA}
+\subsection{Structure prediction ordered by RNA}
 
  \Heatset{min=0.4,  
 	max=1,   
@@ -333,15 +333,44 @@ X	&	154	&	0.894	&	0.894	&	0.894	&		0.894	&	0.894	&	0.894	&	0.894	&	0.894	&	0.894
 
 
 
-  \HeatSecset{min=0,   
-	max=.1,   
-	max colour=BadCol, % colour at maximum
-	min colour=Aquamarine3,      % colour at minimum
-	Min colour=Aquamarine3, % colour for values below min
-	Max colour=BadCol   % colour for values above max
-}
+%  \HeatSecset{min=0,   
+%	max=.1,   
+%	max colour=BadCol, % colour at maximum
+%	min colour=Aquamarine3,      % colour at minimum
+%	Min colour=Aquamarine3, % colour for values below min
+%	Max colour=BadCol   % colour for values above max
+%}
 
 
 \section{Lariat capping ribozyme in {\itshape Didymium iridis}}
-
+\begin{table}
+\begin{adjustbox}{max width=\textwidth,max totalheight=\textheight,keepaspectratio}
+\begin{tabular}{lHHHHHHHHHHHHHHHHH}
+\toprule
+&&\multicolumn{1}{l}{1M7ILUMg}  &\multicolumn{1}{l}{1M7ILU } &\multicolumn{1}{l}{NMIAMg}  &\multicolumn{1}{l}{NMIA } &\multicolumn{1}{l}{1M7ILU3Mg}  &\multicolumn{1}{l}{NMIAMgCE}  &\multicolumn{1}{l}{NaiMg} &\multicolumn{1}{l}{BzCNMg } &\multicolumn{1}{l}{1M7MgCE}&\multicolumn{1}{l}{CMCTMg}  &\multicolumn{1}{l}{1M7ILU3}  &\multicolumn{1}{l}{DMSMg}&\multicolumn{1}{l}{NMIACE }&\multicolumn{1}{l}{1M7CE}&\multicolumn{1}{l}{BzCN}&\multicolumn{1}{l}{Nai}  \\
+\midrule
+&&0.85&0.84&0.81&0.8&0.74&0.73&0.73&0.71&0.7&0.7&0.64&0.63&0.61&0.6&0.6&0.6\\
+1M7ILUMg  &0.85&0.85&0.84&0.8&0.82&0.82&0.82&0.75&0.79&0.78&0.79&0.79&0.85&0.61&0.79&0.79&0.85\\
+1M7ILU  &0.84&&0.84&0.82&0.82&0.7&0.83&0.72&0.82&0.85&0.83&0.84&0.84&0.84&0.6&0.84&0.6\\
+NMIAMg  &0.81&&&0.81&0.8&0.74&0.82&0.82&0.81&0.81&0.79&0.8&0.8&0.61&0.81&0.81&0.6\\
+NMIA  &0.8&&&&0.8&0.74&0.73&0.81&0.78&0.7&0.79&0.63&0.72&0.61&0.7&0.7&0.59\\
+1M7ILU3Mg  &0.74&&&&&0.74&0.74&0.7&0.74&0.74&0.7&0.63&0.74&0.74&0.74&0.74&0.74\\
+NMIAMgCE  &0.73&&&&&&0.73&0.73&0.73&0.73&0.73&0.61&0.73&0.61&0.73&0.73&0.6\\
+NaiMg &0.73&&&&&&&0.73&0.72&0.7&0.73&0.64&0.68&0.61&0.73&0.73&0.59\\
+BzCNMg  &0.71&&&&&&&&0.71&0.65&0.73&0.63&0.72&0.6&0.61&0.6&0.59\\
+1M7MgCE&0.7&&&&&&&&&0.7&0.7&0.7&0.7&0.61&0.61&0.6&0.6\\
+CMCTMg  &0.7&&&&&&&&&&0.7&0.63&0.74&0.61&0.6&0.6&0.6\\
+1M7ILU3  &0.64&&&&&&&&&&&0.64&0.62&0.62&0.65&0.65&0.59\\
+DMSMg&0.63&&&&&&&&&&&&0.63&0.61&0.6&0.6&0.6\\
+NMIACE&0.61&&&&&&&&&&&&&0.61&0.62&0.6&0.6\\
+1M7CE&0.6&&&&&&&&&&&&&&0.6&0.61&0.59\\
+BzCN&0.6&&&&&&&&&&&&&&&0.6&0.6\\
+Nai  &0.6&&&&&&&&&&&&&&&&0.6\\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\caption{MCC of predicted structures with \OurTool{} in the case of Bi-probing}.
+\end{table}
+\subsection{Predicted structures with conditions belonging to the same cluster}
+{\centering \includegraphics[width=.4\linewidth]{graphs/Supp_structures/1M7ILUMg_1M7ILU3Mg}\\}
 \end{document}
