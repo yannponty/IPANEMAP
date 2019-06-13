@@ -27,6 +27,9 @@
 \usepackage{gensymb}
 \usepackage{inconsolata}
 
+
+\hfuzz=5pt
+
 %%%%%% TIKZ %%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -224,7 +227,7 @@
 % Enter dates of publication
 \copyrightyear{2019}
 \pubdate{31 July 2019}
-\pubyear{2020}
+\pubyear{2019}
 \jvolume{XX}
 \jissue{YY}
 
@@ -259,34 +262,52 @@ Accepted March 1, 2019}
 \maketitle
 
 \begin{abstract}
-The manual production of reliable structural models from chemical probing experiments, such as SHAPE probing, benefits from the integration of information derived from multiple protocols and reagents. However, the interpretation of multiple probing profiles remains a complex task, hindering the quality and reproducibility of modeling efforts.\\
-We introduce \OurTool{}, an automated and robust approach for the computational modeling of RNA structure from multiple probing reactivity profiles. Input profiles can results from experiments based on diverse protocols, reagents, or even over a collection of mutants, and are jointly analyzed to predict the dominant conformations of an RNA.\\
-\OurTool{} combines statistical sampling with unsupervised machine learning, followed by a multi-objective optimization, and produces secondary structure models that are both stable and well-supported by experimental evidences. An analysis of several datasets demonstrates the performance of \OurTool, even in a mono probing setting, and confirms the potential of integrating multiple sources of probing data, and leads to several recommendations for the experimental design of probing assays. 
-\\
-\textbf{Contact:} \href{yann.ponty@lix.polytechnique.fr}{Yann.Ponty@lix.polytechnique.fr}\\
-\textbf{Supplementary information:} Supplementary data online
-online.
+The manual production of reliable structural models from chemical probing experiments, such as SHAPE probing, benefits from the integration of information derived from multiple protocols and reagents. However, the interpretation of multiple probing profiles remains a complex task, hindering the quality and reproducibility of modeling efforts.
+
+\noindent We introduce \OurTool{}, an automated and robust approach for the computational modeling of RNA structure from multiple probing reactivity profiles. Input profiles can results from experiments based on diverse protocols, reagents, or even over a collection of mutants, and are jointly analyzed to predict the dominant conformations of an RNA.
+
+\noindent \OurTool{} combines statistical sampling, unsupervised machine learning, and multi-objective optimization, to produce secondary structure models that are both stable and well-supported by experimental evidences. An analysis of several datasets demonstrates the performance of \OurTool, even in a mono probing setting, and confirms the potential of integrating multiple sources of probing data, leading to several recommendations for the experimental design of informative probing assays. 
+
+\noindent Availability: \OurTool{} is freely downloadable at
+
+{\centering \url{http://???.???/???}\\[.5em]}
+
+\noindent \textbf{Contact:} \href{yann.ponty@lix.polytechnique.fr}{Yann.Ponty@lix.polytechnique.fr}
+
+\noindent \textbf{Supplementary information:} Supp. data online.
 \end{abstract}
 
 %%%%%%%%%%%%%% Introduction %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\section{Introduction}
+\section*{Introduction}
 
 
-Long used as a validation assays~\cite{Brunel2000}, probing data is increasingly used within computational methods to inform the computational prediction of  secondary structure models for RNA~\cite{Mathews2004}. Such an integrated approach to structure modeling leads to sizable improvements in prediction accuracy.
+Historically used as a validation assays~\cite{Knapp1989}, enzymatic and chemical probing  is increasingly used in combination with computational methods to inform a rational prediction of secondary structure models for RNA~\cite{Mathews2004}. Such an integrated approach to structure modeling has led to sizable improvements in prediction accuracy~\cite{Washietl2012} and is currently at the core of successful modeling strategies~\cite{Miao2017}. However, the interpretation of probing data, to inform structure prediction, is challenged by a number of factors, including structural heterogeneity, experimental errors, structural dynamics and the intrinsic stochastic nature of the reactivity measurements. 
 
+SHAPE reagents represent a popular class of small molecules that react with the 2’ hydroxyl of flexible ribose~\cite{McGinnis2012}, although the exact properties observed by SHAPE remain the object of ongoing investigations~\cite{Hurst2018,Mlynsky2018,Frezza2019}. 
+Within SHAPE probing protocols~\cite{Wilkinson2006,Lucks2011,Smola2015}, Ribose flexibility is proportional to the degree of freedom of the nucleotide, allowing SHAPE reagents to discriminate nucleotides in stable interactions from others. Different SHAPE reagents are endowed with different dynamics, that can help differentiate Watson-Crick base pairs from more dynamics tertiary contacts~\cite{Gherghe2008,Steen2012}. Other chemical probes, harbouring different chemical reactivities, have been developed. Amongst the most popular, DiMethyl Sulfate (DMS) is a small molecule that methylates N1 of adenines and N3 of cytosine if they are not involved in a hydrogen bond. Similarly, 1-cyclohexyl-3-(2-morpholinoethyl)carbodiimide metho-p-toluene sulfonate (CMCT) reacts on the Watson-Crick face of guanosine (N1) and uracyl (N3) when not engaged in a hydrogen bond~\cite{Ehresmann1987,Brunel2000}. These two reagents therefore mostly reveal Watson-Crick base pairing, but also any other type of contact involving the same edge. This diversity of probes not only increases  coverage of the different positions and structural contexts in an RNA, but it also provides qualitatively different qualitative information, as been widely used since the very early days of RNA structure probing~\cite{Moazed1986, Romaniuk1988, Butcher1994, Brunel2000,  Cordero2015, Somarowthu2015, Gross2017}. 
 
-Integration of experimental structure probing data in the process of secondary structure prediction greatly improve the models. However, probing experiments do not result in binary values for any given nucleotide. This can result from distinct reactivity of a single stranded nucleotide according to its local environment. But it can also be the consequence of many reasons including, structural heterogeneity, experimental error, structural dynamics and the imperfection of the reactivity prediction. Therefore as can be verified for many benchmark RNA for which a X-ray structure model has been established, occasionally a nucleotide involved in a stable secondary structure may appear reactive, or conversely a flexible nucleotide may be unreactive to such or such probe. As a consequence, integrating the probing data as "hard" constraints, prohibiting any pairing for highly reactive nucleotides or forcing pairing of the unreactive, would preclude the prediction of valuable structure. For this reason it appeared more relevant and efficient to take probing data into account in the prediction pipeline as soft constraints, i.e as penalties in the score when elaborating the models~\cite{Deigan2009,Washietl2012,Zarringhalam2012}. 
 % **************************************************************
 % Keep this command to avoid text of first page running into the
 % first page footnotes
-\enlargethispage{-65.1pt}
+\enlargethispage{-50.1pt}
 % **************************************************************
 
 
-As a consequence, popular software for secondary structure prediction, such as \Software{RNAStructure}~\cite{Mathews2004} or \Software{RNAfold}~\cite{Lorenz2011}, enable the prediction of models that are both stable and optimally consistent with measured reactivities. 
-Different chemical probes harbouring different chemical reactivities have been developed. Amongst the most popular, DiMethyl Sulfate (DMS) is a small molecule that methylates N1 of adenines and N3 of cytosine if they are not involved in a hydrogen bond. Similarly, 1-cyclohexyl-3-(2-morpholinoethyl)carbodiimide metho-p-toluene sulfonate (CMCT) reacts on the Watson-Crick face of guanosine (N1) and uracyl (N3) when not engaged in a hydrogen bond~\cite{Ehresmann1987,Brunel2000}. These two reagents therefore mostly reveal Watson-Crick base pairing, but also any other type of contact involving the same edge. SHAPE reagents belong to another class of small molecules that react with the 2’ hydroxyl of flexible ribose~\cite{McGinnis2012}, although the exact properties observed by SHAPE remain the object of ongoing investigations~\cite{Hurst2018,Mlynsky2018,Frezza2019}. 
+Computationally, the reactivity of a nucleotide is typically used as a proxy for its unpairedness. The last couple of decades have nevertheless seen a series of paradigm shifts in the ways probing information is integrated, somehow mirroring the evolution of {\em ab initio} methods for secondary structure prediction. The seminal work of Mathews~\cite{Mathews2004} used cutoffs to transform reactivity values into hard constraints. Depending on the reagent/enzyme, significantly (un-)reactive positions were forced to either paired or remain unpaired within predicted structures. However, such \emph{hard} constraints turned out to be very sensitive to the choice of the cutoff, easily leading to artificially unpaired predictions or unsatisfiable sets of constraints. With the advent of SHAPE probing, subsequent methods lifted the requirement of thresholds and integrated reactivities directly as pseudo-energies, supplementing the Turner nearest-neighbor energy model~\cite{Turner2010} within an (pseudo-)energy minimization scheme~\cite{Deigan2009,Zarringhalam2012,Washietl2012}. Such methods can be seen as optimizing a tradeoff between the thermodynamic stability of a model, assessed by the Turner energy model, and its compatibility with the reactivity profile. As a consequence, popular packages for secondary structure prediction, such as \Software{RNAStructure}~\cite{Mathews2004} or the \Software{Vienna} package~\cite{Lorenz2011}, now routinely accept SHAPE-like reactivity profiles as input of their main structure prediction methods. These include the joint folding of aligned RNAs~\cite{Lavender2015}, partition function, statistical sampling and Maximal Expected Accuracy predictions~\cite{Spasic2017}\ldots 
+
+However, independent computational predictions for the same RNA using probing data obtained with different probes often yield largely different models, none of which are fully consistent with all the probing data. It follows that, while theoretically informative, a multiprobing strategy often leaves a user with different models, from which one cannot objectively decide. In order to identify the best fit with all the data, researchers resort to very intuitive and manual methods such as projecting the results obtained with one probe onto the different models obtained using the constraints from another probe~\cite{Herbreteau2005,James2008,Weill2004}. At the end of the modeling process, the modeler is often left with several alternatives, all of which may appear equally consistent with the probing data, and the choice of a "best" model becomes somewhat subjective. 
+
+
+%As a consequence, integrating the probing data as "hard" constraints, prohibiting any pairing for highly reactive nucleotides or forcing pairing of the unreactive, would preclude the prediction of valuable structure. For this reason it appeared more relevant and efficient to take probing data into account in the prediction pipeline as soft constraints, i.e as penalties in the score when elaborating the models~\cite{Deigan2009,Washietl2012,Zarringhalam2012}. 
+% **************************************************************
+% Keep this command to avoid text of first page running into the
+% first page footnotes
+%\enlargethispage{-65.1pt}
+% **************************************************************
+
+
 
 % **************************************************************
 % Keep this command to avoid text of first page running into the
@@ -295,21 +316,10 @@ Different chemical probes harbouring different chemical reactivities have been d
 % **************************************************************
 
 
-Ribose flexibility is proportional to the degree of freedom of the nucleotide, allowing SHAPE reagents to discriminate nucleotides in stable interactions from others. Different SHAPE reagents are endowed with slightly different reactivities that can help differentiating Watson-Crick base pairs from more dynamics tertiary contacts~\cite{Gherghe2008,Steen2012}. This diversity of probes reflecting not only the accessibility of each position of the RNA but also qualitatively different information has been widely used since the very early days of RNA structure probing~\cite{Moazed1986, Romaniuk1988, Butcher1994, Brunel2000,  Cordero2015, Somarowthu2015, Gross2017}. However, for the reason raised above computer assisted secondary structure modeling of the same RNA using probing data obtained with different probes often yield different models, none of which are fully consistent with all the probing data. In fine, the multiprobing strategy often leaves the user facing different models from which he is unable to choose. 
-In order to identify the model that fits the most with all the data researchers resort to very intuitive and manual methods such as projecting the results obtained with one probe on the different models obtained using the constraints from another probe~\cite{Herbreteau2005,James2008,Weill2004,Othman2014}. At the end of the process the experimentator is often left with several models, all of which appear equally consistent with the probing data, and the choice of the "best" model become subjective. 
 
 
-{\noindent\bf Computational aspects.}
-On the computational side, the last couple of decades have seen a series of paradigm shifts in the ways probing information is integrated, somehow mirroring the evolution of {\em ab initio} methods for secondary structure prediction. The seminal work of Mathews uses cutoffs to transform reactivity values into hard constraints. Depending on the reagent/enzyme, significantly (un-)reactive positions were forced to either paired or remain unpaired within predicted structures. Such constraints can be effectively captured through a modification of classic dynamic programming algorithms. Subsequent methods lifted the requirement of thresholds, and integrated reactivity values directly as pseudo-energies, leading to the prediction of the most likely structure in the convolution of the Boltzmann distribution and some ...
 
-Complementary of the different probes is intuitively easy to understand, but complicated to integrate into algorithms because it  most cases it remains difficult to formalize.
-We undertook to tackle this problem following a non explicit approach that does not require to define the difference and complementary between the various probes.
-
-
-Using a sampling-clustering strategy we developed IPANEMAP, an RNA modeling workflow relying on \Software{RNAsubpot} that allows to predict RNA structure using as constraints one or many different data sets, and even phylogenetic data. 
-
-
-{\noindent\bf Contribution je ne mettrais pas de "contribution", c'est une intro pas un résumé ni une conclusion.}
+%{\noindent\bf Contribution je ne mettrais pas de "contribution", c'est une intro pas un résumé ni une conclusion.}
 
 
 \begin{comment}
@@ -325,11 +335,11 @@ Using a sampling-clustering strategy we developed IPANEMAP, an RNA modeling work
 \end{comment}
 
 
-\section{Material and methods}
+\section*{Material and methods}
 
-\subsection{The \OurTool{} method}
+\subsection*{The \OurTool{} method}
 
-\OurTool{} is a novel approach that integrates the signal produced by various chemical probes, and performs clustering based on multiple sets of structures sampled in different experimental conditions to ultimately return a set of structures that are representative of the dominant clusters. Its underlying rationale is that the prominent presence of a stable secondary structure within the  (pseudo-)Boltzmann ensembles induced by multiple experimental conditions should increase its likelihood to be (one of) the native structure(s) for a given RNA. It is thus hoped that integrating several reactivity profiles may be used to promote the native structure as one of the dominant structures within the multi-ensemble, and help circumvent the limitation of pseudo-energies derived from single reactivity profile, which are generally not sufficient to elect the native structure as its minimum (pseudo)-free energy candidate. In other words, combining ensembles of structures generated using multiple probing experiments is likely to denoise, and thus mitigate systematic biases induced by experimental conditions and reagents.
+We introduce an Integrative Probing Analysis of Nucleic Acids Empowered by Multiple Accessibility Profiles (\OurTool{}), a novel approach that integrates the signal produced by various chemical probes. It performs clustering based on multiple sets of structures sampled in different experimental conditions, to ultimately return a set of structures that are representative of the dominant clusters. Its underlying rationale is that the prominent presence of a stable secondary structure within the  (pseudo-)Boltzmann ensembles induced by multiple experimental conditions should increase its likelihood to be (one of) the native structure(s) for a given RNA. It is thus hoped that integrating several reactivity profiles may be used to promote the native structure as one of the dominant structures within the multi-ensemble, and help circumvent the limitation of pseudo-energies derived from single reactivity profile, which are generally not sufficient to elect the native structure as its minimum (pseudo)-free energy candidate. In other words, combining ensembles of structures generated using multiple probing experiments is likely to denoise, and thus mitigate systematic biases induced by experimental conditions and reagents.
 
 \begin{figure}
 	{\centering\resizebox{.9\columnwidth}{!}{
@@ -374,7 +384,7 @@ The value of $\tau$ is set to $1/(\NumClust+1)$, ensuring at least one supportin
 
 
 
-\subsection{Pairwise comparison of structural ensembles induced by reactivity profiles}\label{sec:dotplots}
+\subsection*{Pairwise comparison of structural ensembles induced by reactivity profiles}\label{sec:dotplots}
 
 We want to compare the structural ensembles induced by reactivity profiles, produced across diverse experimental conditions. To that purpose, we simply consider the base pair probability matrices, or dot-plots, resulting from supplementing the Turner energy model with pseudo energy terms. %This can be seen as a projection of experimentally constrained conformational spaces. 
 Dot plots can be computed efficiently in the presence of pseudo-energy terms using a variant of the McCaskill algorithm~\citep{McCaskill1990}.
@@ -404,7 +414,7 @@ Individual dot-plots were computed using the \Software{RNAfold} software in the 
 %\end{itemize}
 
 
-% \subsection{Generative model for probing data}
+% \subsection*{Generative model for probing data}
 
 %Many models to simulate SHAPE probing data starting from the analysis of the SHAPE reactivity distribution performed by ~\cite{Sukosd2013}, have been suggested.
 %ull Access% c'est mal dit!===
@@ -412,7 +422,7 @@ Individual dot-plots were computed using the \Software{RNAfold} software in the 
 %We constructed probabilistic models to simulate probing data from the different distributions; a number of 500 bins was set, the mid-value for each bin with the corresponding probability was considered as parameter for the generative model. Consequently, a random generator was implemented to simulate probing data for each single structural category and each specific probing method where the generator input is the mid-value vector w probability vector.
 
 
-\subsection{Datasets} 
+\subsection*{Datasets} 
 \label{sec:datasets}
 To validate our computational method quantitatively, we consider several datasets, depending on the availability of probing data for one or several reagents, restricted to the wild type or produced for several point-wise mutants. Each dataset consists of sequences and individual reactivities to one or several probes, at each position in the RNA, completed with one or several functionally-relevant secondary structures.
 
@@ -438,7 +448,7 @@ We considered DMS probing data, generated by~\cite{Cheng2017} through systematic
 
 
 
-\subsection{Experimental probing protocols}
+\subsection*{Experimental probing protocols}
 The structure of the Lariat capping ribozyme from \textit{Didymium iridis }(DiLCrz) was probed with different SHAPE reagents: 1M7 (1-methyl-7 nitrosatoic anhydre), NMIA (N-Methyl Isatoic Anhydre), BzCN (Benzoyl cyanide) and NAI (2-methylnicotinic acid imidazolide) in presence and absence of magnesium ions, and with DMS (DiMethylSulfate) and CMCT only in presence of magnesium ions.
 As a preliminary experiment, we verified that DiLCrz generally adopts a single global architecture. To this end, we subjected DiLCrz to a standard denaturation protocol (80\degree{}C for 2 min in H2O, addition of 40 mM of HEPES at 7.5 pH, 100 mM of KCl, 5 mM of MgCl2, followed by 10 min at room temperature, and 10 min at 37\degree{}C), and observed the production of a single band on a non-denaturing PAGE, strongly suggesting the adoption of a single conformation.
 
@@ -460,26 +470,26 @@ For 1M7ILU3, the denaturation step was repeated three times : After a 1 minute i
 DMS and CMCT probing were conducted essentially as described in~\cite{Weill2004,James2008}. Succinctly, 6 pmol of RNA were resuspended in 18 $\mu$l of water, denatured at 80\degree{}C for 2 minutes and cooled down at room temperature for 10 minutes in a probing buffer for DMS probing (40 mM HEPES pH 7.5, 100 mM KCl, 5 mM MgCl2) or in CMCT (50 mM of potassium borate pH 8, 100 mM KCl and 5 mM MgCl2). For DMS, RNA was then treated with 1 $\mu$l of DMS (1:12 in ethanol) or 1 $\mu$l of ethanol for 5 minutes at 37\degree{}C (mock reaction), the reaction was stopped by addition of 400 mM of Tris at 7.5 pH and immediately put on ice. For CMCT,  RNA was treated with 10 $\mu$l of CMCT (42mg/mL) or 10 $\mu$l H2O for 10 minutes at 37\degree{}C (mock reaction). Modified RNA were ethanol-precipitated and resuspended in 10 $\mu$l of water. Modifications were mapped as described above for SHAPE-CE experiments.
 
 
-\subsection{Benchmarking methodology}
+\subsection*{Benchmarking methodology}
 
 The Matthews Correlation Coefficient (MCC) is a classic metrics for assessing the quality of a predicted structure $S$, identified by a set of base pairing positions, based on its agreement with an accepted reference structure $\Ref$. It can be interpreted as a compromise between the classic sensitivity and specificity metrics, and is defined as 
 $$\text{MCC}(S\mid \Ref)=\frac{\text{TP} \times \text{TN} -\text{FP} \times \text{FN}}{\sqrt[]{(\text{TP}+\text{FP})(\text{TP}+\text{FN})(\text{TN}+\text{FP})(\text{TN}+\text{FN})}},$$
 where TP, FP, TN, FN classically represent the correctly/erroneously predicted and correctly/erroneously omitted base pairs in $S$ with respect to $\Ref$.
 
-For the sake of direct comparison with competing methods, we also report the recently-introduced metrics~\citep{Mathews2017} is the geometric mean, defined as:
+For the sake of direct comparison with competing methods, we also report the geometric mean metrics, defined as:
 $$ \GMean(S\mid \Ref)=\sqrt{\text{Sens}(S\mid \Ref)\times \text{PPV}(S\mid\Ref)} $$
 where $\text{Sens}(S\mid \Ref)$ represents the proportion of base pairs in $\Ref$ that are in $S$, and $\text{PPV}(S\mid \Ref)$ is the proportion of base pairs in $S$ that are also in $\Ref$. This quality metrics has very high correlation with the MCC, to which it is asymptotically equivalent as shown by~Gorodkin\etal\cite{Gorodkin2001}.
 
-\section{Results}
+\section*{Results}
 
-\subsection{Implementation}
+\subsection*{Implementation}
 
 \OurTool{} was implemented in \Software{Python} 2.7, and relies on ...
 It is freely downloaded at:
 
 {\centering \url{http://www.github.com/afaf...}\\}
 
-\subsection{Considering multiple probing conditions improves the quality of predictions}\label{sec:cordero}
+\subsection*{Considering multiple probing conditions improves the quality of predictions}\label{sec:cordero}
 
 %In order to validate our assumption of an enrichment in the presence of multiple probing profiles, we analyzed the Cordero \emph{et al} dataset, which contains CMCT, DMS and NMIA probing data for 6 RNAs. 
 %
@@ -545,11 +555,11 @@ Table~\ref{fig:glycine_example} illustrates the incremental refinement of \OurTo
 
 
 
-\subsection{\OurTool outperforms state-of-the-art predictive methods when informed by a single profile}
+\subsection*{\OurTool outperforms state-of-the-art predictive methods when informed by a single profile}
 %Mono-probing Mathews (Hadjim)
 %* On est meilleur sur la version courante de RSample
 %* Multi conformation
-We assess the predictive capacities of \OurTool in a classic setting where a single probing condition is available, and compare its performances against \Software{RSample} software recently introduced by Spacic\etal\cite{Mathews2017}, \Software{RSample} relies on a sampling/clustering method developed independently from the current work. It was shown to perform favorably against a comprehensive collection of state-of-the-art methods in probing-guided structure prediction, including \Software{RME}~\citep{Wu2015}, \Software{RNAprob}~\citep{Deng2016}, \Software{RNAprobing}~\citep{Washietl2012}, \Software{RNAsc}~\citep{Zarringhalam2012} and the \Software{fold} utility from the \Software{RNAstructure} suite~\citep{Reuter2010}.
+We assess the predictive capacities of \OurTool in a classic setting where a single probing condition is available, and compare its performances against \Software{RSample} software recently introduced by Spacic\etal\cite{Spasic2017}, \Software{RSample} relies on a sampling/clustering method developed independently from the current work. It was shown to perform favorably against a comprehensive collection of state-of-the-art methods in probing-guided structure prediction, including \Software{RME}~\citep{Wu2015}, \Software{RNAprob}~\citep{Deng2016}, \Software{RNAprobing}~\citep{Washietl2012}, \Software{RNAsc}~\citep{Zarringhalam2012} and the \Software{fold} utility from the \Software{RNAstructure} suite~\citep{Reuter2010}.
 We consider the dataset of hajdin~\emph{et al}, which consists of 24 RNAs of lengths ranging from 47 to 500 nucleotides, all believed to fold into a unique documented conformation. 
 
 \begin{figure}
@@ -587,7 +597,7 @@ This observed discrepancy is somewhat surprising, given that \OurTool and \Softw
 %\clearpage
 
 
-\subsection{Comparing and exploiting multiple probing conditions: A case study on the Lariat capping ribozyme}
+\subsection*{Comparing and exploiting multiple probing conditions: A case study on the Lariat capping ribozyme}
 
 \newcommand{\Bull}[1]{{\sffamily #1}~\raisebox{1pt}{\tikzcircle[black, fill=cluster#1]{3pt}}}
 
@@ -724,7 +734,7 @@ An even more drastic change of performances can be observed in the comparison of
 
 
 \begin{figure}
-	\newcommand{\W}{.73}
+	\newcommand{\W}{.725}
 	{\centering\begin{tabular}{@{}c@{}c@{}c@{}}
 			{\sf {\bfseries A} -- \relsize{-1}Bi-probing MCC \emph{vs} Min MCC of mono-probing}\\
 			\includegraphics[width=\W\linewidth,trim=1cm 1cm .8cm .3cm,clip]{graphs/didy/MCC-vs-Min}\\[.5em]
@@ -762,7 +772,7 @@ The enhanced performances of tri-probing over bi-probing are consistent with the
 %\clearpage
 
 
-\begin{table}[h]
+\begin{table}[ht]
 	\Heatset{min=60,   
 		max=83,   
 		max colour=Aquamarine3, % colour at maximum
@@ -924,12 +934,12 @@ Finally, the consideration of four triplets of diverse conditions allow us to re
 %\begin{figure}
 %\includegraphics[width=\linewidth]{graphs/Arcs}
 %\end{figure}
-%\subsection{\OurTool{} yields reproducible predictions}
+%\subsection*{\OurTool{} yields reproducible predictions}
 %\as{Which structure?}
 
 
 
-\subsection{Supplementing wild-type profiles with random single mutants increases prediction quality}
+\subsection*{Supplementing wild-type profiles with random single mutants increases prediction quality}
 In this final analysis, we decided to test the capacity of \OurTool to extract and exploit complementary information produced by the systematic probing of single-point mutants.
 This approach may appear misguided, since single point mutants are expected to adopt different structures than the wild-type sequence. In fact, the conformational changes induced by mutations precisely constitute the signal that is exploited by downstream modeling pipelines~\cite{Cordero2015}. However, those changes are typically local, and the limited influence of outliers on \OurTool{} raises a hope that the benefit of including independently-produced conditions will outweigh the impact of noise introduced by local changes.
 
@@ -982,21 +992,25 @@ The average MCC again increases in the presence of 3 mutants, to reach an averag
 
 
 
-\section{Conclusion}
+\section*{Conclusion and discussion}
 
 We introduce \OurTool{}, an integrative method for the prediction of secondary structure models from multiple probing profiles. Based on the simple premise that good structural models should be stable and supported by most probing experiments, it uses a combination of stochastic backtrack in the pseudo-Boltzmann ensemble, coupled with a structural clustering to elect dominant conformations. This strategy is fast, stable and leads to predictions that clearly exploit multiple probing profiles, as demonstrated by a detailed analysis of four datasets. 
 
 
-To the best of our knowledge, \OurTool currently represents the only available method for a joint automated consideration of multiple probing profiles. Surprisingly, it also appears to produce the most accurate secondary structure models when informed by a single condition, as demonstrated by our reanalysis on the Hadjin\etal\cite{Hajdin2013} benchmark. We attribute this unexpected result to the adoption of a sampling/clustering approach, which seems to eliminate spurious outliers in the conformational space. In particular, the dominance of \OurTool is surprising since, while independently developed, our method shares the sampling/clustering philosophy of the recently introduced \Software{Rsample}~\cite{Mathews2017}. We attribute these increased performances in part to a less stringent contribution of the pseudo-potentials, and to our adaptive choice of the number of clusters. Indeed, even in cases where a single dominant conformation is expected, considering multiple clusters seems to create more opportunities for discarding noisy random unstable conformations. Such conformations naturally occur in a Boltzmann-distributed subset of structures, and may end up \emph{polluting} the centroid structures by artificially inflating the cluster diversity. 
+To the best of our knowledge, \OurTool currently represents the only available method for a joint automated consideration of multiple probing profiles. Surprisingly, it also appears to produce the most accurate secondary structure models when informed by a single condition, as demonstrated by our reanalysis on the Hadjin\etal\cite{Hajdin2013} benchmark. We attribute this unexpected result to the adoption of a sampling/clustering approach, which seems to eliminate spurious outliers in the conformational space. In particular, the dominance of \OurTool is surprising since, while independently developed, our method shares the sampling/clustering philosophy of the recently introduced \Software{Rsample}~\cite{Spasic2017}. We attribute these increased performances in part to a less stringent contribution of the pseudo-potentials, and to our adaptive choice of the number of clusters. Indeed, even in cases where a single dominant conformation is expected, considering multiple clusters seems to create more opportunities for discarding noisy random unstable conformations. Such conformations naturally occur in a Boltzmann-distributed subset of structures, and may end up \emph{polluting} the centroid structures by artificially inflating the cluster diversity. 
 %The impact on \Software{RSample} predictions of such a \emph{noise} seems worsened by the fact that it returns the MEA, the centroid of the whole ensemble, whenever a dominant conformation is detected.
-
-Our analyses reveal that integrating multiple profiles of at least three conditions allows to mitigate the effect of outlier conditions and, at times, to produce better secondary structure models than the one inferred from the most accurate profile. A comparison of the joint performances to the average seems justified in a context where no single reagent appears to systematically dominate in term of predictive capacity, depriving the modeler from an objective way to favor a probing condition over another~\cite{Yu2018}. Moreover, in realistic structure modeling scenarii, it is impossible to know \emph{a priori} which information is contributed by an experiment. In other words, combining experimental probing data, even in a pairwise fashion, typically mitigates the empirical risk of misprediction. 
 
 Despite its stochastic foundations, \OurTool{} is typically stable in its predictions. We report in Figure~\ref{fig:reproducibility} the MCC values achieved over  10 repetitions of our software for all probing datasets produced in the case of didymium. 
 Interestingly, the worst most notable exception to the general observed stability is observed for the probing-free prediction. This confirms the widespread interpretation of shape-induced pseudo-potentials as focusing predictions onto a subset of the Boltzmann ensemble. A similar behavior is observed for the other datasets considered in our study, as seen in Supplementary Material. %In the interest of reproducibility, ipanemap reports, and accepts as an option, the random seed used both within the main software and its non-deterministic dependencies, leading to identical repeats of the experiments.
 
 
-Using probing conditions with our without Mg to use as constraints is a dilemma. Indeed, RNA reaches its native 3D structure mainly in the presence of Mg$^{\text{2+}}$ ions~\cite{ccc}. However, 3D structures include non WC pairings, and complex topological motifs such as pseudoknots, kissing loops, tetraloop interactions that RNA structure prediction algorithms do not take into account. In contrast, in the presence of monovalent but no divalent ions, RNA is suppose to adopt a structure in which all helical domains are formed but where most if not all tertiary contacts are not stable. Therefore one could assume that probing the RNA without Mg$^{\text{2+}}$ provides signals that are more compatible and less deceptive for predicting algorithms. However, it is likely that the instability of all the tertiary contacts is a situation prone to misfolding, or at least the coexistence in solution of many conformations. Here, the Dydimium ribozyme which contains many tertiary motifs, was systematically probed in presence or absence of Mg$^{\text{2+}}$ (except for CMCT and DMS). Remarkably, the best prediction were obtained with 1M7 and NMIA, irrespectively of the presence of Mg$^{\text{2+}}$, with very similar MCC, despite the fact that the probing profiles of the two conditions are quite divergent. For all the other reagents/protocols, predictions from reactivities produced in the presence of Mg$^{\text{2+}}$ systematically outperform its counterpart without Mg$^{\text{2+}}$, with a $10\%$ average decrease of the MCC.
+
+Our analyses reveal that integrating multiple profiles of at least three conditions allows to mitigate the effect of outlier conditions and, at times, to produce better secondary structure models than the one inferred from the most accurate profile. A comparison of the joint performances to the average appears fair since no single reagent appears to systematically dominate in term of predictive capacity. It follows that a modeler cannot objectively favor \emph{a priori} a probing condition/reagent~\cite{Yu2018}. In other words, multiple experimental probing data, even combined in a pairwise fashion, were typically observed to mitigate the empirical risk of a misprediction. 
+
+
+
+
+A future work include solving the dilemma of whether or not to include Mg during the probing, in the perspective of a downstream computational prediction. On the one hand, RNA reaches its native 3D structure in the presence of Mg$^{\text{2+}}$ ions~\cite{Knapp1989}. However, such native structures include non WC pairings, and complex topological motifs such as pseudoknots, kissing loops, tetraloop interactions, that classic structure prediction algorithms do not explicitly capture. In contrast, in the presence of only monovalent ions, RNA is expected to form its helical domains, but leave its  tertiary contacts unstable. Therefore, probing the RNA without Mg$^{\text{2+}}$ could provide a signal that is less deceptive, and thus more informative, to predicting algorithms. Unfortunately, destabilizing tertiary contacts increases the probability of misfolding, or the coexistence in solution of multiple conformations. In this work, we probed a Dydimium ribozyme which contains many tertiary motifs, systematically in the presence and absence of Mg$^{\text{2+}}$ (except for CMCT and DMS probes). Remarkably, the most accurate prediction was obtained with 1M7 and NMIA, irrespectively of the presence/absence of Mg$^{\text{2+}}$, this despite the fact that the reactivity profiles substantially diverged between the two conditions. However, for other reagents/protocols, predictions appeared positively impacted (+$10\%$ average MCC) by the presence of Mg$^{\text{2+}}$, painting a mixed picture that would deserve future investigations.
 %\item je pense qu'il serait intéressant au moins pour un uo deux réactif de voir ce que donne le couple + et - Mg. Peut etre par exemple avec le 1M7ilu et un autre mauvais genre le NAI
 %\end{itemize}
 % il faudrait regrder ce que fait weeks avec le 1M7, le NMIA et le 1M6, je n'ai pas bien compris quelle tambouille il fait, mais ca part du meme genre de constatation : il y a une spécificité dans chacune des sondes qu'il n'arrive pas vraiment à formaliser donc il fait une tambouille qui lui permet de tous les intégrer (mais c'est peut etre un peu pédestre comme démarche!). Apres ce sont probablement des conditions tres proches ce qui n'apporte pas d'apres nos résultats bcq d'infos supplémentaires .. bref ca vaudrait peut etre le coup de comparer.
