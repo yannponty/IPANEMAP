@@ -206,12 +206,14 @@
 
 \newcommand{\Draft}[1]{{#1}}
 \newcommand{\bs}[1]{\Draft{\todo[color=red!30]{\sf Bruno: #1}}}
+\newcommand{\bsi}[1]{\Draft{\todo[color=red!30,inline]{\sf Bruno: #1}}}
 \newcommand{\as}[1]{\Draft{\todo[color=green!70!black]{\sf Afaf: #1}}}
 \newcommand{\yp}[1]{\Draft{\todo[color=blue!30]{\sf Yann: #1}}}
 \newcommand{\ypi}[1]{\Draft{\todo[color=blue!30,inline]{\sf Yann: #1}}}
 
 \newcommand{\Blabla}[1][5-6]{{\color{blue!40!white}\lipsum*[#1]}}
 
+\newcommand{\ipanemapurl}{https://github.com/afafbioinfo/IPANEMAP}
 
 % for multicolumn text centering 
 \newcolumntype{N}{>{\centering\arraybackslash}m{.8in}}
@@ -270,7 +272,7 @@ The manual production of reliable structural models from chemical probing experi
 
 \noindent Availability: \OurTool{} is freely downloadable at
 
-{\centering \url{http://???.???/???}\\[.5em]}
+{\centering \url{\ipanemapurl}\\[.5em]}
 
 \noindent \textbf{Contact:} \href{yann.ponty@lix.polytechnique.fr}{Yann.Ponty@lix.polytechnique.fr}
 
@@ -296,6 +298,7 @@ Within SHAPE probing protocols~\cite{Wilkinson2006,Lucks2011,Smola2015}, Ribose 
 
 
 Computationally, the reactivity of a nucleotide is typically used as a proxy for its unpairedness. The last couple of decades have nevertheless seen a series of paradigm shifts in the ways probing information is integrated, somehow mirroring the evolution of {\em ab initio} methods for secondary structure prediction. The seminal work of Mathews~\cite{Mathews2004} used cutoffs to transform reactivity values into hard constraints. Depending on the reagent/enzyme, significantly (un-)reactive positions were forced to either paired or remain unpaired within predicted structures. However, such \emph{hard} constraints turned out to be very sensitive to the choice of the cutoff, easily leading to artificially unpaired predictions or unsatisfiable sets of constraints. With the advent of SHAPE probing, subsequent methods lifted the requirement of thresholds and integrated reactivities directly as pseudo-energies, supplementing the Turner nearest-neighbor energy model~\cite{Turner2010} within an (pseudo-)energy minimization scheme~\cite{Deigan2009,Zarringhalam2012,Washietl2012}. Such methods can be seen as optimizing a tradeoff between the thermodynamic stability of a model, assessed by the Turner energy model, and its compatibility with the reactivity profile. As a consequence, popular packages for secondary structure prediction, such as \Software{RNAStructure}~\cite{Mathews2004} or the \Software{Vienna} package~\cite{Lorenz2011}, now routinely accept SHAPE-like reactivity profiles as input of their main structure prediction methods. These include the joint folding of aligned RNAs~\cite{Lavender2015}, partition function, statistical sampling and Maximal Expected Accuracy predictions~\cite{Spasic2017}\ldots 
+
 
 However, independent computational predictions for the same RNA using probing data obtained with different probes often yield largely different models, none of which are fully consistent with all the probing data. It follows that, while theoretically informative, a multiprobing strategy often leaves a user with different models, from which one cannot objectively decide. In order to identify the best fit with all the data, researchers resort to very intuitive and manual methods such as projecting the results obtained with one probe onto the different models obtained using the constraints from another probe~\cite{Herbreteau2005,James2008,Weill2004}. At the end of the modeling process, the modeler is often left with several alternatives, all of which may appear equally consistent with the probing data, and the choice of a "best" model becomes somewhat subjective. 
 
@@ -485,9 +488,9 @@ where $\text{Sens}(S\mid \Ref)$ represents the proportion of base pairs in $\Ref
 \subsection*{Implementation}
 
 \OurTool{} was implemented in \Software{Python} 2.7, and relies on ...
-It is freely downloaded at:
+\OurTool{} is free software distributed under the terms of the MIT license. It can be freely downloaded at:
 
-{\centering \url{http://www.github.com/afaf...}\\}
+{\centering \url{\ipanemapurl}\\}
 
 \subsection*{Considering multiple probing conditions improves the quality of predictions}\label{sec:cordero}
 
