@@ -123,9 +123,11 @@
 \usepackage{multicol}
 \usepackage{booktabs}
 \usepackage{todonotes}
-\title{Supplementary materials}
+\title{\OurTool{}:  Integrative Probing Analysis of Nucleic Acids Empowered by Multiple Accessibility Profiles\\[1em]
+	Supplementary material
+}
 %\author{}
-%\date{} % Activate to display a given date or no date (if empty),
+\date{} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed 
 \newcommand{\Software}[1]{\texttt{#1}}
 \newcommand{\OurTool}{\Software{IPANEMAP}}
@@ -149,24 +151,25 @@
 }
 \begin{table}[h]
 \centering
+\newcommand{\B}{\multicolumn{1}{c}{$\bullet$}}
+\newcommand{\BR}{\multicolumn{1}{c|}{$\bullet$}}
 \begin{adjustbox}{max width=1\textwidth}
- \begin{tabular}{lHHHHHHHHHHHHHHHHHHHHH}
- &\multicolumn{8}{l}{ \OurTool{}} & \multicolumn{4}{l}{ RNAfold MFE} & \multicolumn{4}{l}{RNAfold MEA} \\
-% & \multicolumn{3}{l}{ GM }  & \multicolumn{3}{l}{ GM } & \multicolumn{3}{l}{ GM }& \multicolumn{3}{l}{ GM }  & \multicolumn{3}{l}{ GM } & \multicolumn{3}{l}{ GM } &\multicolumn{3}{l}{ GM }\\
-\toprule
-\textbf{RNA }& \multicolumn{1}{l}{(-)} & \multicolumn{1}{l}{CMCT} & \multicolumn{1}{l}{NMIA} & \multicolumn{1}{l}{DMS} & \multicolumn{1}{l}{DMS+NMIA} & \multicolumn{1}{l}{DMS+CMCT}& \multicolumn{1}{l}{NMIA+CMCT}	 & \multicolumn{1}{l}{DMS+NMIA+CMCT} & \multicolumn{1}{l}{(-)}& \multicolumn{1}{l}{DMS }& \multicolumn{1}{l}{CMCT} &\multicolumn{1}{l}{ NMIA}& \multicolumn{1}{l}{(-)} & \multicolumn{1}{l}{DMS} & \multicolumn{1}{l}{CMCT} & \multicolumn{1}{l}{NMIA}\\
+ \begin{tabular}{r|HHHHHHHH|HHHH|HHHH}\toprule
+ 	                              & \multicolumn{8}{c}{ \OurTool{}}                                                                                                                                                                                                           & \multicolumn{4}{c}{RNAfold MFE}                                                                          & \multicolumn{4}{c}{RNAfold MEA}                                                                         \\
+ 	%                             & \multicolumn{3}{l}{ GM }                                                      & \multicolumn{3}{l}{ GM }                                                              & \multicolumn{3}{l}{ GM }                                                                    & \multicolumn{3}{l}{ GM }                                                        & \multicolumn{3}{l}{ GM }                                                     & \multicolumn{3}{l}{ GM }       & \multicolumn{3}{l}{ GM } \\ \toprule
 \midrule
-5SRNA,E.Coli		&	0.25	&	0.238	&	0.247	&	0.244	&	0.247	&	0.247	&	0.254	&	0.241	&	0.241	&	0.686	&	0.254	&	0.686	&	0.241	&	0.686	&	0.269	&	0.686	\\
-glycineriboswitch,F.nucleatum		&	0.568	&	0.627	&	0.868	&	0.952	&	0.868	&	0.658	&	0.868	&	0.868	&	0.306	&	0.313	&	0.395	&	0.313	&	0.593	&	0.593	&	0.693	&	0.6	\\
-cidGMPriboswitch,V.Cholerae		&	0.654	&	0.77	&	0.654	&	0.77	&	0.654	&	0.77	&	0.654	&	0.77	&	0.77	&	0.77	&	0.667	&	0.77	&	0.77	&	0.72	&	0.667	&	0.77	\\
-P4P6domain		&	0.864	&	0.856	&	0.881	&	0.864	&	0.864	&	0.856	&	0.864	&	0.856	&	0.837	&	0.808	&	0.773	&	0.714	&	0.845	&	0.808	&	0.781	&	0.722	\\
-adenineriboswitch,add		&	1	&	0.956	&	1	&	0.977	&	1	&	0.956	&	1	&	1	&	1	&	0.333	&	0.41	&	1	&	1	&	0.333	&	0.356	&	0.306	\\
-tRNAphenylalanineyeast		&	0.286	&	0.746	&	0.976	&	0.746	&	0.976	&	0.746	&	0.976	&	0.976	&	0.976	&	0.976	&	0.976	&	0.976	&	0.334	&	0.976	&	0.976	&	0.976	\\
-
-\midrule
-Average&0.604&0.7&0.77&0.76&0.77&0.705&0.77&0.785&0.69&0.65&0.58&0.74&0.63&0.69&0.62&0.68\\
-\bottomrule
-\end{tabular}
+\textbf{CMCT} & & \B & & & & \B & \B & \BR & & & \B & & & & \B & \\
+\textbf{NMIA} & & & \B & & \B & & \B & \BR & & & & \BR & & & & \B \\
+\textbf{DMS}  & & & & \B & \B & \B & & \BR & & \B & & & & \B & & \\
+ \midrule
+ 	5SRNA,E.Coli                  & 0.25                    & 0.238                    & 0.247                    & 0.244                   & 0.247                        & 0.247                        & 0.254                         & 0.241                             & 0.241                   & 0.686                    & 0.254                    & 0.686                     & 0.241                   & 0.686                   & 0.269                    & 0.686                    \\
+ 	glycineriboswitch,F.nucleatum & 0.568                   & 0.627                    & 0.868                    & 0.952                   & 0.868                        & 0.658                        & 0.868                         & 0.868                             & 0.306                   & 0.313                    & 0.395                    & 0.313                     & 0.593                   & 0.593                   & 0.693                    & 0.6                      \\
+ 	cidGMPriboswitch,V.Cholerae   & 0.654                   & 0.77                     & 0.654                    & 0.77                    & 0.654                        & 0.77                         & 0.654                         & 0.77                              & 0.77                    & 0.77                     & 0.667                    & 0.77                      & 0.77                    & 0.72                    & 0.667                    & 0.77                     \\
+ 	P4P6domain                    & 0.864                   & 0.856                    & 0.881                    & 0.864                   & 0.864                        & 0.856                        & 0.864                         & 0.856                             & 0.837                   & 0.808                    & 0.773                    & 0.714                     & 0.845                   & 0.808                   & 0.781                    & 0.722                    \\
+ 	adenineriboswitch,add         & 1                       & 0.956                    & 1                        & 0.977                   & 1                            & 0.956                        & 1                             & 1                                 & 1                       & 0.333                    & 0.41                     & 1                         & 1                       & 0.333                   & 0.356                    & 0.306                    \\
+ 	tRNAphenylalanineyeast        & 0.286                   & 0.746                    & 0.976                    & 0.746                   & 0.976                        & 0.746                        & 0.976                         & 0.976                             & 0.976                   & 0.976                    & 0.976                    & 0.976                     & 0.334                   & 0.976                   & 0.976                    & 0.976                    \\ \midrule
+ 	Average                       & 0.604                   & 0.7                      & 0.77                     & 0.76                    & 0.77                         & 0.705                        & 0.77                          & 0.785                             & 0.69                    & 0.65                     & 0.58                     & 0.74                      & 0.63                    & 0.69                    & 0.62                     & 0.68                     \\ \bottomrule
+ \end{tabular}
 \end{adjustbox}
 \caption{ GM of the predicted structures with \OurTool{} compared to RNAfold MFE and MEA resulting structures}
 %( ref. $supplementary\_data/benchmark\_6RNAs$)}

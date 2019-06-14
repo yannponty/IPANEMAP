@@ -276,7 +276,7 @@ The manual production of reliable structural models from chemical probing experi
 
 \noindent \textbf{Contact:} \href{yann.ponty@lix.polytechnique.fr}{Yann.Ponty@lix.polytechnique.fr}
 
-\noindent \textbf{Supplementary information:} Supp. data online.
+\noindent \textbf{Supplementary information:} Supplementary data available at NAR online.
 \end{abstract}
 
 %%%%%%%%%%%%%% Introduction %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -487,8 +487,8 @@ where $\text{Sens}(S\mid \Ref)$ represents the proportion of base pairs in $\Ref
 
 \subsection*{Implementation}
 
-\OurTool{} was implemented in \Software{Python} 2.7, and relies on ...
-\OurTool{} is free software distributed under the terms of the MIT license. It can be freely downloaded at:
+\OurTool{} was implemented in \Software{Python 2.7+}, and mainly depends on the \Software{Vienna} package and \Software{scikit-learn}.
+\OurTool{} is free software distributed under the terms of the MIT license, and can be freely downloaded along with a collection of helper utilities at:
 
 {\centering \url{\ipanemapurl}\\}
 
@@ -618,7 +618,7 @@ This observed discrepancy is somewhat surprising, given that \OurTool and \Softw
 \begin{figure*}
 	{\centering {\includegraphics[width=.9\linewidth]{graphs/didy/didy}}\\}
 	
-	\caption{Model of the Lariat capping ribozyme in {\itshape Didymium iridis} (A -- Meyer\etal\cite{Meyer2014}), secondary structure as annotated by \Software{DSSR} (B -- pseudoknot ommitted) and \OurTool first-ranking prediction (C.) from 8 maximally-diverging probing conditions (NMIAMg, 1M7ILU3Mg, NAIMg, 1M7, CMCTMg,1M7ILU3,1M7Mg). }
+	\caption{Model of the Lariat capping ribozyme in {\itshape Didymium iridis} (A -- Meyer\etal\cite{Meyer2014}), pseudoknot-free secondary structure as annotated by \Software{DSSR} (B -- pseudoknot ommitted) and \OurTool first-ranking prediction (C.) from 8 maximally-diverging probing conditions (NMIAMg, 1M7ILU3Mg, NAIMg, 1M7, CMCTMg,1M7ILU3,1M7Mg). }
 \end{figure*}
 
 
@@ -678,7 +678,7 @@ For each probing condition, we run \OurTool{} on a single source of probing data
 
 The predictive performances of \OurTool averages a 70.5\% MCC, compared to 68.5\% and 68\% average MCC for MEA and MFE predictions respectively. The stability of predictions across conditions are comparable for all \OurTool, MEA and MFE-driven predictions (std dev. of 8\%). Excluding the outliers of cluster \Bull{B} improves the average MCC to 74\%.
 
-Over the fourteen conditions, we observe a large discrepancy in the capacity of the experimental setup to inform predictions, with MCCs ranging from above 80\% (NMIA, NMIAMg, 1M7ILU and 1M7ILUMg) to around 60\% (NAI, BzCN, 1M7CE and NMIACE). These values are much better than those achieved in the absence of probing data (51\% MCC). Such values can be interpreted as indicate of good quality predictions. Indeed, it should be reminded that the MCC is a stringent metrics, taking values between -100\% and 100\%, 0\% being the expected MCC of a "coin tossing" random predictor. The lowest MCC value of 60\% is, in particular, equally consistent with Sensitivity/PPV values of 60\%/60\%, 80\%/46\% or 45\%/82\%.
+Over the fourteen conditions, we observe a large discrepancy in the capacity of the experimental setup to inform predictions, with MCCs ranging from above 80\% (NMIA, NMIAMg, 1M7ILU and 1M7ILUMg) to around 60\% (NAI, BzCN, 1M7CE and NMIACE). These values are much better than those achieved in the absence of probing data (51\% MCC), and can be interpreted as indicative of good quality predictions. Indeed, it should be reminded that the MCC is a stringent metrics, taking values between -100\% and 100\%, 0\% being the expected MCC of a "coin tossing" random predictor. The lowest MCC value of 60\% is, in particular, equally consistent with Sensitivity/PPV values of 60\%/60\%, 80\%/46\% or 45\%/82\%.
 
 Unsurprisingly, the presence/absence of Magnesium during the probing impacts the predictions, with an observed drop from an average 73\% MCC in the presence of Mg$^\text{2+}$ to 67\% MCC in the absence of Mg$^\text{2+}$. However, while the poorly performing conditions of cluster \Bull{B} are Mg$^\text{2+}$ free, some of the most informative profiles (1M7ILU and NMIA) were obtained in absence of Mg$^\text{2+}$.
 An even more drastic change of performances can be observed in the comparison of the average MCC of mutation-inducing reagents (78\%) with stop-inducing ones (66\%). 
@@ -831,7 +831,7 @@ Having established the redundant nature of similar conditions, and their limited
 
 The results, summarized in Table~\ref{fig:differentconds}, demonstrate a clear advantage of including diverse conditions, leading to an average MCC value of 77\% in the absence of condition from cluster \Bull{B}. Those performances compare favorably against the 72\% MCC achieved on average by individual conditions, and reveal a remarkable stability, including a 5\% standard deviation, and a degradation in only two out the 24 tested cases ($\sim$1\% decay in both cases).  A similar trend can be observed in the, arguably disruptive presence of NAI, inducing an 72\% average MCC, albeit with an increased standard deviation of 9\%.
 
-Finally, the consideration of four triplets of diverse conditions allow us to reach our best prediction, achieving 85.3\% MCC. Meanwhile, considering the 16 conditions together yields a 80\% MCC value, increasing to 83\% in the absence of the four outlier conditions of cluster \Bull{B}. These results confirm that the strategy used by \OurTool{} is able to exploit the complementary information provided by multiple conditions, contributing to better predictions.
+Finally, the consideration of four triplets of diverse conditions, reported in Table~\ref{fig:best}, allow to obtain the best prediction, achieving 85.3\% MCC. Meanwhile, considering the 16 conditions together yields a 80\% MCC value, increasing to 83\% in the absence of the four outlier conditions of cluster \Bull{B}. These results confirm that the strategy used by \OurTool{} is able to exploit the complementary information provided by multiple conditions, contributing to better predictions.
 
 	\begin{table}[h]
 	\Heatset{min=60,   
@@ -884,24 +884,23 @@ Finally, the consideration of four triplets of diverse conditions allow us to re
 \end{table}
 
 %
-%	\begin{table}
-%	\newcommand{\A}{90}
-%	
-%	\centering
-%	\begin{adjustbox}{max width=\linewidth}
-%		\begin{tabular}{@{}ccccccccc@{}}
-%			\toprule
-%			\rotatebox{\A}{\Bull{C} 1M7ILUMg} & \rotatebox{\A}{\Bull{D} 1M7ILU3} & \rotatebox{\A}{\Bull{A} 1M7ILU} & \rotatebox{\A}{\Bull{F} DMSMg} & \rotatebox{\A}{\Bull{E} NMIAMgCE} & \rotatebox{\A}{\Bull{G} CMCTMg} & \rotatebox{\A}{\Bull{H} BzCNMg} &      MCC      & Mono-Avg \\ \midrule
-%			$\bullet$             &                                  &            $\bullet$            &           $\bullet$            &                                   &                                 &                                 & \textbf{.853} &   .77    \\
-%			$\bullet$             &                                  &            $\bullet$            &                                &             $\bullet$             &                                 &                                 & \textbf{.853} &   .81    \\
-%			$\bullet$             &                                  &                                 &           $\bullet$            &                                   &            $\bullet$            &                                 & \textbf{.853} &   .73    \\
-%			$\bullet$             &            $\bullet$             &                                 &                                &                                   &                                 &            $\bullet$            & \textbf{.853} &   .73    \\ \midrule
-%			$\bullet$             &            $\bullet$             &            $\bullet$            &           $\bullet$            &             $\bullet$             &            $\bullet$            &            $\bullet$            &      .83      &   .73    \\ \bottomrule
-%		\end{tabular}
-%	\end{adjustbox}\\
-%
-%	\caption{Yann would you please modify the structure in Figure 4 according to the new structure?}
-%\end{table}
+	\begin{table}
+	\newcommand{\A}{90}
+	
+	\centering
+	\begin{adjustbox}{max width=\linewidth}
+		\begin{tabular}{@{}ccccccccc@{}}
+			\toprule
+			\rotatebox{\A}{\Bull{C} 1M7ILUMg} & \rotatebox{\A}{\Bull{D} 1M7ILU3} & \rotatebox{\A}{\Bull{A} 1M7ILU} & \rotatebox{\A}{\Bull{F} DMSMg} & \rotatebox{\A}{\Bull{E} NMIAMgCE} & \rotatebox{\A}{\Bull{G} CMCTMg} & \rotatebox{\A}{\Bull{H} BzCNMg} &      MCC      & Mono-Avg \\ \midrule
+			$\bullet$             &                                  &            $\bullet$            &           $\bullet$            &                                   &                                 &                                 & \textbf{.853} &   .77    \\
+			$\bullet$             &                                  &            $\bullet$            &                                &             $\bullet$             &                                 &                                 & \textbf{.853} &   .81    \\
+			$\bullet$             &                                  &                                 &           $\bullet$            &                                   &            $\bullet$            &                                 & \textbf{.853} &   .73    \\
+			$\bullet$             &            $\bullet$             &                                 &                                &                                   &                                 &            $\bullet$            & \textbf{.853} &   .73    \\ \bottomrule
+		\end{tabular}
+	\end{adjustbox}\\
+
+	\caption{Some triplets of conditions that achieve the best observed MCC.}\label{fig:best}
+\end{table}
 %\begin{table}
 %	\centering
 %	\begin{adjustbox}{max width=.5\textwidth}
@@ -972,7 +971,7 @@ The average MCC again increases in the presence of 3 mutants, to reach an averag
 	{\centering
 		\includegraphics[width=\linewidth]{graphs/combinationscale.png}\\}
 		
-	\caption{Prediction accuracy (MCC) when considering the WT, supplemented with a set of $k=$1, 2, 3, or 10 single-point mutants, selected uniformly at random ({\sf WT+$k$M}). For 2 mutants, we also considered selecting mutants from the 20 most similar to the WT ({\sf WT+2M close}).}\label{fig:variantanalysis}
+	\caption{Prediction accuracy (MCC) from Mutate-and-Map data. We consider the WT, supplemented with a set of $k=$1, 2, 3, or 10 single-point mutants, selected uniformly at random ({\sf WT+$k$M}). For 2 mutants, we also considered selecting mutants from the 20 most similar to the WT ({\sf WT+2M close}).}\label{fig:variantanalysis}
 \end{figure}
 
 
@@ -1024,7 +1023,7 @@ A future work include solving the dilemma of whether or not to include Mg during
 \begin{figure}
 	{\centering\includegraphics[width=1\linewidth]{graphs/boxplotreproducibility.png}\\}
 	
-	\caption{MCC of predicted structures under conditions with and without Mg$^{2+}$, differentiating RT stops-inducing and mutation-inducing protocols, over 10 runs of \OurTool{}. }\label{fig:reproducibility}
+	\caption{MCC of predicted structures in presence/absence of Mg$^{2+}$, using both RT stops-inducing and mutation-inducing protocols for a collection of reagents, over 10 runs of \OurTool{}. }\label{fig:reproducibility}
 \end{figure}
 
 

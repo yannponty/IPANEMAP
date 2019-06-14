@@ -22,7 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -46,12 +46,12 @@
      fit-margin-right="5"
      fit-margin-bottom="5"
      inkscape:zoom="0.97035431"
-     inkscape:cx="1173.6766"
+     inkscape:cx="962.41356"
      inkscape:cy="589.20445"
      inkscape:window-x="-11"
      inkscape:window-y="-11"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g25357"
+     inkscape:current-layer="g3088"
      showguides="false" />
   <rect
      y="-18.638287"
@@ -1935,7 +1935,7 @@
            y="491.74396"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';fill:#333333">Best prediction <tspan
    id="tspan3090"
-   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.33333397px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans'">(MCC=0.865)</tspan></tspan></text>
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.33333397px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans'">(MCC=0.853)</tspan></tspan></text>
     </g>
     <g
        transform="matrix(0.89458281,0,0,0.89458281,715.76548,90.243515)"
