@@ -235,12 +235,15 @@
 
 %\articlesubtype{This is the article type (optional)}
 \setcounter{secnumdepth}{3} % for subsection reference
+
+
+
 \begin{document}
 
 \title{\OurTool{}:  Integrative Probing Analysis of Nucleic Acids Empowered by Multiple Accessibility Profiles}
 \author{%
-Afaf Saaidi\,$^{1}$,
-Delphine Allouche\,$^{2}$,
+Afaf Saaidi\,$^{1}$\footnote{Both first authors contributed equally to the study},
+Delphine Allouche\,$^{2\,*}$,
 Mireille Regnier\,$^{1}$,
 Bruno Sargueil\,$^{2}$
 and Yann Ponty\,$^1$% 
@@ -274,7 +277,7 @@ The manual production of reliable structural models from chemical probing experi
 
 {\centering \url{\ipanemapurl}\\[.5em]}
 
-\noindent \textbf{Contact:} \href{yann.ponty@lix.polytechnique.fr}{Yann.Ponty@lix.polytechnique.fr}
+\noindent \textbf{Contact:} \href{yann.ponty@lix.polytechnique.fr}{yann.ponty@lix.polytechnique.fr}
 
 \noindent \textbf{Supplementary information:} Supplementary data available at NAR online.
 \end{abstract}
@@ -285,10 +288,10 @@ The manual production of reliable structural models from chemical probing experi
 \section*{Introduction}
 
 
-Historically used as a validation assays~\cite{Knapp1989}, enzymatic and chemical probing  is increasingly used in combination with computational methods to inform a rational prediction of secondary structure models for RNA~\cite{Mathews2004}. Such an integrated approach to structure modeling has led to sizable improvements in prediction accuracy~\cite{Washietl2012} and is currently at the core of successful modeling strategies~\cite{Miao2017}. However, the interpretation of probing data, to inform structure prediction, is challenged by a number of factors, including structural heterogeneity, experimental errors, structural dynamics and the intrinsic stochastic nature of the reactivity measurements. 
-\bsi{je trouve ca un peu fort}
-SHAPE reagents represent a popular class of small molecules that react with the 2’ hydroxyl of flexible ribose~\cite{McGinnis2012}, although the exact properties observed by SHAPE remain the object of ongoing investigations~\cite{Hurst2018,Mlynsky2018,Frezza2019}.'Bruno' (Busan 2019) (McGinnis 2012) 
-As Ribose flexibility is proportional to the degree of freedom of the nucleotide, it is assumed that SHAPE reagents to discriminate nucleotides in stable interactions from others. Different SHAPE reagents are endowed with different dynamics, that can help differentiate Watson-Crick base pairs from more dynamics tertiary contacts~\cite{Gherghe2008,Steen2012}'Bruno'(busan 2019, rice 2014). Other chemical probes, harbouring different chemical reactivities, have been developed. Amongst the most popular, DiMethyl Sulfate (DMS) is a small molecule that methylates N1 of adenines and N3 of cytosine if they are not involved in a hydrogen bond. Similarly, 1-cyclohexyl-3-(2-morpholinoethyl)carbodiimide metho-p-toluene sulfonate (CMCT) reacts on the Watson-Crick face of guanosine (N1) and uracyl (N3) when not engaged in a hydrogen bond~\cite{Ehresmann1987,Brunel2000}. These two reagents therefore mostly reveal Watson-Crick base pairing, but also any other type of contact involving the same edge. This diversity of probes not only increases  coverage of the different positions and structural contexts in an RNA, but it also provides qualitatively different qualitative information, as been widely used since the very early days of RNA structure probing~\cite{Moazed1986, Ehresmann1987, Romaniuk1988, Butcher1994, Brunel2000,  Cordero2015, Somarowthu2015, Gross2017}. 
+Historically used as a validation assays~\cite{Knapp1989}, enzymatic and chemical probing  is increasingly used in combination with computational methods to inform a rational prediction of secondary structure models for RNA~\cite{Mathews2004}. Such an integrated approach to structure modeling has led to sizable improvements in prediction accuracy~\cite{Washietl2012} and is currently at the core of successful modeling strategies~\cite{Miao2017}. However, the interpretation of probing data, to inform structure prediction, is challenged by a number of factors, including structural heterogeneity, experimental errors, structural dynamics and the natural variability of reactivity measurements across replicates. 
+
+SHAPE reagents represent a popular class of small molecules that react with the 2’ hydroxyl of flexible ribose~\cite{McGinnis2012}, although the exact properties observed by SHAPE remain the object of ongoing investigations~\cite{McGinnis2012,Hurst2018,Mlynsky2018,Frezza2019,Busan2019}.
+As Ribose flexibility is proportional to the degree of freedom of the nucleotide, it is assumed that SHAPE reagents to discriminate nucleotides in stable interactions from others. Different SHAPE reagents are endowed with different dynamics, that can help differentiate Watson-Crick base pairs from more dynamics tertiary contacts~\cite{Gherghe2008,Steen2012,Rice2014,Busan2019}. Other chemical probes, harbouring different chemical reactivities, have been developed. Amongst the most popular, DiMethyl Sulfate (DMS) is a small molecule that methylates N1 of adenines and N3 of cytosine if they are not involved in a hydrogen bond. Similarly, 1-cyclohexyl-3-(2-morpholinoethyl)carbodiimide metho-p-toluene sulfonate (CMCT) reacts on the Watson-Crick face of guanosine (N1) and uracyl (N3) when not engaged in a hydrogen bond~\cite{Ehresmann1987,Brunel2000}. These two reagents therefore mostly reveal Watson-Crick base pairing, but also any other type of contact involving the same edge. This diversity of probes not only increases  coverage of the different positions and structural contexts in an RNA, but it also provides qualitatively different qualitative information, as been widely used since the very early days of RNA structure probing~\cite{Moazed1986, Ehresmann1987, Romaniuk1988, Butcher1994, Brunel2000,  Cordero2015, Somarowthu2015, Gross2017}. 
 
 % **************************************************************
 % Keep this command to avoid text of first page running into the
@@ -479,7 +482,7 @@ The Matthews Correlation Coefficient (MCC) is a classic metrics for assessing th
 $$\text{MCC}(S\mid \Ref)=\frac{\text{TP} \times \text{TN} -\text{FP} \times \text{FN}}{\sqrt[]{(\text{TP}+\text{FP})(\text{TP}+\text{FN})(\text{TN}+\text{FP})(\text{TN}+\text{FN})}},$$
 where TP, FP, TN, FN classically represent the correctly/erroneously predicted and correctly/erroneously omitted base pairs in $S$ with respect to $\Ref$.
 
-For the sake of direct comparison with competing methods, we also report the geometric mean metrics, defined as:
+For the sake of direct comparison with some competing methods~\cite{Spasic2017}, we also report the geometric mean metrics, defined as:
 $$ \GMean(S\mid \Ref)=\sqrt{\text{Sens}(S\mid \Ref)\times \text{PPV}(S\mid\Ref)} $$
 where $\text{Sens}(S\mid \Ref)$ represents the proportion of base pairs in $\Ref$ that are in $S$, and $\text{PPV}(S\mid \Ref)$ is the proportion of base pairs in $S$ that are also in $\Ref$. This quality metrics has very high correlation with the MCC, to which it is asymptotically equivalent as shown by~Gorodkin\etal\cite{Gorodkin2001}.
 
@@ -523,8 +526,8 @@ where $\text{Sens}(S\mid \Ref)$ represents the proportion of base pairs in $\Ref
 \end{table*}
 
 
-Since \OurTool{} supports any number of probing profiles, we consider the Cordero~\emph{et al} dataset, further described. It consists of 6 RNAs of known structures, for which reactivity profiles are available for the CMCT, NMIA and DMS reagents. We executed \OurTool{} with default parameters on each sequence and any subset of the three available conditions. The centroid secondary structure  associated with the largest probability cluster was considered as the final prediction. Predictions were evaluated in term of the geometric mean (GM) metrics based on the base pair distance.
-\bsi{pourquoi utilise-t-on ici la Gm des bp distance et ensuite le MCC? à expliquer?As a control experiment, we also report ${\tt RNAfold}$ predictions in presence/absence of probing data, both in energy minimization (MFE) and maximum expected accuracy (MEA) modes. Figure~\ref{cordero1} shows the averaged GM values for all combinations of tools and probing data.
+Since \OurTool{} supports any number of probing profiles, we consider the Cordero~\emph{et al} dataset, further described. It consists of 6 RNAs of known structures, for which reactivity profiles are available for the CMCT, NMIA and DMS reagents. We executed \OurTool{} with default parameters on each sequence and any subset of the three available conditions. The centroid secondary structure  associated with the largest probability cluster was considered as the final prediction. Predictions were evaluated in term of the geometric mean (GM) metrics used by previous works~\cite{Spasic2017}.
+\bsi{pourquoi utilise-t-on ici la Gm des bp distance et ensuite le MCC? à expliquer?}\ypi{Pour des raisons historiques, surtout dans le benchmark suivant, j'ai rajouté une phrase dans cette direction}As a control experiment, we also report ${\tt RNAfold}$ predictions in presence/absence of probing data, both in energy minimization (MFE) and maximum expected accuracy (MEA) modes. Figure~\ref{cordero1} shows the averaged GM values for all combinations of tools and probing data.
 
 
 
@@ -619,10 +622,10 @@ This observed discrepancy is somewhat surprising, given that \OurTool and \Softw
 \begin{figure*}
 	{\centering {\includegraphics[width=.9\linewidth]{graphs/didy/didy}}\\}
 	
-	\caption{Model of the Lariat capping ribozyme from {\itshape Didymium iridis} (A -- Meyer\etal\cite{Meyer2014}), pseudoknot-free secondary structure as annotated by \Software{DSSR} (B -- pseudoknot ommitted) and \OurTool first-ranking prediction (C.) from 8 maximally-diverging probing conditions (NMIAMg, 1M7ILU3Mg, NAIMg, 1M7, CMCTMg,1M7ILU3,1M7Mg). }
+	\caption{Model of the Lariat capping ribozyme from {\itshape Didymium iridis} (A -- Meyer\etal\cite{Meyer2014}), pseudoknot-free secondary structure as annotated by \Software{DSSR} (B -- pseudoknot ommitted) and \OurTool first-ranking prediction (C.) from 8 maximally-diverging probing conditions (NMIAMg, 1M7ILU3Mg, NAIMg, 1M7, CMCTMg,1M7ILU3,1M7Mg). \label{fig:didy}}
 \end{figure*}
-As benchmark RNA we used the lariat capping ribozyme from \textit{Didymium Iridis} (DiLCrz) which 3D structure has been modeled at 3,5 A from X-ray diffraction data~\cite{Meyer2014}. This RNA contains a large diversity of interactions, including helical domains, tertiary pairings, a kissing loop and a pseudoknot (Figure 4).
-\bsi{cette figure n'est citée nulle part} It was probed as described in material and methods in 16 different conditions using different shape and classical reagents, in presence or absence of Mg2+ ions, using either the standard premature stop or the newly developed mutation induction technologies to map the modification sites. These experimental results were fed into IPANEMAP individually or in combination  for secondary structure prediction. 
+As benchmark RNA we used the lariat capping ribozyme from \textit{Didymium Iridis} (DiLCrz) which 3D structure has been modeled at 3,5 A from X-ray diffraction data~\cite{Meyer2014}. This RNA contains a large diversity of interactions, including helical domains, tertiary pairings, a kissing loop and a pseudoknot (Figure~\ref{fig:didy}).
+It was probed as described in material and methods in 16 different conditions using different SHAPE and classical reagents, in presence/absence of Mg$^\text{2+}$ ions, using either the standard premature stop or the newly developed mutation induction technologies to map the modification sites. These experimental results were fed into \OurTool{} individuall,y or in combination  for secondary structure prediction. 
 
 
 \paragraph{Comparison and clustering of conditions.}
@@ -1048,9 +1051,16 @@ A future work include solving the dilemma of whether or not to include Mg$^{\tex
 %	\item Pseudo-Energy models
 %\end{itemize}
 
+\section*{Authors contributions}
+AS, BS, and YP designed the computational method. 
+AS and YP implemented the computational method.
+DA and BS planned and carried out all probing experiments.
+AS and YP planned and carried out the computational experiments. 
+AS, DA, BS and YP contributed to the interpretation of the results. 
+All authors provided critical feedback and helped shape the research, analysis and manuscript
 
 \section*{Acknowledgements}
-The authors wish to thank Ronny Lorenz for developing a probing-informed version of RNAsubopt, allowing to sample the pseudo-Boltzmann ensemble, and Nathalie Chamond for helpful suggestions.
+The authors wish to express their gratitude to Ronny Lorenz for developing a probing-informed version of \Software{RNAsubopt}, allowing to sample the pseudo-Boltzmann ensemble, and Nathalie Chamond for helpful suggestions.
 
 \section*{Funding}
 This work has been supported by La Fondation pour la Recherche Medicale ([FRM
