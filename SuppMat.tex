@@ -1,5 +1,6 @@
 \documentclass[11pt]{article} % use larger type; default would be 10pt
 
+\usepackage{float}
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
 \usepackage{adjustbox}   
 %%% Examples of Article customizations
@@ -139,7 +140,7 @@
 \begin{document}
 \maketitle
 
-\section{ Cordero~\emph{et al} dataset}
+\section{Detailed results on Cordero~\emph{et al} dataset}
 \subsection{Structure prediction ordered by RNA}
 
  \Heatset{min=0.4,  
@@ -149,7 +150,7 @@
 	Min colour=BadCol, % colour for values below min
 	Max colour=Aquamarine3   % colour for values above max
 }
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \newcommand{\B}{\multicolumn{1}{c}{$\bullet$}}
 \newcommand{\BR}{\multicolumn{1}{c|}{$\bullet$}}
@@ -175,7 +176,7 @@
 %( ref. $supplementary\_data/benchmark\_6RNAs$)}
 \end{table}
 \subsection{Reproducibility}
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \begin{adjustbox}{max width=1\textwidth}
  \begin{tabular}{lHHHHHHHHHHHHHHHHHHHHH}
@@ -198,10 +199,50 @@ tRNAphenylalanineyeast	&	0.953	&	0.953	&	0.976	&	0.976	&	0.746	&	0.976	&	0.746	&
 %( ref. $supplementary\_data/benchmark\_6RNAs$)
 \end{table}
 
-
+\newpage
 
 %\section{IPANEMAP Vs Rsample}
-\section{Hadjin ~\emph{et al} dataset}
+\section{Detailed results on Hadjin~\emph{et al} dataset}
+
+ \begin{table}[H]
+\centering
+\begin{adjustbox}{max width=1\textwidth}
+ \begin{tabular}{@{}ll@{}}
+ \toprule
+RNA ID & Description\\
+ \midrule
+A	&	PreQ1riboswitchBsubtilis\\
+B	&	5domainof16SrRNAEcoli\\
+C	&	SignalrecognitonparticleRNAhuman\\
+D	&	GroupIintronAzoarcussp\\
+E	&	HIV15primepseudoknotdomain\\
+F	&	Telomerasepseudoknothuman\\
+G	&	SAMIriboswitchTtengcongensis\\
+H	&	tRNA phe Ecoli\\
+I	&	P546domainbI3groupIintron\\
+J	&	TPPriboswitchEcoli\\
+K	&	AdenineriboswitchVvulnificus\\
+L	&	FluorideriboswitchPsyringae\\
+M	&	SARScoronaviruspseudoknot\\
+N	&	5SrRNAEcoli\\
+O	&	cyclicdiGMPriboswitchVcholerae\\
+P	&	5domainof23SrRNAEcoli\\
+Q	&	RNasePBsubtilis\\
+R	&	GroupIIntronTthermophila\\
+S	&	HepatitisCvirusIRESdomain\\
+T	&	5domainof16SrRNAHvolcanii\\
+U	&	GroupIIintronOiheyensis\\
+V	&	tRNAaspyeast\\
+W	&	LysineriboswitchTmaritime\\
+X	&	MBoxriboswitchBsubtilis\\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\caption{24 RNAs from Hadjin \emph{ et al.} dataset.}
+\label{clyu}
+
+
+\end{table}
 
   \Heatset{min=0.4,  
 	max=1,   
@@ -210,7 +251,7 @@ tRNAphenylalanineyeast	&	0.953	&	0.953	&	0.976	&	0.976	&	0.746	&	0.976	&	0.746	&
 	Min colour=BadCol, % colour for values below min
 	Max colour=Aquamarine3   % colour for values above max
 }
-\begin{table}
+\begin{table}[H]
 \begin{adjustbox}{max width=\textwidth,max totalheight=\textheight,keepaspectratio}
 \begin{tabular}{llllHllH}
 \toprule
@@ -247,46 +288,8 @@ X	&	154	&	0.875	&	0.913	&	0.894	&	0.875	&	0.913	&	0.894	\\
 \end{adjustbox}
 \caption{\OurTool~ prediction performance compared to \Software{Rsample} tool}
 \end{table}
+\newpage
 
- \begin{table}[h]
-\centering
-\begin{adjustbox}{max width=1\textwidth}
- \begin{tabular}{@{}ll@{}}
- \toprule
-Rna ID & Description\\
- \midrule
-A	&	PreQ1riboswitchBsubtilis\\
-B	&	5domainof16SrRNAEcoli\\
-C	&	SignalrecognitonparticleRNAhuman\\
-D	&	GroupIintronAzoarcussp\\
-E	&	HIV15primepseudoknotdomain\\
-F	&	Telomerasepseudoknothuman\\
-G	&	SAMIriboswitchTtengcongensis\\
-H	&	tRNApheEcoli\\
-I	&	P546domainbI3groupIintron\\
-J	&	TPPriboswitchEcoli\\
-K	&	AdenineriboswitchVvulnificus\\
-L	&	FluorideriboswitchPsyringae\\
-M	&	SARScoronaviruspseudoknot\\
-N	&	5SrRNAEcoli\\
-O	&	cyclicdiGMPriboswitchVcholerae\\
-P	&	5domainof23SrRNAEcoli\\
-Q	&	RNasePBsubtilis\\
-R	&	GroupIIntronTthermophila\\
-S	&	HepatitisCvirusIRESdomain\\
-T	&	5domainof16SrRNAHvolcanii\\
-U	&	GroupIIintronOiheyensis\\
-V	&	tRNAaspyeast\\
-W	&	LysineriboswitchTmaritime\\
-X	&	MBoxriboswitchBsubtilis\\
-\bottomrule
-\end{tabular}
-\end{adjustbox}
-\caption{24 RNAs from Hadjin \emph{ et al.} dataset.}
-\label{clyu}
-
-
-\end{table}
 %  \Heatset{min=0,  
 %	max=1,   
 %	max colour=Aquamarine3, % colour at maximum
@@ -295,8 +298,8 @@ X	&	MBoxriboswitchBsubtilis\\
 %	Max colour=Aquamarine3   % colour for values above max
 %}
 
-\begin{table}
-\begin{adjustbox}{max width=\textwidth,max totalheight=\textheight,keepaspectratio}
+\begin{table}[H]
+\begin{adjustbox}{max width=.9\textwidth,max totalheight=\textheight,keepaspectratio}
 \begin{tabular}{llHHHHHHHHHHHlHH}
 \toprule
 \textbf{RNA} & Length &  \multicolumn1c{Run1} &\multicolumn1c{Run2}&\multicolumn1c{Run3}&\multicolumn1c{Run4}&\multicolumn1c{Run5}&\multicolumn1c{Run6}&\multicolumn1c{Run7}&\multicolumn1c{Run8}&\multicolumn1c{Run9}&\multicolumn1c{Run10}& \multicolumn1c{Average}& \multicolumn1c{Sd}&\multicolumn1c{\textbf{MFE-RNAfold}} & \multicolumn1c{\textbf{MEA-RNAfold}}\\
@@ -344,9 +347,61 @@ X	&	154	&	0.894	&	0.894	&	0.894	&		0.894	&	0.894	&	0.894	&	0.894	&	0.894	&	0.894
 %	Max colour=BadCol   % colour for values above max
 %}
 
+\newpage 
+\section{Detailed results of Lariat capping ribozyme from {\itshape Didymium iridis}}
 
-\section{Lariat capping ribozyme in {\itshape Didymium iridis}}
-\begin{table}
+\begin{table}[H]
+ \Heatset{min=0.2,  
+	max=.5,   
+	max colour=BadCol, % colour at maximum
+	min colour=Aquamarine3,      % colour at minimum
+	Min colour=Aquamarine3, % colour for values below min
+	Max colour=BadCol   % colour for values above max
+}
+\begin{center}
+
+\begin{tabular}{lHH}
+ & \multicolumn2c{Distance of probing profile}\\
+Condition & \multicolumn1c{vs prediction}&\multicolumn1c{vs native}\\
+\toprule
+1M7ILUMg & 0.234 & 0.2872\\
+1M7ILU &	0.2784 & 0.2961\\
+NMIAMg &	0.2606 & 0.2518\\
+NMIA &	0.2961 & 0.3316\\
+1M7ILU3Mg &	0.4291 & 0.3936\\
+NMIAMgCE &	0.4291 & 0.3404\\
+NaiMg 	& 0.3493 & 0.305\\
+BzCNMg & 	0.3759 & 0.2429\\
+1M7MgCE &	0.4379 & 0.3759\\
+CMCTMg &	0.4911 & 0.4113\\
+1M7ILU3 &	0.2961 & 0.3404\\
+DMSMg &	0.3493 & 0.3227\\
+NMIACE 	&0.2695 &0.2518 \\
+1M7CE &	0.3582 & 	0.3316\\
+BzCN &	0.4911 & 	0.4734\\
+Nai &	0.4025 &0.4025\\
+\end{tabular}
+\end {center}
+\caption{Distance of the predicted structure from the considered probing data.}
+\end{table}
+
+\begin{table}[H]
+\newcommand{\MyScale}{.18}
+\begin{tabular}{@{}ccccc@{}}
+
+%\toprule
+ \includegraphics[scale=\MyScale]{graphs/Supp_structures/native_structure}&
+ \includegraphics[scale=\MyScale]{graphs/Supp_structures/1M7ILU_NMIAMg}& \includegraphics[scale=\MyScale]{graphs/Supp_structures/1M7ILUMg_1M7ILU3Mg}& \includegraphics[scale=\MyScale]{graphs/Supp_structures/1M7MgCE_NMIAMgCE}& \includegraphics[scale=\MyScale]{graphs/Supp_structures/NaiMg_CMCTMg}\\
+ \midrule
+Native&1M7ILU&1M7ILUMg&1M7MgCE&NaiMg\\
+structure &+NMIAMg&+1M7ILU3Mg&+NMIAMgCE&+CMCTMg\\
+\end{tabular}
+\caption{Predicted structures with conditions belonging to the same cluster}
+\end{table}
+
+
+
+\begin{table}[H]
 \begin{adjustbox}{max width=\textwidth,max totalheight=\textheight,keepaspectratio}
 \begin{tabular}{lHHHHHHHHHHHHHHHHH}
 \toprule
@@ -375,17 +430,23 @@ Nai  &0.6&&&&&&&&&&&&&&&&0.6\\
 \caption{MCC of predicted structures with \OurTool{} in the case of Bi-probing}.
 \end{table}
 
-\begin{table}
-\newcommand{\MyScale}{.2}
-\begin{tabular}{@{}cccc@{}}
 
-%\toprule
- \includegraphics[scale=\MyScale]{graphs/Supp_structures/1M7ILU_NMIAMg}& \includegraphics[scale=\MyScale]{graphs/Supp_structures/1M7ILUMg_1M7ILU3Mg}& \includegraphics[scale=\MyScale]{graphs/Supp_structures/1M7MgCE_NMIAMgCE}& \includegraphics[scale=\MyScale]{graphs/Supp_structures/NaiMg_CMCTMg}\\
- \midrule
-1M7ILU&1M7ILUMg&1M7MgCE&NaiMg\\
-+NMIAMg&+1M7ILU3Mg&+NMIAMgCE&+CMCTMg\\
+\begin{table}
+\begin{center}
+\begin{tabular}{ll}
+Sample size & MCC\\
+\toprule
+
+100 & 0.55 \\
+500 & 0.55  \\
+1000 &  0.81\\
+2000 & 	0.55  \\
+3000 &  0.77 \\
+5000 & 	0.55  \\ 
+10000& 0.8 \\
 \end{tabular}
-\caption{Predicted structures with conditions belonging to the same cluster}
+\end {center}
+\caption{ MCC of predicted structures in absence of probig data when varyingthe sample size }
 \end{table}
 
 \subsection{Distribution of MCC values over 100 runs}
