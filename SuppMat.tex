@@ -21,14 +21,16 @@
 %%% PAGE DIMENSIONS
 \usepackage{geometry} % to change the page dimensions
 \geometry{a4paper} % or letterpaper (US) or a5paper or....
-% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+ \geometry{margin=1in} % for example, change the margins to 2 inches all round
 % \geometry{landscape} % set up the page for landscape
 %   read geometry.pdf for detailed page layout information
 \usepackage{multicol}
 \usepackage{booktabs}
 \usepackage{todonotes}
+\usepackage{times}
 \usepackage{inconsolata}
 
+\usepackage{rotating}
 
 \input{macros.tex}
 
@@ -47,8 +49,8 @@
 \begin{document}
 \maketitle
 
-\section{Detailed results on Cordero~\emph{et al} dataset}
-\subsection{Structure prediction ordered by RNA}
+\section*{Multiprobing benchmark (Cordero~\emph{et al}~\cite{Cordero2012} dataset)}
+\subsection*{Structure prediction ordered by RNA}
 
  \Heatset{min=0.4,  
 	max=1,   
@@ -82,7 +84,7 @@
 \caption{GM of the structures predicted with \OurTool{}, compared to predictions of \Software{RNAfold} in energy mimization (MFE) and accuracy maximization (MEA) modes.}
 %( ref. $supplementary\_data/benchmark\_6RNAs$)}
 \end{table}
-\subsection{Reproducibility}
+\subsection*{Stablity analysis}
 \begin{table}[H]
 \centering
 \begin{adjustbox}{max width=1\textwidth}
@@ -102,16 +104,15 @@ tRNAphenylalanineyeast	&	0.953	&	0.953	&	0.976	&	0.976	&	0.746	&	0.976	&	0.746	&
 \bottomrule
 \end{tabular}
 \end{adjustbox}
-\caption{ GM of the predicted structures with \OurTool{} over 3 runs, in the presence of 1,2 and 3 sources of probing data}
+\caption{GM of \OurTool predictions over three consecutive runs from up 3 sources of probing data.}
 %( ref. $supplementary\_data/benchmark\_6RNAs$)
 \end{table}
 
-\newpage
 
 %\section{IPANEMAP Vs Rsample}
-\section{Detailed results on Hadjin~\emph{et al} dataset}
+\section*{Mono probing benchmark (Hadjin~\emph{et al}~\cite{Hajdin2013} dataset)}
 
- \begin{table}[h]
+ \begin{table}[H]
 
 {\centering
 \begin{adjustbox}{max width=1\textwidth}
@@ -134,11 +135,48 @@ tRNAphenylalanineyeast	&	0.953	&	0.953	&	0.976	&	0.976	&	0.746	&	0.976	&	0.746	&
  \end{tabular}
 \end{adjustbox}\\}
 
-\caption{Labels used for the 24 RNAs in the Hadjin \emph{ et al.} dataset~\cite{Hajdin2013}.}
+\caption{Labels used as shorthands for the 24 RNAs in the Hadjin \emph{ et al.} dataset~\cite{Hajdin2013}.}
 \label{clyu}
 
 \end{table}
 
+\subsection*{Detailed results of \OurTool{} and \Software{Rsample}}
+\begin{table}[H]
+	{\centering \begin{adjustbox}{max width=\textwidth,max totalheight=\textheight,keepaspectratio}
+			\begin{tabular}{llllHllH}
+				\toprule
+				&        & \multicolumn{3}{l}{\Software{Rsample}}    & \multicolumn{3}{l}{\Software{IPANEMAP}}   \\
+				{RNA} & Length & Sensitivity & PPV    & \multicolumn1c{GM} & Sensitivity & PPV    & \multicolumn1c{GM} \\ \midrule
+				A     & 34     & 0.625       & 1      & 0.791              & 0.625       & 1      & 0.791              \\
+				B     & 530    & 0.6622      & 0.6203 & 0.641              & 0.8986      & 0.8062 & 0.851              \\
+				C     & 301    & 0.03        & 0.0313 & 0.031              & 0.6         & 0.6    & 0.6                \\
+				D     & 214    & 0.6349      & 0.6667 & 0.651              & 0.7302      & 0.8519 & 0.789              \\
+				E     & 500    & 0.6382      & 0.7823 & 0.707              & 0.5263      & 0.5517 & 0.539              \\
+				F     & 47     & 0.4         & 0.75   & 0.548              & 0.6         & 0.75   & 0.671              \\
+				G     & 118    & 0.7179      & 0.8    & 0.758              & 0.7692      & 0.8333 & 0.801              \\
+				H     & 76     & 0.4762      & 0.5556 & 0.514              & 0.7619      & 0.7619 & 0.762              \\
+				I     & 155    & 0.6786      & 0.8261 & 0.749              & 0.9821      & 0.9821 & 0.982              \\
+				J     & 79     & 0.7727      & 0.85   & 0.81               & 0.9545      & 0.875  & 0.914              \\
+				K     & 71     & 1           & 1      & 1                  & 1           & 0.9545 & 0.977              \\
+				L     & 66     & 0.5625      & 0.6923 & 0.624              & 0.625       & 0.7143 & 0.668              \\
+				M     & 79     & 0.6538      & 0.8095 & 0.727              & 0.6538      & 0.68   & 0.667              \\
+				N     & 120    & 0.2857      & 0.2632 & 0.274              & 0.9714      & 0.9189 & 0.945              \\
+				O     & 97     & 0.9286      & 0.9286 & 0.929              & 0.9286      & 0.8966 & 0.912              \\
+				P     & 511    & 0.9328      & 0.7762 & 0.851              & 0.8908      & 0.7681 & 0.827              \\
+				Q     & 401    & 0.5826      & 0.5583 & 0.57               & 0.7304      & 0.75   & 0.74               \\
+				R     & 425    & 0.8397      & 0.8271 & 0.833              & 0.9084      & 0.8815 & 0.895              \\
+				S     & 336    & 0.5481      & 0.6129 & 0.58               & 0.8077      & 0.866  & 0.836              \\
+				T     & 473    & 0.7986      & 0.7143 & 0.755              & 0.8819      & 0.8194 & 0.85               \\
+				U     & 412    & 0.5379      & 0.6174 & 0.576              & 0.75        & 0.8462 & 0.797              \\
+				V     & 75     & 0.619       & 0.6842 & 0.651              & 0.619       & 0.5652 & 0.591              \\
+				W     & 174    & 0.8095      & 0.8644 & 0.836              & 0.8095      & 0.9808 & 0.891              \\
+				X     & 154    & 0.875       & 0.913  & 0.894              & 0.875       & 0.913  & 0.894              \\ \bottomrule
+			\end{tabular}
+		\end{adjustbox}\\}
+\caption{\OurTool~ prediction performance compared to \Software{Rsample} tool}
+\end{table}
+
+\subsection*{Stability analysis}
 
 \begin{table}[H]
 	\begin{adjustbox}{max width=1\textwidth,max totalheight=\textheight,keepaspectratio}
@@ -186,41 +224,7 @@ tRNAphenylalanineyeast	&	0.953	&	0.953	&	0.976	&	0.976	&	0.746	&	0.976	&	0.746	&
 	Min colour=BadCol, % colour for values below min
 	Max colour=Aquamarine3   % colour for values above max
 }
-\begin{table}[H]
-{\centering \begin{adjustbox}{max width=\textwidth,max totalheight=\textheight,keepaspectratio}
-\begin{tabular}{llllHllH}
-	\toprule
-	      &        & \multicolumn{3}{l}{\Software{Rsample}}    & \multicolumn{3}{l}{\Software{IPANEMAP}}   \\
-	{RNA} & Length & Sensitivity & PPV    & \multicolumn1c{GM} & Sensitivity & PPV    & \multicolumn1c{GM} \\ \midrule
-	A     & 34     & 0.625       & 1      & 0.791              & 0.625       & 1      & 0.791              \\
-	B     & 530    & 0.6622      & 0.6203 & 0.641              & 0.8986      & 0.8062 & 0.851              \\
-	C     & 301    & 0.03        & 0.0313 & 0.031              & 0.6         & 0.6    & 0.6                \\
-	D     & 214    & 0.6349      & 0.6667 & 0.651              & 0.7302      & 0.8519 & 0.789              \\
-	E     & 500    & 0.6382      & 0.7823 & 0.707              & 0.5263      & 0.5517 & 0.539              \\
-	F     & 47     & 0.4         & 0.75   & 0.548              & 0.6         & 0.75   & 0.671              \\
-	G     & 118    & 0.7179      & 0.8    & 0.758              & 0.7692      & 0.8333 & 0.801              \\
-	H     & 76     & 0.4762      & 0.5556 & 0.514              & 0.7619      & 0.7619 & 0.762              \\
-	I     & 155    & 0.6786      & 0.8261 & 0.749              & 0.9821      & 0.9821 & 0.982              \\
-	J     & 79     & 0.7727      & 0.85   & 0.81               & 0.9545      & 0.875  & 0.914              \\
-	K     & 71     & 1           & 1      & 1                  & 1           & 0.9545 & 0.977              \\
-	L     & 66     & 0.5625      & 0.6923 & 0.624              & 0.625       & 0.7143 & 0.668              \\
-	M     & 79     & 0.6538      & 0.8095 & 0.727              & 0.6538      & 0.68   & 0.667              \\
-	N     & 120    & 0.2857      & 0.2632 & 0.274              & 0.9714      & 0.9189 & 0.945              \\
-	O     & 97     & 0.9286      & 0.9286 & 0.929              & 0.9286      & 0.8966 & 0.912              \\
-	P     & 511    & 0.9328      & 0.7762 & 0.851              & 0.8908      & 0.7681 & 0.827              \\
-	Q     & 401    & 0.5826      & 0.5583 & 0.57               & 0.7304      & 0.75   & 0.74               \\
-	R     & 425    & 0.8397      & 0.8271 & 0.833              & 0.9084      & 0.8815 & 0.895              \\
-	S     & 336    & 0.5481      & 0.6129 & 0.58               & 0.8077      & 0.866  & 0.836              \\
-	T     & 473    & 0.7986      & 0.7143 & 0.755              & 0.8819      & 0.8194 & 0.85               \\
-	U     & 412    & 0.5379      & 0.6174 & 0.576              & 0.75        & 0.8462 & 0.797              \\
-	V     & 75     & 0.619       & 0.6842 & 0.651              & 0.619       & 0.5652 & 0.591              \\
-	W     & 174    & 0.8095      & 0.8644 & 0.836              & 0.8095      & 0.9808 & 0.891              \\
-	X     & 154    & 0.875       & 0.913  & 0.894              & 0.875       & 0.913  & 0.894              \\ \bottomrule
-\end{tabular}
-\end{adjustbox}\\}
 
-\caption{\OurTool~ prediction performance compared to \Software{Rsample} tool}
-\end{table}
 
 %  \Heatset{min=0,  
 %	max=1,   
@@ -241,9 +245,8 @@ tRNAphenylalanineyeast	&	0.953	&	0.953	&	0.976	&	0.976	&	0.746	&	0.976	&	0.746	&
 %	Max colour=BadCol   % colour for values above max
 %}
 
-\newpage 
-\section{Detailed results of Lariat capping ribozyme from {\itshape Didymium iridis}}
-
+\section*{Case-study: Lariat capping ribozyme of {\itshape Didymium iridis}}
+\subsection*{Compatibility of accessibility profiles with native and predicted structures}
 \begin{table}[H]
  \Heatset{min=0.2,  
 	max=.5,   
@@ -279,9 +282,11 @@ Condition & \multicolumn1c{to prediction}&\multicolumn1c{to native}\\
 \caption{Distance of the predicted structure from the considered probing data.}
 \end{table}
 
-\begin{table}[H]
-\newcommand{\MyScale}{.18}
-\begin{adjustbox}{max width=\textwidth,keepaspectratio}
+\begin{sidewaysfigure}
+\newcommand{\MyScale}{.26}
+
+{\centering
+	\begin{adjustbox}{max width=\textwidth,max height=\textheight,keepaspectratio}
 \begin{tabular}{@{}c|cccc@{}}
 
 %\toprule
@@ -291,9 +296,10 @@ Condition & \multicolumn1c{to prediction}&\multicolumn1c{to native}\\
 Native&\OneMSevILU&\OneMSevILUMg&\OneMSevMgCE&\NAIMg\\
 structure &+\NMIAMg&+\OneMSevILUThreeMg&+\NMIAMgCE&+\CMCTMg\\
 \end{tabular}
-\end{adjustbox}
+\end{adjustbox}\\}
+
 \caption{Predicted structures with conditions belonging to the same cluster}
-\end{table}
+\end{sidewaysfigure}
 
 
 
