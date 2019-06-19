@@ -1,0 +1,205 @@
+%%%%%% TIKZ %%%%%%%%%%%%%%%%%%%%%%%%
+
+\tikzstyle{startend}=[rectangle, rounded corners, minimum width=2cm,  minimum height=1cm, text width =2cm, text centered, draw=none, fill= orange!50, font=\sf]
+\tikzstyle{io}=[trapezium, trapezium left angle=70,trapezium right angle= 110,minimum width=3.9cm, minimum height=1cm, text centered, draw=none, fill= blue!30, font=\sf]
+
+\tikzstyle{process}=[rectangle, minimum width=3cm,maximum width=3, minimum height=1cm, text centered, draw=black, fill= orange!30, font=\sffamily]
+\tikzstyle{Vprocess}=[rectangle, minimum width=6cm, minimum height=1cm, text centered, font=\sf\bfseries,  fill= gray!80, draw=none, text=white]
+\tikzstyle{VSprocess}=[rectangle, minimum width=1cm, minimum height=2cm, text centered, font=\sf\bfseries,  fill= gray!80, draw=none, text=white]
+\tikzstyle{squareprocess}=[rectangle, minimum width=2cm, minimum height=7cm, text centered, draw=black, fill= orange!30, font=\sffamily]
+\tikzstyle{Bprocess}=[rectangle, minimum width=6cm, minimum height=1cm, text centered,  font=\sf\bfseries,  fill= cyan!60!black, draw=none, text=white]
+\tikzstyle{BSprocess}=[rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill= orange!30, font=\sffamily]
+\tikzstyle{decision}=[diamond, minimum width=2.5cm, minimum height=1.5cm, align=center, inner sep=-5pt ,font=\sf\bfseries,  fill= PineGreen!60, draw=none, text=white]
+\tikzstyle{IO}=[text=white]
+
+\tikzstyle{arrow}=[line width=1.5pt, ->, >=stealth, gray!80!black]
+\tikzstyle{arrowcaption}=[font=\sf\relsize{+1},black]
+\tikzstyle{input}=[fill= gray!80!black, inner sep=5pt,rounded corners=5pt]
+\tikzstyle{output}=[fill= gray!80!black, inner sep=5pt,rounded corners=5pt]
+
+\pgfkeys{/heat/.is family, /heat,
+	Max colour/.initial = Green4,
+	Min colour/.initial = Red1,
+	max colour/.initial = SpringGreen3,
+	mid colour/.initial = white,
+	min colour/.initial = Yellow1,
+	text colour/.initial = black,
+	Min color/.style = {Min colour=#1},% for our friends who can't spell
+	Max color/.style = {Max colour=#1},
+	min color/.style = {min colour=#1},
+	mid color/.style = {mid colour=#1},
+	max color/.style = {max colour=#1},
+	text color/.style = {text colour=#1},
+	min/.initial = -1,
+	mid/.initial = 0,
+	max/.initial = 1,
+	slider/.code={%
+		\tikz{\shade[left color=\HVal{min colour},%
+			right color=\HVal{max colour}]%
+			(current page.south west) rectangle ++(#1,12pt);
+		}%
+	}%
+}
+
+\newcommand{\tikzcircle}[2][red,fill=red]{\tikz[baseline=-0.5ex]\draw[#1,radius=#2] (0,0) circle ;}%
+\newcommand\Heatset[1]{\pgfkeys{/heat, #1}}
+\newcommand\HVal[1]{\pgfkeysvalueof{/heat/#1}}
+
+\newcolumntype{H}{>{\collectcell\Heat}r<{\endcollectcell}}
+\newcommand\Heat[1]{% \Heat{number in the interval [min, max] }
+	\if\relax\detokenize{#1}\relax% empty cell
+	\else%
+	\pgfmathparse{int(100*(#1-\HVal{min})/(\HVal{max}-\HVal{min}))}% map number to [0,100]
+	\ifnum\pgfmathresult>100% too big
+	\edef\HeatCell{\noexpand\cellcolor{\HVal{Max colour}}}%
+	\else\ifnum\pgfmathresult<0% too small
+	\edef\HeatCell{\noexpand\cellcolor{\HVal{Min colour}}}%
+	\else\ifnum\pgfmathresult<50% between min and mid
+	\pgfmathparse{int(2*\pgfmathresult)}% map number to [0,100]
+	\edef\HeatCell{\noexpand\cellcolor{\HVal{mid colour}!\pgfmathresult!\HVal{min colour}}}%
+	\else% between min and max
+	\pgfmathparse{int(2*(\pgfmathresult-50))}% map number to [0,100]
+	\edef\HeatCell{\noexpand\cellcolor{\HVal{max colour}!\pgfmathresult!\HVal{mid colour}}}%
+	\fi%
+	\fi%
+	\fi%
+	\HeatCell\textcolor{\HVal{text colour}}{$#1$}%
+	\fi%
+}
+
+\pgfkeys{/heatsec/.is family, /heatsec,
+	Max colour/.initial = Green4,
+	Min colour/.initial = Red1,
+	max colour/.initial = SpringGreen3,
+	mid colour/.initial = white,
+	min colour/.initial = Yellow1,
+	text colour/.initial = black,
+	Min color/.style = {Min colour=#1},% for our friends who can't spell
+	Max color/.style = {Max colour=#1},
+	min color/.style = {min colour=#1},
+	mid color/.style = {mid colour=#1},
+	max color/.style = {max colour=#1},
+	text color/.style = {text colour=#1},
+	min/.initial = -1,
+	mid/.initial = 0,
+	max/.initial = 1,
+	slider/.code={%
+		\tikz{\shade[left color=\HVal{min colour},%
+			right color=\HVal{max colour}]%
+			(current page.south west) rectangle ++(#1,12pt);
+		}%
+	}%
+}
+\newcommand\HeatSecset[1]{\pgfkeys{/heatsec, #1}}
+\newcommand\HSVal[1]{\pgfkeysvalueof{/heatsec/#1}}
+
+\colorlet{BadCol}{Burlywood1!70!red}
+
+
+\newcolumntype{S}{>{\collectcell\HeatSec}r<{\endcollectcell}}
+\newcommand\HeatSec[1]{% \Heat{number in the interval [min, max] }
+	\if\relax\detokenize{#1}\relax% empty cell
+	\else%
+	\pgfmathparse{int(100*(#1-\HSVal{min})/(\HSVal{max}-\HSVal{min}))}% map number to [0,100]
+	\ifnum\pgfmathresult>100% too big
+	\edef\HeatCell{\noexpand\cellcolor{\HSVal{Max colour}}}%
+	\else\ifnum\pgfmathresult<0% too small
+	\edef\HeatCell{\noexpand\cellcolor{\HSVal{Min colour}}}%
+	\else\ifnum\pgfmathresult<50% between min and mid
+	\pgfmathparse{int(2*\pgfmathresult)}% map number to [0,100]
+	\edef\HeatCell{\noexpand\cellcolor{\HSVal{mid colour}!\pgfmathresult!\HSVal{min colour}}}%
+	\else% between min and max
+	\pgfmathparse{int(2*(\pgfmathresult-50))}% map number to [0,100]
+	\edef\HeatCell{\noexpand\cellcolor{\HSVal{max colour}!\pgfmathresult!\HSVal{mid colour}}}%
+	\fi%
+	\fi%
+	\fi%
+	\HeatCell\textcolor{\HSVal{text colour}}{$#1$}%
+	\fi%
+}
+
+%%%%%% MACROS %%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{lightsalmon}{rgb}{1.0, 0.63, 0.48}
+\definecolor{lightseagreen}{rgb}{0.13, 0.7, 0.67}
+\definecolor{americanrose}{rgb}{1.0, 0.01, 0.24}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\DeclareMathOperator*{\argmax}{\arg\!\max}
+\newcommand{\multicoomment}[1]{}
+\newcommand{\Software}[1]{\text{\ttfamily\bfseries #1}}
+\newcommand{\OurTool}{\Software{IPANEMAP}\xspace}
+\newcommand{\SM }{{\tt SHAPEMap}\xspace}
+\newcommand{\SH }{{\tt SHAPE}\xspace}
+\newcommand{\VP }{{\tt Vienna package}\xspace}
+\newcommand{\OurRna}{\Software{Did}\xspace}
+\newcommand{\mm }{{\tt$M\&M$}\xspace}
+\newcommand{\DP }{{\tt DP}\xspace}
+\newcommand{\didy }{{\sf GIR1 Lariat-capping ribozyme}\xspace}
+
+\newcommand{\CE }{{\tt capillary electrophoresis}\xspace}
+%MPCRnas MultiProbing Conformers}}
+% Macros for # variables
+\newcommand{\BP }{{\mathcal{ BP}}}
+\newcommand{\Ensemble }{{\mathcal{ S}}}
+\newcommand{\Sample }{{\mathcal{ S_D}}}
+\newcommand{\PData }[1]{{\mathcal{ D}_{#1}}}
+\newcommand{\Bzcond}[1]{ \mathbb{P}(s\mid #1)}
+\newcommand{\CBP}[1]{ \mathbb{CP}_#1}
+\newcommand{\BF}{ \mathbb{BF}}
+\newcommand{\Zed}{\mathbb{Z}}
+\newcommand{\Edist }{{ \text{Dist}}}
+\newcommand{\RL }{{n}}
+\newcommand{\CL}{MBkM\xspace}
+\newcommand{\Clusters}{\mathcal{C}}
+\newcommand{\Centroids}{\mathcal{C_O}}
+\newcommand{\GMean}{\text{GM}}
+\newcommand{\Ref}{R}
+%\newcommand{\OurRna}{\Software{Did}}
+%MPCRnas MultiProbing Conformers}}
+\newcommand{\NumClust}{k}
+\newcommand{\etal}{~\emph{et al} }
+\newcommand{\Def}[1]{{\em #1}}
+
+%%% Conditions
+\newcommand{\Cond}[5]{\textsc{#1$^{\text{#2}}_{\text{#4}}$-#3#5}}
+
+\newcommand{\OneMSevILUMg}{\Cond{1M7}{mg}{MaP}{il}{}\xspace}
+\newcommand{\OneMSevILU}{\Cond{1M7}{}{MaP}{il}{}\xspace}
+
+\newcommand{\OneMSevILUThreeMg}{\Cond{1M7}{mg}{MaP}{il}{-3d}\xspace}
+\newcommand{\OneMSevILUThree}{\Cond{1M7}{}{MaP}{il}{-3d}\xspace}
+
+\newcommand{\OneMSevMgCE}{\Cond{1M7}{mg}{CE}{}{}\xspace}
+\newcommand{\OneMSevCE}{\Cond{1M7}{}{CE}{}{}\xspace}
+
+\newcommand{\CMCTMg}{\Cond{CMCT}{mg}{CE}{}{}\xspace}
+
+\newcommand{\NMIA}{\Cond{NMIA}{}{MaP}{it}{}\xspace}
+\newcommand{\NMIAMg}{\Cond{NMIA}{mg}{MaP}{it}{}\xspace}
+
+\newcommand{\NMIACE}{\Cond{NMIA}{}{CE}{}{}\xspace}
+\newcommand{\NMIAMgCE}{\Cond{NMIA}{mg}{CE}{}{}\xspace}
+
+\newcommand{\NAIMg}{\Cond{NAI}{mg}{CE}{}{}\xspace}
+\newcommand{\NAICE}{\Cond{NAI}{}{CE}{}{}\xspace}
+
+\newcommand{\BzCN}{\Cond{BzCN}{}{CE}{}{}\xspace}
+\newcommand{\BzCNMg}{\Cond{BzCN}{mg}{CE}{}{}\xspace}
+
+\newcommand{\DMSMg}{\Cond{DMS}{mg}{CE}{}{}\xspace}
+
+\newcommand{\BZCNCE}{\Cond{BzCN}{}{CE}{}{}\xspace}
+
+
+\newcommand{\Draft}[1]{{#1}}
+\newcommand{\bs}[1]{\Draft{\todo[color=red!30]{\sf Bruno: #1}}}
+\newcommand{\bsi}[1]{\Draft{\todo[color=red!30,inline]{\sf Bruno: #1}}}
+\newcommand{\as}[1]{\Draft{\todo[color=green!70!black]{\sf Afaf: #1}}}
+\newcommand{\yp}[1]{\Draft{\todo[color=blue!30]{\sf Yann: #1}}}
+\newcommand{\ypi}[1]{\Draft{\todo[color=blue!30,inline]{\sf Yann: #1}}}
+
+\renewcommand{\bsi}[1]{}
+\renewcommand{\ypi}[1]{}
+
+\newcommand{\ipanemapurl}{https://github.com/afafbioinfo/IPANEMAP}
+
