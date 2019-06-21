@@ -55,11 +55,11 @@
 
 
 % Enter dates of publication
-\copyrightyear{2019}
-\pubdate{31 July 2019}
-\pubyear{2019}
-\jvolume{XX}
-\jissue{YY}
+\copyrightyear{??}
+\pubdate{???????}
+\pubyear{????}
+\jvolume{??}
+\jissue{??}
 
 %\articlesubtype{This is the article type (optional)}
 \setcounter{secnumdepth}{3} % for subsection reference
@@ -88,9 +88,9 @@ $^{2}$\,CitCoM, Cibles thérapeutiques et conception de Médicaments, CNRS, Univ
 % state, Zip or postal code, country
 
 \history{%
-Received January 1, 2019;
-Revised February 1, 2019;
-Accepted March 1, 2019}
+Received July 1, 2019;
+Revised ??????;
+Accepted ??????}
 
 \maketitle
 
@@ -171,8 +171,6 @@ However, independent computational predictions for the same RNA using probing da
 \section*{Material and methods}
 
 \subsection*{The \OurTool{} method}
-\bsi{Ce chapitre est vraiment très réussi, il explique vraiment bien ce qu'on fait et c'est accessible meme pour des polios de biologistes. je trouve dommage qu'il soit cantoné au Mat et Met. A mon avis il faudrait soit le mettre tel quel comme premier chapitre des résultats, soit en faire une version light sans les détails de calculs le mettre comme premier chapitre des résultats et ne laisser que les calculs dans le Mat et Met}  
-\ypi{Dans la mesure où l'intro est courte, et étant donné le titre, je ne pense pas que sa présence en Mat Met limite  sur visibilité. En plus, c'est typiquement là où tu le trouves d'habitude dans ce type de papier (cf Rsample).} \bsi{OK je propose la chose suivante:on laisse tt comme ca le math et met, mais on commence les résultats par un mini-chapitre du genre "principles of IPANEMAP" IPANEMAP relies on .. prediction with RNAsubopt ... sampling ... clustering .. evaluation by front pareto.. Its originality relies on ... See material and methods for details }
 We introduce the Integrative Probing Analysis of Nucleic Acids Empowered by Multiple Accessibility Profiles (\OurTool{}), a novel approach that integrates the signal produced by various chemical probes. It performs clustering based on multiple sets of structures sampled in different experimental conditions, to ultimately return a set of structures that are representative of the dominant clusters. Its underlying rationale is that the prominent presence of a stable secondary structure within the  (pseudo-)Boltzmann ensembles induced by multiple experimental conditions should increase its likelihood to be (one of) the native structure(s) for a given RNA. It is thus hoped that integrating several reactivity profiles may be used to promote the native structure as one of the dominant structures within the multi-ensemble, and help circumvent the limitation of pseudo-energies derived from single reactivity profile, which are generally not sufficient to elect the native structure as its minimum (pseudo)-free energy candidate. In other words, combining ensembles of structures generated using multiple probing experiments is likely to denoise the Boltzmann (multi-)ensemble, and thus mitigate systematic biases induced by experimental conditions and reagents.
 
 \begin{figure}
@@ -186,7 +184,7 @@ We introduce the Integrative Probing Analysis of Nucleic Acids Empowered by Mult
 
 Our method, summarized in Figure~\ref{fig:approach}, takes as input a set $\mathcal{D}$ of probing experiments, each materialized by a reactivity profile. It starts by producing sets of representatives structures for each of the reactivity profiles using a SHAPE-directed variant of the classic Ding-Lawrence algorithm~\citep{Ding2003}. Following Deigan\etal\cite{Deigan2009}, soft constraints are used to complement the free energy contributions of the classic Turner energy model with pseudo energy contributions resulting from reactivity profiles derived from SHAPE probing experiments.  Given a reactivity $R_i$ for a position $i$, we associate a free-energy bonus to unpaired positions, defined as
 $$\Delta G(i) = m \log(R_i +1 )+b$$ 
-using $m=1.3$ and  $b=-0.4$.\bsi{j'avais cru comprendre que ces valeurs avaient été adapté pour IPANEMAP. Sont elles paramétrables lorsuq'ion lance IPANEMAP? Si oui il faudrait peut etre en toucher un mot qque part?} Those values are compared to those used by Deigan\etal\cite{Deigan2009}, based on the rationale that lower absolute values for pseudo-energy bonuses increase the chance of structures being simultaneously supported by multiple conditions. Those pseudo energy contributions effectively direct our predictions towards a subset of structures that are in good agreement with probing data. 
+using $m=1.3$ and  $b=-0.4$. Those values differ from those used by Deigan\etal\cite{Deigan2009}, and were adapted based on the rationale that lower absolute values for pseudo-energy bonuses increase the chance of structures being simultaneously supported by multiple conditions. Those pseudo energy contributions effectively direct our predictions towards a subset of structures that are in good agreement with probing data. 
 
 In order to infer recurrent candidates across different samples, sampled structure sets are agglomerated while keeping track of the reagent/condition of origin for each structure, and clustered using the Mini Batch k-Means algorithm~\citep{Sculley2010} (\CL{}) based on a number of clusters determined by an iterative heuristics described in further details below. 
 It takes as input a dissimilarity matrix, whose entries consist of the base pair distance between two sampled structures.
@@ -278,7 +276,7 @@ Probing data were experimentally generated, as described in the next section, us
 
 \paragraph{Cheng  \emph{et al} dataset.} 
 Starting from the assumption that a functional structure should be preserved during evolution, we wanted to assess the agreement that might exist between probing data profiles for a set of RNA mutants. 
-We considered DMS probing data, generated by~\cite{Cheng2017} through systematic point-wise mutations, for the Lariat-capping ribozyme. We renormalized each reactivity profile following the method introduced by Deigan\etal\cite{Deigan2009}, restricted to the primer-free sequence: values greater than $1.5 $ times the interquartile range were discarded, and remaining values were divided by the mean of the top $10\%$ reactivities.  Overall, this constitutes a collection of 188 sequences, each having its associated reactivity profile.
+We considered DMS probing data, generated by~\cite{Cheng2017} through systematic point-wise mutations, for the Lariat-capping ribozyme (equivalent to \Cond{DMS}{mg}{MaP}{ilu}{} in the nomenclature below). We renormalized each reactivity profile following the method introduced by Deigan\etal\cite{Deigan2009}, restricted to the primer-free sequence: values greater than $1.5 $ times the interquartile range were discarded, and remaining values were divided by the mean of the top $10\%$ reactivities.  Overall, this constitutes a collection of 188 sequences, each having its associated reactivity profile.
 
 
 
@@ -288,7 +286,7 @@ As a preliminary experiment, we verified that DiLCrz generally adopts a single g
 
 \paragraph{Stops-inducing probing protocol (SHAPE-CE).} 
 6 pmol of RNA were resuspended in 18 $\mu$l of water, denatured at 80\degree{}C for 2 minutes and cooled down at room temperature during 10 minutes in the probing buffer (40 mM HEPES at 7.5 pH, 100 mM KCl, in presence or absence of 5 mM MgCl$_\text{2}$. After a 10 minutes incubation at 37\degree{}C, RNAs were treated with 2 mM of SHAPE reagent or DMSO (negative control) and incubated for 2 (BzCN), 5 (1M7), 30 (NMIA) or 60 (NAI) minutes at 37\degree{}C. Modified or unmodified RNAs were purified by ethanol precipitation and pellets were resuspended in 10 $\mu$l of water.
-Modifications were revealed by reverse transcription using 5' fluorescently labelled primers (D2 or D4 WellRED, Sigma Aldrich 5' CTG-TGA-ACT-AAT-GCT-GTC-CTT-TAA 3') and M-MLV RNAse (H-) reverse transcriptase (Promega) as previously described~\cite{Deforges2017}, with only minor modification of the originally described SHAPE protocol~\cite{Wilkinson2006}. cDNAs were separated by capillary electrophoresis (Beckman Coulter, Ceq8000). Data were analyzed using the  \Software{QuSHAPE}~\cite{Karabiber2013} software. RNA probing was performed in triplicate with distinct RNA preparations. The corresponding data sets are named after the probe followed by "-CE" and Mg if probed in presence of MgCl$_\text{2}$.
+Modifications were revealed by reverse transcription using 5' fluorescently labelled primers (D2 or D4 WellRED, Sigma Aldrich 5' CTG-TGA-ACT-AAT-GCT-GTC-CTT-TAA 3') and M-MLV RNAse (H-) reverse transcriptase (Promega) as previously described~\cite{Deforges2017}, with only minor modification of the originally described SHAPE protocol~\cite{Wilkinson2006}. cDNAs were separated by capillary electrophoresis (Beckman Coulter, Ceq8000). Data were analyzed using the  \Software{QuSHAPE}~\cite{Karabiber2013} software. RNA probing was performed in triplicate with distinct RNA preparations. The corresponding data sets are named after the probe followed by {\sc CE}, and {\sc mg} if probed in presence of MgCl$_\text{2}$.
 
 \paragraph{Mutations-inducing probing (SHAPE-MaP).}
 Probing was conducted as described in Smola\etal\cite{Smola2015}, except we used SuperScript III reverse transcriptase (ThermoFisher) at 50\degree{}C for 3 hours using the following specific primer: 
@@ -297,11 +295,11 @@ Probing was conducted as described in Smola\etal\cite{Smola2015}, except we used
 5' CTT-CAT-AGC-CTT-ATG-CAG-TTG-CTT-TTT-TTT-TTT
    TTT-TTT-TTT-GAT-TGT-CTT-GGG-ATA-CCG-GAT 3'\\}
 
-For \OneMSevILUThreeMg, the denaturation step was repeated three times : After a 1 minute incubation at 95\degree{}C, 10 mM of 1M7 was added and the mix was incubated 1 minute at 95\degree{}C. This step was repeated 3 times (3D). For 1M7, 1M7Mg, NMIA and NMIAMg, experiments were conducted as described above, except that the NGS library preparation was adapted to Ion Torrent sequencing. Sequences were mapped and analyzed with \Software{ShapeMapper2} for \OneMSevILUThreeMg and \OneMSevILUThreeMg. For the other conditions they are mapped with a script based on \Software{ShapeMapper}, but adapted to Ion Torrent output files. The corresponding data sets are named after the probe followed by "-MAP", Mg if probed in presence of MgCl$_\text{2}$, and IL  or IT for Illumina or Ion Torrent sequencing, respectively. 
+For \OneMSevILUThreeMg, the denaturation step was repeated three times : After a 1 minute incubation at 95\degree{}C, 10 mM of 1M7 was added and the mix was incubated 1 minute at 95\degree{}C. This step was repeated 3 times (3D). For 1M7, 1M7Mg, NMIA and NMIAMg, experiments were conducted as described above, except that the NGS library preparation was adapted to Ion Torrent sequencing. Sequences were mapped and analyzed with \Software{ShapeMapper2} for \OneMSevILUThreeMg and \OneMSevILUThreeMg. For the other conditions they are mapped with a script based on \Software{ShapeMapper}, but adapted to Ion Torrent output files. The corresponding data sets are named after the probe followed by {\sc MaP}. The presence of {\sc mg} as a superscript indicates the presence of MgCl$_\text{2}$, while the subscript {\sc il} (Illumina) or {\sc it} (Ion Torrent) specify the sequencing technology. 
 
 
 \paragraph{DiMethylSulfate (DMS) and CMCT probing.}
-DMS and CMCT probing were conducted essentially as described in~\cite{Weill2004,James2008}. Succinctly, 6 pmol of RNA were resuspended in 18 $\mu$l of water, denatured at 80\degree{}C for 2 minutes and cooled down at room temperature for 10 minutes in a probing buffer for DMS probing (40 mM HEPES pH 7.5, 100 mM KCl, 5 mM MgCl$_\text{2}$) or in CMCT (50 mM of potassium borate pH 8, 100 mM KCl and 5 mM MgCl$_\text{2}$). For DMS, RNA was then treated with 1 $\mu$l of DMS (1:12 in ethanol) or 1 $\mu$l of ethanol for 5 minutes at 37\degree{}C (mock reaction), the reaction was stopped by addition of 400 mM of Tris at 7.5 pH and immediately put on ice. For CMCT,  RNA was treated with 10 $\mu$l of CMCT (42 mg/mL) or 10 $\mu$l H$_\text{2}$O for 10 minutes at 37\degree{}C (mock reaction). Modified RNA were ethanol-precipitated and resuspended in 10 $\mu$l of water. Modifications were mapped as described above for SHAPE-CE experiments.The corresponding data sets are named after the probe followed by "-CE" and Mg.
+DMS and CMCT probing were conducted essentially as described in~\cite{Weill2004,James2008}. Succinctly, 6 pmol of RNA were resuspended in 18 $\mu$l of water, denatured at 80\degree{}C for 2 minutes and cooled down at room temperature for 10 minutes in a probing buffer for DMS probing (40 mM HEPES pH 7.5, 100 mM KCl, 5 mM MgCl$_\text{2}$) or in CMCT (50 mM of potassium borate pH 8, 100 mM KCl and 5 mM MgCl$_\text{2}$). For DMS, RNA was then treated with 1 $\mu$l of DMS (1:12 in ethanol) or 1 $\mu$l of ethanol for 5 minutes at 37\degree{}C (mock reaction), the reaction was stopped by addition of 400 mM of Tris at 7.5 pH and immediately put on ice. For CMCT,  RNA was treated with 10 $\mu$l of CMCT (42 mg/mL) or 10 $\mu$l H$_\text{2}$O for 10 minutes at 37\degree{}C (mock reaction). Modified RNA were ethanol-precipitated and resuspended in 10 $\mu$l of water. Modifications were mapped as described above for SHAPE-CE experiments.The corresponding data sets are named after the probe, followed by {CE} and {\sc mg}.
 
 
 \subsection*{Benchmarking methodology}
@@ -434,7 +432,7 @@ This observed discrepancy is somewhat surprising, given that \OurTool and \Softw
 	
 	\caption{Model of the Lariat capping ribozyme from {\itshape Didymium iridis} (A -- PDB 4P8Z:A by Meyer\etal\cite{Meyer2014}), secondary structure, as annotated by \Software{DSSR} (B -- pseudoknot ommitted) and \OurTool first-ranking prediction (C.), obtained from the integration of 8 maximally-diverging probing conditions (\NMIAMg, \OneMSevILUThreeMg, \NAIMg, \OneMSevCE, \CMCTMg,\OneMSevILUThree, and \OneMSevMgCE).\label{fig:didy}}
 \end{figure*}
-As benchmark RNA we used the Lariat capping ribozyme from \textit{Didymium Iridis} (DiLCrz) which 3D structure has been modeled at 3,85 A from X-ray diffraction data~\cite{Meyer2014}. This RNA contains a large diversity of interactions, including helical domains, tertiary pairings, a kissing loop and a pseudoknot (Figure~\ref{fig:didy}).
+As benchmark RNA we used the Lariat capping ribozyme from \textit{Didymium Iridis} (DiLCrz) which 3D structure has been modeled at 3.85 \AA{} from X-ray diffraction data~\cite{Meyer2014}. This RNA contains a large diversity of interactions, including helical domains, tertiary pairings, a kissing loop and a pseudoknot (Figure~\ref{fig:didy}).
 It was probed as described in Material and Methods in 16 different conditions using different SHAPE and classical reagents, in presence/absence of Mg$^\text{2+}$ ions, using either the standard premature stop or the newly developed mutation induction technologies to map the modification sites. These experimental results were then used as input of \OurTool{}, either individually or combined,  for secondary structure prediction. 
 
 
@@ -461,9 +459,9 @@ A visual inspection of Figure~\ref{fig:PCA} suggests the presence of 8 clusters.
 \end{bulletlist}
 The predicted clusters are generally consistent with the ordering resulting from a spectral biclustering, implemented in \Software{scikit-learn} and executed with default parameters, as illustrated by Figure~\ref{fig:glycine_example}. 
 
-The average ensemble distance and PCA visualization support a status of outliers for conditions in the cluster \Bull{B} (\OneMSevCE, \NMIACE, \BzCN, and \NAICE).  We hypothesize that such conditions may be either representative of alternative conformations, or be altogether erroneous. Consequently, we will single out these two clusters within our detailed analysis of the multi-probing performances.
+The average ensemble distance and PCA visualization support a status of outliers for conditions in the cluster \Bull{B} (\OneMSevCE, \NMIACE, \BzCN, and \NAICE).  We hypothesize that such conditions may be either representative of alternative conformations, or be altogether erroneous. Consequently, we will single out this cluster within our detailed analysis of the multi-probing performances.
 
-\bsi{sauf erreur de ma part le cluster B des parias c'est tous les CE sans Mg .je me demande s'ils n'auraient pas tous un même biais expérimental...}
+%\bsi{sauf erreur de ma part le cluster B des parias c'est tous les CE sans Mg .je me demande s'ils n'auraient pas tous un même biais expérimental...}
 
 
 
@@ -757,7 +755,7 @@ In this final analysis, we decided to test the capacity of \OurTool to extract a
 This approach may appear misguided, since single point mutants are expected to adopt different structures than the wild-type sequence. In fact, the conformational changes induced by mutations precisely constitute the signal that is exploited by downstream modeling pipelines~\cite{Cordero2015}. However, those changes are typically local, and the limited influence of outliers on \OurTool{} raises a hope that the benefit of including independently-produced conditions will outweigh the impact of noise introduced by local changes.
 
 We generated 100 uniformly-distributed subsets consisting of 1, 2, 3 and 10 mutants extracted from the Cheng dataset~\cite{Cheng2017}, which we supplemented with the original wild-type sequence (WT).
-For each set of probing profiles \bsi{c'est ce qui correspondrait chez nous à du DMS Map mg ilu ce qu'il a fait. Tu peux l'insérer la avec notre nomenclature entre paranthèse step ?}, we executed \OurTool{} with default parameters, using a sample size of 1~000 structures. 
+For each set of probing profiles (\Cond{DMS}{mg}{MaP}{ilu}{}), we executed \OurTool{} with default parameters, using a sample size of 1~000 structures. 
 We also analyzed the WT sequence alone, reproducing the analysis 100 times to compare the variability across sets of mutants to the one induced by stochastic aspects of our method. 
 Finally, we performed a restricted analysis focusing on the WT, supplemented with 2 probing profiles selected from the 20 most similar conditions to the WT , as assessed by the ensemble distance metrics. By comparing our results with those obtained for unrestricted pairs of mutants, we assess the influence of structure variability on the quality of our predictions. We report in Figure~\ref{fig:variantanalysis} the distribution of MCC values associated with the first prediction returned by \OurTool.
 

@@ -50,7 +50,7 @@
 \maketitle
 
 \section*{Multiprobing benchmark (Cordero~\emph{et al}~\cite{Cordero2012} dataset)}
-\subsection*{Structure prediction ordered by RNA}
+\subsection*{MCC values of individual predictions}
 
  \Heatset{min=0.4,  
 	max=1,   
@@ -247,6 +247,18 @@ tRNAphenylalanineyeast	&	0.953	&	0.953	&	0.976	&	0.976	&	0.746	&	0.976	&	0.746	&
 
 \section*{Case-study: Lariat capping ribozyme of {\itshape Didymium iridis}}
 \subsection*{Compatibility of accessibility profiles with native and predicted structures}
+We assess and validate the overall quality of probing data using a basic notion of distance between discretized profiles and structure. More precisely, given a secondary structure $S$ of length $n$, we define the {\bf 1D projection} of $S$ as the vector $v_S$ such that
+$$ \forall i\in[1,n], v_S(i)=\begin{cases} 1 &\text{if $i$ unpaired in $S$}\\ 0 &\text{otherwise.} \end{cases} $$
+
+Given a vector $R$ of reactivities, we define a {\bf discrete reactivity} vector $d_R$ as
+$$ \forall i\in[1,n], d_R(i)=\begin{cases} 1 &\text{if $R[i]$ within the $30\%$ largest reactivity values}\\ 
+0 & \text{if $R[i]$ within the $30\%$ lowest reactivity values}\\
+1/2 &\text{otherwise.} \end{cases} $$
+By focusing on the largest and lowest values, we avoid the influence of outliers, and hope to partially mitigate the natural variability of probing reactivities.
+
+We now define the {\bf normalized distance} $||R,S||$ of a reactivity profile $R$ and a structure $S$ as
+$$ ||R,S|| = \frac{\sum_{i=1}^n |v_S(i)-d_R(i)|-40\%\times \frac{n}{2}}{n\times 60\%}.$$
+Note that exactly 40\% of the positions are assigned to $1/2$, leading to $|v_S(i)-d_R(i)|=1/2$ irrespectively of the value taken by $v_S(i)$. The overall contribution of $40\%\times \frac{n}{2}$ needs to be corrected for, thus the subtraction. The divisor term of $n\times 60\%$ accounts for the fact that, after compensating for the contribution of the $[30,70]$ percentile, only $60\%$ of the original values are effectively covered by the sum. We thus renormalize by $n\times 60\%$ to obtain a final value scaling between $0$ (all highly reactive pos. unpaired, all lowly reactive pos. paired) and $1$ (all highly reactive pos. paired, all lowly reactive pos. unpaired).
 \begin{table}[H]
  \Heatset{min=20,  
 	max=60,   
@@ -262,7 +274,7 @@ tRNAphenylalanineyeast	&	0.953	&	0.953	&	0.976	&	0.976	&	0.746	&	0.976	&	0.746	&
 	Min colour=BadCol, % colour for values below min
 	Max colour=Aquamarine3   % colour for values above max
 }
-\begin{center}
+{\centering
 \begin{tabular}{llHHS}
 	\toprule
 	         &                    &      \multicolumn{2}{c}{Distance of reactivity (\%)}      &                       \\
@@ -283,8 +295,7 @@ tRNAphenylalanineyeast	&	0.953	&	0.953	&	0.976	&	0.976	&	0.746	&	0.976	&	0.746	&
 	\Bull{B} & \OneMSevCE         & 38                            & 41                        & 60                    \\
 	\Bull{B} & \BzCN              & 51                            & 46                        & 60                    \\
 	\Bull{B} & \NAICE             & 41                            & 44                        & 60                    \\ \bottomrule
-\end{tabular}
-\end {center}
+\end{tabular}\\}
 \caption{Distance of the predicted structure from the considered probing data.}
 \end{table}
 
