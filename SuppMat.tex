@@ -248,35 +248,41 @@ tRNAphenylalanineyeast	&	0.953	&	0.953	&	0.976	&	0.976	&	0.746	&	0.976	&	0.746	&
 \section*{Case-study: Lariat capping ribozyme of {\itshape Didymium iridis}}
 \subsection*{Compatibility of accessibility profiles with native and predicted structures}
 \begin{table}[H]
- \Heatset{min=0.2,  
-	max=.5,   
+ \Heatset{min=20,  
+	max=60,   
 	max colour=BadCol, % colour at maximum
 	min colour=Aquamarine3,      % colour at minimum
 	Min colour=Aquamarine3, % colour for values below min
 	Max colour=BadCol   % colour for values above max
 }
+ \HeatSecset{min=60,  
+	max=85,   
+	max colour=Aquamarine3, % colour at maximum
+	min colour=BadCol,      % colour at minimum
+	Min colour=BadCol, % colour for values below min
+	Max colour=Aquamarine3   % colour for values above max
+}
 \begin{center}
-\begin{tabular}{lHH}\toprule
- & \multicolumn{2}{c}{Distance of reactivity}\\
-Condition & \multicolumn1c{to prediction}&\multicolumn1c{to native}\\
-\toprule
-\Bull{C}~\OneMSevILUMg & 0.234 & 0.2872\\
-\Bull{A}~\OneMSevILU &	0.2784 & 0.2961\\
-\Bull{A}~\NMIAMg &	0.2606 & 0.2518\\
-\Bull{A}~\NMIA &	0.2961 & 0.3316\\
-\Bull{C}~\OneMSevILUThreeMg &	0.4291 & 0.3936\\
-\Bull{E}~\NMIAMgCE &	0.4291 & 0.3404\\
-\Bull{G}~\NAIMg 	& 0.3493 & 0.305\\
-\Bull{H}~\BzCNMg & 	0.3759 & 0.2429\\
-\Bull{E}~\OneMSevMgCE &	0.4379 & 0.3759\\
-\Bull{G}~\CMCTMg &	0.4911 & 0.4113\\
-\Bull{D}~\OneMSevILUThree &	0.2961 & 0.3404\\
-\Bull{F}~\DMSMg &	0.3493 & 0.3227\\
-\Bull{B}~\NMIACE 	&0.2695 &0.2518 \\
-\Bull{B}~\OneMSevCE &	0.3582 & 	0.3316\\
-\Bull{B}~\BzCN &	0.4911 & 	0.4734\\
-\Bull{B}~\NAICE &	0.4025 &0.4025\\
-\bottomrule
+\begin{tabular}{llHHS}
+	\toprule
+	         &                    &      \multicolumn{2}{c}{Distance of reactivity (\%)}      &                       \\
+	Cluster  & Condition          & \multicolumn1c{to prediction} & \multicolumn1c{to native} & \multicolumn1c{MCC\%} \\ \toprule
+	\Bull{C} & \OneMSevILUMg      & 23                            & 29                        & 85                    \\
+	\Bull{A} & \OneMSevILU        & 32                            & 40                        & 84                    \\
+	\Bull{A} & \NMIAMg            & 26                            & 27                        & 81                    \\
+	\Bull{A} & \NMIA              & 30                            & 38                        & 80                    \\
+	\Bull{C} & \OneMSevILUThreeMg & 42                            & 38                        & 74                    \\
+	\Bull{E} & \NMIAMgCE          & 46                            & 39                        & 73                    \\
+	\Bull{G} & \NAIMg             & 38                            & 39                        & 73                    \\
+	\Bull{H} & \BzCNMg            & 38                            & 29                        & 71                    \\
+	\Bull{E} & \OneMSevMgCE       & 48                            & 42                        & 70                    \\
+	\Bull{G} & \CMCTMg            & 49                            & 45                        & 70                    \\
+	\Bull{D} & \OneMSevILUThree   & 33                            & 39                        & 64                    \\
+	\Bull{F} & \DMSMg             & 38                            & 38                        & 63                    \\
+	\Bull{B} & \NMIACE            & 31                            & 38                        & 61                    \\
+	\Bull{B} & \OneMSevCE         & 38                            & 41                        & 60                    \\
+	\Bull{B} & \BzCN              & 51                            & 46                        & 60                    \\
+	\Bull{B} & \NAICE             & 41                            & 44                        & 60                    \\ \bottomrule
 \end{tabular}
 \end {center}
 \caption{Distance of the predicted structure from the considered probing data.}
