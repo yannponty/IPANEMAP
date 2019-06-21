@@ -353,8 +353,7 @@ where $\text{Sens}(S\mid \Ref)$ represents the proportion of base pairs in $\Ref
 \end{table*}
 
 
-Since \OurTool{} supports any number of probing profiles, we consider the Cordero~\emph{et al} dataset, further described. It consists of 6 RNAs of known structures, for which reactivity profiles are available for the CMCT, NMIA and DMS reagents. We executed \OurTool{} with default parameters on each sequence and any subset of the three available conditions. The centroid secondary structure  associated with the largest probability cluster was considered as the final prediction. Predictions were evaluated in term of the geometric mean (GM) metrics used by previous works~\cite{Spasic2017}.
-\bsi{pourquoi utilise-t-on ici la Gm des bp distance et ensuite le MCC? à expliquer?}\ypi{Pour des raisons historiques, surtout dans le benchmark suivant, j'ai rajouté une phrase dans cette direction}As a control experiment, we also report ${\tt RNAfold}$ predictions in presence/absence of probing data, both in energy minimization (MFE) and maximum expected accuracy (MEA) modes. Figure~\ref{cordero1} shows the averaged GM values for all combinations of tools and probing data.
+Since \OurTool{} supports any number of probing profiles, we consider the Cordero~\emph{et al} dataset, further described. It consists of 6 RNAs of known structures, for which reactivity profiles are available for the CMCT, NMIA and DMS reagents. We executed \OurTool{} with default parameters on each sequence and any subset of the three available conditions. The centroid secondary structure  associated with the largest probability cluster was considered as the final prediction. Predictions were evaluated in term of the geometric mean (GM) metrics, for the sake of comparison with previous studies~\cite{Spasic2017}. As a control experiment, we also report ${\tt RNAfold}$ predictions in presence/absence of probing data, both in energy minimization (MFE) and maximum expected accuracy (MEA) modes. Figure~\ref{cordero1} shows the averaged GM values for all combinations of tools and probing data.
 
 
 
@@ -421,10 +420,6 @@ It ensures GM that are greater than 50\% in all cases, and even exceeds 60\% ove
 
 
 
-%Remarques These :
-%\begin{itemize}
-%  \item Fabrice : Y a t il une raison pour laquelle on est les meilleurs ?
-%\end{itemize}
 This observed discrepancy is somewhat surprising, given that \OurTool and \Software{RSample} share the same sampling/clustering based modeling. However, the two methods differ substantially whenever a single conformation is detected, in which case \Software{RSample} switches to a simple MEA prediction, whereas \OurTool{} always proceeds with an iterative clustering. This allows \OurTool{} to consider a larger number of clusters, which we believe helps eliminating structural outliers, leading to the election of a better final centroid structure. 
 
 
@@ -437,7 +432,7 @@ This observed discrepancy is somewhat surprising, given that \OurTool and \Softw
 \begin{figure*}
 	{\centering {\includegraphics[width=.9\linewidth]{graphs/didy/didy}}\\}
 	
-	\caption{Model of the Lariat capping ribozyme from {\itshape Didymium iridis} (A -- Meyer\etal\cite{Meyer2014}), pseudoknot-free secondary structure as annotated by \Software{DSSR} (B -- pseudoknot ommitted) and \OurTool first-ranking prediction (C.) from 8 maximally-diverging probing conditions (NMIAMg, 1M7ILU3Mg, NAIMg, 1M7, CMCTMg,1M7ILU3,1M7Mg). \bsi{figure à refaite. Faut il montrer les interactions tertiaires? } \label{fig:didy}}
+	\caption{Model of the Lariat capping ribozyme from {\itshape Didymium iridis} (A -- PDB 4P8Z:A by Meyer\etal\cite{Meyer2014}), secondary structure, as annotated by \Software{DSSR} (B -- pseudoknot ommitted) and \OurTool first-ranking prediction (C.), obtained from the integration of 8 maximally-diverging probing conditions (\NMIAMg, \OneMSevILUThreeMg, \NAIMg, \OneMSevCE, \CMCTMg,\OneMSevILUThree, and \OneMSevMgCE).\label{fig:didy}}
 \end{figure*}
 As benchmark RNA we used the lariat capping ribozyme from \textit{Didymium Iridis} (DiLCrz) which 3D structure has been modeled at 3,5 A from X-ray diffraction data~\cite{Meyer2014}. This RNA contains a large diversity of interactions, including helical domains, tertiary pairings, a kissing loop and a pseudoknot (Figure~\ref{fig:didy}).
 It was probed as described in material and methods in 16 different conditions using different SHAPE and classical reagents, in presence/absence of Mg$^\text{2+}$ ions, using either the standard premature stop or the newly developed mutation induction technologies to map the modification sites. These experimental results were then used as input of \OurTool{}, either individually or combined,  for secondary structure prediction. 
@@ -454,7 +449,7 @@ Faced with diverse probing conditions, we first assess the compatibility of the 
 \end{figure}
 
 A visual inspection of Figure~\ref{fig:PCA} suggests the presence of 8 clusters. In order to objectively build groups of compatible conditions, we performed a k-mean clustering using \Software{scikit-learn}, setting k to 8, and obtained the clusters highlighted in Figures~\ref{fig:biclustering} and \ref{fig:PCA}.  We obtain the following clusters:
-\begin{itemize}\setlength{\itemsep}{0pt}\setlength{\parskip}{.1em}	
+\begin{bulletlist}%\setlength{\itemsep}{0pt}\setlength{\parskip}{.1em}	
 \item \BullLab{A}: \OneMSevILU, \NMIA, and \NMIAMg;
 \item \BullLab{B}: \OneMSevCE, \NMIACE, \BzCN, and \NAICE;
 \item \BullLab{C}: \OneMSevILUThreeMg and \OneMSevILUMg;
@@ -463,7 +458,7 @@ A visual inspection of Figure~\ref{fig:PCA} suggests the presence of 8 clusters.
 \item \BullLab{F}: \DMSMg and probing-free;
 \item \BullLab{G}: \CMCTMg and \NAIMg;
 \item \BullLab{H}: \BzCNMg.
-\end{itemize}
+\end{bulletlist}
 The predicted clusters are generally consistent with the ordering resulting from a spectral biclustering, implemented in \Software{scikit-learn} and executed with default parameters, as illustrated by Figure~\ref{fig:glycine_example}. 
 
 The average ensemble distance and PCA visualization support a status of outliers for conditions in the cluster \Bull{B} (\OneMSevCE, \NMIACE, \BzCN, and \NAICE).  We hypothesize that such conditions may be either representative of alternative conformations, or be altogether erroneous. Consequently, we will single out these two clusters within our detailed analysis of the multi-probing performances.
@@ -515,35 +510,36 @@ An even more drastic change of performances can be observed when comparing the M
 	\newcommand{\Stop}{Stop}
 	\newcommand{\Mg}{$\bullet$}
 	\newcommand{\NoMg}{$\circ$}
+	\newcommand{\M}[1]{\multicolumn{1}{l}{#1}}
 	
 	{\centering
 			\begin{adjustbox}{max width=\linewidth}
 		\begin{tabular}{@{}lcccHHH}
 			\toprule
-			                            &          &         &           & \multicolumn{3}{@{}c@{}}{MCC\%}                                                  \\
-			Condition                   &  Clust.  &  Tech.  & Mg$^{2+}$ & \multicolumn1l{\relsize{-1}\OurTool} & \multicolumn1l{MFE} & \multicolumn1l{MEA} \\ \midrule
-			\OneMSevILUMg                    & \Bull{C} &  \Mut   &    \Mg    & 85                                   & 82                  & 82                \\
-			\OneMSevILU                      & \Bull{A} &  \Mut   &   \NoMg   & 84                                   & 82                  & 84                \\
-			\NMIAMg                      & \Bull{A} &  \Mut   &    \Mg    & 81                                   & 80                  & 80                \\
-			\NMIA                        & \Bull{A} &  \Mut   &   \NoMg   & 80                                   & 69                  & 69                \\
-			\OneMSevILUThreeMg                   & \Bull{C} &  \Mut   &    \Mg    & 74                                   & 75                  & 75                \\
-			\NMIAMgCE                    & \Bull{E} &  \Stop  &    \Mg    & 73                                   & 72                  & 73                \\
-			\NAIMg                       & \Bull{G} &  \Stop  &    \Mg    & 73                                   & 68                  & 70                \\
-			\BzCNMg                      & \Bull{H} &  \Stop  &    \Mg    & 71                                   & 68                  & 54                \\
-			\OneMSevMgCE                     & \Bull{E} &  \Stop  &    \Mg    & 70                                   & 69                  & 70                \\
-			\CMCTMg                      & \Bull{G} &  \Stop  &    \Mg    & 70                                   & 68                  & 73                \\
-			\OneMSevILUThree                     & \Bull{D} &  \Mut   &   \NoMg   & 64                                   & 56                  & 61                \\
-			\DMSMg                       & \Bull{F} &  \Stop  &    \Mg    & 63                                   & 66                  & 67                \\
-			\NMIACE                      & \Bull{B} &  \Stop  &   \NoMg   & 61                                   & 60                  & 60                \\
-			\OneMSevCE                       & \Bull{B} &  \Stop  &   \NoMg   & 60                                   & 61                  & 61                \\
-			\BzCN                        & \Bull{B} &  \Stop  &   \NoMg   & 60                                   & 59                  & 59                \\
-			\NAICE                         & \Bull{B} &  \Stop  &   \NoMg   & 60                                   & 59                  & 59                \\ \midrule
-			Avg Technology              &          &  \Mut   &  $\star$  & 78                                   & 74                  & 75                \\
-			                            &          &  \Stop  &  $\star$  & 66                                   & 65                  & 65                \\
-			Avg -/+ Mg$^{2+}$           &          & $\star$ &   \NoMg   & 67                                   & 64                  & 65                \\
-			                            &          & $\star$ &    \Mg    & 73                                   & 72                  & 71.5               \\ \midrule
-			{\bfseries Average overall} &          & $\star$ &  $\star$  & 70.5                                 & 68                  & 68.5               \\ \bottomrule
-			                            &          &         &           &
+			                            &          &         &           & \multicolumn{3}{@{}c@{}}{MCC\%}              \\
+			Condition                   &  Clust.  &  Tech.  & Mg$^{2+}$ & \M{\relsize{-1}\OurTool} & \M{MFE} & \M{MEA} \\ \midrule
+			\OneMSevILUMg               & \Bull{C} &  \Mut   &    \Mg    & 85                       & 82      & 82      \\
+			\OneMSevILU                 & \Bull{A} &  \Mut   &   \NoMg   & 84                       & 82      & 84      \\
+			\NMIAMg                     & \Bull{A} &  \Mut   &    \Mg    & 81                       & 80      & 80      \\
+			\NMIA                       & \Bull{A} &  \Mut   &   \NoMg   & 80                       & 69      & 69      \\
+			\OneMSevILUThreeMg          & \Bull{C} &  \Mut   &    \Mg    & 74                       & 75      & 75      \\
+			\NMIAMgCE                   & \Bull{E} &  \Stop  &    \Mg    & 73                       & 72      & 73      \\
+			\NAIMg                      & \Bull{G} &  \Stop  &    \Mg    & 73                       & 68      & 70      \\
+			\BzCNMg                     & \Bull{H} &  \Stop  &    \Mg    & 71                       & 68      & 54      \\
+			\OneMSevMgCE                & \Bull{E} &  \Stop  &    \Mg    & 70                       & 69      & 70      \\
+			\CMCTMg                     & \Bull{G} &  \Stop  &    \Mg    & 70                       & 68      & 73      \\
+			\OneMSevILUThree            & \Bull{D} &  \Mut   &   \NoMg   & 64                       & 56      & 61      \\
+			\DMSMg                      & \Bull{F} &  \Stop  &    \Mg    & 63                       & 66      & 67      \\
+			\NMIACE                     & \Bull{B} &  \Stop  &   \NoMg   & 61                       & 60      & 60      \\
+			\OneMSevCE                  & \Bull{B} &  \Stop  &   \NoMg   & 60                       & 61      & 61      \\
+			\BzCN                       & \Bull{B} &  \Stop  &   \NoMg   & 60                       & 59      & 59      \\
+			\NAICE                      & \Bull{B} &  \Stop  &   \NoMg   & 60                       & 59      & 59      \\ \midrule
+			Avg Technology              &          &  \Mut   &  $\star$  & 78                       & 74      & 75      \\
+			                            &          &  \Stop  &  $\star$  & 66                       & 65      & 65      \\
+			Avg -/+ Mg$^{2+}$           &          & $\star$ &   \NoMg   & 67                       & 64      & 65      \\
+			                            &          & $\star$ &    \Mg    & 73                       & 72      & 71.5    \\ \midrule
+			{\bfseries Average overall} &          & $\star$ &  $\star$  & 70.5                     & 68      & 68.5    \\ \bottomrule
+			                            &          &         &           &                          &
 		\end{tabular}
 		\end{adjustbox}\\[1em]}
 	
@@ -576,7 +572,7 @@ An even more drastic change of performances can be observed when comparing the M
 \paragraph{Bi-probing mitigates the influence of outliers, but generally fails to improve predictions quality.}
 We turn to a systematic exploration of the predictive capacities of bi-probing analyses, based on pairs of probing profiles, and attempt to quantify their impact on \OurTool predictions. For each pair and triplets of conditions, we executed \OurTool using 1000 samples per condition, and considered the first returned structure. We then computed the associated MCC, and compare it with the MCC of the worst performing condition (Min), best-performing condition (Max) and average MCC over the single conditions experiments. A summary of the results over pairs is shown in Figure~\ref{fig:pairwise}. 
 
-A superficial inspection of the resulting MCCs appears to confirm the conclusions of Section Bruno~\ref{sec:cordero}. Indeed, considering two conditions leads to predictions whose quality fall between the worst and the best one, while being generally close to the average. More precisely, the average MCC value of pair-informed predictions remains at 70.7\%, improving only by 0.2\% over the average MCC of mono-probing predictions. Pair-informed predictions are marginally more reliable, with the median MCC increases to 72.5\% MCC from 70.5\% for mono-probing predictions. However, outliers strongly impact this picture, and ignoring the conditions in cluster \Bull{B} increases the average MCC to 75.1\%, while unsurprisingly decreasing the standard deviation (8.6\% $\to$ 6.5\%).
+A superficial inspection of the resulting MCCs appears to confirm the conclusions reached on the Cordero~\emph{et al}~\cite{Cordero2012} dataset. Indeed, considering two conditions leads to predictions whose quality fall between the worst and the best one, while being generally close to the average. More precisely, the average MCC value of pair-informed predictions remains at 70.7\%, improving only by 0.2\% over the average MCC of mono-probing predictions. Pair-informed predictions are marginally more reliable, with the median MCC increases to 72.5\% MCC from 70.5\% for mono-probing predictions. However, outliers strongly impact this picture, and ignoring the conditions in cluster \Bull{B} increases the average MCC to 75.1\%, while unsurprisingly decreasing the standard deviation (8.6\% $\to$ 6.5\%).
 
 Compared to the minimum MCC of the pair, the MCC of bi-probing predictions is improved by 5.3\% on average over the MCC of the worst-performing conditions. Pair MCCs exceed their associated min. MCC by at least 5\% in 47 pairs out of the 120 possible pairs, while never being dominated by 5\%. 
 
@@ -647,7 +643,7 @@ As expected, compared to the average MCC over associated mono-probing analyses, 
 
 
 \paragraph{Considering diverse conditions improves and stabilizes the quality of predictions.} 
-Having established the redundant nature of similar conditions, and their limited contribution to downstream modeling, we turn to an analysis of conditions across clusters.  We run \OurTool{} the quality of predictions obtained by choosing a single condition in each of the 8 clusters.\bsi{il manque des trucs dans cette phrase (celle qui commence par we run), non?} We consider any possible combination, except for the outlier cluster~\Bull{B}, for which we only consider \NAICE as a representative.
+Having established the redundant nature of similar conditions, and their limited contribution to downstream modeling, we turn to an analysis of conditions across clusters.  We run \OurTool{} to assess the quality of predictions informed by condition chosen across the 8 clusters.We consider any possible combination, except for the outlier cluster~\Bull{B}, for which we only consider \NAICE as a representative.
 
 The results, summarized in Table~\ref{fig:differentconds}, demonstrate a clear advantage of including diverse conditions, leading to an average MCC value of 77\% in the absence of condition from cluster \Bull{B}. Those performances compare favorably against the 72\% MCC achieved on average by individual conditions, and reveal a remarkable stability, including a 5\% standard deviation, and a degradation in only two out the 24 tested cases ($\sim$1\% decay in both cases).  A similar trend can be observed in the, arguably disruptive presence of \NAICE, inducing an 72\% average MCC, albeit with an increased standard deviation of 9\%.
 
@@ -787,7 +783,6 @@ Interestingly, the dispersion of the MCC is lower for two mutants than for a sin
 However, such outliers still play some disruptive role, and restricting our choice of mutants within the 20 conditions most similar to the WT further improves the MCC value by 2.8\% to 67.7\%, with MCC values that now almost reach 60\%.  
 
 The average MCC again increases in the presence of 3 mutants, to reach an average of 69.3\% MCC. For 10 mutants, the average MCC and overall distribution remains highly similar to that obtained by considering three mutants, suggesting peeking performances. These results support a notion of complementarity between the probing data produced across reasonably similar mutants, leading to a gradual decrease of the noise in the data. However, the bimodal nature of the distribution also suggests the existence of at least two conformations that are both supported by the WT and the mutant profiles.
-\bsi{il y a une conformation alternative connue. Tu pourrais me donner un model provenant des 2 clusters de MCC que je regarde si pas hasard c'est ca?}
 
 \begin{figure}
 	{\centering
@@ -841,7 +836,7 @@ A future work include solving the dilemma of whether or not to include Mg$^{\tex
 
 
 \begin{figure}
-	{\centering\includegraphics[width=1.2\linewidth]{graphs/boxplotreproducibility.png}\\}
+	{\centering\includegraphics[width=1\linewidth]{graphs/boxplotreproducibility.png}\\}
 	
 	\caption{MCC of predicted structures in presence/absence of Mg$^{2+}$, using both RT stops-inducing and mutation-inducing protocols for a collection of reagents, over 10 runs of \OurTool{}. }\label{fig:reproducibility}
 \end{figure}
