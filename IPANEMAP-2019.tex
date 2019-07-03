@@ -2,7 +2,6 @@
 
 %\usepackage{NAR-natbib}
 \usepackage{graphics}
-%\usepackage[latin1]{inputenc}
 \usepackage{subcaption}
 \usepackage{verbatim}%for comments
 \usepackage[table,x11names,dvipsnames]{xcolor}
@@ -55,11 +54,11 @@
 
 
 % Enter dates of publication
-\copyrightyear{??}
-\pubdate{???????}
-\pubyear{????}
-\jvolume{??}
-\jissue{??}
+\copyrightyear{2019}
+\pubdate{$\star$}
+\pubyear{2019}
+\jvolume{$\star$}
+\jissue{$\star$}
 
 %\articlesubtype{This is the article type (optional)}
 \setcounter{secnumdepth}{3} % for subsection reference
@@ -80,22 +79,21 @@ Tel: + 33 1 77578095; Email: yann.ponty@lix.polytechnique.fr}}
 
 
 \address{%
-$^{1}$\,CNRS UMR 7161, LIX, Ecole Polytechnique, France
+$^{1}$\,CNRS UMR 7161, LIX, Ecole Polytechnique, 1 rue Estienne d'Orves, 91120 Palaiseau, France
 and
-$^{2}$\,CitCoM, Cibles thérapeutiques et conception de Médicaments, CNRS, Université de Paris, 4 avenue de l'observatoire 75006 PARIS France}
+$^{2}$\,CitCoM, Cibles th\'erapeutiques et conception de M\'edicaments, CNRS, Universit\'e de Paris, 4 avenue de l'observatoire, 75006 PARIS, France}
 % Affiliation must include:
 % Department name, institution name, full road and district address,
 % state, Zip or postal code, country
 
 \history{%
 Received July 1, 2019;
-Revised ??????;
-Accepted ??????}
+Revised $\star$;
+Accepted $\star$}
 
 \maketitle
-
 \begin{abstract}
-The manual production of reliable structural models from chemical probing experiments, such as SHAPE probing, benefits from the integration of information derived from multiple protocols and reagents. However, the interpretation of multiple probing profiles remains a complex task, hindering the quality and reproducibility of modeling efforts.
+The manual production of reliable RNA structure models from chemical probing experiments, such as SHAPE probing, benefits from the integration of information derived from multiple protocols and reagents. However, the interpretation of multiple probing profiles remains a complex task, hindering the quality and reproducibility of modeling efforts.
 
 \noindent We introduce \OurTool{}, an automated and robust approach for the computational modeling of RNA structure from multiple probing reactivity profiles. Input profiles can results from experiments based on diverse protocols, reagents, or even over a collection of mutants, and are jointly analyzed to predict the dominant conformations of an RNA.
 
@@ -115,10 +113,10 @@ The manual production of reliable structural models from chemical probing experi
 \section*{Introduction}
 
 
-Historically used as a validation assays~\cite{Knapp1989}, enzymatic and chemical probing  is increasingly used in combination with computational methods to inform a rational prediction of secondary structure models for RNA~\cite{Mathews2004}. Such an integrated approach to structure modeling has led to sizable improvements in prediction accuracy~\cite{Washietl2012} and is currently at the core of successful modeling strategies~\cite{Miao2017}. However, the interpretation of probing data, to inform structure prediction, is challenged by a number of factors, including structural heterogeneity, experimental errors, structural dynamics and the natural variability of reactivity measurements across replicates. 
+Historically used as a validation assays~\cite{Knapp1989}, enzymatic and chemical probing  is increasingly used in combination with computational methods to inform a rational prediction of secondary structure models for RNA~\cite{Mathews2004}. Such an integrated approach to structure modeling has led to sizable improvements in prediction accuracy~\cite{Washietl2012} and is currently at the core of successful modeling strategies~\cite{Miao2017}. However, the interpretation of probing data, to inform structure prediction, is challenged by a number of factors, including structural heterogeneity, experimental errors, structural dynamics and the potential variability of reactivity measurements across replicates. 
 
 SHAPE reagents represent a popular class of small molecules that react with the 2’ hydroxyl of flexible ribose~\cite{McGinnis2012}, although the exact properties observed by SHAPE remain the object of ongoing investigations~\cite{McGinnis2012,Hurst2018,Mlynsky2018,Frezza2019,Busan2019}.
-As ribose flexibility is proportional to the degree of freedom of the nucleotide, it is assumed that SHAPE reagents to discriminate nucleotides in stable interactions from others. Different SHAPE reagents are endowed with different dynamics, that can help differentiate Watson-Crick base pairs from more dynamics tertiary contacts~\cite{Gherghe2008,Steen2012,Rice2014,Busan2019}. Other chemical probes, harbouring different chemical reactivities, have been developed. Amongst the most popular, DiMethyl Sulfate (DMS) is a small molecule that methylates N1 of adenines and N3 of cytosine if they are not involved in a hydrogen bond. Similarly, 1-cyclohexyl-3-(2-morpholinoethyl)carbodiimide metho-p-toluene sulfonate (CMCT) reacts on the Watson-Crick face of guanosine (N1) and uracyl (N3) when not engaged in a hydrogen bond~\cite{Ehresmann1987,Brunel2000}. These two reagents therefore mostly reveal Watson-Crick base pairing, but also any other type of contact involving the same edge. This diversity of probes not only increases  coverage of the different positions and structural contexts in an RNA, but it also provides qualitatively different qualitative information, as been widely used since the very early days of RNA structure probing~\cite{Moazed1986, Ehresmann1987, Romaniuk1988, Butcher1994, Brunel2000,  Cordero2015, Somarowthu2015, Gross2017}. 
+As ribose flexibility is proportional to the degree of freedom of the nucleotide, it is assumed that SHAPE reagents discriminate nucleotides in stable interactions from others. Different SHAPE reagents are endowed with different dynamics, that can help differentiate Watson-Crick base pairs from more dynamics tertiary contacts~\cite{Gherghe2008,Steen2012,Rice2014,Busan2019}. Other chemical probes, harbouring different chemical reactivities, have been developed. Amongst the most popular, DiMethyl Sulfate (DMS) is a small molecule that methylates N1 of adenines and N3 of cytosine if they are not involved in a hydrogen bond. Similarly, 1-cyclohexyl-3-(2-morpholinoethyl)carbodiimide metho-p-toluene sulfonate (CMCT) reacts on the Watson-Crick face of guanosine (N1) and uracyl (N3) when not engaged in a hydrogen bond~\cite{Ehresmann1987,Brunel2000}. These two reagents therefore mostly reveal Watson-Crick base pairing, but also any other type of contact involving the same edge. This diversity of probes not only increases  coverage of the different positions and structural contexts in an RNA, but it also provides qualitatively different qualitative information, as been widely used since the very early days of RNA structure probing~\cite{Moazed1986, Ehresmann1987, Romaniuk1988, Butcher1994, Brunel2000,  Cordero2015, Somarowthu2015, Gross2017}. 
 
 % **************************************************************
 % Keep this command to avoid text of first page running into the
@@ -295,7 +293,7 @@ Probing was conducted as described in Smola\etal\cite{Smola2015}, except we used
 5' CTT-CAT-AGC-CTT-ATG-CAG-TTG-CTT-TTT-TTT-TTT
    TTT-TTT-TTT-GAT-TGT-CTT-GGG-ATA-CCG-GAT 3'\\}
 
-For \OneMSevILUThreeMg, the denaturation step was repeated three times : After a 1 minute incubation at 95\degree{}C, 10 mM of 1M7 was added and the mix was incubated 1 minute at 95\degree{}C. This step was repeated 3 times (3D). For \NMIA and \NMIAMg, experiments were conducted as described above, except that the NGS library preparation was adapted to Ion Torrent sequencing. Sequences were mapped and analyzed with \Software{ShapeMapper2} for \OneMSevILUThreeMg and \OneMSevILUThreeMg. For the other conditions they are mapped with a script based on \Software{ShapeMapper}, but adapted to Ion Torrent output files. The corresponding data sets are named after the probe followed by {\sc MaP}. The presence of {\sc mg} as a superscript indicates the presence of MgCl$_\text{2}$, while the subscript {\sc il} (Illumina) or {\sc it} (Ion Torrent) specify the sequencing technology. 
+For \OneMSevILUThreeMg, the denaturation step was repeated three times : After a 1 minute incubation at 95\degree{}C, 10 mM of 1M7 was added and the mix was incubated 1 minute at 95\degree{}C. This step was repeated 3 times for the samples labeled 3D. For \NMIA and \NMIAMg, experiments were conducted as described above, except that the NGS library preparation was adapted to Ion Torrent sequencing. Sequences were mapped and analyzed with \Software{ShapeMapper2} for \OneMSevILUThreeMg and \OneMSevILUThreeMg. For the other conditions they are mapped with a script based on \Software{ShapeMapper}, but adapted to Ion Torrent output files. The corresponding data sets are named after the probe followed by {\sc MaP}. The presence of {\sc mg} as a superscript indicates the presence of MgCl$_\text{2}$, while the subscript {\sc il} (Illumina) or {\sc it} (Ion Torrent) specifies the sequencing technology. 
 
 
 \paragraph{DiMethylSulfate (DMS) and CMCT probing.}
@@ -369,9 +367,9 @@ Interestingly, the quality of MFE and MEA predictions does not systematically be
 
 
 
-The joint analysis of pairs of probing conditions seems to average the quality of predictions. Any combination of probing data yields a GM value that is always greater than the worst-performing condition in the pair, yet worse than the best-performing alone. Interestingly, the addition of the worst performing condition (CMCT), does not equally affect the performances of DMS ($76\% \to 70.5\%$) %DMS \to DMS+CMCT
+The joint analysis of pairs of probing conditions appears to average the quality of predictions. Any combination of probing data yields a GM value that is always greater than the worst-performing condition in the pair, yet worse than the best-performing alone. Interestingly, the addition of the worst performing condition (CMCT), does not equally affect the performances of DMS ($76\% \to 70.5\%$) %DMS \to DMS+CMCT
 and NMIA  ($77.1\% \to 76.9\%$), %NMIA \to NMIA+CMCT
-despite the latter conditions inducing similar GM values when considered alone. Indeed, CMCT+DMS yields GM values that are only remotely better than the worst-performing CMCT alone  ($70\% \to 70.5\%$), while CMCT+NMIA greatly outperforms CMCT alone  ($70\% \to 76.9\%$), almost matching the performance of the NMIA alone ($77.1\%$). It is also worth mentioning that NMIA+CMCT, combining the best and worst conditions, achieves a better combined performance than DMS+NMIA, the two best mono-probing conditions. This hints towards some level of complementarity between probing conditions, as already suggested by recent analyses \citep{Yu2018} (steen 2012, Rice 2014, Brunel 2000) and supported by further analyses in this paper.
+despite the latter conditions inducing similar GM values when considered alone. Indeed, CMCT+DMS yields GM values that are only remotely better than the worst-performing CMCT alone  ($70\% \to 70.5\%$), while CMCT+NMIA greatly outperforms CMCT alone  ($70\% \to 76.9\%$), almost matching the performance of the NMIA alone ($77.1\%$). It is also worth mentioning that NMIA+CMCT, combining the best and worst conditions, achieves a better combined performance than DMS+NMIA, the two best mono-probing conditions. This hints towards some level of complementarity between probing conditions, as already suggested by recent analyses \citep{Brunel2000,Steen2012,Rice2014,Yu2018}  and supported by further analyses in this paper.
 
 Remarkably, the combination of the three conditions leads to the best overall predictions, averaging $78.5\%$ GM.
 This improves by $8.5\%$, $2.7\%$ and $1.4\%$ the average predictions achieved using CMCT, DMS and NMIA respectively.
@@ -754,7 +752,7 @@ Finally, the consideration of four triplets of diverse conditions, reported in T
 In this final analysis, we decided to test the capacity of \OurTool to extract and exploit complementary information produced by the systematic probing of single-point mutants.
 This approach may appear misguided, since single point mutants are expected to adopt different structures than the wild-type sequence. In fact, the conformational changes induced by mutations precisely constitute the signal that is exploited by downstream modeling pipelines~\cite{Cordero2015}. However, those changes are typically local, and the limited influence of outliers on \OurTool{} raises a hope that the benefit of including independently-produced conditions will outweigh the impact of noise introduced by local changes.
 
-We generated 100 uniformly-distributed subsets consisting of 1, 2, 3 and 10 mutants extracted from the Cheng dataset~\cite{Cheng2017}, which we supplemented with the original wild-type sequence (WT).
+We generated 100 uniformly-distributed subsets consisting of 1, 2, 3 and 10 mutants extracted from the Cheng~\emph{et al} dataset~\cite{Cheng2017}, which we supplemented with the original wild-type sequence (WT).
 For each set of probing profiles (\Cond{DMS}{mg}{MaP}{ilu}{}), we executed \OurTool{} with default parameters, using a sample size of 1~000 structures. 
 We also analyzed the WT sequence alone, reproducing the analysis 100 times to compare the variability across sets of mutants to the one induced by stochastic aspects of our method. 
 Finally, we performed a restricted analysis focusing on the WT, supplemented with 2 probing profiles selected from the 20 most similar conditions to the WT , as assessed by the ensemble distance metrics. By comparing our results with those obtained for unrestricted pairs of mutants, we assess the influence of structure variability on the quality of our predictions. We report in Figure~\ref{fig:variantanalysis} the distribution of MCC values associated with the first prediction returned by \OurTool.
@@ -815,7 +813,7 @@ Interestingly, the worst most notable exception to the general observed stabilit
 
 
 
-Our analyses reveal that integrating multiple profiles of at least three conditions allows to mitigate the effect of outlier conditions and, at times, to produce better secondary structure models than the one inferred from the most accurate profile. A comparison of the joint performances to the average appears fair since no single reagent appears to systematically dominate in term of predictive capacity. It follows that a modeler cannot objectively favor \emph{a priori} a probing condition/reagent~\cite{Yu2018}. In other words, multiple experimental probing data, even combined in a pairwise fashion, were typically observed to mitigate the empirical risk of a misprediction. 
+Our analyses reveal that integrating multiple profiles of at least three conditions allows to mitigate the effect of outlier conditions and, at times, to produce better secondary structure models than the one inferred only from the most accurate profile. A comparison of the joint performances to the average appears fair since no single reagent appears to systematically dominate in term of predictive capacity. It follows that a modeler cannot objectively favor \emph{a priori} a probing condition/reagent~\cite{Yu2018}. In other words, multiple experimental probing data, even combined in a pairwise fashion, were typically observed to mitigate the empirical risk of a misprediction. 
 
 
 
@@ -862,7 +860,7 @@ All authors provided critical feedback and helped shape the research, analysis a
 The authors wish to express their gratitude to Ronny Lorenz for developing a probing-informed version of \Software{RNAsubopt}, allowing to sample the pseudo-Boltzmann ensemble, Nathalie Chamond for helpful suggestions and Benoit Masquida for the gift of DiLCRz plasmid and helpful discussions about protocols and DiLCRz structure .
 
 \section*{Funding}
-This work has been supported by La Fondation pour la Recherche Medicale ([FRM
+This work, including AS and AD phD fellowships, has been supported by La Fondation pour la Recherche Medicale ([FRM
 DBI20141423337]).
 %\bibliographystyle{bioinformatics}
 \bibliographystyle{nar}
