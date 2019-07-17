@@ -30,7 +30,12 @@
 \usepackage{times}
 \usepackage{inconsolata}
 
-\usepackage{rotating}
+\usepackage[figurename=Supplementary~Figure, tablename=Supplementary~Table]{caption}
+\DeclareCaptionLabelFormat{cont}{Figure S\arabic{figure}}
+\captionsetup[figure]{labelformat=cont}
+\DeclareCaptionLabelFormat{contt}{Table S\arabic{table}}
+\captionsetup[table]{labelformat=contt}
+\captionsetup{labelfont={bf}}
 
 \input{macros.tex}
 
@@ -299,28 +304,31 @@ Note that exactly 40\% of the positions are assigned to $1/2$, leading to $|v_S(
 \caption{Distance of the predicted structure from the considered probing data.}
 \end{table}
 
-\begin{sidewaysfigure}
-\newcommand{\MyScale}{.26}
+{\newcommand{\MyScale}{.26}
 
+\begin{figure}
 {\centering
-	\begin{adjustbox}{max width=\textwidth,max height=\textheight,keepaspectratio}
-\begin{tabular}{@{}c|ccccc@{}}
+  \sf	\begin{adjustbox}{max width=\textwidth,max height=\textheight,keepaspectratio}
+\begin{tabular}{@{}ccc@{}}
 
 %\toprule
  \includegraphics[scale=\MyScale]{graphs/Supp_structures/native_structure}&
- \includegraphics[scale=\MyScale]{graphs/Supp_structures/1M7ILU_NMIAMg}& \includegraphics[scale=\MyScale]{graphs/Supp_structures/1M7ILUMg_1M7ILU3Mg}&
+ \includegraphics[scale=\MyScale]{graphs/Supp_structures/1M7ILU_NMIAMg}& 
+ \includegraphics[scale=\MyScale]{graphs/Supp_structures/1M7ILUMg_1M7ILU3Mg}\\
+Native&\OneMSevILU&\OneMSevILUMg\\ 
+structure &+ \NMIAMg&+ \OneMSevILUThreeMg\\[2em]
  \includegraphics[scale=\MyScale]{graphs/Supp_structures/1M7MgCE_NMIAMgCE}
  &
  \includegraphics[scale=\MyScale]{graphs/Supp_structures/1M7CE_NMIACE}
  & \includegraphics[scale=\MyScale]{graphs/Supp_structures/NaiMg_CMCTMg}\\
- \midrule
-Native&\OneMSevILU&\OneMSevILUMg&\OneMSevMgCE& \OneMSevCE &\NAIMg\\
-structure &+ \NMIAMg&+ \OneMSevILUThreeMg&+ \NMIAMgCE&+ \NMIACE &+ \CMCTMg\\
+\OneMSevMgCE& \OneMSevCE &\NAIMg\\
++ \NMIAMgCE&+ \NMIACE &+ \CMCTMg\\
 \end{tabular}
 \end{adjustbox}\\}
 
 \caption{Predicted structures with conditions belonging to the same cluster}
-\end{sidewaysfigure}
+
+\end{figure}
 
 
 
