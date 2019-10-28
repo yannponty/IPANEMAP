@@ -1,0 +1,523 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[9pt,hyperref]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{amsmath} % for much better looking tables
+\usepackage{xspace}
+\usepackage{url}
+\usepackage{soul}
+\usepackage[table,x11names,dvipsnames]{xcolor}
+\usepackage{amssymb} % for much better looking tables
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{ntheorem} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+\usepackage{framed}
+\usepackage{cabin}
+\usepackage{tgtermes}
+%\usepackage{tgadventor}
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+\newcommand{\Answer}[1]{\noindent{\color{purple!80!black}{{\sffamily Response:} }{#1}}}
+\newcommand{\Comment}[1]{\item{\color{black}{{\sffamily Comment:} }{#1}}}
+
+\usepackage{todonotes}
+\newcommand{\TODO}[2][All]{{\todo[color=blue!20,inline]{{TODO (#1)}: #2}}}
+
+%%% END Article customizations
+
+
+%%% The "real" document content comes below...
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% Enter the authors here                   %%
+%%                                          %%
+%% Specify information, if available,       %%
+%% in the form:                             %%
+%%   <key>={<id1>,<id2>}                    %%
+%%   <key>=                                 %%
+%% Comment or delete the keys which are     %%
+%% not used. Repeat \author command as much %%
+%% as required.                             %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\input{macros.tex}
+
+\title{Response to reviewers\\[.3em]\OurTool{}:  Integrative Probing Analysis of Nucleic Acids Empowered by Multiple Accessibility Profiles}
+\author{
+Afaf Saaidi \and
+Delphine Allouche \and
+Mireille Regnier \and
+Bruno Sargueil \and
+Yann Ponty}
+
+\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+
+
+\section{General comments}
+
+	
+Points géneraux :
+
+On a probablement pas été super clairs, mais :
+Pas de comparaison entre protocoles, plutôt un test, rendu possible par IPANEMAP de la complémentarité des protocoles
+Pas optimisation du traitement des donnés de sondage, mais traitement uniforme
+Approche multi probing nous parait susceptible d’être robuste à l’incorporation d’une réactivité moins informative.
+
+\section{Detailed responses}
+
+\subsection*{Reviewer \#1}
+
+\begin{enumerate}
+	\Comment{The authors do not provide any sense of how raw data sets correlate in their experiments. They only analyze the ensembles of structures predicted based on their data. Thus for example, in Figure 5 we notice that the method of detection (CE) seems to be a far greater differentiator in predictions than the probe used (e.g. not all 1M7 cluster). The authors should add a panel clustering the raw probing data to compare it with the IPANEMAP clustering. This will require some clever design of distance metrics and mapping 1M7 to DMS maybe complex, but they should do a heat map like Figure 6 but with the raw data minimally.}
+	
+	\Answer{	On a fait ça, c’est en supp mat. On observe :
+		Corrélation inverse entre distance à la native et MCC\%;
+		Difficulté à regarder le clustering car peu significatif
+	}
+
+	\Comment{I am also concerned by the fact that they only have one (-) No Prob condition. For both CE and MaP data, a background subtraction is required. It is not at all clear what the No Prob condition is and why it was not independently subtracted from all the data prior to analysis.}
+	
+	\Answer{There is a misunderstanding here, the “(-) No Prob” conditions refers to a modeling process that does not use probing data as constraints. We understand that this was confusing and we no refer to it as “(-) No Exp” for modeling without experimental data. “(-) No Cons” for modeling without experimental constraints. Of course we have carried out control experiments without any modification reageant for each of the experiments reported, as now explicitly specified in the material and methods section.}
+	
+	
+	\Comment{I am concerned the MaP data they collected is not reporting on structure. For example, quality controls need to be established showing that DMS reactivities follow expected profiles, i.e. A and C having higher mean reactivity that G and U.}
+	
+	\Answer{We understand this legitimate concern, expressed by multiple referees. The probing data reported on the structure for each probing conditions and reagents is now provided as supplementary material.
+	Please note that the DMS results were not obtained following a ShapeMap-like strategy but by a “classical” RT-stop technique and Capilary electrophoresis.} 
+	
+	\Comment{The main reason I am concerned with their MaP data is that they used superscript III instead of II for the RT. In the Smola paper, superscript III was attempted, but it was shown it does not detect adduct formation by mutation. If the CE to MaP correlations are low for the data, which I suspect they are, the authors will have to repeat MaP profiling with Superscript II to show this change in the protocol does not affect the data. I suspect however it will and may change the conclusions of the paper.}
+	
+	\Answer{It is exact that the Weeks laboratory uses an RNAse H minus mutant of the MMLV RT sold as “Superscript II” and advises to use it. However as far as we can tell from reviewing Dr Weeks bibliography, they never reported the test of “superscript III” (another RNAse H- mutant of the MMLV RT sold by the same company), and therefore never shown that does not detect the adduct. Actually in Smola et al. they specify “Reaction conditions have been optimized for SuperScript II reverse transcriptase only. Other reverse transcriptase enzymes and derivatives have not been tested and should not be used”. We tried superscript III in the conditions described and analysed the histograms provided by ShapeMapper which are metrics for the success of a shapeMap experiment as defined by smola et al. 2015.
+	Please find below some examples of the histograms obtained using Superscript III:
+	
+	\begin{itemize}
+	\item NMIA
+	\TODO{Add plot}
+	\item NMIA mg
+	\TODO{Add plot}	
+	\item 1M7
+	\TODO{Add plot}
+	\end{itemize}
+	
+	
+	As can be seen on the right  histograms the read depth is sufficient (>10k reads/nucleotides) for these experiments to be interpreted. The histograms on the left shows that there are significantly more mutations in the modified (denatured and SHAPE) samples than in the untreated ones. These histograms are very similar to those shown by smola et al. as exemplary of a successful experiment. 
+	In addition the shapeMap results are consistent with the X-ray structure (see figure XX in the supp. material), and their use with any prediction software as shown to improve the accuracy of the obtained model(s). 
+	
+	In conclusion there is no doubt about the relevance of these results and we do not see the necessity to repeat them using superscript II.}
+	
+	
+	\Comment{One possibility if the authors indeed find the MaP data is not correct because of superscript III would be to not include it in the analysis. Unfortunately this may somewhat temper the general interest of the paper, as a majority of SHAPE and probing data is now collected with MaP and -stop protocols.}
+	
+	\Answer{As described above, we did not find any reason to doubt the quality of those results, and believe they should remain included in our analysis.}
+	
+	\Comment{The authors also need to make their raw data available, I would recommend using the SNRNASM standard (PMID 21610212) and adding the files in the supplement. In addition the raw read files and alignments should really be deposited into the sequence read archive (SRA) so others can assess the quality of the mutation rates.}
+	
+	\Answer{We agree that raw data should be made available to the reader for the sake of reproducibility. Unfortunately, the SNANASM were no longer available at the time of this revision. We have informed the creators of the resource. In the meanwhile, we have thus deposited the reactivity results on the GitHub page of IPANEMAP, where they also serve as illustrative examples.
+	
+	The raw data were deposited to the SRA under identifier \TODO[Bruno]{Deposit data in SRA}.}
+	
+	\end{enumerate}
+
+	\subsection*{Reviewer \#2}
+	
+	\begin{enumerate}
+\Comment{I find this tool and study very interesting, especially the systematic assessment of the impact and combined power of various probing protocols for DiLCrz. To be ready for publication, the manuscript needs some further discussion of the DiLCrz results and a revision of the method presentation as detailed below.}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{The authors picked with DiLCrz a hard example since most problems of prediction accuracy are caused by the confusion of the nested structure model in the presence of the reactivities of the pseudoknot. That is, the quite stable PK-subhelix of length 4 (ignored in the nested model and the evaluation) will have a strong impact on reactivities that can not (correctly) be captured. Thus, the authors mainly evaluate how much the prediction of local structures in subsequence 65-120 is correct or not (as also visible in the reported structures within the supplement). Eventually, this also impacts the generality of the results.
+	
+	Thus, I think the authors should add a respective discussion to the manuscript.}
+	
+	\Answer{\TODO[Yann]{Check if we get better results by blocking the pseudoknot.}}
+	
+	\Comment{The methods section needs some reordering to first formaly introduce clusters and respective measures (stability/support) (e.g. in line 3-1-57) before introducing and discussing MBkM.
+	
+	
+	For this restructuring, you might want to introduce the cummulative sample multi-set "$\mathcal{S} = \sum_d \mathcal{S}_d$" from which the clusters (also multi-sets?!) form a partitioning.}
+	
+	\Answer{\TODO{...}}
+	
+	\Comment{You do not introduce how you are able to compute MEA centroids without explicitely computing base pair probabilities. Checking your source code, I found the bp-probs are computed analogously to the structure probabilities, which is fine but should be explicitely mentioned to be reproducable.}
+	
+	\Answer{\TODO{...}}
+	
+	\Comment{It is totally unclear to me (and I didnt took the time to track it down in your code), how you derive an MEA for a cluster with structures from different reactivity data sets, since the same structure can be part of the cluster multiple times (with different probe-constraint probabilites). Do you sum up probe-specific probabilities in that case? Do you derive new base-pair probabilities for the cluster (and if so how)?
+	Please provide somewhere details of your methods concerning the whole bp-prob and MEA centroid computation (at least in the supplementary material). Otherwise, your method description leaves out a central point of your algorithmic pipeline and renders is non-reproducable!}
+
+	\Answer{\TODO{...}}
+	
+	\Comment{Please replace "kT" by "\text{R}T" in the structure probability formula (and whereever needed)!}
+	
+	\Answer{\TODO{...}}
+	
+	\Comment{What is the difference betwee the "cummulative probability of [a cluster's] structures" (line 3-1-58) and the formally introduced "Stability(C)" notion? If there is none, please use accordingly, otherwise provide respective details.}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{Please provide (eg in the supplement) some further details how to derived the values for m abd b for the Deigan method. So far, the description is quite vague.. }
+	
+	\Answer{\TODO{...}}
+
+	\Comment{Within this context, you might want to discuss that too low pseudo-energy boni will yield similar results as hard constraints (which you want to avoid).}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{The formula for "$Stability(C)$" misses a "$\sum_{S\in C \cap \mathcal{S}_d}$" between the sum over d and the probability.}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{Please put brackets around the probability sum within the "$Support(C)$" definition to make clear that you are comparing $\tau$ to the sum.}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{If I get it right, if you are facing two clusters, one dominant in stability and the other in support, you will report two centroids, right?
+	So reactivities that are inducing very high stability might dominate your prediction? Please check this hypothesis and if true discuss within the manuscript!}
+
+	\Answer{\TODO{...}}
+	
+	\Comment{If you are NOT reporting multiple structures (as indicated in your results) how do you deal with cases illustrated above?}
+	
+	\Answer{\TODO{...}}
+	
+	\Comment{On page 7 you write "Fig. 5 suggests the presence of 8 clusters", which I do not agree... for me the PCA depiction would yield 4 clusters, i.e. B, C, D and the merge of all others. Thus, please rephrase the sentence or provide some other reason why you came up with 8 clusters from the beginning..}
+	\Answer{\TODO{...}}
+	
+	\Comment{Concerning data normalization (Cordero et al.): when resetting all non-reacting position to 0, dont you loose the "background noise" of the experiment? 
+	Did you test other options like subtracting the minimum/average/maximum of all non-reacting positions from all reactivities (before setting non-reacting to zero)?}
+	
+	\Comment{I would be very interested to see the performance of multi-probe predictions via RNAfold (MFE+MEA) when merging their reactivity data.
+	For instance: just average the reactivities (per position) and provide them as new pseudo-reactivity data to RNAfold.
+	While this might extremely mess up predictions, it might also yield similar effects as IPANEMAP, i.e. importance of contradicting reactivities is reduced the more experiments are considered..}
+	
+	\Answer{\TODO{...}}
+	
+	
+	\Comment{Given your tool's documentation, a couple of questions arise that should be answered within the README.
+		
+	\begin{itemize}\item How are the reported free energies evaluated since your predictions are based on (multiple) reactivity-biased predictions? (your code hints at RNAeval calls, but please be verbose in the documentation to enable a clear intepretation of the results and comparability with other tools' output)\end{itemize}}
+	
+	\Answer{\TODO{...}}
+	
+	\Comment{\begin{itemize}\item How are the reported Boltzmann probabilities computed? based on the overall sample set? the respective cluster? (in both cases: what energies are used?) or based on the true (unconstraint) partition function computed e.g. by RNAfold?\end{itemize}}
+	
+	\Answer{\TODO{...}}
+	
+	
+	\Comment{Given Table 1 (CMCT) and the general unawareness of the Nussinov-like MEA-optimization of the importance of base pair stacking, you might be able to further improve your results when implementing an MEA variant that excludes lonely base pairs.}
+	
+	
+	\Answer{\TODO{...}}
+	
+	\Comment{I highly recommend to integrate IPANEMAP into the package management system conda via the bioconda channel. This would:
+		\begin{itemize}
+	\item be easy since IPANEMAP is eventually a set of python scripts (only a simple build and dependency script needs to be integrated into bioconda's recipes github repo)
+	\item  handle all dependencies for the user
+	\item ensure a simple installation of the tool and all dependencies 
+	\item increase visibility of the tool
+			\end{itemize}}
+		
+	
+	\Answer{\TODO{...}}
+	
+	\Comment{When reading your work, it reminds me of another application, ie. the computation of unpaired probabilities for RNA-RNA interaction prediction in the presence of multiple probing data. For instance, see 
+	https://doi.org/10.1093/bioinformatics/bty1029
+	where single-experiment-reactivities were integrated (via Vienna package routines). 
+	Given your pipeline, you should be able to derive suitable probabilities either directly from Pareto-optimal cluster(s) or from the overall sample set.}
+	
+	
+	\Answer{\TODO{...}}
+	
+	\Comment{Fix the following typos/unfortunate choices of words:\begin{itemize}
+	\item general: et al $\to$ et al.
+	\item 1-2-30 : please provide the abbreviation details for SHAPE
+	\item 1-1-21 : remove comma after "experiments"
+	\item 1-2-37 : "more dynamics"
+	\item 1-2-49 : "qualitative"
+	\item 1-2-53 : "of individual nucleotides"
+	\item 2-1-23 : "These include " beside structure optimization " the joint folding.."
+	\item 2-1-49 : signal $\to$ signals
+	\item 2-2-38 : criterion "are" $\to$ "is"
+	\item 2-2-39 : identified $\to$ represented
+	\item 3-1-5 and 8 : better replace "$R_i$" with "$d_i$", since you are using R for reference later on
+	\item 3-1-60 : maybe replace "\#Datasets" with "$|\mathcal{D}|$" ?!
+	\item 3-2-17 : missing "are" in "that both"
+	\item 3-2-32 : move "where $k$ is the number of clusters" to line 40, where it is needed.
+	\item 4-1-8 : Within the formula "$Dist(d,d')$" you have to replace "$x$" with "$i$"
+	\item 4-1-52 : "Non-canonical" $\to$ "Crossing" or "Pseudoknot-forming"
+	\item 5-1-40 : "metrics" $\to$ "metric"
+	\item 6-2-44 : "hajdin" $\to$ "Hajdin"
+	\item 8-1-31 : "Figure 1" $\to$ "6"
+	\item 10-1-56 : "Figure" $\to$ "Table"
+		\end{itemize}}	
+	\end{enumerate}
+	
+	\subsection*{Reviewer \#3}
+	
+
+	\begin{enumerate}
+	\Comment{My primary concern is that the authors use a pseudo-free energy formulation (page 3) with parameters that are the same for all conditions and probing reagents.  I am very surprised that this works.  The Diegan et al. work fit the parameters empirically for SHAPE data.  Sean Eddy [Annu. Rev. Biophys. 2014. 43:433] more explicitly drew the connection between these parameters and the log odds ratio of a nucleotide being paired, following earlier work of Sukosd et al. [Nucleic Acids Research. 2013. 41: 2807].  The Das lab [Biochemistry. 2012. 51: 7037] also explicitly fit the log odds for DMS data using gamma distributions.  I would expect that each probing reagent and each probing condition would need different parameters.}
+	
+		\Answer{We also expect that additional conversion formulae, and a specific parameter calibration, for each condition, would be beneficial in order to obtain better predictive performances. In fact, it is one of our project to produce more extensive data for a subset of the conditions explored in this study, and to attempt to systematically learn reactivities-to-pseudo-energy conversion models.
+			
+		However, the partial understanding of what is precisely being measured through different types of probing, in conjunction with the relative scarcity of available data for certain reagents/technologies, would probably induce very heterogeneous quality for such pseudo-energies across conditions. In particular, training for those parameters would probably lead to overfitting in cases where only a couple of reactivity profiles are currently available.
+		
+		Rather than address this heterogeneity as a possible confounding factor in our analyses, we have preferred to adopt a homogeneous treatment for all sources of probing data. It seems to us that the benefits of considering comparable reactivity profiles (produced in an homogeneous manner, and similarly normalized) far outweigh the loss in predicting accuracy. 
+		
+		\TODO{Discuss the fact that the normalization used in various studies are deemed equivalent}
+		
+
+		}
+	
+	\Comment{The manuscript needs to be clearer about how the two parameters (m and b) determined for this work.  What optimizations were performed?  It needs to be clear that proper cross-validations were performed if the parameters were optimized.  Conversely, if the optimizations were not performed, it seems like an opportunity was then lost to have the best accuracy.}
+	
+		\Answer{\TODO{Clarify}}
+	
+	\Comment{I am also concerned that the manuscript is not as clear as it should be about the three types of multiple data that are used.  It can use multiple reagents, probing data for multiple solution conditions, or probing data across multiple sequence variants (a.k.a. mutate and map data).  It is a real achievement that one program handles all three cases.  The abstract does state this (briefly).  The Introduction is not clear on this points, just calling the data “multiple probing data.”  Also, the text itself is sometimes unclear about what is meant.  On page 6, for example, the sentence “It is also worth mentioning that NMIA+CMCT, combining the best and worst conditions, achieves a better combined performance than DMS+NMIA, the two best mono-probing conditions.” calls these “multiple conditions”, but these data are from multiple probing reagents.  I would like to see a revised manuscript be clearer about the three types of information in the Introduction.  In the text, multiple reagents, multiple solution conditions, and multiple sequence variants should be clearly denoted as different multiple data types. }
+	
+	\Answer{\TODO{Clarify in manuscript what conditions means in the context of the study}}
+	
+	\Comment{My third concern is that IPANEMAP is not entirely stable, in that there are variations in the results from run to run.  Users of the software will want the overall results to be stable; it is hard for most users to use a program multiple times and integrate the results.  It seems to me that the stability would be improved by using larger sample sizes, and that this should be explored for this manuscript.  If larger sample sizes don’t improve the stability, this should be addressed. }
+	
+	\Answer{\TODO{...}}
+	
+	\Comment{On page 3, the text states that “Non-canonical base pairs were removed (40), by considering as the secondary structure the maximum subset of non-pseudoknotted base pairs.” I think the manuscript should state that non-canonical pairs were removed and that pseudoknots were also removed.  Just removing the pseudoknots would not remove the non-canonical pairs. }
+	
+	\Answer{\TODO{...}}
+
+	\Comment{On page 5, the MCC should be stated as the compromise between sensitivity and PPV (not sensitivity and specificity).}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{Figure 2 shows the accuracy of structure prediction using NMIA, DMS, and/or CMCT data.  As noted above, the pseudo free energy parameters for SHAPE (NMIA) will not be optimal for DMS and CMCT.  The benchmarks should therefore also be run using the pseudo free energies fit by the Das lab for DMS and CMCT [Biochemistry. 2012. 51: 7037].  My hypothesis is that the structure prediction accuracy will be higher with the properly fit parameters.}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{In the Conclusion and Discussion, it is an oversimplification to state that Rsample also uses stochastic sampling.  Rsample attempts to adaptively define the pseudo free energies to not perturb probabilities for nucleotides in an initial stochastic sample that are consistent with the SHAPE mapping data.  Perhaps this manuscript should also mention that detail and state this adaptive approach is possibly not as accurate (when producing a single structure) as the Diegan approach.}
+	
+	
+	\Answer{\TODO{...}}
+
+	\Comment{Typos, etc.:
+		\begin{itemize}
+		\item The quality of writing is excellent.  There are few typos and the text is clear.  
+		\item I noted in the second column on page 3 that k is defined before the equation that uses it (1/(1+k)).  It would be more conventional to define k after the equation.  (I thought I had missed something as I read through).  
+		\item In the Funding section, “phD” should be “PhD”.
+		\item There are many problems with the references, however.  Many references are incomplete (missing page and volume, e.g. 22, 23, …).  A number of references also have superfluous months with the years (e.g. 5, 6, 7,…). 
+	\end{itemize}} 
+
+	\Answer{\TODO{...}}
+
+	
+	
+	\Comment{It would be helpful if the caption to figure 2 named the benchmark dataset.  This is clear in the main text, but will make it easier to quickly digest the manuscript if the captions are all self-contained.}
+	
+	\Answer{\TODO{...}}
+
+	
+	\end{enumerate}
+	
+	\subsection{Reviewer \#4}
+	
+	\begin{enumerate}
+
+
+	\Comment{IPANEMAP is benchmarked against Rsample in a mono-probe setting. It is shown to outperform Rsample, where the authors attribute this to the sample denoising IPANEMAP performs via clustering (page 7). I am not sure if this is indeed the case and also think this benchmark could be improved in several ways.
+	
+	First, Rsample’s sampling routine is quite different than IPANEMAP’s and could be a relevant factor. It entails sampling from SHAPE reactivity distributions followed by partition function optimization. The clustering’s contribution to performance gains can be assessed by applying such clustering to Rsample’s output sample, right before the MEA step. Such analysis is useful because if this routine is key to improvements, it may be adopted by numerous other methods that analyze Boltzmann samples.}
+
+	\Answer{\TODO{...}}
+	
+	\Comment{Second, my understanding is that a sample size of 1,000 was used in all benchmarks. However, unlike the 1,000 size-convention, Spasic et al. used 10,000 structures in their benchmarks. It is possible that this deeper sampling is necessary to Rsample’s performance. I think it would be fair to compare IPANEMAP and Rsample performances using 10,000-structure samples. }
+
+	\Answer{\TODO{...}}
+	
+	\Comment{Third, the authors mention that Rsample was “shown to perform favorably against a comprehensive collection of state-of-the-art methods…” This is incorrect. In fact, based on a t-test, Spastic et al. concluded that “all methods that use experimental restraints perform similarly.” A similar conclusion, also based on a statistical test, was reported by Deng et al. (2016). This matters because it points out a major weakness of this work, namely, it does not consider the statistical significance of its findings despite reporting substantial variability between predictions. Additionally, it highlights the possibility that a comparison to another method may result in different findings since there are a few sequences with dramatic performance gaps, which were not considered by Spasic et al.}
+	
+	\Comment{Fourth, I think the stability of predictions over 10 independent samples should have been compared between the two algorithms. I could find stability results for IPANEMAP only (Table S5). In my experience, reproducibility of predictions is the most challenging issue with Boltzmann-based algorithms, especially when relying on clustering techniques. }
+	
+	\Answer{\TODO{...}}
+
+	\Comment{Fifth, the Methods section indicates IPANEMAP does not use default “m” and “b” values for Deigan’s algorithm because different values seem to work better. It is unclear to me which of the analyzed datasets was used to determine these values or how the “m” and “b” parameters were optimized. These details should be included in the text. Moreover, a comparison between the algorithms should train them on the same dataset. If the Hajdin dataset was used in IPANEMAP’s parameter optimization, I think it is fair to re-optimize Rsample’s parameters too. This is because of the few sequences that were not considered by Spastic et al., for which performance gains are huge. The different training sets could be a factor in the reported performance gains. }
+	
+	\Answer{\TODO{...}}
+
+	
+	
+	\Comment{Sixth, according to the abstract, IPANEMAP includes an unsupervised learning component. However, if the Deigan’s “m” and “b” parameters were optimized against known structures, then I don’t see which parts are unsupervised. This is another reason why I request to clarify the parameter optimization step. }
+	
+	\Answer{\TODO{...}}
+
+	\Comment{The bulk of the manuscript describes various benchmarks, typically comparing average accuracies over multiple IPANEMAP runs, over multiple RNAs, or over multiple conditions. However, a comparison of two sets of data points should consider their means in the context of their std’s, otherwise it is often not too informative or conclusive. What I’m missing here are classical tests that quantify the statistical significance associated with each comparison. This is missing in all tests conducted in this work, and I suspect that a few of the reported mean differences might not be very significant. One example of where a test is needed is the comparison to Rsample -  see my comment above. Another example is the comparison to MFE and MEA (Table 2). There are several more. Note that if multiple tests are jointly considered/reported then p-value adjustment (e.g., B-H) might be warranted.}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{The authors generated 16 new datasets that enabled them to consider various ways of combining data from multiple conditions. This is impressive, with two caveats. First, only a single RNA of medium length was probed. Second, it is my understanding  that no replicate data was generated or analyzed, with the exception of SHAPE-CE. Typically, methods are tested on at least a few RNAs of varying lengths and whenever possible on datasets like Hajdin et al.’s. From such studies, we know that data-directed gains vary substantially between RNAs. For this reason, I would be hesitant to draw any conclusions from probing data for a single RNA. That said, I do not expect the authors to generate more data. I do think it should be emphasized that this is merely a case study. The purpose of this study and what one could conclude from it should also be clarified. While the subsection’s title (page 7) indicates this is a case study, I believe that some statements in the Abstract and Discussion require further substantiation and should be toned down.}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{The other reason I feel these results should be framed as a case study is that replicate data was not considered in the analysis. The manuscript attempts to differentiate between conditions or between algorithms, but the variation within each condition should be assessed in order to confirm that observed differences are in fact meaningful. }
+	
+	\Answer{\TODO{...}}
+
+	\Comment{The assessment of mono-probing predictions on page 8 does not seem to result in a clear and significant take-home message. Accuracies seem to be comparable between IPANEMAP, MEA, and MFE, but I don’t see what we learn from this. Note also that the data-directed MEA and MFE algorithms were optimized for SHAPE data only, hence they might not do as well on non-SHAPE data (Deng et al., RNA, 2016).}
+
+	\Answer{\TODO{...}}
+
+	\Comment{Additionally, there is strong A/C bias in DMS data obtained by stop-based protocols. I don’t know if it was accounted for during normalization step, if normalization was indeed applied. I also don’t know which datasets were used to optimize IPANEMAP’s parameters, but as I commented above, a fair comparison should train all methods on the same data.}
+
+	\Answer{\TODO{...}}
+
+	\Comment{Finally, I don’t see why IPANEMAP was compared to MEA and MFE in this subsection but to Rsample in the previous one. Any special reason why Rsample is not included? The authors may also want to consider moving this part to the Supp.}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{My comments above re: IPANEMAP, MEA, and MFE also apply to their comparison for the Cordero et al. dataset (page 5).}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{Please edit for typos and grammar. There are also frequent transitions between present and past tense within paragraphs, which don’t read well.}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{I think an explicit discussion of IPANEMAP’s limitations is warranted in Discussion or as an independent subsection.}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{Many details could be moved to the Supp. to improve readability, specifically descriptions of results that essentially parse a relevant table for the reader. Often, the text gets so focused on the trees that one can’t see the forest. Briefly stating the main trend or conclusion with reference to a table should suffice. Examples include the last 2 paragraphs on page 9, first paragraph on page 10, and third paragraph on right column on page 11 (“For the WT…”).}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{Much space is allocated to outlier detection (cluster B) and then to describing analyses with and without cluster B. I feel that the authors can safely designate cluster B as an outlier and exclude it from the analyses described in the main text. Analyses with cluster B can be described in the Supp.}
+	
+	
+	\Answer{\TODO{...}}
+
+	\Comment{Were all the analyzed datasets normalized by any standard method (e.g., 2\%-8\% or box-plot)? I noticed that the mutate-and-map dataset was renormalized, and to the best of my knowledge, the Hajdin dataset is also normalized. However, I didn’t see any information re: Cordero dataset, and more importantly re: the newly generated data analyzed here. Normalization is especially important in the context of differential analysis between conditions.}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{Fig. 5: Why was k set to 8 as opposed to, say, 4 or 5? As the authors note, determining the number of clusters is tricky and can significantly impact results. }
+	
+	\Answer{\TODO{...}}
+
+	\Comment{The authors compare stop-based to mutation-based experiments. However, the term “stop-based” is somewhat misleading because there is another variable here - the modification assay platform. MaP protocols must be assayed by NGS whereas the stop-based protocols used in this work rely on CE for modification detection. It is possible that the differences observed between MaP and CE data (see e.g., Fig. 5) have little to do with the stop strategy and more with the sequencing platform (CE vs NGS). The use of “stop-based” might create an impression that this feature is necessarily responsible for these differences. The ideal comparison should be between experiments such as SHAPE-MaP and SHAPE-seq, but given that experiments were already performed, I recommend changing the term and clarifying the technical differences between these subsets of conditions.}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{Does IPANEMAP perform better when sampling deeper? More generally, was sample size of 1,000 selected following performance optimization or simply because there is a convention in the field that 1,000 suffices for reproducibility at the base-pair level?}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{Table 1 could be moved to the Supp.}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{Table 2 summarizes performance differences at the Mut/Stop and -/+Mg levels. I wonder if such differences could have been detected already at the reactivity level and without the need for Boltzmann sampling. For example, one could lump all “Mut” profiles together as replicates for condition A and all “Stop” profiles as replicates for condition B and then perform differential reactivity analysis to spot differentially reactive regions and their statistical significance.}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{In Table 2, the two conditions in cluster C perform quite differently: 74\% and 85\%. Can the authors suggest why this happens? Can the performance differences be picked up by a differential reactivity analysis? For example, there may be a certain differentially reactive region, which the ensemble distance measure does not pick up. }
+	
+	\Answer{\TODO{...}}
+
+	\Comment{Does bi-probing improve precision (std) over mono-probing? Similarly, does probing with multiple similar conditions improve precision compared to mono- or bi-probing (Table 3)?}
+
+	\Answer{\TODO{...}}
+
+	\Comment{Performance assessments in this work focus primarily on averages although precision is an important factor, especially when statistical sampling is involved and large variation in prediction accuracy is observed for different RNAs. The conclusion that one might not gain much or at all from increasing the no. of probes or using similar ones overlooks the notion that redundancy potentially increases our confidence in the results. For example, replicates are inherently redundant and ideally not too diverse, yet they are generated to decrease std around the mean although the mean is always lower than some of the point estimates. A related question is as follows.}
+
+	\Answer{\TODO{...}}
+
+	\Comment{For bi-probing, if we repeat predictions with 10 independent Boltzmann samples, which strategy is more precise: averaging predictions between the two probes or the corresponding bi-probing prediction?}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{Table 5: I do not think it demonstrates a significant finding. All subsets include $1M7-MaP_{IL}^{MG}$, whose mono performance is already 0.85, as compared to 0.853. According to Table 2, it is the best-performing condition. My guess is that the 0.003 gain is an artifact rather than a manifestation of complementary information embedded in the additional conditions. If the point made is that it’s advantageous to jointly analyze conditions rather than average them out, then I think it could be made in the context of the other results. However, as shown here, using too many conditions might negatively affect performance, so not sure if robust guidelines can be derived from these results.}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{Fig. 9: $1M7-MaP_{IL}^{MG}$ is a top performer on the Lariat data per Table 2, but its MCC variance over 10 runs is high per Fig. 9. If I interpret Fig. 9 correctly, the 85\% MCC from Table 2 is not shown for this condition and maybe resulted from another IPANEMAP run. In any case, I wonder if Table 2 lists the results of single runs or averages over 10 runs. If single runs are listed, how representative are they for the two conditions with high variances (Fig. 9)? Maybe replace them with average runs? Same questions for results with multiple probes. Note that the case for $NMIA-MaP_{IT}$ is similar as 80\% seems to be max performance.}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{Page 8, line 55: 1000 samples or 1000 structures per condition?}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{Methods, page 3: The definition of highly similar clusters uses a default value $\delta=1$. My understanding is that this means that highly similar clusters must have the exact same centroids, such that minor variation is not allowed. Is that correct?}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{Methods, page 3: Is $E_{d}(S)$ the pseudo-energy term of the total score or is it the entire score, including the NNTM free-energy? }
+	
+	\Answer{\TODO{...}}
+
+	\Comment{My impression is that the main purpose of the clustering was to detect the outliers in cluster B. Since I find this to be a technical piece of the entire analysis, and not a very interesting one, I suggest moving most of the text + Fig. 5 \& 6 to the Supp.}
+	
+	\Answer{\TODO{...}}
+
+	\Comment{Page 5, benchmarks on Cordero et al.’s dataset: It is noted that the prediction is the centroid of the largest probability cluster. My understanding, based on the method’s section, is that the prediction should be the centroid of the pareto-optimal clusters. It is unclear whether this is a modification of the method, and if yes, if it applies to all other benchmarks or not. Please clarify. }
+	
+	\Answer{\TODO{...}}
+
+	\Comment{Page 10, line 56: Figure 3 should be Table 3.}
+	
+	
+\end{enumerate}
+
+%\bibliographystyle{amsplain}
+%\bibliography{response}
+\end{document}
