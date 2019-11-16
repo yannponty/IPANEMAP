@@ -54,8 +54,10 @@
 \begin{document}
 \maketitle
 
-\section*{Multiprobing benchmark (Cordero~\emph{et al}~\cite{Cordero2012} dataset)}
-\subsection*{MCC values of individual predictions}
+\tableofcontents
+
+\section{Multiprobing benchmark (Cordero~\emph{et al}~\cite{Cordero2012} dataset)}
+\subsection{MCC values of individual predictions}
 
  \Heatset{min=0.4,  
 	max=1,   
@@ -90,7 +92,7 @@
 \caption{GM of the structures predicted with \OurTool{}, compared to predictions of \Software{RNAfold} in energy mimization (MFE) and accuracy maximization (MEA) modes.}
 %( ref. $supplementary\_data/benchmark\_6RNAs$)}
 \end{table}
-\subsection*{Stablity analysis}
+\subsection{Stablity analysis}
 \begin{table}[H]
 \centering
 \begin{adjustbox}{max width=1\textwidth}
@@ -116,7 +118,7 @@ tRNAphenylalanineyeast	&	0.953	&	0.953	&	0.976	&	0.976	&	0.746	&	0.976	&	0.746	&
 
 
 %\section{IPANEMAP Vs Rsample}
-\section*{Mono probing benchmark (Hajdin~\emph{et al}~\cite{Hajdin2013} dataset)}
+\section{Mono probing benchmark (Hajdin~\emph{et al}~\cite{Hajdin2013} dataset)}
 
  \begin{table}[H]
 {\centering
@@ -145,7 +147,7 @@ tRNAphenylalanineyeast	&	0.953	&	0.953	&	0.976	&	0.976	&	0.746	&	0.976	&	0.746	&
 
 \end{table}
 
-\subsection*{Detailed results of \OurTool{} and \Software{Rsample}}
+\subsection{Detailed results of \OurTool{} and \Software{Rsample}}
 \begin{table}[H]
 	{\centering \begin{adjustbox}{max width=\textwidth,max totalheight=\textheight,keepaspectratio}
 			\begin{tabular}{llllHllH}
@@ -181,7 +183,7 @@ tRNAphenylalanineyeast	&	0.953	&	0.953	&	0.976	&	0.976	&	0.746	&	0.976	&	0.746	&
 \caption{\OurTool~ prediction performance compared to \Software{Rsample} tool}
 \end{table}
 
-\subsection*{Stability analysis}
+\subsection{Stability analysis}
 
 \begin{table}[H]
 	\begin{adjustbox}{max width=1\textwidth,max totalheight=\textheight,keepaspectratio}
@@ -250,8 +252,9 @@ tRNAphenylalanineyeast	&	0.953	&	0.953	&	0.976	&	0.976	&	0.746	&	0.976	&	0.746	&
 %	Max colour=BadCol   % colour for values above max
 %}
 
-\section*{Case-study: Lariat capping ribozyme of {\itshape Didymium iridis}}
-\subsection*{Compatibility of accessibility profiles with native and predicted structures}
+\section{Case-study: Lariat capping ribozyme of {\itshape Didymium iridis}}
+\subsection{Correlation analysis of reactivities}
+\subsection{Compatibility of accessibility profiles with native and predicted structures}
 We assess and validate the overall quality of probing data using a basic notion of distance between discretized profiles and structure. More precisely, given a secondary structure $S$ of length $n$, we define the {\bf 1D projection} of $S$ as the vector $v_S$ such that
 $$ \forall i\in[1,n], v_S(i)=\begin{cases} 1 &\text{if $i$ unpaired in $S$}\\ 0 &\text{otherwise.} \end{cases} $$
 

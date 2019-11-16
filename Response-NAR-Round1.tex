@@ -5,6 +5,7 @@
 % See "book", "report", "letter" for other types of document.
 
 \documentclass[9pt,hyperref]{article} % use larger type; default would be 10pt
+\setcounter{secnumdepth}{1}
 
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
 
@@ -24,6 +25,12 @@
 % \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
 
 %%% PACKAGES
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks, linkcolor={red!80!black},
+	citecolor={blue}, urlcolor={red!50!black}
+}
+
 \usepackage{amsmath} % for much better looking tables
 \usepackage{xspace}
 \usepackage{url}
@@ -38,6 +45,7 @@
 \usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
 \usepackage{framed}
 \usepackage{cabin}
+\usepackage{enumitem}
 \usepackage{tgtermes}
 %\usepackage{tgadventor}
 % These packages are all incorporated in the memoir class to one degree or another...
@@ -103,11 +111,16 @@ Yann Ponty}
 \begin{document}
 \maketitle
 
+\tableofcontents
 
 
 \section{General comments}
 
 	
+First of all, the authors would like to express their deepest gratitude for the quality and thoroughness of the reports written by the reviewers, covering a remarkably comprehensive range of aspects of the submitted manuscript. We have individually addressed each of the \ref{comment:last} comments to the best of our ability, but would like to start this note with higher-level answers to recurrent questions:
+
+
+
 Points géneraux :
 
 On a probablement pas été super clairs, mais :
@@ -117,14 +130,15 @@ Approche multi probing nous parait susceptible d’être robuste à l’incorpor
 
 \section{Detailed responses}
 
-\subsection*{Reviewer \#1}
+\subsection{Reviewer \#1}
 
 \begin{enumerate}
-	\Comment{The authors do not provide any sense of how raw data sets correlate in their experiments. They only analyze the ensembles of structures predicted based on their data. Thus for example, in Figure 5 we notice that the method of detection (CE) seems to be a far greater differentiator in predictions than the probe used (e.g. not all 1M7 cluster). The authors should add a panel clustering the raw probing data to compare it with the IPANEMAP clustering. This will require some clever design of distance metrics and mapping 1M7 to DMS maybe complex, but they should do a heat map like Figure 6 but with the raw data minimally.}
+	\Comment{The authors do not provide any sense of how raw data sets correlate in their experiments. They only analyze the ensembles of structures predicted based on their data. Thus for example, in Figure 5 we notice that the method of detection (CE) seems to be a far greater differentiator in predictions than the probe used (e.g. not all 1M7 cluster). The authors should add a panel clustering the raw probing data to compare it with the IPANEMAP clustering. This will require some clever design of distance metrics and mapping 1M7 to DMS may be complex, but they should do a heat map like Figure 6 but with the raw data minimally.}
 	
-	\Answer{	On a fait ça, c’est en supp mat. On observe :
-		Corrélation inverse entre distance à la native et MCC\%;
-		Difficulté à regarder le clustering car peu significatif
+	\Answer{
+		\TODO{On a fait ça, c’est en supp mat. On observe :
+			Corrélation inverse entre distance à la native et MCC\%;
+			Difficulté à regarder le clustering car peu significatif}
 	}
 
 	\Comment{I am also concerned by the fact that they only have one (-) No Prob condition. For both CE and MaP data, a background subtraction is required. It is not at all clear what the No Prob condition is and why it was not independently subtracted from all the data prior to analysis.}
@@ -170,9 +184,9 @@ Approche multi probing nous parait susceptible d’être robuste à l’incorpor
 	
 	\end{enumerate}
 
-	\subsection*{Reviewer \#2}
+	\subsection{Reviewer \#2}
 	
-	\begin{enumerate}
+	\begin{enumerate}[resume]
 \Comment{I find this tool and study very interesting, especially the systematic assessment of the impact and combined power of various probing protocols for DiLCrz. To be ready for publication, the manuscript needs some further discussion of the DiLCrz results and a revision of the method presentation as detailed below.}
 	
 	\Answer{\TODO{...}}
@@ -304,10 +318,10 @@ Approche multi probing nous parait susceptible d’être robuste à l’incorpor
 		\end{itemize}}	
 	\end{enumerate}
 	
-	\subsection*{Reviewer \#3}
+	\subsection{Reviewer \#3}
 	
 
-	\begin{enumerate}
+	\begin{enumerate}[resume]
 	\Comment{My primary concern is that the authors use a pseudo-free energy formulation (page 3) with parameters that are the same for all conditions and probing reagents.  I am very surprised that this works.  The Diegan et al. work fit the parameters empirically for SHAPE data.  Sean Eddy [Annu. Rev. Biophys. 2014. 43:433] more explicitly drew the connection between these parameters and the log odds ratio of a nucleotide being paired, following earlier work of Sukosd et al. [Nucleic Acids Research. 2013. 41: 2807].  The Das lab [Biochemistry. 2012. 51: 7037] also explicitly fit the log odds for DMS data using gamma distributions.  I would expect that each probing reagent and each probing condition would need different parameters.}
 	
 		\Answer{We also expect that additional conversion formulae, and a specific parameter calibration, for each condition, would be beneficial in order to obtain better predictive performances. In fact, it is one of our project to produce more extensive data for a subset of the conditions explored in this study, and to attempt to systematically learn reactivities-to-pseudo-energy conversion models.
@@ -371,7 +385,7 @@ Approche multi probing nous parait susceptible d’être robuste à l’incorpor
 	
 	\subsection{Reviewer \#4}
 	
-	\begin{enumerate}
+	\begin{enumerate}[resume]
 
 
 	\Comment{IPANEMAP is benchmarked against Rsample in a mono-probe setting. It is shown to outperform Rsample, where the authors attribute this to the sample denoising IPANEMAP performs via clustering (page 7). I am not sure if this is indeed the case and also think this benchmark could be improved in several ways.
@@ -513,7 +527,9 @@ Approche multi probing nous parait susceptible d’être robuste à l’incorpor
 	
 	\Answer{\TODO{...}}
 
-	\Comment{Page 10, line 56: Figure 3 should be Table 3.}
+	\Comment{Page 10, line 56: Figure 3 should be Table 3.\label{comment:last}}
+
+	\Answer{\TODO{...}}
 	
 	
 \end{enumerate}
