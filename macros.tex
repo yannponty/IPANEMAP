@@ -123,6 +123,8 @@
 \definecolor{lightsalmon}{rgb}{1.0, 0.63, 0.48}
 \definecolor{lightseagreen}{rgb}{0.13, 0.7, 0.67}
 \definecolor{americanrose}{rgb}{1.0, 0.01, 0.24}
+
+
 \DeclareMathOperator*{\argmin}{\arg\!\min}
 \DeclareMathOperator*{\argmax}{\arg\!\max}
 \newcommand{\multicoomment}[1]{}
@@ -134,7 +136,7 @@
 \newcommand{\OurRna}{\Software{Did}\xspace}
 \newcommand{\mm }{{\tt$M\&M$}\xspace}
 \newcommand{\DP }{{\tt DP}\xspace}
-\newcommand{\didy }{{\sf GIR1 Lariat-capping ribozyme}\xspace}
+\newcommand{\didy }{DiLCrz\xspace}
 
 \newcommand{\CE }{{\tt capillary electrophoresis}\xspace}
 %MPCRnas MultiProbing Conformers}}
@@ -153,12 +155,19 @@
 \newcommand{\Clusters}{\mathcal{C}}
 \newcommand{\Centroids}{\mathcal{C_O}}
 \newcommand{\GMean}{\text{GM}}
-\newcommand{\Ref}{R}
+\newcommand{\Ref}{\Rev{S^{\star}}}
 %\newcommand{\OurRna}{\Software{Did}}
 %MPCRnas MultiProbing Conformers}}
 \newcommand{\NumClust}{k}
-\newcommand{\etal}{~\emph{et al} }
+\newcommand{\NumStruct}{M}
+\newcommand{\etal}{~et al. }
 \newcommand{\Def}[1]{{\em #1}}
+
+\newcommand{\Ab}{\text{\sffamily A}}
+\newcommand{\Gb}{\text{\sffamily G}}
+\newcommand{\Cb}{\text{\sffamily C}}
+\newcommand{\Ub}{\text{\sffamily U}}
+
 
 %%% Conditions
 \newcommand{\Cond}[5]{\textsc{#1-#3$^{\text{#2}}_{\text{#4}}$#5}}
@@ -191,6 +200,13 @@
 \newcommand{\BZCNCE}{\Cond{BzCN}{}{CE}{}{}\xspace}
 
 
+\newcommand{\Mut}{{\sc MaP}}
+\newcommand{\Stop}{\sc CE}
+\newcommand{\Mg}{$\bullet$}
+\newcommand{\NoMg}{$\circ$}
+
+
+
 \newcommand{\Draft}[1]{{#1}}
 \newcommand{\bs}[1]{\Draft{\todo[color=red!30]{\sf Bruno: #1}}}
 \newcommand{\bsi}[1]{\Draft{\todo[color=red!30,inline]{\sf Bruno: #1}}}
@@ -215,3 +231,5 @@
 \colorlet{clusterF}{blue!90!black}
 \colorlet{clusterG}{Orange}
 \colorlet{clusterH}{SeaGreen!40}
+
+\newcommand{\Rev}[1]{{\color{red} #1}}
