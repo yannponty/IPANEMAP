@@ -200,8 +200,7 @@ Pas de comparaison entre protocoles, plutôt un test, rendu possible par IPANEMA
 	
 	\Answer{There is a misunderstanding here, the “(-) No Prob” conditions refers to a baseline computational prediction that does not use any probing data as constraints (Turner energy model only). We understand that this may be confusing to the reader, and we now refer to it as “(-) No Exp” for modeling without experimental data.
 	
-	 Of course we have carried out control experiments without any modification reageant for each of the reported experiments, as now explicitly specified in the material and methods section.
-	 \TODOBruno{J'écris ça, mais je suis plus trop sûr, tu peux vérifier: \\ \didy{} was also probed with DMS (DiMethylSulfate) and CMCT, this time only in presence of Mg$^\text{2+}$, resulting in a total of 16 \Def{probing conditions}, a term we use in the following to denote a combination of probing technology, reagent and presence/absence of Mg$^\text{2+}$ (+ sequencing technology). For each probing condition, three experiments were performed in presence/absence of the reagent and in a denatured setting, following classic protocols~\cite{Wilkinson2006,Smola2015}.}}
+	 Of course we have carried out control experiments without any modification reageant for each of the reported experiments, as now explicitly specified in the material and methods section.}
 	
 	
 	\Comment{I am concerned the MaP data they collected is not reporting on structure. For example, quality controls need to be established showing that DMS reactivities follow expected profiles, i.e. A and C having higher mean reactivity that G and U.}
@@ -255,9 +254,8 @@ Pas de comparaison entre protocoles, plutôt un test, rendu possible par IPANEMA
 	{\centering \url{http://www.lix.polytechnique.fr/~ponty/suppdata/ipanemap/}\\}
 	
 	and commit to its continued accessibility (but will also pursue public venues for better guarantees of a continued availability). 
-	\TODO{Add minimal page and reactivities, including scripts/instructions to compute reactivities.}
-	
-}
+	\TODO{Add minimal page and reactivities, including scripts/instructions to compute reactivities.\\ Bruno: non je pense que c'est inutile. Les reactivité sont déja données en supplémentary matérial, pour ce qui est de donner un moyen de les calculer, tout est dans l'article de weeks sur shappemapper qu'on cite. Par contre il faut déposer le script qui permet de traiter les fichier ion-torrent si ce n'est déja fait}
+	}
 	
 	\end{enumerate}
 
@@ -531,9 +529,9 @@ Pas de comparaison entre protocoles, plutôt un test, rendu possible par IPANEMA
 		Moreover, going back to the suggested use of the gamma distribution in the case of DMS, it is worth pointing out that \cite{Cordero2012} state in their supplementary material that
 		\Quote{
 		The performance of the algorithm using this probabilistic potential for SHAPE, DMS, and CMCT reactivities is given in Table S6 and is identical to
-		results obtained for the standard potential with slope ( m ) and intercept b ) optimi zed through grid
+		results obtained for the standard potential with slope $m$ and intercept $b$ optimized through grid
 		search .}
-		We also note the relative stagnation of performances of state-of-the-art tools integrating SHAPE data, despite an increasing sophistication of the pseudo-free-energy models. So, while we believe progress can be made in the integration of reactivities, we do not expect them to radically change the quality of predicted models, nor to invalidate the findings of this manuscript.
+		We also note the relative stagnation of performances of state-of-the-art tools integrating SHAPE data, despite an increasing sophistication of the pseudo-free-energy models. So, while we believe progress can be made in the integration of reactivities, we do not expect them to radically change the quality of predicted models, nor to invalidate the findings described in this manuscript.
 		
 		To summarize, it seems too early in this manuscript to pursue a specialization of energy models to each reagent/probing technology, and the benefits of considering comparable reactivity profiles (produced in an homogeneous manner, and similarly normalized) far outweigh the expected loss in predicting accuracy. Consequently, rather than specialize our treatment of individual probes and address this heterogeneity as a possible confounding factor in our analyses (in a way that would remain to be determined), we prefer to preserve a homogeneous treatment for all sources of probing data. 
 
@@ -549,7 +547,9 @@ Pas de comparaison entre protocoles, plutôt un test, rendu possible par IPANEMA
 	
 	\Comment{I am also concerned that the manuscript is not as clear as it should be about the three types of multiple data that are used.  It can use multiple reagents, probing data for multiple solution conditions, or probing data across multiple sequence variants (a.k.a. mutate and map data).  It is a real achievement that one program handles all three cases.  The abstract does state this (briefly).  The Introduction is not clear on this points, just calling the data “multiple probing data.”  Also, the text itself is sometimes unclear about what is meant.  On page 6, for example, the sentence “It is also worth mentioning that NMIA+CMCT, combining the best and worst conditions, achieves a better combined performance than DMS+NMIA, the two best mono-probing conditions.” calls these “multiple conditions”, but these data are from multiple probing reagents.  I would like to see a revised manuscript be clearer about the three types of information in the Introduction.  In the text, multiple reagents, multiple solution conditions, and multiple sequence variants should be clearly denoted as different multiple data types. }
 	
-	\Answer{\TODO{Clarify in manuscript what conditions means in the context of the study}}
+	\Answer{
+	  In the revision, we clarified several times, including at the very beginning of the Methods section, that the term "condition" encompasses a wide variety of contexts (reagent, probing technology, ionic concentrations, and sometimes even structurally-homologous mutants) leading to the production of a reactivity profile. 
+	}
 	
 	\Comment{My third concern is that IPANEMAP is not entirely stable, in that there are variations in the results from run to run.  Users of the software will want the overall results to be stable; it is hard for most users to use a program multiple times and integrate the results.  It seems to me that the stability would be improved by using larger sample sizes, and that this should be explored for this manuscript.  If larger sample sizes don’t improve the stability, this should be addressed. }
 	
@@ -564,7 +564,7 @@ Pas de comparaison entre protocoles, plutôt un test, rendu possible par IPANEMA
 		Moreover, as noted by this reviewer, an expert user would ensure a greater stability by running \OurTool several times (say 10), and electing the most recurrent structure. This process would achieve asymptotic determinism, since the frequency of a structure would converge towards real emission probabilities. Moreover, most frequent structures seem to be the best quality ones, and are emitted by \OurTool with fairly large probability, ensuring convergence in a reasonable number of iterations.
 		However, such a process would be cumbersome for a basic user.
 		
-		In the future, for the sake of reproducibility, we also wish to report, and letting the user specify, a \Def{random seed}, which will  allow the exact reproduction of an analysis. However, such a feature is currently not supported by \Software{RNAsubopt}, so we are working towards its inclusion to the \Software{ViennaRNA} package.
+		In the future, for the sake of reproducibility, we also wish to report, and letting the user specify, a \Def{random seed}, which will  allow the exact reproduction of an analysis. However, random seeds are currently not supported by \Software{RNAsubopt}, so we are working towards their inclusion within the \Software{ViennaRNA} package.
 	
 	}
 	
@@ -638,7 +638,7 @@ Moreover, even in cases where a single dominant conformation is expected, consid
 	
 	\Comment{This matters because it points out a major weakness of this work, namely, it does not consider the statistical significance of its findings despite reporting substantial variability between predictions. Additionally, it highlights the possibility that a comparison to another method may result in different findings since there are a few sequences with dramatic performance gaps, which were not considered by \cite{Spasic2017}}
 	
-	\Answer{The significance (or lack thereof) of claims in the context of RNA benchmarks is, of course, a legitimate concern, and we thank the reviewer for pointing it out. The way it is used in \cite{Spasic2017} should probably be taken with a grain of salt due to the dubious obedience of produced data to classic assumptions (\emph{eg} normality of distribution), but it nevertheless represents the best option available at the time.  
+	\Answer{The significance (or lack thereof) of claims in the context of RNA benchmarks is, of course, a legitimate concern, and we thank the reviewer for pointing it out. The way it is used in \cite{Xu2012} should probably be taken with a grain of salt due to the dubious obedience of produced data to classic assumptions (\emph{eg} normality of distribution), but it nevertheless represents the best option available at this time.  
 		
 	In the context of comparing the performances of \OurTool{} to \Software{RSample}, we performed a two-tailed Student $t$-test on paired data with unequal variance. The test rejects the $H_0$ hypothesis \emph{Both methods have similar average performance}, with P-value of $6\times 10^{-3}$, much lower than the usual significance threshold $\alpha=5 \times 10^{-2}$  (computed statistics $t=2.98 > t_{\text{crit}}=2.07$).
 	}
@@ -703,8 +703,9 @@ Moreover, even in cases where a single dominant conformation is expected, consid
 
 	\Comment{The other reason I feel these results should be framed as a case study is that replicate data was not considered in the analysis. The manuscript attempts to differentiate between conditions or between algorithms, but the variation within each condition should be assessed in order to confirm that observed differences are in fact meaningful. }
 	
-	\Answer{
-		\TODOBruno{Did we produce replicates?}
+	\Answer{We understand those reservations but, again, we need to stress that we already  {\bfseries explicitly describe this study as a case study}, and do not make any claim regarding the superiority of a given technology or probe.
+	
+	We also did reproduce in triplicate all of our SHAPE CE probing experiments (but not our SHAPE-MaP ones due to the relatively high cost and length of those experiments in our wet lab), and observed minor variations at the reactivity level, leaving us to only consider a single representative (average of available reactivities) for each experiment. We include in this revision the reactivities measured over each of the 3 replicates for each condition.
 	}
 
 	\Comment{The assessment of mono-probing predictions on page 8 does not seem to result in a clear and significant take-home message. Accuracies seem to be comparable between IPANEMAP, MEA, and MFE, but I don’t see what we learn from this. Note also that the data-directed MEA and MFE algorithms were optimized for SHAPE data only, hence they might not do as well on non-SHAPE data (Deng et al., RNA, 2016).}
