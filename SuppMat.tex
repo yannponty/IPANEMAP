@@ -325,13 +325,17 @@ $$ \text{Agreement}(r,S) = 1- ||r,S||.$$
 
 \paragraph{Results.}We computed, and report in Table~\ref{tab:experiment_agreement}, the agreement of our 16 reactivity profiles with both the native and \OurTool{} prediction when considering the $\alpha$ percentile of highest/lowest reactivities ($\alpha=30\%$). A cursory inspection of the table reveals a {\bf good overall agreement of the measured reactivities with the native structure}, involving $61\%$ of the positions on average. This agreement increases to an average $70\%$ when $\alpha$ is set to $15\%$, indicating a good correlation between raw reactivities values and paired/unpaired status in the native structure. Also, expectedly, the agreement to the native structure appears to be positively correlated with the MCC induced by the reactivity profile. However, this relationship is not strict, as revealed by the $60\%$ agreement to the native observed for \OneMSevILU. While superficially surprising, this observation is consistent with the notion that probing data do not need to inform on many different positions to improve the quality of predictions.
 
+
+
 We tested the {\bf statistical significance} of our observation by computing  the agreement distribution in the absence of structural information. To that purpose, we generated random reactivity profiles, drawing a random reactivity uniformly in $[0,1]$ for each position. The resulting distribution can be perfectly fitted to a Normal distribution with mean agreement $\mu=49.96\%$ and standard deviation $\sigma=4.51\%$.  {\bf All reactivity profiles showed better agreement with the native structure than a random reactivity profile}, by a margin of \Def{up to five standard deviations}, and always at least one standard deviation, better than the expected value of random profiles. This leads to \Def{significantly enriched agreements} (P-values(Agreement)$<$5\%) for 13 out of our 16 reactivity profiles, the remaining outliers having associated P-values of 18.5\%, 13.2\% and 9\% respectively. Overall, these observations support the notion of informative probing experiments.
+
 
 	\newcommand{\SR}[4]{{\begin{minipage}{.48\textwidth}\centering 
 			\includegraphics[angle=-90,width=\textwidth, trim=0 1.2cm 0 .5cm,clip]{graphs/didy/reactivities/#1}\\
 			#2 -- #4 (Cluster #3)\end{minipage}}}
 
-\begin{figure}	
+
+\begin{figure}[p]
 	{\centering \SR{1M7_Ilu_d1_Mg.pdf}{1    }{\Bull{C}  }{\OneMSevILUMg  }
 	\SR{1M7_Ilu_d1.pdf}{2    }{\Bull{A}  }{\OneMSevILU    }\\    
 	\SR{NMIA_Mg_IT.pdf}{3    }{\Bull{A}  }{\NMIAMg         }   
@@ -342,7 +346,7 @@ We tested the {\bf statistical significance} of our observation by computing  th
 	\SR{BzCN_Mg_CE.pdf}{8    }{\Bull{H}  }{\BzCNMg            }\\}
 \caption{Projections of reactivities onto native structure (conditions 1-8 of 16).}
 \end{figure}
-\begin{figure}
+\begin{figure}[p]
 	\SR{1M7_Mg_CE.pdf}{9    }{\Bull{E}  }{\OneMSevMgCE       }
 	\SR{CMCT.pdf}{10   }{\Bull{G}  }{\CMCTMg            }
 	\SR{1M7_Ilu_d3.pdf}{11   }{\Bull{D}  }{\OneMSevILUThree   }
@@ -356,7 +360,7 @@ We tested the {\bf statistical significance} of our observation by computing  th
 
 
 \newcommand{\MyScale}{.26}
-
+\newpage
 \subsection{Correlation analysis of raw reactivities profiles}
 \begin{figure}[H]
 	\includegraphics[width=.54\textwidth]{graphs/didy/reactivity_correlation.pdf}\hfill
