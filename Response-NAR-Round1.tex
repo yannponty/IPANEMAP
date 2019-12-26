@@ -126,24 +126,28 @@ Yann Ponty}
 \maketitle
 
 \tableofcontents
-\listoftodos
-
 
 \section{General comments}
 
 	
-First of all, the authors would like to express their deepest gratitude for the quality and thoroughness of the reports written by the reviewers, covering a remarkably comprehensive range of aspects of the submitted manuscript. We have individually addressed each of the \ref{comment:last} comments to the best of our ability, but would like to start this note with higher-level answers to recurrent questions:
-
-
-
-\TODO[Yann]{Faire résumé}
-Points géneraux :
+First of all, the authors would like to express their deepest gratitude for the quality and thoroughness of the reports written by the reviewers, covering a remarkably comprehensive range of aspects of the submitted manuscript. We have individually addressed each of the \ref{comment:last} comments extracted from the first round of review, each to the best of our ability, but would like to start this response with higher-level answers to recurrent remarks:
 \begin{itemize}
-\item On a probablement pas été super clairs, mais :
-Pas de comparaison entre protocoles, plutôt un test, rendu possible par IPANEMAP de la complémentarité des protocoles
-\item Pas optimisation du traitement des donnés de sondage, mais traitement uniforme
-\item Approche multi probing nous parait susceptible d’être robuste à l’incorporation d’une réactivité moins informative.
+	\item It was not within the scope of this research to establish/compare the intrinsic predictive potentials of individual probing reagents/protocols, and we did not make any specific claim in that respect. We understand that some unfortunate presentation choices of  our part may have suggested stronger stances than intended (\emph{e.g.} giving the impression that the performances of SHAPE CE are representative of SHAPE technologies based on RT stops). This was not our intention, or message, and we have attempted in this revision  to correct any such misleading statement, and overall optics;
+	\item Nevertheless, all of our analyses, including data produced specifically for the validation of the method, support the notion than combining multiple (3+) probing experiments mitigates the risks of mispredictions due to outliers, and frequently leads to significant improvements as assessed by standard statistical tests suggested by Reviewer \#4;
+	\item To the best of our knowledge, \OurTool currently represents the only general method that addresses the automatic modeling of RNA structure from multiple sources of probing data. \OurTool also seems to represent a competitive option for mono-probing predictions, but this observation is merely an element of validation, and (partially) substantiates the hope of an expected good quality of predictions in a multiple setting;
+	\item We prefer to process various sources of probing data homogeneously rather than optimize our performances (potentially artificially due to overfitting over scarce data) by learning reagent/protocol specific conversions of reactivities to pseudo-energies. Accordingly, our method only relies on a preliminary calibration with respect to the parameters $m$ and $b$ in the \cite{Deigan2009} pseudo-energy conversion model, which proved robust enough for us not to question this initial choice.
 \end{itemize}
+
+Over the course of this extensive round of revisions, we have:
+\begin{itemize}
+  \item Rewritten extensively our manuscript, notably including the bulk of our method section;
+  \item Assessed the significance of our main quantitative claims as per \cite{Xu2012}, and included a new paragraph describing the methodology;
+  \item Performed additional tests to ascertain the quality of reactivities produced for \didy: We analyzed the correlations of reactivity profiles at the reactivity level (Supp. Sec. 3.2); We also the sigifnicantly better agreement for all produced reactivity profiles than expected at random (Supp. Sec. 3.1);
+  \item Improved the distribution, documentation, and streamlined the installation of \OurTool (although we could not reach a \Software{bioconda} distribution yet);
+  \item Fixed numerous typos and unfortunate turns of sentences.
+\end{itemize}
+
+We hope that, upon reviews, the editor and reviewers will share our enthusiasm for \OurTool, and consent to its dissemination to the wide readership of the journal.
 
 \section{Detailed responses}
 
@@ -233,7 +237,7 @@ Pas de comparaison entre protocoles, plutôt un test, rendu possible par IPANEMA
 	As can be seen on the right  histograms the read depth is sufficient ($>$10k reads/nucleotides) for these experiments to be interpreted (\emph{ie} for the frequency of mutations to be a good estimate of the probability). The histograms on the left shows that there are significantly more mutations in the modified (denatured and SHAPE) samples than in the untreated ones. 
 	
 	These histograms are very similar to those deemed as exemplary of a successful experiment by \cite{Smola2015},. 
-	In addition, those SHAPE-MaP results are consistent with the X-ray structure (see Supplementary Figure S2 and S3), and their use with our prediction software was shown to improve the accuracy of the obtained model(s). 
+	In addition, those SHAPE-MaP results are consistent with the X-ray structure (see Supplementary Figure S2 and S3), and their use with our prediction software was shown to improve the accuracy of the output model(s). 
 	
 	In conclusion, a thorough re-inspection of the data does not lead us to question the relevance of these results, and we do not see the necessity to repeat them using superscript II.}
 	
@@ -254,9 +258,7 @@ Pas de comparaison entre protocoles, plutôt un test, rendu possible par IPANEMA
 	{\centering \url{http://www.lix.polytechnique.fr/~ponty/suppdata/ipanemap/}\\}
 	
 	and commit to its continued accessibility (but will also pursue public venues for better guarantees of a continued availability). 
-	\TODO{Add minimal page and reactivities, including scripts/instructions to compute reactivities.\\ Bruno: non je pense que c'est inutile. Les reactivité sont déja données en supplémentary matérial, pour ce qui est de donner un moyen de les calculer, tout est dans l'article de weeks sur shappemapper qu'on cite. Par contre il faut déposer le script qui permet de traiter les fichier ion-torrent si ce n'est déja fait}
 	}
-	
 	\end{enumerate}
 
 \newpage
@@ -684,6 +686,7 @@ Moreover, even in cases where a single dominant conformation is expected, consid
 		Hypothesis $H_0$: WT+1M and WT+2MC have similar expected MCC\\
 		\phantom{Hypothesis $H_0$: }$\mathbb{P}(H_0)=2.4\times10^{-2}$ $\to$ Rejected at $\alpha=5\times10^{-2}$
 	\end{itemize}
+	Additional tests can be found in the manuscripts, along with a new section that describes the precise tests carried out and their rationale, further substantiating our claims.
 	}
 
 	\Comment{The authors generated 16 new datasets that enabled them to consider various ways of combining data from multiple conditions. This is impressive, with two caveats. First, only a single RNA of medium length was probed.}
@@ -696,26 +699,25 @@ Moreover, even in cases where a single dominant conformation is expected, consid
 		
 	That said, I do not expect the authors to generate more data. I do think it should be emphasized that this is merely a case study. The purpose of this study and what one could conclude from it should also be clarified. While the subsection’s title (page 7) indicates this is a case study, I believe that some statements in the Abstract and Discussion require further substantiation and should be toned down.}
 	
-	\Answer{We already clarified that this is merely a case study. We wish we could do more (e.g. test on a wider dataset) but this is simply unrealistic, and way beyond the standards enforced for the dissemination of a new {\bf method} in structural bioinformatics.
+	\Answer{We already clarified that this is merely a case study. We wish we could do more (e.g. test on a wider dataset) but given the diversity of probes, a systematic quantitative assessment of individual probes is simply unrealistic, and way beyond the standards enforced for the dissemination of a new {\bf method} in structural bioinformatics.
 		
-		 However, it must be noted that we do not base our main conclusion (complementarity of probing data, benefit of their integration) solely on the \didy{} case study, but also on the Cordero dataset, where the best performances are also observed upon considering a combination of reactivity profiles associated with DMS, CMCT and NMIA probes. 
+	However, it must be noted that we do not base our main conclusion (complementarity of probing data, benefit of their integration) solely on the \didy{} case study, but also on the Cordero dataset, where the best performances are also observed upon considering a combination of reactivity profiles associated with DMS, CMCT and NMIA probes. 
 	}
 
 	\Comment{The other reason I feel these results should be framed as a case study is that replicate data was not considered in the analysis. The manuscript attempts to differentiate between conditions or between algorithms, but the variation within each condition should be assessed in order to confirm that observed differences are in fact meaningful. }
 	
-	\Answer{We understand those reservations but, again, we need to stress that we already  {\bfseries explicitly describe this study as a case study}, and do not make any claim regarding the superiority of a given technology or probe.
+	\Answer{We understand those reservations but, again, we need to stress that we already  {\bfseries explicitly describe this study as a case study}, and do not make any claim regarding the superiority of a given technology or probe from this study.
 	
-	We also did reproduce in triplicate all of our SHAPE CE probing experiments (but not our SHAPE-MaP ones due to the relatively high cost and length of those experiments in our wet lab), and observed minor variations at the reactivity level, leaving us to only consider a single representative (average of available reactivities) for each experiment. We include in this revision the reactivities measured over each of the 3 replicates for each condition.
+	We also did reproduce in triplicate all of our SHAPE CE probing experiments, and observed minor variations at the reactivity level, leaving us to only consider a single representative (average of available reactivities) for each experiment. We now include in this revision the reactivities measured over each of the 3 replicates for each condition.  For SHAPE-MaP protocols,we could not duplicate them due to the relatively high cost and length of those experiments in our wet lab.
 	}
 
 	\Comment{The assessment of mono-probing predictions on page 8 does not seem to result in a clear and significant take-home message. Accuracies seem to be comparable between IPANEMAP, MEA, and MFE, but I don’t see what we learn from this. Note also that the data-directed MEA and MFE algorithms were optimized for SHAPE data only, hence they might not do as well on non-SHAPE data (Deng et al., RNA, 2016).}
 
-	\Answer{We agree, and in fact do not draw any conclusion from these results. We only report those values as references, to support the hypothesis that the MCCs achieved by \OurTool are probably more representative of the reactivity profiles/condition than of a specific predictive model.}
+	\Answer{We agree, and in fact do not draw any conclusion from these results. We only report the MEA/MFE values as references, to support the hypothesis that the MCCs achieved by \OurTool are probably more representative of the reactivity profiles/condition than of a specific predictive model.}
 
-	\Comment{Additionally, there is strong A/C bias in DMS data obtained by stop-based protocols. I don’t know if it was accounted for during normalization step, if normalization was indeed applied. }
+	\Comment{Additionally, there is strong A/C bias in DMS data obtained by stop-based protocols. I don’t know if it was accounted for during normalization step, if normalization was indeed applied.}
 	
-	\Answer{
-		We were unsure how to interpret this remark: \Ab{} and \Cb{} are indeed the only reactive nucleotides, so the normalization step is indeed restricted to positions featuring those two nucleotides. If the reviewer is referring to the observations of \cite{Sexton2017} of opposite {\em \Ab{} vs \Cb} biases for RT-based and mutations-based probing respectively, we did not account for it. Indeed, while including corrective terms would seem to represent an opportunity for improved predictions, we would rather treat of reactivity data homogeneously than achieve the best MCCs possible. More details in our response to Comment \ref{arg:homogenous} of Reviewer \#3.
+	\Answer{We were unsure how to interpret this remark: \Ab{} and \Cb{} are indeed the only reactive nucleotides, so the normalization step is indeed restricted to positions featuring those two nucleotides. If the reviewer is referring to the observations of \cite{Sexton2017} of opposite {\em \Ab{} vs \Cb} biases for RT-based and mutations-based probing respectively, we did not account for it. Indeed, while including corrective terms would seem to represent an opportunity for improved predictions, we would rather treat of reactivity data homogeneously than achieve the best MCCs possible. More details in our response to Comment \ref{arg:homogenous} of Reviewer \#3.
 	}
 	
 	\Comment{I also don’t know which datasets were used to optimize IPANEMAP’s parameters, but as I commented above, a fair comparison should train all methods on the same data.}
@@ -737,6 +739,8 @@ Moreover, even in cases where a single dominant conformation is expected, consid
 	
 	\Answer{Although we already described some of those limitations in the method, we now include such a discussion more explicitly in our conclusion/discussion.
 	\Quote{Current limitations of \OurTool include the lack of an explicit support for pseudoknots, which will be addressed in a future version, using  polynomial-time dynamic programming~\citep{Janssen2015}, or a iterative heuristic alternative~\citep{Hajdin2013}. The inherently stochastic nature of the sampling scheme may also be challenging for certain types of analysis. However, despite its stochastic foundations, \OurTool{} is typically stable in its predictions, as can be seen in Figure~\ref{fig:reproducibility} for all probing datasets produced over our \didy case study.
+		
+		
 			Interestingly, the most notable exception to the general stability is observed for the probing-free prediction, consistent with the widespread interpretation of SHAPE-induced pseudo-potentials as focusing predictions onto a subset of the Boltzmann ensemble. A similar behavior is observed for the other datasets considered in our study (see Supp. Tables S2 and S5). %In the interest of reproducibility, ipanemap reports, and accepts as an option, the random seed used both within the main software and its non-deterministic dependencies, leading to identical repeats of the experiments.
 			Finally, the current clustering method induce a growth of time and memory requirements that scales quadratically with the number of samples. While this allows a joint analysis of a dozen of reactivity profiles in less than an hour on a personal computer, we expect the ability to push the number of samples will lead to better, even more reproducible, predictions. To that purpose, we will explore embedding techniques and linear-time community detection algorithms as alternatives to MBkM~\citep{Sculley2010}.
 	}	
@@ -753,7 +757,13 @@ Moreover, even in cases where a single dominant conformation is expected, consid
 
 	\Comment{Were all the analyzed datasets normalized by any standard method (e.g., 2\%-8\% or box-plot)? I noticed that the mutate-and-map dataset was renormalized, and to the best of my knowledge, the Hajdin dataset is also normalized. However, I didn’t see any information re: Cordero dataset, and more importantly re: the newly generated data analyzed here. Normalization is especially important in the context of differential analysis between conditions.}
 	
-	\Answer{\TODOAfaf{Can you confirm that a similar normalization was used?}}
+	\Answer{
+	All reactivities but the \cite{Cordero2012a} were renormalized using the 2\%-8\% approach of \cite{Deigan2009}.
+	For \cite{Cordero2012a}, we used the data directly as we found the reactivities to follow the expected distribution.
+	
+		
+	However it is important to note that our analysis does not rely on a direct differential analysis at the reactivity level, except in our newly added Supplementary Section 3.2. The latter features a cross-analysis based on the Pearson correlation, precisely chosen as its results are impervious to affine transforms of the data.
+}
 
 	\Comment{Fig. 5: Why was k set to 8 as opposed to, say, 4 or 5? As the authors note, determining the number of clusters is tricky and can significantly impact results. }
 	
