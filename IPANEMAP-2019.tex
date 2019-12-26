@@ -541,7 +541,7 @@ Unsurprisingly, the presence/absence of Magnesium ions during the probing was ob
 	\newcommand{\M}[1]{\multicolumn{1}{l}{#1}}
 	
 	{\centering
-			\begin{adjustbox}{max width=\linewidth}
+			\begin{adjustbox}{max width=.8\linewidth}
 		\begin{tabular}{@{}lccHHH}
 			\toprule
 			                            &          &           & \multicolumn{3}{@{}c@{}}{MCC\%}              \\
@@ -569,7 +569,7 @@ Unsurprisingly, the presence/absence of Magnesium ions during the probing was ob
 			{\bfseries Average overall} &          &  $-$  & 70.5                     & 68      & 68.5    \\ \bottomrule
 			                            &          &           &                          &
 		\end{tabular}
-		\end{adjustbox}}
+		\end{adjustbox}\\}
 	
 	%data are from multiprobing7 
 	\caption{\Rev{Predictive performances (MCC) of \OurTool{}, averaged over 10 runs, for the \didy{} dataset, consisting of 16 reactivity profiles. (Pseudo) MFE and MEA structures, predicted using \Software{RNAfold}~\cite{Lorenz2011}, are included for reference. The structure was probed in presence (\Mg) or absence (\NoMg) of Mg$^{2+}$.}
@@ -687,7 +687,7 @@ Finally, considering the 16 conditions together induced a 80\% MCC value, increa
 		\begin{tabular}{@{}llllHHHH@{}}
 			\toprule
 			\multicolumn{4}{@{}l@{}}{}                                    & \multicolumn{4}{@{}c@{}}{MCC\%}\\
-			\multicolumn{4}{@{}l@{}}{Conditions in individual clusters}                                    & \MCB{-NAI} & \MCB{+NAI} \\
+			\multicolumn{4}{@{}l@{}}{Conditions in individual clusters ($+\mathcal{M}$)}                                    & \MCB{-NAI} & \MCB{+NAI} \\
 			\Bull{A} & \Bull{C} & \Bull{E} & \Bull{G}   & \MC{\Q Joint} & \MC{\Q Mono}  & \MC{\Q Joint}       & \MC{\Q Mono}      \\ \midrule
 			\Q \NMIAMg          & \Q \OneMSevILUMg        & \Q \OneMSevMgCE          & \Q \NAIMg             & 84       & 72       & 83             & 71           \\
 			\Q \NMIAMg          & \Q \OneMSevILUMg        & \Q \OneMSevMgCE          & \Q \CMCTMg            & 75       & 72       & 82             & 71           \\
@@ -716,8 +716,8 @@ Finally, considering the 16 conditions together induced a 80\% MCC value, increa
 			                &                 &                  & Average           & 77       & 72       & 72             & 70           \\ \bottomrule
 		\end{tabular}
 	\end{adjustbox}\\
-	\caption{Predictive performances of conditions across clusters, coupled with impact assessment of NAI.  For each experiment, a single condition is chosen from each cluster except for cluster \Bull{B}. Clusters \Bull{D}, \Bull{F} and \Bull{H}, each consisting of a single condition, contribute their sole condition, leading to the list of conditions  $\mathcal{M}$:=\{\OneMSevILUThree, \BzCNMg and \DMSMg\}. 
-		For each combination, the MCC of the predicted structural model is reported, as predicted from the conditions in the presence/absence of \NAICE ('Joint' columns). For each prediction, the average MCC value of mono conditions is reported as a baseline ('Mono' columns).
+	\caption{Predictive performances of conditions across clusters.  In each line, a single condition is chosen from each cluster except for cluster \Bull{B}. \Rev{Clusters consisting of a single condition (\Bull{D}, \Bull{F} and \Bull{H}) contribute additional conditions  $ :=\{\OneMSevILUThree, \BzCNMg, \DMSMg\}$.
+		The MCC of the predicted structure is reported ('Joint' columns) and compared to the average MCC of mono conditions, in all cases in presence/absence of \NAICE.}
 	}\label{fig:differentconds}
 \end{table}
 
