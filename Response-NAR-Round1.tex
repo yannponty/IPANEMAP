@@ -142,12 +142,12 @@ Over the course of this extensive round of revisions, we have:
 \begin{itemize}
   \item Rewritten extensively our manuscript, notably including the bulk of our method section;
   \item Assessed the significance of our main quantitative claims as per \cite{Xu2012}, and included a new paragraph describing the methodology;
-  \item Performed additional tests to ascertain the quality of reactivities produced for \didy: We analyzed the correlations of reactivity profiles at the reactivity level (Supp. Sec. 3.2); We also the sigifnicantly better agreement for all produced reactivity profiles than expected at random (Supp. Sec. 3.1);
+  \item Performed additional tests to ascertain the quality of reactivities produced for \didy: We analyzed the correlations of reactivity profiles at the reactivity level (Supp. Sec. 3.2); We also found significantly better agreement, with the reference structure of \cite{Meyer2014}, of all produced reactivity profiles than expected at random (Supp. Sec. 3.1);
   \item Improved the distribution, documentation, and streamlined the installation of \OurTool (although we could not reach a \Software{bioconda} distribution yet);
   \item Fixed numerous typos and unfortunate turns of sentences.
 \end{itemize}
 
-We hope that, upon reviews, the editor and reviewers will share our enthusiasm for \OurTool, and consent to its dissemination to the wide readership of the journal.
+We hope that, upon reviews, the editor and reviewers will share our enthusiasm for \OurTool, and consent to its dissemination to the wide readership of Nucleic Acids Research.
 
 \section{Detailed responses}
 
@@ -196,7 +196,7 @@ We hope that, upon reviews, the editor and reviewers will share our enthusiasm f
 			\item  $\{\NMIAMg,\NMIA\}$;
 			\item  $\{\NMIACE,\NAICE,\OneMSevCE\}$;
 			\item $\{\OneMSevILU, \OneMSevILUThree,\OneMSevILUThreeMg,\OneMSevILUMg\}$,
-		\end{itemize} having respectively a similar reagent, technology, or both, as a common trait.
+		\end{itemize} having respectively a similar reagent, technology, or both, as a common trait. However, neither of those determinants seem universally supported by the observation of the correlation matrix.
 		
 	}
 
@@ -758,11 +758,9 @@ Moreover, even in cases where a single dominant conformation is expected, consid
 	\Comment{Were all the analyzed datasets normalized by any standard method (e.g., 2\%-8\% or box-plot)? I noticed that the mutate-and-map dataset was renormalized, and to the best of my knowledge, the Hajdin dataset is also normalized. However, I didn’t see any information re: Cordero dataset, and more importantly re: the newly generated data analyzed here. Normalization is especially important in the context of differential analysis between conditions.}
 	
 	\Answer{
-	All reactivities but the \cite{Cordero2012a} were renormalized using the 2\%-8\% approach of \cite{Deigan2009}.
-	For \cite{Cordero2012a}, we used the data directly as we found the reactivities to follow the expected distribution.
-	
+	All reactivities were (re)normalized using the boxplot of \cite{Deigan2009}.
 		
-	However it is important to note that our analysis does not rely on a direct differential analysis at the reactivity level, except in our newly added Supplementary Section 3.2. The latter features a cross-analysis based on the Pearson correlation, precisely chosen as its results are impervious to affine transforms of the data.
+	It is important to clarify that our analysis does not rely on a direct differential analysis at the reactivity level, except in our newly added Supplementary Section 3.2. The latter features a cross-analysis based on the Pearson correlation, precisely chosen as its results are impervious to preprocessing consisting of an affine transforms of the data.
 }
 
 	\Comment{Fig. 5: Why was k set to 8 as opposed to, say, 4 or 5? As the authors note, determining the number of clusters is tricky and can significantly impact results. }
@@ -779,14 +777,14 @@ Moreover, even in cases where a single dominant conformation is expected, consid
 
 	\Comment{The authors compare stop-based to mutation-based experiments. However, the term “stop-based” is somewhat misleading because there is another variable here - the modification assay platform. MaP protocols must be assayed by NGS whereas the stop-based protocols used in this work rely on CE for modification detection. It is possible that the differences observed between MaP and CE data (see e.g., Fig. 5) have little to do with the stop strategy and more with the sequencing platform (CE vs NGS). The use of “stop-based” might create an impression that this feature is necessarily responsible for these differences. The ideal comparison should be between experiments such as SHAPE-MaP and SHAPE-seq, but given that experiments were already performed, I recommend changing the term and clarifying the technical differences between these subsets of conditions.}
 	
-	\Answer{We agree that SHAPE CE should not be mischaracterized as a representative for all SHAPE protocols based on RT stops (notoriously including SHAPE-Seq). Our description was misleading in that respect, so we modified and removed the corresponding column in Table 2.}
+	\Answer{We agree that SHAPE CE should not be mischaracterized as a representative for all SHAPE protocols based on RT stops (notoriously including SHAPE-Seq). Our descriptions were sometimes misleading in that respect, so we modified and removed the corresponding column in Table 2 and tried to remove any sentence that would involuntarily suggest the superiority of a technology/reagent based on our observations.}
 
 	\Comment{Does IPANEMAP perform better when sampling deeper? More generally, was sample size of 1,000 selected following performance optimization or simply because there is a convention in the field that 1,000 suffices for reproducibility at the base-pair level?}
 	
 	\Answer{
-		We were happy with the overall reproducibility of our results with 1~000 structures, which has been the standard practice in the field since the original \cite{Ding2003} paper. Moreover, our computational requirements scale quadratically with the number of structure, so we recommend to stay with this number, which represents in our opinion a good tradeoff between reproducibility and efficiency.
+		We were happy with the overall reproducibility of our results with 1~000 structures, which has been the standard practice in the field since the original \cite{Ding2003} paper. Moreover, our computational requirements scale quadratically with the number of structure, so we recommended a sample size of 1~000, which represents in our opinion a good tradeoff between reproducibility and efficiency.
 	
-		To address this question more precisely, we reexecuted the \didy benchmark using a sample size of 2~000, and observed a minor non-significant variation in the MCC (ie the results did not allow to refute the hypothesis of equal expected MCCs for both experiments).}
+		To address this question more precisely, we reexecuted the \didy benchmark using a sample size of 2~000, and observed a minor non-significant variation in the MCC (\emph{i.e.} the results did not allow to refute the hypothesis of equal expected MCCs for both experiments).}
 
 	\Comment{Table 1 could be moved to the Supp.}
 	
