@@ -1,0 +1,206 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[9pt,hyperref]{article} % use larger type; default would be 10pt
+\setcounter{secnumdepth}{1}
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%\%\% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%\%\% PAGE DIMENSIONS
+\usepackage[margin=1.3in]{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} \% for example, change the margins to 2 inches all round
+% \geometry{landscape} \% set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} \% Activate to begin paragraphs with an empty line rather than an indent
+
+%\%\% PACKAGES
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks, linkcolor={red!80!black},
+	citecolor={blue}, urlcolor={red!50!black}
+}
+
+\usepackage[authoryear]{natbib}
+\usepackage{amsmath} % for much better looking tables
+\usepackage{xspace}
+\usepackage{url}
+\usepackage{soul}
+\usepackage[table,x11names,dvipsnames]{xcolor}
+\usepackage{amssymb} % for much better looking tables
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{ntheorem} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+\usepackage{mdframed}
+\usepackage{relsize}
+\usepackage{pgf}
+\usepackage{cabin}
+\usepackage{enumitem}
+\usepackage{tgtermes}
+\usepackage{collcell}
+\usepackage{adjustbox}% to resize figures
+
+%\usepackage{tgadventor}
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%\%\% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%\%\% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%\%\% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+
+\newcommand{\FAnswer}[1]{{\color{black!95}#1}}
+\newcommand{\IAnswer}[1]{\FAnswer{\hfill $\to$ #1}}
+\newcommand{\PAnswer}[1]{\FAnswer{\\#1}}
+
+\newcommand{\Answer}[1]{\noindent{{{\sffamily Response:} }{\FAnswer{#1}}}}
+\newcommand{\Comment}[1]{\item{\color{red!40!black}{{\sffamily Comment:} }{#1}}}
+\newcommand{\Quote}[1]{\begin{mdframed}[backgroundcolor=black!2,linecolor=gray!50, linewidth=.6mm]#1\end{mdframed}}
+
+\usepackage[colorinlistoftodos]{todonotes}
+\newcommand{\TODO}[2][All]{{\todo[color=blue!10,inline]{\color{black}{TODO (#1)}: #2}}}
+\newcommand{\TODOBruno}[2][Bruno]{{\todo[color=red!10,inline]{\color{black}{TODO (#1)}: #2}}}
+\newcommand{\TODOAfaf}[2][Afaf]{{\todo[color=Aquamarine3,inline]{\color{black}{TODO (#1)}: #2}}}
+
+%\%\% END Article customizations
+
+
+%\%\% The "real" document content comes below...
+
+
+%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%
+%\%                                          \%\%
+%\% Enter the authors here                   \%\%
+%\%                                          \%\%
+%\% Specify information, if available,       \%\%
+%\% in the form:                             \%\%
+%\%   <key>={<id1>,<id2>}                    \%\%
+%\%   <key>=                                 \%\%
+%\% Comment or delete the keys which are     \%\%
+%\% not used. Repeat \author command as much \%\%
+%\% as required.                             \%\%
+%\%                                          \%\%
+%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%
+
+
+\input{macros.tex}
+
+\title{Response to second round of reviews\\[.3em]\OurTool{}:  Integrative Probing Analysis of Nucleic Acids Empowered by Multiple Accessibility Profiles}
+\author{
+Afaf Saaidi \and
+Delphine Allouche \and
+Mireille Regnier \and
+Bruno Sargueil \and
+Yann Ponty}
+
+\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\section{General comments}
+
+\section{Specific comments}
+
+	\subsection{Reviewer \#2}
+	\begin{enumerate}[resume]
+\Comment{The revised manuscript is much clearer now. However, I am still puzzled over the performance comparison between IPANEMAP and Rsample over Hajdin et al.’s data. The Hajdin dataset consists of 24 RNAs, but only 16 of them were considered in the Rsample paper (per its supplementary information). As I previously commented, IPANEMAP’s performance gains are really dramatic for the few sequences that were not considered by Spasic et al. For example, 5SrEcoli, signal recognition particle, and E. coli tRNA(phe). 
+
+Nevertheless, I also looked at a few of the sequences considered by both Spasic et al. and the authors. Below are a few examples of inconsistencies between these two benchmarks:
+
+[..]
+
+
+- Can the authors reconcile these discrepancies, or alternatively, am I missing something in the way this benchmark was set up? 
+
+
+Please note the following:
+A. I did not check all the RNAs benchmarked by Spasic et al. so there might be additional discrepancies. 
+B. Reported values were consistent between the two works for some RNAs which I did review. 
+C. Given these discrepancies, I am not sure what to conclude from the performances reported for those sequences benchmarked in this manuscript but not by Spasic et al. 
+
+Maybe the predictions of these RNAs are very sensitive to the thermodynamic model parameters, I don’t know. If this is indeed the case, it is a good idea to benchmark IPANEMAP against more than a single method, similarly to what Spasic et al. did. I think this creates a more balanced picture of current structure prediction capabilities.}
+
+    \Answer{We are greatly indebted to this reviewer for his/her}
+
+	\Comment{Additionally, referring to the authors comment on page 24: “we object to such an adversarial view of this particular analysis (and, more generally, our work)…”  I would like to clarify I had no such intention. My critique aimed at strengthening or solidifying the reported results. I am sorry the authors interpreted my requests for better controls and comparisons as a negative opinion of their work.}
+
+	\Answer{Actually, in addition to being wrong regarding the benchmark, we expressed ourselves poorly in this instance: Having done more than our fair share of reviewing and editorial activities...}
+	\end{enumerate}
+
+
+\section{Referee: 3}
+
+
+	\subsection{Minor Revisions:}
+		\begin{enumerate}[resume]
+	\Comment{On page 4, in “Cordero dataset”, the text states that the reactivity is set to 0 for nucleotide identities that are unreactive to a specific probing agent.  But 0 is a reactivity that receives a negative pseudoenergy free change, encouraging base pairing.  It would be much better to give a 0 pseudo free energy change.  Is it possible the manuscript should really state a 0 free energy change?  If not, the authors should add some text to justify this choice.}
+	
+    \Answer{WE set the pseudo-energy to 0 (and not the reactivity, as erroneously stated in the manuscript). \TODO{correct}}
+	
+	\Comment{On page 4, the text states “a standard denaturation protocol”, but I think the manuscript should state “a standard annealing protocol”.  It looks like the intent was to anneal the structure to find its equilibrium structure at 37 degrees C, not to leave the structure denatured.}    
+    
+    \Answer{Indeed, real denomination is denaturation/renaturation protocol, currently the standard nomenclature. \TODO{correct}}
+	\Comment{On page 5, in statistical significance, “usual significance threshold” should really state the “usual type I error rate”.  Alpha is the probability of falsely rejecting the null hypothesis (type I error).  “Threshold” doesn’t convey this meaning.  }
+    
+    \Answer{\TODO{correct}}
+	\Comment{On page 8, “barely significant” should just be changed to “but significant”. The improvements may be modest, but they are significant.  I don’t agree that something can be “barely” significant.}
+    
+    \Answer{\TODO{be polite}}
+	\Comment{On page 10, “Considering three conditions yields improvement over the average performance of the triplet” confuses me.  I think what was intended is “Considering three conditions yields improvement over the average performance of the doublet [/pair]” }
+    \Answer{\TODO{The average performance of prediction informed by individual conditions is lower than that of predictions simultaneously informed by the three conditions}}
+
+	\subsection{Typos:}
+	\Comment{On page 1, “different dynamics, that can help” should be “different dynamics that can help”.}
+	
+	\Answer{}
+	\Comment{On page 3, “using an iterative heuristics” should be “using an iterative heuristic”.  Also, “we elect the most promising cluster” should be “we select the most promising cluster”.}
+	
+	\Answer{}
+	\Comment{On page 6, “Spacic” should be “Spasic”.}
+	
+	\Answer{}
+
+	Suggestions:
+	\Comment{On page 1, there is a new phrase about probes “some of which are usable in vivo”.  My recollections is that Zaug and Cech were the first to demonstrate in vivo probing of RNA structure, and it is probably worth citing the paper [RNA. 1995 1:363.].}
+
+	\Answer{\TODO{Ok Paillard PMID 15355993}}
+	\Comment{Page 1 claims that using multiple data sources has never been fully automated.  I agree that it has never been automated when using quantitative data and soft constraints.  On the other hand, the deprecated hard constraint method (reference 2) was fully automated and used multiple probing methods.  The phrase should be made more specific.}
+	
+	\Answer{\TODO{}}
+
+	\end{enumerate}
+
+
+\bibliographystyle{abbrvnat}
+\bibliography{biblio}
+\end{document}
