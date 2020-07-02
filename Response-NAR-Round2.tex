@@ -125,13 +125,11 @@ Yann Ponty}
 \begin{document}
 \maketitle
 
-\tableofcontents
+%\tableofcontents
 
-\section{General comments}
+%\section{Specific responses}
 
-\section{Specific comments}
-
-	\subsection{Reviewer \#2}
+	\subsection{Reviewer \#4}
 	\begin{enumerate}[resume]
 \Comment{The revised manuscript is much clearer now. However, I am still puzzled over the performance comparison between IPANEMAP and Rsample over Hajdin et al.’s data. The Hajdin dataset consists of 24 RNAs, but only 16 of them were considered in the Rsample paper (per its supplementary information). As I previously commented, IPANEMAP’s performance gains are really dramatic for the few sequences that were not considered by Spasic et al. For example, 5SrEcoli, signal recognition particle, and E. coli tRNA(phe). 
 
@@ -140,63 +138,82 @@ Nevertheless, I also looked at a few of the sequences considered by both Spasic 
 [..]
 
 
-- Can the authors reconcile these discrepancies, or alternatively, am I missing something in the way this benchmark was set up? 
+Can the authors reconcile these discrepancies, or alternatively, am I missing something in the way this benchmark was set up? }
 
+    \Answer{We had indeed spotted these discrepancies, which we had initially attributed to code differences between the versions of \Software{RSample} used in the initial benchmark, and the one currently available online. 
+    
+	Following this reviewer's remark, we have corresponded with the authors of \Software{RSample}, and discovered the origin of the discrepancy. Namely, we had made the erroneous assumption that the format used to specify reactivities in \Software{RSample} was similar to the one used in the \Software{Vienna} package. Instead, the reactivity file format used in \Software{RSample} requires three columns per position, and we discovered that \Software{RSample} silently fails if a poorly-formatted file is provided. In this case, it \Def{reverts to a reactivity-free prediction} (essentially, an MEA prediction). It follows that the results reported for \Software{RSample} in the initial versions of the manuscript were those of a purely thermodynamic prediction, and did not reflect \Software{RSample}'s  performances when informed by reactivity data.
+	
+	When informed by suitably-formatted reactivities files, \Software{RSample} now predicts structures having accuracy that are much closer to those reported in \citet{Spasic2017}. \OurTool still appears to outperform \Software{RSample} slightly, reporting more accurate structures than its competitor for roughly two thirds of the tested RNAs. However, its average improvement in term of Geometric Mean is only of around 1.5\% over the \citet{Hajdin2013} dataset, an improvement that is no longer significant according to a two-tailed T-test with paired data. Upon, multiple executions of \Software{RSample}, we have witnessed minor variations, but always a slightly inferior (yet insignificant) average GM that the one of \OurTool.
+	
+	We have replaced the erroneous content in our revised version, including the above Figure, and have toned down the relevant subsection to reflect our new assessment. Similarly, we have removed from the conclusion our discussion on the possible origins of the discrepancy in performances.
+	
+	We are greatly indebted to this reviewer for following through on this point, allowing us to fix our initial (involuntary) misrepresentation of the predictive capacities of \Software{RSample}.
+	
+	\begin{figure}[t]
+		
+	{\centering \includegraphics[width=.8\textwidth]{graphs/RsampleVsIPANEMAP/Accuracy.pdf}\\}
 
-Please note the following:
-A. I did not check all the RNAs benchmarked by Spasic et al. so there might be additional discrepancies. 
-B. Reported values were consistent between the two works for some RNAs which I did review. 
-C. Given these discrepancies, I am not sure what to conclude from the performances reported for those sequences benchmarked in this manuscript but not by Spasic et al. 
-
-Maybe the predictions of these RNAs are very sensitive to the thermodynamic model parameters, I don’t know. If this is indeed the case, it is a good idea to benchmark IPANEMAP against more than a single method, similarly to what Spasic et al. did. I think this creates a more balanced picture of current structure prediction capabilities.}
-
-    \Answer{We are greatly indebted to this reviewer for his/her}
+	\caption{Updated figure presenting the geometric means of structures predicted by \OurTool (green) and \Software{RSample} (orange -- corrected).}
+	\end{figure}}
 
 	\Comment{Additionally, referring to the authors comment on page 24: “we object to such an adversarial view of this particular analysis (and, more generally, our work)…”  I would like to clarify I had no such intention. My critique aimed at strengthening or solidifying the reported results. I am sorry the authors interpreted my requests for better controls and comparisons as a negative opinion of their work.}
 
-	\Answer{Actually, in addition to being wrong regarding the benchmark, we expressed ourselves poorly in this instance: Having done more than our fair share of reviewing and editorial activities...}
+	\Answer{In addition to erring in our comparison against \Software{RSample}, we also expressed ourselves poorly in this instance. It is, of course, entirely legitimate to request more tests and benchmarks and, possibly (but not ideally) to express a negative opinion of our work (peer-review is a pillar of the academic world). We merely wished to express disagreement with what we interpreted as a request to demonstrate domination over \Software{RSample}. Our resistance was essentially inspired by the almost anecdotal nature of the performances of \OurTool{} in the single probing setting, here presented as a sanity check rather than a central point of our study.}
 	\end{enumerate}
 
 
-\section{Referee: 3}
+	\subsection{Reviewer \#3}
 
-
-	\subsection{Minor Revisions:}
 		\begin{enumerate}[resume]
 	\Comment{On page 4, in “Cordero dataset”, the text states that the reactivity is set to 0 for nucleotide identities that are unreactive to a specific probing agent.  But 0 is a reactivity that receives a negative pseudoenergy free change, encouraging base pairing.  It would be much better to give a 0 pseudo free energy change.  Is it possible the manuscript should really state a 0 free energy change?  If not, the authors should add some text to justify this choice.}
 	
-    \Answer{WE set the pseudo-energy to 0 (and not the reactivity, as erroneously stated in the manuscript). \TODO{correct}}
+    \Answer{Indeed, we set the pseudo-energy to 0 (and not the reactivity, as erroneously stated in the manuscript). This is now corrected in the revised manuscript.}
 	
 	\Comment{On page 4, the text states “a standard denaturation protocol”, but I think the manuscript should state “a standard annealing protocol”.  It looks like the intent was to anneal the structure to find its equilibrium structure at 37 degrees C, not to leave the structure denatured.}    
     
-    \Answer{Indeed, real denomination is denaturation/renaturation protocol, currently the standard nomenclature. \TODO{correct}}
+    \Answer{Indeed, our denomination was arguably lacking in precision. While the term "annealing" would be entirely acceptable, we prefer to use "denaturation/renaturation protocol", as it currently represents the standard nomenclature.}
+    
 	\Comment{On page 5, in statistical significance, “usual significance threshold” should really state the “usual type I error rate”.  Alpha is the probability of falsely rejecting the null hypothesis (type I error).  “Threshold” doesn’t convey this meaning.  }
     
-    \Answer{\TODO{correct}}
+    \Answer{We thank the reviewer for suggesting this more precise formulation, which we adopted in this revision.}
+    
 	\Comment{On page 8, “barely significant” should just be changed to “but significant”. The improvements may be modest, but they are significant.  I don’t agree that something can be “barely” significant.}
     
-    \Answer{\TODO{be polite}}
+    \Answer{We respectfully disagree with this statement: an observation that would be deemed significant for $\alpha=5\%$, but not $\alpha=1\%$ should arguably be described as more weakly supported, on a statistical level, than an observation supported for both type I error rates. This is reflected by the qualifier "barely" in this context.}
+    
 	\Comment{On page 10, “Considering three conditions yields improvement over the average performance of the triplet” confuses me.  I think what was intended is “Considering three conditions yields improvement over the average performance of the doublet [/pair]” }
-    \Answer{\TODO{The average performance of prediction informed by individual conditions is lower than that of predictions simultaneously informed by the three conditions}}
+	
+    \Answer{The main result of this section is that, when considering a triplet of conditions, the average performance of prediction informed by individual conditions, is lower than that of predictions simultaneously informed by the three conditions. We modified the title of this subsection to "Considering three conditions yields improvement over the average of single conditions in the same triplet", hoping this will be more explicit to the reader.}
+	\end{enumerate}
 
-	\subsection{Typos:}
+	\subsubsection{Typos:}
+	
+	\begin{enumerate}[resume]
 	\Comment{On page 1, “different dynamics, that can help” should be “different dynamics that can help”.}
 	
-	\Answer{}
+	\Answer{Fixed}
 	\Comment{On page 3, “using an iterative heuristics” should be “using an iterative heuristic”.  Also, “we elect the most promising cluster” should be “we select the most promising cluster”.}
 	
-	\Answer{}
+	\Answer{Fixed}
 	\Comment{On page 6, “Spacic” should be “Spasic”.}
 	
-	\Answer{}
+	\Answer{Fixed}
+	\end{enumerate}
 
-	Suggestions:
+\subsubsection{Suggestions:}
+
+\begin{enumerate}[resume]
 	\Comment{On page 1, there is a new phrase about probes “some of which are usable in vivo”.  My recollections is that Zaug and Cech were the first to demonstrate in vivo probing of RNA structure, and it is probably worth citing the paper [RNA. 1995 1:363.].}
 
-	\Answer{\TODO{Ok Paillard PMID 15355993}}
+	\Answer{We added a reference to this work, and to a posterior effort more similar to our context of analysis.}
 	\Comment{Page 1 claims that using multiple data sources has never been fully automated.  I agree that it has never been automated when using quantitative data and soft constraints.  On the other hand, the deprecated hard constraint method (reference 2) was fully automated and used multiple probing methods.  The phrase should be made more specific.}
 	
-	\Answer{\TODO{}}
+	\Answer{We qualified this statement by mentioning explicitly, and adding a reference to the soft constraint framework. 
+		
+		However, we feel the statement holds more generally as far as the automation is concerned, since the hard constraint framework makes it virtually impossible to integrate multiple type of probing data in an automated way. Indeed, hard constraints are obtained from reactivities based on cutoffs, whose values are somewhat arbitrary. Overly liberal cutoffs will often induce contradictory constraints (i.e. no compatible structure) across experiments, while conservative cutoffs will lead to sparse constraints, leading to a waste of most of the probing-derived information. 
+		
+		In fact the tediousness, and suboptimality, of manually selecting those cutoffs while modeling HIV-1 structural elements~\citep{Deforges2017}, was one of the main motivation for this work.}
 
 	\end{enumerate}
 
