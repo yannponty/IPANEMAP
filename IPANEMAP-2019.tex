@@ -438,22 +438,22 @@ We computed and report in Figure~\ref{fig:Vsrsample} the individual Geometric Me
 }
 
 %\paragraph{Results description}
-A first observation is that \OurTool generally outperforms \Software{RSample}, averaging $80\%$ GM as opposed to $68\%$ for its competitor. \RevA{The superiority on \OurTool on this benchmark appears statistically significant according to a two-tailed paired $t$-test (P-value$=6\times10^{-3}$) with observed data.}
-Out of the 24 considered RNAs, \OurTool outperforms its competitor for 16 out of the 24 RNAs, achieves similar performances for 2 of them, and is dominated for the remaining 6 cases. Whenever dominant, \OurTool achieves an average GM score of $82\%$, dominating by $32.8\%$ its competitor, while being dominated by $3.5\%$ over the remaining examples (including ties). 
+%A first observation is that \OurTool generally outperforms \Software{RSample}, averaging $80\%$ GM as opposed to $68\%$ for its competitor. \RevA{The superiority on \OurTool on this benchmark appears statistically significant according to a two-tailed paired $t$-test (P-value$=6\times10^{-3}$) with observed data.}
+%Out of the 24 considered RNAs, \OurTool outperforms its competitor for 16 out of the 24 RNAs, achieves similar performances for 2 of them, and is dominated for the remaining 6 cases. Whenever dominant, \OurTool achieves an average GM score of $82\%$, dominating by $32.8\%$ its competitor, while being dominated by $3.5\%$ over the remaining examples (including ties). 
 %Difference<-c(IPANEMAP-Rsample)
 %> sum(Difference[1:18])
 %[1] 3.17
 %> sum(Difference[19:24])
 %[1] -0.382
-Remarkably, \OurTool predicts secondary structures much more consistently than its competitor. 
-It ensures GM that are greater than 50\% in all cases, and even exceeds 60\% over all except for the yeast tRNA, encoding the Aspartic acid and HIV1 5' pseudoknot domain. The standard deviation of GM for \OurTool is $12.4\%$, compared to the larger value of $21\%$ for \Software{RSample} predictions.
+%Remarkably, \OurTool predicts secondary structures much more consistently than its competitor. 
+%It ensures GM that are greater than 50\% in all cases, and even exceeds 60\% over all except for the yeast tRNA, encoding the Aspartic acid and HIV1 5' pseudoknot domain. The standard deviation of GM for \OurTool is $12.4\%$, compared to the larger value of $21\%$ for \Software{RSample} predictions.
 
 
 %\paragraph{Discussion}
 
 
 
-This observed discrepancy is somewhat surprising, given that \OurTool and \Software{RSample} share the same sampling/clustering based modeling. However, the two methods differ substantially whenever a single conformation is detected, in which case \Software{RSample} switches to a simple MEA prediction, whereas \OurTool{} always proceeds with an iterative clustering. This allows \OurTool{} to consider a larger number of clusters, which we believe helps eliminating structural outliers, leading to the election of an improved final centroid structure. 
+%This observed discrepancy is somewhat surprising, given that \OurTool and \Software{RSample} share the same sampling/clustering based modeling. However, the two methods differ substantially whenever a single conformation is detected, in which case \Software{RSample} switches to a simple MEA prediction, whereas \OurTool{} always proceeds with an iterative clustering. This allows \OurTool{} to consider a larger number of clusters, which we believe helps eliminating structural outliers, leading to the election of an improved final centroid structure. 
 
 
 %\clearpage
