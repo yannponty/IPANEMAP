@@ -128,6 +128,8 @@ Yann Ponty}
 %\tableofcontents
 
 %\section{Specific responses}
+The authors apologize for the delays in this revision, induced by the ongoing COVID pandemic, which has significantly disrupted the daily operation of our respective academic institutions. They also wish to express their gratitude for the reviewers, whose remaining remarks have allowed us to greatly improve the quality of the manuscript.
+
 
 	\subsection{Reviewer \#4}
 	\begin{enumerate}[resume]
@@ -148,7 +150,7 @@ Can the authors reconcile these discrepancies, or alternatively, am I missing so
 	
 	We have replaced the erroneous content in our revised version, including the above Figure, and have toned down the relevant subsection to reflect our new assessment. Similarly, we have removed from the conclusion our discussion on the possible origins of the discrepancy in performances.
 	
-	We are greatly indebted to this reviewer for following through on this point, allowing us to fix our initial (involuntary) misrepresentation of the predictive capacities of \Software{RSample}.
+	We are {\bfseries greatly indebted} to this reviewer for following through on this point, allowing us to fix our initial (obviously involuntary) misrepresentation of the predictive capacities of \Software{RSample}, .
 	
 	\begin{figure}[t]
 		
@@ -159,10 +161,10 @@ Can the authors reconcile these discrepancies, or alternatively, am I missing so
 
 	\Comment{Additionally, referring to the authors comment on page 24: “we object to such an adversarial view of this particular analysis (and, more generally, our work)…”  I would like to clarify I had no such intention. My critique aimed at strengthening or solidifying the reported results. I am sorry the authors interpreted my requests for better controls and comparisons as a negative opinion of their work.}
 
-	\Answer{In addition to erring in our comparison against \Software{RSample}, we also expressed ourselves poorly in this instance. It is, of course, entirely legitimate to request more tests and benchmarks and, possibly (but not ideally) to express a negative opinion of our work (peer-review is a pillar of the academic world). We merely wished to express disagreement with what we interpreted as a request to demonstrate domination over \Software{RSample}. Our resistance was essentially inspired by the almost anecdotal nature of the performances of \OurTool{} in the single probing setting, here presented as a sanity check rather than a central point of our study.}
+	\Answer{In addition to erring in our comparison against \Software{RSample}, we also expressed ourselves poorly in this instance. It is, of course, entirely legitimate to request more tests and benchmarks and, possibly (albeit not ideally ;) ) to express a negative opinion of our work, peer-review being on of the pillars of the academic world. We merely wished to express disagreement with what we interpreted as a request to stress a dominating behavior in comparison with \Software{RSample}. Our resistance was mainly inspired by the almost anecdotal nature of the good performances of \OurTool{} in the single probing setting. This benchmark was presented as a sanity check rather than a central point of our study, as \OurTool{} has been developed to handle multiple probing.}
 	\end{enumerate}
 
-
+\newpage 
 	\subsection{Reviewer \#3}
 
 		\begin{enumerate}[resume]
@@ -180,11 +182,11 @@ Can the authors reconcile these discrepancies, or alternatively, am I missing so
     
 	\Comment{On page 8, “barely significant” should just be changed to “but significant”. The improvements may be modest, but they are significant.  I don’t agree that something can be “barely” significant.}
     
-    \Answer{We respectfully disagree with this statement: an observation that would be deemed significant for $\alpha=5\%$, but not $\alpha=1\%$ should arguably be described as more weakly supported, on a statistical level, than an observation supported for both type I error rates. This is reflected by the qualifier "barely" in this context.}
+    \Answer{We respectfully disagree with this statement: an observation that would be deemed significant for $\alpha=5\%$, but not $\alpha=1\%$ should arguably be described as more weakly supported, on a statistical level, than an observation supported for both type I error rates. This, in our opinion, is accurately reflected by the qualifier "barely" in this context.}
     
 	\Comment{On page 10, “Considering three conditions yields improvement over the average performance of the triplet” confuses me.  I think what was intended is “Considering three conditions yields improvement over the average performance of the doublet [/pair]” }
 	
-    \Answer{The main result of this section is that, when considering a triplet of conditions, the average performance of prediction informed by individual conditions, is lower than that of predictions simultaneously informed by the three conditions. We modified the title of this subsection to "Considering three conditions yields improvement over the average of single conditions in the same triplet", hoping this will be more explicit to the reader.}
+    \Answer{The main result of this subsection is that, when considering a triplet of conditions, the average performance of prediction informed by individual conditions, is lower than that of predictions simultaneously informed by the three conditions. We modified the title of this subsection to "Considering three conditions yields improvement over the average of single conditions in the same triplet", hoping this will be more explicit to the reader.}
 	\end{enumerate}
 
 	\subsubsection{Typos:}
@@ -209,9 +211,9 @@ Can the authors reconcile these discrepancies, or alternatively, am I missing so
 	\Answer{We added a reference to this work, and to a posterior effort more similar to our context of analysis.}
 	\Comment{Page 1 claims that using multiple data sources has never been fully automated.  I agree that it has never been automated when using quantitative data and soft constraints.  On the other hand, the deprecated hard constraint method (reference 2) was fully automated and used multiple probing methods.  The phrase should be made more specific.}
 	
-	\Answer{We qualified this statement by mentioning explicitly, and adding a reference to the soft constraint framework. 
+	\Answer{We qualified this statement by mentioning explicitly the soft constraint framework, and adding a reference to one of its first generic implementation. 
 		
-		However, we feel the statement holds more generally as far as the automation is concerned, since the hard constraint framework makes it virtually impossible to integrate multiple type of probing data in an automated way. Indeed, hard constraints are obtained from reactivities based on cutoffs, whose values are somewhat arbitrary. Overly liberal cutoffs will often induce contradictory constraints (i.e. no compatible structure) across experiments, while conservative cutoffs will lead to sparse constraints, leading to a waste of most of the probing-derived information. 
+		However, we feel the statement holds more generally as far as the automation is concerned, since the hard constraint framework makes it virtually impossible to integrate multiple type of probing data in an automated way. Indeed, \emph{hard constraints} are obtained from reactivities based on cutoffs, whose values are somewhat arbitrary and typically need to be calibrated for each experiment. Overly liberal cutoffs will often induce contradictory constraints (i.e. no compatible structure) across experiments, while conservative cutoffs will lead to sparse constraints, leading to a waste of most of the probing-derived information. 
 		
 		In fact the tediousness, and suboptimality, of manually selecting those cutoffs while modeling HIV-1 structural elements~\citep{Deforges2017}, was one of the main motivation for this work.}
 
